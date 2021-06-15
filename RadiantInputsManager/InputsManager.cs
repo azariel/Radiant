@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using RadiantInputsManager.ExecutionResults;
 using RadiantInputsManager.InputsParam;
 using RadiantInputsManager.Linux.xdotool;
+using RadiantInputsManager.Windows;
 
 namespace RadiantInputsManager
 {
@@ -12,7 +14,8 @@ namespace RadiantInputsManager
         // ********************************************************************
         public enum OperatingSystem
         {
-            Linux
+            Linux,
+            Windows
         }
 
         public enum InputType
@@ -24,13 +27,25 @@ namespace RadiantInputsManager
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static IInputExecutionResult ExecuteInput(OperatingSystem aOperatingSystem, InputType aInputType, IInputParam aInputParam)
+        public static IInputExecutionResult ExecuteInput(InputType aInputType, IInputParam aInputParam)
         {
-            return aOperatingSystem switch
+            OperatingSystem _OperatingSystem = GetCurrentOperatingSystem();
+            return _OperatingSystem switch
             {
                 OperatingSystem.Linux => XdoToolInputsManager.Execute(aInputType, aInputParam),
-                _ => throw new ArgumentOutOfRangeException(nameof(aOperatingSystem), aOperatingSystem, null)
+                OperatingSystem.Windows => Win32InputsManager.Execute(aInputType, aInputParam),
+                _ => throw new ArgumentOutOfRangeException(nameof(_OperatingSystem), _OperatingSystem, "Operating system unhandled")
             };
+        }
+
+        public static OperatingSystem GetCurrentOperatingSystem()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                return OperatingSystem.Linux;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return OperatingSystem.Windows;
+
+            throw new ArgumentOutOfRangeException("Current operating system isn't handled. Please report this to the administrator.");
         }
     }
 }

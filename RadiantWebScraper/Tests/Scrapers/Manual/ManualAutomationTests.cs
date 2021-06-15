@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using Radiant.WebScraper.Scrapers.Manual;
+using RadiantInputsManager;
 using Xunit;
 
 namespace Radiant.WebScraper.Tests.Scrapers.Manual

@@ -12,6 +12,7 @@ namespace RadiantInputsManager
         // ********************************************************************
         //                            Nested Types
         // ********************************************************************
+        
         public enum ManualAutomationOperationType
         {
             KeyboardExecute,
@@ -25,7 +26,7 @@ namespace RadiantInputsManager
         // ********************************************************************
         public static Point GetCursorPosition()
         {
-            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.OperatingSystem.Linux, InputsManager.InputType.Mouse, new MouseReadInputParam());
+            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.InputType.Mouse, new MouseReadInputParam());
 
             if (!_Result.Success)
                 LoggingManager.LogToFile("Couldn't get mouse location.");
@@ -41,7 +42,7 @@ namespace RadiantInputsManager
 
         public static void KeyboardExecute(Keycode[] aKeycodes, int? aDelay = null)
         {
-            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.OperatingSystem.Linux, InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = aDelay,
                 KeyStrokeCodes = aKeycodes
@@ -56,7 +57,7 @@ namespace RadiantInputsManager
             Random _Random = new(DateTime.Now.Millisecond);
             int _Delay = _Random.Next(aMinimumDelayBetweenKeyStrokes, aMaximumDelayBetweenKeyStrokes);
 
-            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.OperatingSystem.Linux, InputsManager.InputType.Keyboard, new KeyboardTypeActionInputParam
+            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.InputType.Keyboard, new KeyboardTypeActionInputParam
             {
                 Delay = _Delay,
                 ValueToType = aTextToType
@@ -74,7 +75,7 @@ namespace RadiantInputsManager
 
         public static void MouseClickOnCurrentLocation(MouseOptions.MouseButtons aButton)
         {
-            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.OperatingSystem.Linux, InputsManager.InputType.Mouse, new MouseActionInputParam
+            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.InputType.Mouse, new MouseActionInputParam
             {
                 Button = aButton
             });
@@ -85,7 +86,7 @@ namespace RadiantInputsManager
 
         public static void MoveCursorToLocation(Point aPoint)
         {
-            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.OperatingSystem.Linux, InputsManager.InputType.Mouse, new MouseActionInputParam
+            IInputExecutionResult _Result = InputsManager.ExecuteInput(InputsManager.InputType.Mouse, new MouseActionInputParam
             {
                 X = aPoint.X,
                 Y = aPoint.Y
