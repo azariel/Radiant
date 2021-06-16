@@ -156,7 +156,6 @@ namespace RadiantInputsManager.Linux.xdotool
             foreach (Keycode _KeyStroke in aInputParam.KeyStrokeCodes.Skip(1))
                 _XdoToolArgs += $"+{_KeyStroke}";
 
-
             return _XdoToolArgs;
         }
 

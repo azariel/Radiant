@@ -38,12 +38,22 @@ namespace RadiantInputsManager.Windows
 
         private static void ExecuteKeyStrokes(IKeyboardKeyStrokeActionInputParam aKeyboardKeyStrokeActionInputParam)
         {
+            // Press all one by one
             foreach (Keycode _KeyCode in aKeyboardKeyStrokeActionInputParam.KeyStrokeCodes)
             {
-                Win32Helper.ExecuteKeyboardKey(_KeyCode);
+                Win32Helper.ExecuteKeyboardKey(_KeyCode, Win32Helper.KeyStrokeAction.Press);
 
                 if (aKeyboardKeyStrokeActionInputParam.Delay.HasValue)
                     Thread.Sleep(aKeyboardKeyStrokeActionInputParam.Delay.Value);
+            }
+
+            // Release all one by one, but quicker
+            foreach (Keycode _KeyCode in aKeyboardKeyStrokeActionInputParam.KeyStrokeCodes)
+            {
+                Win32Helper.ExecuteKeyboardKey(_KeyCode, Win32Helper.KeyStrokeAction.Release);
+
+                if (aKeyboardKeyStrokeActionInputParam.Delay.HasValue)
+                    Thread.Sleep(aKeyboardKeyStrokeActionInputParam.Delay.Value / 10);
             }
         }
 

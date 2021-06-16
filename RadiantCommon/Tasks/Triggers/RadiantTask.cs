@@ -15,18 +15,25 @@ namespace Radiant.Common.Tasks.Triggers
         // ********************************************************************
         public void EvaluateTriggers()
         {
-            if (!this.IsEnabled)
+            if (!this.IsEnabled || this.IsWorking)
                 return;
 
-            foreach (ITrigger _Trigger in this.Triggers)
+            this.IsWorking = true;
+            try
             {
-                bool _TriggerNow = _Trigger.Evaluate();
-
-                if (_TriggerNow)
+                foreach (ITrigger _Trigger in this.Triggers)
                 {
-                    ForceTriggerNow();
-                    return;
+                    bool _TriggerNow = _Trigger.Evaluate();
+
+                    if (_TriggerNow)
+                    {
+                        ForceTriggerNow();
+                        return;
+                    }
                 }
+            } finally
+            {
+                this.IsWorking = false;
             }
         }
 
@@ -43,7 +50,14 @@ namespace Radiant.Common.Tasks.Triggers
         //                            Properties
         // ********************************************************************
         public bool IsEnabled { get; set; }
-        public List<ITrigger> Triggers { get; set; }
+        public string UID { get; set; } = Guid.NewGuid().ToString("D");
+
+        /// <summary>
+        /// A working task is a task that is currently evaluating or triggering
+        /// </summary>
+        public bool IsWorking { get; set; }
+
         public DateTime LastDateTimeTriggered { get; set; }
+        public List<ITrigger> Triggers { get; set; }
     }
 }

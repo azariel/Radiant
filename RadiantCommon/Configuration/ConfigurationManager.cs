@@ -3,7 +3,7 @@ using Radiant.Common.Serialization;
 
 namespace Radiant.Common.Configuration
 {
-    public static class ConfigurationManager
+    public static class CommonConfigurationManager
     {
         // ********************************************************************
         //                            Constants
@@ -25,8 +25,9 @@ namespace Radiant.Common.Configuration
 
         public static RadiantConfig ReloadConfig()
         {
+            // Create default config if doesn't exists
             if (!File.Exists(RADIANT_CONFIG_FILE_NAME))
-                return null;
+                SaveConfigInMemoryToDisk();
 
             string _ConfigFileContent = File.ReadAllText(RADIANT_CONFIG_FILE_NAME);
             fRadiantConfig = JsonCommonSerializer.DeserializeFromString<RadiantConfig>(_ConfigFileContent);

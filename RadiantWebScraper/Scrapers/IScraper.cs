@@ -2,6 +2,6 @@
 {
     internal interface IScraper
     {
-        string GetDOMFromUrl(string aUrl);
+        string GetDOMFromUrl(SupportedBrowser aSupportedBrowser, string aUrl);
     }
 }

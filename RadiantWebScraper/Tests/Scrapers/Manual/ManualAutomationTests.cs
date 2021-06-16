@@ -12,6 +12,7 @@ namespace Radiant.WebScraper.Tests.Scrapers.Manual
         [Fact]
         public void TestMoveCursorToLocation()
         {
+            // Assert that it doesn't throw
             ManualAutomation.MoveCursorToLocation(new Point(274,255));
         }
     }

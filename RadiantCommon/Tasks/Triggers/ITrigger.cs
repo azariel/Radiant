@@ -3,5 +3,6 @@
     public interface ITrigger
     {
         bool Evaluate();
+        string UID { get; set; }
     }
 }

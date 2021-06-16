@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
+using RadiantInputsManager.InputsParam;
 using RadiantInputsManager.Linux.xdotool;
 
 namespace RadiantInputsManager.Windows
@@ -9,12 +10,29 @@ namespace RadiantInputsManager.Windows
     public static class Win32Helper
     {
         // ********************************************************************
+        //                            Nested
+        // ********************************************************************
+        public enum KeyStrokeAction
+        {
+            Press,
+            Release
+        }
+
+        // ********************************************************************
         //                            Constants
         // ********************************************************************
         //https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes?redirectedfrom=MSDN
         private const byte KEYCODE_VK_RETURN = 0x0D;
+        private const byte KEYCODE_VK_F11 = 0x7A;
+        private const byte KEYCODE_VK_U = 0x55;
+        private const byte KEYCODE_VK_A = 0x41;
+        private const byte KEYCODE_VK_C = 0x43;
+        private const byte KEYCODE_VK_W = 0x57;
+        private const byte KEYCODE_VK_CONTROL = 0x11;
+
         const uint KEYEVENTF_KEYUP = 0x0002;
         const uint KEYEVENTF_UNICODE = 0x0004;
+
         private const uint MOUSEEVENTF_ABSOLUTE = 0x8000;
         private const uint MOUSEEVENTF_HWHEEL = 0x01000;
         private const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
@@ -56,16 +74,22 @@ namespace RadiantInputsManager.Windows
         [DllImport("user32.dll")]
         private static extern bool SetCursorPos(int X, int Y);
 
-        public static void ExecuteKeyboardKey(Keycode aKeyCode) 
+        public static void ExecuteKeyboardKey(Keycode aKeyCode, KeyStrokeAction aKeyStrokeAction)
         {
-            switch (aKeyCode)
+            byte _KeyCode = aKeyCode switch
             {
-                case Keycode.KP_Enter:
-                    keybd_event(KEYCODE_VK_RETURN, 0,0,(UIntPtr)0);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(aKeyCode), aKeyCode, null);
-            }
+                Keycode.KP_Enter => KEYCODE_VK_RETURN,
+                Keycode.XK_F11 => KEYCODE_VK_F11,
+                Keycode.CtrlL => KEYCODE_VK_CONTROL,
+                Keycode.XK_u => KEYCODE_VK_U,
+                Keycode.XK_a => KEYCODE_VK_A,
+                Keycode.XK_c => KEYCODE_VK_C,
+                Keycode.XK_w => KEYCODE_VK_W,
+                _ => throw new ArgumentOutOfRangeException(nameof(aKeyCode), aKeyCode, null)
+            };
+
+            uint _FlagByAction = aKeyStrokeAction == KeyStrokeAction.Press ? 0 : KEYEVENTF_KEYUP;
+            keybd_event(_KeyCode, 0, _FlagByAction, (UIntPtr)0);
         }
 
         // ********************************************************************
@@ -106,8 +130,7 @@ namespace RadiantInputsManager.Windows
 
         public static Point GetCursorPosition()
         {
-            Point lpPoint;
-            GetCursorPos(out lpPoint);
+            GetCursorPos(out Point lpPoint);
 
             // NOTE: If you need error handling
             // bool success = GetCursorPos(out lpPoint);
@@ -121,12 +144,14 @@ namespace RadiantInputsManager.Windows
             SetCursorPos(x, y);
         }
 
-        public static void ExecuteKeyboardTextType(string aTextToType, int aDelayBetweenType = 30) 
+        public static void ExecuteKeyboardTextType(string aTextToType, int aDelayBetweenType = 30)
         {
             foreach (char _Char in aTextToType)
             {
-                keybd_event(0, Convert.ToByte(_Char),KEYEVENTF_UNICODE,(UIntPtr)0);
-                keybd_event(0, Convert.ToByte(_Char),KEYEVENTF_UNICODE | KEYEVENTF_KEYUP,(UIntPtr)0);
+                keybd_event(0, Convert.ToByte(_Char), KEYEVENTF_UNICODE, (UIntPtr)0);
+                Thread.Sleep(32);
+                keybd_event(0, Convert.ToByte(_Char), KEYEVENTF_UNICODE | KEYEVENTF_KEYUP, (UIntPtr)0);
+                Thread.Sleep(aDelayBetweenType);
             }
         }
     }

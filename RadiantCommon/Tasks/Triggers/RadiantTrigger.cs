@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using Radiant.Common.Tasks.Triggers;
+﻿using System;
 
-namespace Radiant.Common.Tasks
+namespace Radiant.Common.Tasks.Triggers
 {
-    public interface ITriggerDependent
+    public abstract class RadiantTrigger
     {
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public List<ITrigger> Triggers { get; set; }
+        public string UID { get; set; } = Guid.NewGuid().ToString("D");
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Radiant.Common.Configuration;
 using Radiant.Common.Tasks;
 using Radiant.Common.Tasks.Triggers;
@@ -48,8 +49,8 @@ namespace Radiant.ServerConsole
                         {
                             new ScheduleTrigger
                             {
-                                TriggerEverySeconds = 30,
-                                ResetTriggeredTimesOnStart = true
+                                TriggerEverySeconds = 10,
+                                //ResetTriggeredTimesOnStart = true
                             }
                         },
                         Settings = new List<ManualAutomationSetting>
@@ -64,20 +65,16 @@ namespace Radiant.ServerConsole
                                     Button = MouseOptions.MouseButtons.Left
                                 }
                             }
-                        }
+                        },
+                        IsEnabled = true
                     });
-                    ConfigurationManager.SetConfigInMemory(_test);
-                    ConfigurationManager.SaveConfigInMemoryToDisk();
+                    CommonConfigurationManager.SetConfigInMemory(_test);
+                    CommonConfigurationManager.SaveConfigInMemoryToDisk();
 
-                    RadiantConfig _RadiantConfig = ConfigurationManager.ReloadConfig();
+                    RadiantConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
 
                     break;
             }
-
-            //Thread.Sleep(2000);
-            //ManualAutomation.KeyboardType("ogame.fr", 15, 125);
-            //Thread.Sleep(2000);
-            //ManualAutomation.KeyboardExecute(Keycode.KP_Enter);
 
             Console.ReadKey();
         }
@@ -99,16 +96,17 @@ namespace Radiant.ServerConsole
         /// </summary>
         private static void TaskRunnerExecution()
         {
-            RadiantConfig _RadiantConfig = ConfigurationManager.ReloadConfig();
+            RadiantConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
 
             if (_RadiantConfig == null)
                 return;
 
             while (true)
             {
+                // Evaluate each tasks async to avoid blocking evaluation of other tasks
                 foreach (IRadiantTask _RadiantTask in _RadiantConfig.Tasks.Tasks.Where(w => w.IsEnabled))
-                    _RadiantTask.EvaluateTriggers();
-
+                    Task.Run(() => _RadiantTask.EvaluateTriggers());
+                
                 Thread.Sleep(CORE_LOOP_MS);
             }
         }

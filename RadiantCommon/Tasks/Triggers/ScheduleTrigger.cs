@@ -2,25 +2,26 @@
 
 namespace Radiant.Common.Tasks.Triggers
 {
-    public class ScheduleTrigger : ITrigger
+    public class ScheduleTrigger : RadiantTrigger, ITrigger
     {
         // ********************************************************************
         //                            Constructors
         // ********************************************************************
         public ScheduleTrigger()
         {
-            if (this.ResetTriggeredTimesOnStart)
-                AcknowledgeHasTriggered();
+            //if (this.ResetTriggeredTimesOnStart)
+            //    AcknowledgeHasTriggered();
         }
 
         // ********************************************************************
         //                            Private
         // ********************************************************************
+        private DateTime fNextDateTimeToTrigger = DateTime.Now;
+
         private void AcknowledgeHasTriggered()
         {
             DateTime _Now = DateTime.Now;
-            this.LastTriggeredDateTime = _Now;
-            this.NextDateTimeToTrigger = _Now.AddSeconds(this.TriggerEverySeconds);
+            fNextDateTimeToTrigger = _Now.AddSeconds(this.TriggerEverySeconds);
         }
 
         // ********************************************************************
@@ -29,7 +30,7 @@ namespace Radiant.Common.Tasks.Triggers
         public bool Evaluate()
         {
             DateTime _Now = DateTime.Now;
-            if (_Now < this.NextDateTimeToTrigger)
+            if (_Now < fNextDateTimeToTrigger)
                 return false;
 
             AcknowledgeHasTriggered();
@@ -39,13 +40,10 @@ namespace Radiant.Common.Tasks.Triggers
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public DateTime LastTriggeredDateTime { get; set; }
-        public DateTime NextDateTimeToTrigger { get; set; }
-
         /// <summary>
         /// Discard triggered times when program start.
         /// </summary>
-        public bool ResetTriggeredTimesOnStart { get; set; }
+        //public bool ResetTriggeredTimesOnStart { get; set; }
 
         public long TriggerEverySeconds { get; set; }
     }

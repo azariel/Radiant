@@ -1,4 +1,6 @@
-﻿namespace Radiant.Common.Tasks
+﻿using Radiant.Common.Tasks.Triggers;
+
+namespace Radiant.Common.Tasks
 {
     public interface IRadiantTask : ITriggerDependent
     {
@@ -11,6 +13,7 @@
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; }
+        public string UID { get; set; }
     }
 }
