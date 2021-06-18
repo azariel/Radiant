@@ -1,7 +1,9 @@
-﻿namespace Radiant.WebScraper.Scrapers
+﻿using Radiant.WebScraper.Business.Objects.TargetScraper;
+
+namespace Radiant.WebScraper.Scrapers
 {
     internal interface IScraper
     {
-        string GetDOMFromUrl(SupportedBrowser aSupportedBrowser, string aUrl);
+        void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget);
     }
 }

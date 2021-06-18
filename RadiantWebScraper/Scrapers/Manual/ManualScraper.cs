@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Radiant.Common.Diagnostics;
-using Radiant.Common.OSDependent.Clipboard;
+using Radiant.WebScraper.Business.Objects.ScraperTargetValue;
+using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Configuration;
 using RadiantInputsManager;
 using RadiantInputsManager.InputsParam;
@@ -41,33 +43,6 @@ namespace Radiant.WebScraper.Scrapers.Manual
             });
         }
 
-        private void CopyAllToClipboard(int aDelayBetweenSelectAllAndCopyToClipboardInMs = 500)
-        {
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
-            {
-                Delay = 160,
-                KeyStrokeCodes = new[]
-                {
-                    Keycode.CtrlL,
-                    Keycode.XK_a
-                }
-            });
-
-            Thread.Sleep(aDelayBetweenSelectAllAndCopyToClipboardInMs);
-
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
-            {
-                Delay = 260,
-                KeyStrokeCodes = new[]
-                {
-                    Keycode.CtrlL,
-                    Keycode.XK_c
-                }
-            });
-
-            Thread.Sleep(100);
-        }
-
         private void ExecuteFullScreenF11()
         {
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
@@ -89,20 +64,6 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
             foreach (Process _Process in _ProcessesToKill)
                 _Process.Kill();
-        }
-
-        private void ShowDOMInNewTab()
-        {
-            // Note that it's the same in every supported browser (atm)
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
-            {
-                Delay = 120,
-                KeyStrokeCodes = new[]
-                {
-                    Keycode.CtrlL,
-                    Keycode.XK_u
-                }
-            });
         }
 
         private void StartBrowser(SupportedBrowser aSupportedBrowser, string aDefaultUrl)
@@ -147,9 +108,11 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public string GetDOMFromUrl(SupportedBrowser aSupportedBrowser, string aUrl)
+        public void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget)
         {
-            string _DOM = "";
+            List<IScraperTargetValue> _TargetValue = null;
+
+            // First thing is to get to the webpage
             // For the duration of the function, we're taking exclusivity of inputs to avoid conflicts
             InputsManager.ExecuteInputsWithExclusivity(() =>
             {
@@ -157,7 +120,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
                 if (!WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser))
                 {
-                    LoggingManager.LogToFile($"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetDOMFromUrl)}].");
+                    LoggingManager.LogToFile($"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
                     return;
                 }
 
@@ -168,44 +131,20 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 ExecuteFullScreenF11();
                 Thread.Sleep(500);
 
-                // Get DOM
-                ShowDOMInNewTab();
-                Thread.Sleep(1000);
+                // Evaluate the target and get the value
+                aTarget.Evaluate(aSupportedBrowser, aUrl);
 
-                // Clear clipboard
-                ClipboardManager.SetClipboardValue("");
-                Thread.Sleep(50);
-
-                // Put in clipboard
-                CopyAllToClipboard();
-                Thread.Sleep(500);
-
+                // "Closing" sequence
                 // Exit F11
                 ExecuteFullScreenF11();
                 Thread.Sleep(500);
-
-                // Close the tab we created for the DOM
-                CloseCurrentTab();
-                Thread.Sleep(250);
 
                 // Close the tab we created on the first step
                 CloseCurrentTab();
                 Thread.Sleep(250);
 
-                // Copy clipboard value to var
-                _DOM = ClipboardManager.GetClipboardValue();
-                Thread.Sleep(50);
-
-                // Clear clipboard
-                ClipboardManager.SetClipboardValue("");
-                Thread.Sleep(50);
-
                 // Note: actually, we already closed our tab.. so.. no, don't kill the browser..
-                // Close browser
-                //KillBrowserProcess(aSupportedBrowser);
             });
-
-            return _DOM;
         }
     }
 }
