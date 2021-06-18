@@ -3,12 +3,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Radiant.Common.Diagnostics;
+using Radiant.Common.OSDependent.Clipboard;
 using Radiant.WebScraper.Configuration;
 using RadiantInputsManager;
 using RadiantInputsManager.InputsParam;
 
 namespace Radiant.WebScraper.Scrapers.Manual
 {
+    /// <summary>
+    /// Manual scraper is a very little special tool. It reproduce user inputs to physically go to the website and scrap
+    /// manually the source or the data it wants. It's often a good way to avoid bot detection, but it's painfully slow,
+    /// among other things.. So we often consider it to be "the last stand" to fetch the data and should only be used on
+    /// a dedicated server..
+    /// </summary>
     public class ManualScraper : IScraper
     {
         // ********************************************************************
@@ -21,7 +28,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         private string fBrowserProcessName;
 
-        private void CloseCurrenTab()
+        private void CloseCurrentTab()
         {
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
@@ -57,6 +64,8 @@ namespace Radiant.WebScraper.Scrapers.Manual
                     Keycode.XK_c
                 }
             });
+
+            Thread.Sleep(100);
         }
 
         private void ExecuteFullScreenF11()
@@ -140,6 +149,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         public string GetDOMFromUrl(SupportedBrowser aSupportedBrowser, string aUrl)
         {
+            string _DOM = "";
             // For the duration of the function, we're taking exclusivity of inputs to avoid conflicts
             InputsManager.ExecuteInputsWithExclusivity(() =>
             {
@@ -152,40 +162,50 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 }
 
                 // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
-                Thread.Sleep(250);
+                Thread.Sleep(5000);
 
                 // Fullscreen
                 ExecuteFullScreenF11();
-                Thread.Sleep(250);
+                Thread.Sleep(500);
 
                 // Get DOM
                 ShowDOMInNewTab();
-                Thread.Sleep(250);
+                Thread.Sleep(1000);
+
+                // Clear clipboard
+                ClipboardManager.SetClipboardValue("");
+                Thread.Sleep(50);
 
                 // Put in clipboard
                 CopyAllToClipboard();
-                Thread.Sleep(250);
+                Thread.Sleep(500);
 
                 // Exit F11
                 ExecuteFullScreenF11();
-                Thread.Sleep(250);
+                Thread.Sleep(500);
 
                 // Close the tab we created for the DOM
-                CloseCurrenTab();
+                CloseCurrentTab();
                 Thread.Sleep(250);
 
                 // Close the tab we created on the first step
-                CloseCurrenTab();
+                CloseCurrentTab();
                 Thread.Sleep(250);
 
                 // Copy clipboard value to var
-                string _DOM = null;// TODO: Create a Clipboard manager as .net 5 doesn't handle this.. it's different on windows, linux and mac
+                _DOM = ClipboardManager.GetClipboardValue();
+                Thread.Sleep(50);
 
+                // Clear clipboard
+                ClipboardManager.SetClipboardValue("");
+                Thread.Sleep(50);
+
+                // Note: actually, we already closed our tab.. so.. no, don't kill the browser..
                 // Close browser
                 //KillBrowserProcess(aSupportedBrowser);
             });
 
-            return null;
+            return _DOM;
         }
     }
 }

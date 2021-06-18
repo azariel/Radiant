@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Radiant.Common.OSDependent;
 using RadiantInputsManager.ExecutionResults;
 using RadiantInputsManager.InputsParam;
 using RadiantInputsManager.Linux.xdotool;
@@ -14,12 +14,6 @@ namespace RadiantInputsManager
         // ********************************************************************
         //                            Nested Types
         // ********************************************************************
-        public enum OperatingSystem
-        {
-            Linux,
-            Windows
-        }
-
         public enum InputType
         {
             Mouse,
@@ -29,7 +23,7 @@ namespace RadiantInputsManager
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private static object fIsWorkingLock = new();
+        private static readonly object fIsWorkingLock = new();
 
         // ********************************************************************
         //                            Public
@@ -39,11 +33,11 @@ namespace RadiantInputsManager
             // Simulate light delay to avoid mismatch inputs
             Thread.Sleep(30);
 
-            OperatingSystem _OperatingSystem = GetCurrentOperatingSystem();
+            SupportedOperatingSystem _OperatingSystem = OperatingSystemHelper.GetCurrentOperatingSystem();
             return _OperatingSystem switch
             {
-                OperatingSystem.Linux => XdoToolInputsManager.Execute(aInputType, aInputParam),
-                OperatingSystem.Windows => Win32InputsManager.Execute(aInputType, aInputParam),
+                SupportedOperatingSystem.Linux => XdoToolInputsManager.Execute(aInputType, aInputParam),
+                SupportedOperatingSystem.Windows => Win32InputsManager.Execute(aInputType, aInputParam),
                 _ => throw new ArgumentOutOfRangeException(nameof(_OperatingSystem), _OperatingSystem, "Operating system unhandled")
             };
         }
@@ -79,16 +73,6 @@ namespace RadiantInputsManager
                     IsWorking = false;
                 }
             }
-        }
-
-        public static OperatingSystem GetCurrentOperatingSystem()
-        {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                return OperatingSystem.Linux;
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                return OperatingSystem.Windows;
-
-            throw new ArgumentOutOfRangeException("Current operating system isn't handled. Please report this to the administrator.");
         }
 
         // ********************************************************************
