@@ -2,6 +2,6 @@
 {
     public interface IScraperTarget
     {
-        void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl);
+        void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations);
     }
 }

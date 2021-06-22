@@ -9,6 +9,9 @@ namespace Radiant.WebScraper.Tests.Scrapers.Manual
         // ********************************************************************
         //                            Public
         // ********************************************************************
+        /// <summary>
+        /// Get the DOM of the specified url
+        /// </summary>
         [Fact]
         public void TestManualGetDomFromBasicUrl()
         {
@@ -18,8 +21,12 @@ namespace Radiant.WebScraper.Tests.Scrapers.Manual
             _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, "http://www.perdu.com", _DomScraper);
 
             Assert.NotEqual("", _DomScraper.DOM);
+            Assert.Empty(_DomScraper.Screenshot);
         }
 
+        /// <summary>
+        /// Take a screenshot of the default url and then, execute the dom scrap
+        /// </summary>
         [Fact]
         public void TestManualGetDomAndScreenshotFromBasicUrl()
         {

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using Radiant.Common.Diagnostics;
 using Radiant.WebScraper.Business.Objects.ScraperTargetValue;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Configuration;
+using Radiant.WebScraper.Helpers;
 using RadiantInputsManager;
 using RadiantInputsManager.InputsParam;
 
@@ -51,29 +50,25 @@ namespace Radiant.WebScraper.Scrapers.Manual
             });
         }
 
-        private Process[] GetProcessesAssociatedWithBrowser(SupportedBrowser aBrowserToKill)
-        {
-            var _Processes = Process.GetProcesses().Where(w => string.Equals(w.ProcessName, aBrowserToKill.ToString(), StringComparison.InvariantCultureIgnoreCase)).ToArray();
-
-            return _Processes;
-        }
-
         private void KillBrowserProcess(SupportedBrowser aBrowserToKill)
         {
-            Process[] _ProcessesToKill = GetProcessesAssociatedWithBrowser(aBrowserToKill);
+            Process[] _ProcessesToKill = ScraperProcessHelper.GetProcessesAssociatedWithBrowser(aBrowserToKill);
 
             foreach (Process _Process in _ProcessesToKill)
                 _Process.Kill();
         }
 
-        private void StartBrowser(SupportedBrowser aSupportedBrowser, string aDefaultUrl)
+        private bool StartBrowser(SupportedBrowser aSupportedBrowser, string aDefaultUrl)
         {
             var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
 
             SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
 
             if (_SupportedBrowserConfiguration == null)
-                return;
+            {
+                LoggingManager.LogToFile($"Browser [{aSupportedBrowser}] has no configuration. Aborting start of browser.");
+                return false;
+            }
 
             fBrowserProcessName = _SupportedBrowserConfiguration.ExecutablePath;
             var _Process = new Process
@@ -89,18 +84,6 @@ namespace Radiant.WebScraper.Scrapers.Manual
             };
 
             _Process.Start();
-        }
-
-        private bool WaitForWebPageToFinishLoadingByBrowser(SupportedBrowser aSupportedBrowser)
-        {
-            Process[] _Processes = GetProcessesAssociatedWithBrowser(aSupportedBrowser);
-
-            foreach (Process _Process in _Processes)
-            {
-                // Wait for this instance of the browser to be responsive to user input (max 120 sec to avoid deadloop)
-                if (!_Process.WaitForInputIdle(NB_MS_WAIT_FOR_INPUT_HANG))
-                    return false;
-            }
 
             return true;
         }
@@ -110,15 +93,21 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         public void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget)
         {
+            Thread.Sleep(100);
+
             List<IScraperTargetValue> _TargetValue = null;
 
             // First thing is to get to the webpage
             // For the duration of the function, we're taking exclusivity of inputs to avoid conflicts
             InputsManager.ExecuteInputsWithExclusivity(() =>
             {
-                StartBrowser(aSupportedBrowser, aUrl);
+                if (!StartBrowser(aSupportedBrowser, aUrl))
+                {
+                    LoggingManager.LogToFile($"Couldn't start browser [{aSupportedBrowser}]. Aborting {nameof(GetTargetValueFromUrl)} from URL [{aUrl}].");
+                    return;
+                }
 
-                if (!WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser))
+                if (!BrowserHelper.WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG))
                 {
                     LoggingManager.LogToFile($"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
                     return;
@@ -132,7 +121,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Thread.Sleep(500);
 
                 // Evaluate the target and get the value
-                aTarget.Evaluate(aSupportedBrowser, aUrl);
+                aTarget.Evaluate(aSupportedBrowser, aUrl, true);
 
                 // "Closing" sequence
                 // Exit F11

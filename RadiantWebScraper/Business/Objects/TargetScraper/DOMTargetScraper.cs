@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Radiant.Common.OSDependent.Clipboard;
+﻿using Radiant.Common.OSDependent.Clipboard;
 using Radiant.WebScraper.Scrapers.Manual;
 using RadiantInputsManager;
 using RadiantInputsManager.InputsParam;
@@ -9,7 +8,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
     /// <summary>
     /// Define how to get DOM from scraper
     /// </summary>
-    internal class DOMTargetScraper : BaseTargetScraper, IScraperTarget
+    public class DOMTargetScraper : BaseTargetScraper, IScraperTarget
     {
         // ********************************************************************
         //                            Constructors
@@ -38,33 +37,36 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl)
+        public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations)
         {
-            base.Evaluate(aSupportedBrowser, aUrl);
+            base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations);
 
-            // Get DOM
-            ShowDOMInNewTab();
-            Thread.Sleep(1000);
+            if (aAllowManualOperations)
+            {
+                // Get DOM
+                ShowDOMInNewTab();
+                WaitForBrowserInputsReadyOrMax(3124);
 
-            // Clear clipboard
-            ClipboardManager.SetClipboardValue("");
-            Thread.Sleep(50);
+                // Clear clipboard
+                ClipboardManager.SetClipboardValue("");
+                WaitForBrowserInputsReadyOrMax(151);
 
-            // Put in clipboard
-            ManualScraperSequenceHelper.CopyAllToClipboard();
-            Thread.Sleep(500);
+                // Put in clipboard
+                ManualScraperSequenceHelper.CopyAllToClipboard();
+                WaitForBrowserInputsReadyOrMax(1026);
 
-            // Copy clipboard value to var
-            this.DOM = ClipboardManager.GetClipboardValue();
-            Thread.Sleep(250);
+                // Copy clipboard value to var
+                this.DOM = ClipboardManager.GetClipboardValue();
+                WaitForBrowserInputsReadyOrMax(521);
 
-            // Clear clipboard
-            ClipboardManager.SetClipboardValue("");
-            Thread.Sleep(250);
+                // Clear clipboard
+                ClipboardManager.SetClipboardValue("");
+                WaitForBrowserInputsReadyOrMax(487);
 
-            // Close the tab we created for the DOM
-            ManualScraperSequenceHelper.CloseCurrentTab();
-            Thread.Sleep(250);
+                // Close the tab we created for the DOM
+                ManualScraperSequenceHelper.CloseCurrentTab();
+                WaitForBrowserInputsReadyOrMax(503);
+            }
         }
 
         // ********************************************************************

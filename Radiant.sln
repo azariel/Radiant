@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantWebScraper", "Radian
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantServerConsole", "RadiantServerConsole\RadiantServerConsole.csproj", "{1A3A61D9-CA5C-4CBF-BA10-3AF304216E43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiantInputsManager", "RadiantInputsManager\RadiantInputsManager.csproj", "{2AAE3941-9BF6-4625-A6A7-0B034D312F80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantInputsManager", "RadiantInputsManager\RadiantInputsManager.csproj", "{2AAE3941-9BF6-4625-A6A7-0B034D312F80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Custom", "Custom", "{3F568F1A-2E83-4ECB-9471-577C03B489DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsHistory", "Custom\ProductsHistory\ProductsHistory.csproj", "{8925251A-C071-4AF1-A55D-7EE6261E379A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{2AAE3941-9BF6-4625-A6A7-0B034D312F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AAE3941-9BF6-4625-A6A7-0B034D312F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AAE3941-9BF6-4625-A6A7-0B034D312F80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8925251A-C071-4AF1-A55D-7EE6261E379A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8925251A-C071-4AF1-A55D-7EE6261E379A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8925251A-C071-4AF1-A55D-7EE6261E379A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8925251A-C071-4AF1-A55D-7EE6261E379A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8925251A-C071-4AF1-A55D-7EE6261E379A} = {3F568F1A-2E83-4ECB-9471-577C03B489DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B1D993C-526C-4722-8B7F-57AFF81FC466}

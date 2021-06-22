@@ -9,6 +9,9 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         //                            Public
         // ********************************************************************
+        /// <summary>
+        /// CTR+w
+        /// </summary>
         public static void CloseCurrentTab()
         {
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
@@ -22,6 +25,10 @@ namespace Radiant.WebScraper.Scrapers.Manual
             });
         }
 
+        /// <summary>
+        /// CTR+A, CTR+C
+        /// </summary>
+        /// <param name="aDelayBetweenSelectAllAndCopyToClipboardInMs"></param>
         public static void CopyAllToClipboard(int aDelayBetweenSelectAllAndCopyToClipboardInMs = 500)
         {
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
@@ -47,6 +54,33 @@ namespace Radiant.WebScraper.Scrapers.Manual
             });
 
             Thread.Sleep(100);
+        }
+
+        /// <summary>
+        /// CTR+F, type text, ENTER
+        /// </summary>
+        /// <param name="aTextToSearch"></param>
+        public static void Search(string aTextToSearch)
+        {
+            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            {
+                Delay = 89,
+                KeyStrokeCodes = new[]
+                {
+                    Keycode.CtrlL,
+                    Keycode.XK_f
+                }
+            });
+
+            Thread.Sleep(450);
+
+            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardTypeActionInputParam
+            {
+                Delay = 115,
+                ValueToType = aTextToSearch
+            });
+
+            Thread.Sleep(325);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using RadiantInputsManager.ExecutionResults;
 using RadiantInputsManager.InputsParam;
@@ -47,8 +48,10 @@ namespace RadiantInputsManager.Windows
                     Thread.Sleep(aKeyboardKeyStrokeActionInputParam.Delay.Value);
             }
 
+            Thread.Sleep(50);
+
             // Release all one by one, but quicker
-            foreach (Keycode _KeyCode in aKeyboardKeyStrokeActionInputParam.KeyStrokeCodes)
+            foreach (Keycode _KeyCode in aKeyboardKeyStrokeActionInputParam.KeyStrokeCodes.Reverse())
             {
                 Win32Helper.ExecuteKeyboardKey(_KeyCode, Win32Helper.KeyStrokeAction.Release);
 
