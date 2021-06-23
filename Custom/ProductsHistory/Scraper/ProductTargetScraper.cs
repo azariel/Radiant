@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Radiant.Common.OSDependent.Clipboard;
@@ -8,7 +9,6 @@ using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Parsers.DOM;
 using Radiant.WebScraper.Scrapers.Manual;
 using RadiantInputsManager;
-using RadiantInputsManager.InputsParam;
 
 namespace Radiant.Custom.ProductsHistory.Scraper
 {
@@ -25,6 +25,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         //                            Private
         // ********************************************************************
         private List<ProductDOMParserItem> fDOMParserItems;
+        private List<ManualScraperProductParser> fManualScraperItems;
 
         private void FetchProductInformation()
         {
@@ -48,7 +49,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         {
             // First, try to find the price by search
             if (fAllowManualOperations)
-                TryFetchProductPriceBySearch();
+                TryFetchProductPriceByManualOperation();
 
             if (this.Information.Price.HasValue)
                 return;
@@ -76,95 +77,76 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 this.Information.Price = _Price;
         }
 
-        private void TryFetchProductPriceBySearch()
+        private void TryFetchProductPriceByManualOperation()
         {
-            ManualScraperSequenceHelper.Search("price:");
-
-            WaitForBrowserInputsReadyOrMax(1151);
-
-            // Press escape
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            foreach (ManualScraperProductParser _ManualScraperItemParser in fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price))
             {
-                Delay = 290,
-                KeyStrokeCodes = new[]
+                foreach (ManualScraperSequenceItem _ManualScraperSequenceItem in _ManualScraperItemParser.ManualScraperSequenceItems)
                 {
-                    Keycode.XK_Escape
+                    switch (_ManualScraperSequenceItem)
+                    {
+                        case ManualScraperSequenceItemByClipboard _ManualScraperSequenceItemByClipboard:
+                            if (_ManualScraperSequenceItemByClipboard.Operation == ManualScraperSequenceItemByClipboard.ClipboardOperation.Get)
+                            {
+                                string _RawPrice = ClipboardManager.GetClipboardValue();
+
+                                if (_ManualScraperSequenceItemByClipboard.WaitMsOnEnd > 0)
+                                    WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItemByClipboard.WaitMsOnEnd);
+
+                                // Override clipboard value
+                                ClipboardManager.SetClipboardValue("");
+
+                                if (_ManualScraperSequenceItemByClipboard.WaitMsOnEnd > 0)
+                                    WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItemByClipboard.WaitMsOnEnd / 2);
+
+                                string _Price = _RawPrice;
+                                if (_ManualScraperItemParser.ValueParser?.RegexPattern != null)
+                                {
+                                    // Parse price
+                                    Regex _PriceRegex = new Regex(_ManualScraperItemParser.ValueParser?.RegexPattern, RegexOptions.CultureInvariant);
+                                    Match _Match = _PriceRegex.Match(_RawPrice);
+
+                                    if (!_Match.Success)
+                                        return;
+
+                                    if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Value)
+                                        _Price = _Match.Value;
+                                    else if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Group1Value)
+                                    {
+                                        if (_Match.Groups.Count < 1)
+                                            return;
+
+                                        _Price = _Match.Groups[0].Value;
+                                    }
+                                }
+
+                                if (double.TryParse(_Price, out double _PriceAsDouble))
+                                    this.Information.Price = _PriceAsDouble;
+                            }
+
+                            break;
+                        case ManualScraperSequenceItemByInput _ManualScraperSequenceItemByInput:
+                            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(_ManualScraperSequenceItemByInput.InputType, _ManualScraperSequenceItemByInput.InputParam);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(_ManualScraperSequenceItem));
+                    }
+
+                    if (_ManualScraperSequenceItem.WaitMsOnEnd > 0)
+                        WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItem.WaitMsOnEnd);
                 }
-            });
-
-            WaitForBrowserInputsReadyOrMax(625);
-
-            // Shift+Right
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
-            {
-                Delay = 321,
-                KeyStrokeCodes = new[]
-                {
-                    Keycode.XK_Shift_L,
-                    Keycode.XK_Right
-                }
-            });
-
-            WaitForBrowserInputsReadyOrMax(422);
-
-            // Shift+End
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
-            {
-                Delay = 159,
-                KeyStrokeCodes = new[]
-                {
-                    Keycode.XK_Shift_L,
-                    Keycode.XK_End
-                }
-            });
-
-            WaitForBrowserInputsReadyOrMax(522);
-
-            ClipboardManager.SetClipboardValue("");
-            WaitForBrowserInputsReadyOrMax(625);
-
-            // Copy to clipboard
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
-            {
-                Delay = 168,
-                KeyStrokeCodes = new[]
-                {
-                    Keycode.CtrlL,
-                    Keycode.XK_c
-                }
-            });
-
-            WaitForBrowserInputsReadyOrMax(1314);
-
-            string _RawPrice = ClipboardManager.GetClipboardValue();
-
-            WaitForBrowserInputsReadyOrMax(1254);
-
-            // Override clipboard value
-            ClipboardManager.SetClipboardValue("");
-            WaitForBrowserInputsReadyOrMax(625);
-
-            // Parse price
-            Regex _PriceRegex = new Regex(@"[\d,]+\.\d+", RegexOptions.CultureInvariant);
-            Match _Match = _PriceRegex.Match(_RawPrice);
-
-            if (!_Match.Success || _Match.Groups.Count < 1)
-                return;
-
-            string _Price = _Match.Groups[0].Value;
-
-            if (double.TryParse(_Price, out double _PriceAsDouble))
-                this.Information.Price = _PriceAsDouble;
+            }
         }
 
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<DOMParserItem> aDOMParserItems)
+        public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
             fDOMParserItems = aDOMParserItems.OfType<ProductDOMParserItem>().ToList();
+            fManualScraperItems = aManualScraperItems.OfType<ManualScraperProductParser>().Where(w => aUrl.ToLowerInvariant().Contains(w.IfUrlContains.ToLowerInvariant())).ToList();
 
-            base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations, aDOMParserItems);
+            base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations, aManualScraperItems, aDOMParserItems);
 
             WaitForBrowserInputsReadyOrMax(500);
 

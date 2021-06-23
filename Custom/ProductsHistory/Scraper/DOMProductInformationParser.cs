@@ -16,7 +16,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Count <= 0)
                 return null;
 
-            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductDOMParserItem.ProductDOMParserItemTarget.Price))
+            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price))
             {
                 string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
 
@@ -33,7 +33,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Count <= 0)
                 return null;
 
-            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductDOMParserItem.ProductDOMParserItemTarget.Title))
+            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Title))
             {
                 string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
 

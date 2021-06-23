@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 using Radiant.Common.OSDependent;
 using RadiantInputsManager.ExecutionResults;

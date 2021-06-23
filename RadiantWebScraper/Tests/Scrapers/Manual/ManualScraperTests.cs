@@ -18,7 +18,7 @@ namespace Radiant.WebScraper.Tests.Scrapers.Manual
             ManualScraper _ManualScraper = new ManualScraper();
 
             var _DomScraper = new DOMTargetScraper();
-            _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, "http://www.perdu.com", _DomScraper, null);
+            _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, "http://www.perdu.com", _DomScraper, null, null);
 
             Assert.NotEqual("", _DomScraper.DOM);
             Assert.Null(_DomScraper.Screenshot);
@@ -33,7 +33,7 @@ namespace Radiant.WebScraper.Tests.Scrapers.Manual
             ManualScraper _ManualScraper = new ManualScraper();
 
             var _DomScraper = new DOMTargetScraper(BaseTargetScraper.TargetScraperCoreOptions.Screenshot);
-            _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, "http://www.perdu.com", _DomScraper, null);
+            _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, "http://www.perdu.com", _DomScraper, null, null);
 
             Assert.NotEqual("", _DomScraper.DOM);
             Assert.NotEmpty(_DomScraper.Screenshot);

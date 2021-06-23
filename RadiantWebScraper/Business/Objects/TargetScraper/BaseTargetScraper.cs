@@ -6,6 +6,7 @@ using System.Threading;
 using Radiant.Common.Helpers;
 using Radiant.WebScraper.Helpers;
 using Radiant.WebScraper.Parsers.DOM;
+using Radiant.WebScraper.Scrapers.Manual;
 
 namespace Radiant.WebScraper.Business.Objects.TargetScraper
 {
@@ -78,7 +79,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public virtual void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<DOMParserItem> aDOMParserItems)
+        public virtual void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
             fBrowser = aSupportedBrowser;
             fUrl = aUrl;

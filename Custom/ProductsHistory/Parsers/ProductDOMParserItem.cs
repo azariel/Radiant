@@ -1,21 +1,15 @@
-﻿using Radiant.WebScraper.Parsers.DOM;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Radiant.WebScraper.Parsers.DOM;
 
 namespace Radiant.Custom.ProductsHistory.Parsers
 {
     public class ProductDOMParserItem : DOMParserItem
     {
         // ********************************************************************
-        //                            Nested
-        // ********************************************************************
-        public enum ProductDOMParserItemTarget
-        {
-            Price,
-            Title
-        }
-
-        // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public ProductDOMParserItemTarget ParserItemTarget { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ProductParserItemTarget ParserItemTarget { get; set; }
     }
 }

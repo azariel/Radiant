@@ -1,6 +1,11 @@
-﻿namespace RadiantInputsManager
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace RadiantInputsManager
 {
     // Tightly tied to keysyms https://wiki.linuxquestions.org/wiki/List_of_keysyms or https://www.oreilly.com/library/view/xlib-reference-manual/9780937175262/16_appendix-h.html
+
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum Keycode 
     {
         KP_Enter,// Enter

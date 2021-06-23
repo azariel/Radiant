@@ -14,13 +14,14 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private void TestProductFetchForSpecificUrl(string aUrl)
+        private ProductFetchedInformation TestProductFetchForSpecificUrl(string aUrl)
         {
             // We'll take a screenshot while we're at it for possible manual reference
             ManualScraper _ManualScraper = new ManualScraper();
             ProductTargetScraper _ProductScraper = new ProductTargetScraper(BaseTargetScraper.TargetScraperCoreOptions.Screenshot);
             ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
-            _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, aUrl, _ProductScraper, _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList());
+
+            _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, aUrl, _ProductScraper, _Config.ManualScraperSequenceItems.Select(s => (ManualScraperItemParser)s).ToList(), _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList());
 
             Assert.NotEmpty(_ProductScraper.Screenshot);
             Assert.NotNull(_ProductScraper.Information);
@@ -35,7 +36,9 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
         [Fact]
         public void AmazonBasicTest()
         {
-            TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.AMAZON_TYPICAL_PRODUCT_URL);
+            ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.AMAZON_TYPICAL_PRODUCT_URL);
+            Assert.Equal(89.96, _Product.Price);
+            Assert.Equal("PlayStation DualSense Wireless Controller – Midnight Black - Midnight Black Edition: PlayStation: Computer and Video Games - Amazon.ca", _Product.Title);
         }
 
         [Fact]

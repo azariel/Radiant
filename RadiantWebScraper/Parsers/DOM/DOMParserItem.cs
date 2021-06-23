@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Radiant.WebScraper.Parsers.DOM
 {
@@ -23,6 +25,8 @@ namespace Radiant.WebScraper.Parsers.DOM
 
         public string RegexPattern { get; set; }
         public DOMParserItem SubParserToExecuteOnTargetValue { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
         public DOMParserItemResultTarget Target { get; set; } = DOMParserItemResultTarget.Value;
         public string UID { get; set; } = Guid.NewGuid().ToString();
     }
