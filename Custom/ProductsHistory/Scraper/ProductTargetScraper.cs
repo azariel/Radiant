@@ -1,7 +1,11 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Radiant.Common.OSDependent.Clipboard;
+using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.WebScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
+using Radiant.WebScraper.Parsers.DOM;
 using Radiant.WebScraper.Scrapers.Manual;
 using RadiantInputsManager;
 using RadiantInputsManager.InputsParam;
@@ -20,10 +24,12 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private void FetchProductInformation(bool aAllowManualOperations)
+        private List<ProductDOMParserItem> fDOMParserItems;
+
+        private void FetchProductInformation()
         {
-            FetchProductPrice(aAllowManualOperations);
-            FetchProductName(aAllowManualOperations);
+            FetchProductPrice();
+            FetchProductName();
 
             // TODO: fetch product shipping cost, etc
         }
@@ -32,16 +38,16 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         /// Fetching the name is mainly to know if the URL content has changed. Amazon is a big fan of this. The product
         /// shown for a specific url will change from time to time.
         /// </summary>
-        private void FetchProductName(bool aAllowManualOperations)
+        private void FetchProductName()
         {
             // Fetch product name from DOM
             TryFetchProductNameFromDOM();
         }
 
-        private void FetchProductPrice(bool aAllowManualOperations)
+        private void FetchProductPrice()
         {
             // First, try to find the price by search
-            if (aAllowManualOperations)
+            if (fAllowManualOperations)
                 TryFetchProductPriceBySearch();
 
             if (this.Information.Price.HasValue)
@@ -56,7 +62,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             if (string.IsNullOrWhiteSpace(this.DOM))
                 return;
 
-            this.Information.Title = DOMProductInformationParser.ParseTitle(this.DOM);
+            this.Information.Title = DOMProductInformationParser.ParseTitle(fUrl, this.DOM, fDOMParserItems);
         }
 
         private void TryFetchProductPriceByDOM()
@@ -64,7 +70,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             if (string.IsNullOrWhiteSpace(this.DOM))
                 return;
 
-            double? _Price = DOMProductInformationParser.ParsePrice(this.DOM);
+            double? _Price = DOMProductInformationParser.ParsePrice(fUrl, this.DOM, fDOMParserItems);
 
             if (_Price.HasValue)
                 this.Information.Price = _Price;
@@ -154,14 +160,16 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations)
+        public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<DOMParserItem> aDOMParserItems)
         {
-            base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations);
+            fDOMParserItems = aDOMParserItems.OfType<ProductDOMParserItem>().ToList();
+
+            base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations, aDOMParserItems);
 
             WaitForBrowserInputsReadyOrMax(500);
 
             // Fetch product information
-            FetchProductInformation(aAllowManualOperations);
+            FetchProductInformation();
         }
 
         // ********************************************************************

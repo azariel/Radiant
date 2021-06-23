@@ -1,4 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Radiant.Common.Diagnostics;
+using Radiant.Custom.ProductsHistory.Parsers;
+using Radiant.WebScraper.Parsers.DOM;
 
 namespace Radiant.Custom.ProductsHistory.Scraper
 {
@@ -7,43 +11,38 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         //                            Internal
         // ********************************************************************
-        internal static double? ParsePrice(string aDOM)
+        internal static double? ParsePrice(string aUrl, string aDOM, List<ProductDOMParserItem> aDOMParserItems)
         {
-            if (string.IsNullOrWhiteSpace(aDOM))
+            if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Count <= 0)
                 return null;
 
-            Regex _PriceBlockOurPriceRegex = new Regex(@"priceblock_ourprice(.*?)<\/span>");
+            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductDOMParserItem.ProductDOMParserItemTarget.Price))
+            {
+                string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
 
-            var _MatchResult = _PriceBlockOurPriceRegex.Match(aDOM);
-            if (!_MatchResult.Success)
-                return null;
+                if (_Value != null && double.TryParse(_Value, out double _Price))
+                    return _Price;
+            }
 
-            Regex _PriceRegex = new Regex(@"[\d,]+\.\d+");
-
-            var _PriceMatchResult = _PriceRegex.Match(_MatchResult.Value);
-            if (!_PriceMatchResult.Success)
-                return null;
-
-            string _PriceAsString = _PriceMatchResult.Value;
-
-            if (!double.TryParse(_PriceAsString, out double _Price))
-                return null;
-
-            return _Price;
+            LoggingManager.LogToFile($"Couldn't find price in DOM using [{aDOMParserItems.Count}] DOM parsers for Url [{aUrl}].");
+            return null;
         }
 
-        public static string ParseTitle(string aDOM)
+        public static string ParseTitle(string aUrl, string aDOM, List<ProductDOMParserItem> aDOMParserItems)
         {
-            if (string.IsNullOrWhiteSpace(aDOM))
+            if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Count <= 0)
                 return null;
 
-            Regex _TitleRegex = new Regex(@"<title>(.*?)<\/title>");
+            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductDOMParserItem.ProductDOMParserItemTarget.Title))
+            {
+                string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
 
-            var _MatchResult = _TitleRegex.Match(aDOM);
-            if (!_MatchResult.Success || _MatchResult.Groups.Count < 2)
-                return null;
+                if (_Value != null)
+                    return _Value;
+            }
 
-            return _MatchResult.Groups[1].Value;
+            LoggingManager.LogToFile($"Couldn't find title in DOM using [{aDOMParserItems.Count}] DOM parsers for Url [{aUrl}].");
+            return null;
         }
     }
 }

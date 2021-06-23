@@ -1,4 +1,6 @@
-﻿using Radiant.Common.OSDependent.Clipboard;
+﻿using System.Collections.Generic;
+using Radiant.Common.OSDependent.Clipboard;
+using Radiant.WebScraper.Parsers.DOM;
 using Radiant.WebScraper.Scrapers.Manual;
 using RadiantInputsManager;
 using RadiantInputsManager.InputsParam;
@@ -37,9 +39,9 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations)
+        public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<DOMParserItem> aDOMParserItems)
         {
-            base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations);
+            base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations, aDOMParserItems);
 
             if (aAllowManualOperations)
             {

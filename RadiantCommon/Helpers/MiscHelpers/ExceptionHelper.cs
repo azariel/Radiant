@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Radiant.Common.MiscHelpers
+namespace Radiant.Common.Helpers.MiscHelpers
 {
     /// <summary>
     /// Helping functions relative to exception

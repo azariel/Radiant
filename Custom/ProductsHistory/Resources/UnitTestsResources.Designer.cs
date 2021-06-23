@@ -71,9 +71,37 @@ namespace Radiant.Custom.ProductsHistory.Resources {
         ///&lt;link rel=&quot;dns-prefetch&quot; href=&quot;https://m.media-amazon.com&quot;&gt;
         ///&lt;link rel=&quot;dns-pr [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Product1_SourceCode {
+        internal static string Amazon_Product1_SourceCode {
             get {
-                return ResourceManager.GetString("Product1_SourceCode", resourceCulture);
+                return ResourceManager.GetString("Amazon_Product1_SourceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html lang= &quot;en&quot; &gt;
+        ///
+        ///&lt;head&gt;
+        ///    &lt;title data-react-helmet=&quot;true&quot;&gt;PlayStation 5 DualSense Wireless Controller - White | Best Buy Canada&lt;/title&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta content=&apos;width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=no&apos; name=&apos;viewport&apos; /&gt;
+        ///    &lt;meta name=&quot;theme-color&quot; content=&quot;#0046be&quot; /&gt;
+        ///    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+        ///    &lt;link rel=&quot;preconnect&quot; href=&quot;https://www.bestbuy.ca&quot; /&gt;
+        ///    &lt;link rel=&quot;preconnect&quot; href=&quot;h [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string BestBuy_Product1_SourceCode {
+            get {
+                return ResourceManager.GetString("BestBuy_Product1_SourceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;&lt;html lang=&quot;en-ca&quot;&gt;&lt;head&gt;&lt;title&gt;DualShock 4 PS4 Controller Wireless for PlayStation 4 - Jet Black - Newegg.ca&lt;/title&gt;&lt;meta charSet=&quot;utf-8&quot;/&gt;&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot;/&gt;&lt;meta name=&quot;referrer&quot; content=&quot;always&quot;/&gt;&lt;meta name=&quot;keywords&quot; content=&quot;Newegg, Newegg.ca, DualShock 4 PS4 Controller Wireless for PlayStation 4 - Jet Black&quot;/&gt;&lt;meta name=&quot;description&quot; content=&quot;Buy DualShock 4 PS4 Controller Wireless for PlayStation 4 - Jet Black with fast shipping and top- [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Newegg_Product1_SourceCode {
+            get {
+                return ResourceManager.GetString("Newegg_Product1_SourceCode", resourceCulture);
             }
         }
     }

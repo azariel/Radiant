@@ -1,9 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
 using Radiant.Common.Helpers;
 using Radiant.WebScraper.Helpers;
+using Radiant.WebScraper.Parsers.DOM;
 
 namespace Radiant.WebScraper.Business.Objects.TargetScraper
 {
@@ -33,7 +35,9 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         //                            Protected
         // ********************************************************************
+        protected bool fAllowManualOperations;
         protected SupportedBrowser? fBrowser;
+        protected string fUrl;
 
         protected void WaitForBrowserInputsReadyOrMax(int aMinMsToWait, int aMaxMsToWait = 60000)
         {
@@ -74,9 +78,11 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public virtual void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations)
+        public virtual void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<DOMParserItem> aDOMParserItems)
         {
             fBrowser = aSupportedBrowser;
+            fUrl = aUrl;
+            fAllowManualOperations = aAllowManualOperations;
 
             if (!fOptions.HasValue)
                 return;

@@ -6,6 +6,7 @@ using Radiant.WebScraper.Business.Objects.ScraperTargetValue;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Configuration;
 using Radiant.WebScraper.Helpers;
+using Radiant.WebScraper.Parsers.DOM;
 using RadiantInputsManager;
 using RadiantInputsManager.InputsParam;
 
@@ -91,7 +92,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget)
+        public void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<DOMParserItem> aParserItems)
         {
             Thread.Sleep(100);
 
@@ -121,7 +122,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Thread.Sleep(500);
 
                 // Evaluate the target and get the value
-                aTarget.Evaluate(aSupportedBrowser, aUrl, true);
+                aTarget.Evaluate(aSupportedBrowser, aUrl, true, aParserItems);
 
                 // "Closing" sequence
                 // Exit F11

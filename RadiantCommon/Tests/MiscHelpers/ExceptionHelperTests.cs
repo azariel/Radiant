@@ -1,5 +1,5 @@
 ﻿using System;
-using Radiant.Common.MiscHelpers;
+using Radiant.Common.Helpers.MiscHelpers;
 using Xunit;
 
 namespace Radiant.Common.Tests.MiscHelpers

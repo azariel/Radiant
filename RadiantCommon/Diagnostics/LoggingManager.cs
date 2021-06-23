@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Radiant.Common.MiscHelpers;
+using Radiant.Common.Helpers.MiscHelpers;
 
 namespace Radiant.Common.Diagnostics
 {
