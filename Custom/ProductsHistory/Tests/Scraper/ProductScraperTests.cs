@@ -28,6 +28,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
             Assert.NotNull(_ProductScraper.Information.Price);
             Assert.NotNull(_ProductScraper.Information.Title);
             Assert.NotEmpty(_ProductScraper.Information.Title);
+
+            return _ProductScraper.Information;
         }
 
         // ********************************************************************
