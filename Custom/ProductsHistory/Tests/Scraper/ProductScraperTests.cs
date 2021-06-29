@@ -46,13 +46,17 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
         [Fact]
         public void BestBuyBasicTest()
         {
-            TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.BESTBUY_TYPICAL_PRODUCT_URL);
+            ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.BESTBUY_TYPICAL_PRODUCT_URL);
+            Assert.Equal(90.19, _Product.Price);
+            Assert.Equal("PlayStation 5 DualSense Wireless Controller - White | Best Buy Canada", _Product.Title);
         }
 
         [Fact]
         public void NeweggBasicTest()
         {
-            TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL);
+            ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL);
+            Assert.Equal(52.99, _Product.Price);
+            Assert.Equal("DualShock 4 PS4 Controller Wireless for PlayStation 4 - Jet Black - Newegg.ca", _Product.Title);
         }
     }
 }

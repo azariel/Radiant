@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
 using Radiant.Common.Tasks.Triggers;
 using RadiantInputsManager.InputsParam;
 
