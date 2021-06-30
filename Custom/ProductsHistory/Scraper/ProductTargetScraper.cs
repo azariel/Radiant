@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.WebScraper;
@@ -54,6 +55,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             if (this.Information.Price.HasValue)
                 return;
 
+            this.OneOrMoreStepFailedAndRequiredAFallback = true;
+
             // If it doesn't work, fallback to find the price in the DOM
             TryFetchProductPriceByDOM();
         }
@@ -79,62 +82,80 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
         private void TryFetchProductPriceByManualOperation()
         {
-            foreach (ManualScraperProductParser _ManualScraperItemParser in fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price))
+            try
             {
-                foreach (ManualScraperSequenceItem _ManualScraperSequenceItem in _ManualScraperItemParser.ManualScraperSequenceItems)
+                foreach (ManualScraperProductParser _ManualScraperItemParser in fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price))
                 {
-                    switch (_ManualScraperSequenceItem)
+                    foreach (ManualScraperSequenceItem _ManualScraperSequenceItem in _ManualScraperItemParser.ManualScraperSequenceItems)
                     {
-                        case ManualScraperSequenceItemByClipboard _ManualScraperSequenceItemByClipboard:
-                            if (_ManualScraperSequenceItemByClipboard.Operation == ManualScraperSequenceItemByClipboard.ClipboardOperation.Get)
-                            {
-                                string _RawPrice = ClipboardManager.GetClipboardValue();
-
-                                if (_ManualScraperSequenceItemByClipboard.WaitMsOnEnd > 0)
-                                    WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItemByClipboard.WaitMsOnEnd);
-
-                                // Override clipboard value
-                                ClipboardManager.SetClipboardValue("");
-
-                                if (_ManualScraperSequenceItemByClipboard.WaitMsOnEnd > 0)
-                                    WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItemByClipboard.WaitMsOnEnd / 2);
-
-                                string _Price = _RawPrice;
-                                if (_ManualScraperItemParser.ValueParser?.RegexPattern != null)
+                        switch (_ManualScraperSequenceItem)
+                        {
+                            case ManualScraperSequenceItemByClipboard _ManualScraperSequenceItemByClipboard:
+                                if (_ManualScraperSequenceItemByClipboard.Operation == ManualScraperSequenceItemByClipboard.ClipboardOperation.Get)
                                 {
-                                    // Parse price
-                                    Regex _PriceRegex = new Regex(_ManualScraperItemParser.ValueParser?.RegexPattern, RegexOptions.CultureInvariant);
-                                    Match _Match = _PriceRegex.Match(_RawPrice);
+                                    string _RawPrice = ClipboardManager.GetClipboardValue();
 
-                                    if (!_Match.Success)
-                                        return;
+                                    if (_ManualScraperSequenceItemByClipboard.WaitMsOnEnd > 0)
+                                        WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItemByClipboard.WaitMsOnEnd);
 
-                                    if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Value)
-                                        _Price = _Match.Value;
-                                    else if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Group1Value)
+                                    // Override clipboard value
+                                    ClipboardManager.SetClipboardValue("");
+
+                                    if (_ManualScraperSequenceItemByClipboard.WaitMsOnEnd > 0)
+                                        WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItemByClipboard.WaitMsOnEnd / 2);
+
+                                    // If price doesn't contains decimal separator, add it
+                                    string _Price = _RawPrice;
+                                    if (_ManualScraperItemParser.ValueParser?.RegexPattern != null)
                                     {
-                                        if (_Match.Groups.Count < 1)
+                                        // Parse price
+                                        Regex _PriceRegex = new Regex(_ManualScraperItemParser.ValueParser?.RegexPattern, RegexOptions.CultureInvariant);
+                                        Match _Match = _PriceRegex.Match(_RawPrice);
+
+                                        if (!_Match.Success)
                                             return;
 
-                                        _Price = _Match.Groups[0].Value;
+                                        if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Value)
+                                            _Price = _Match.Value;
+                                        else if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Group0Value)
+                                        {
+                                            if (_Match.Groups.Count < 1)
+                                                return;
+
+                                            _Price = _Match.Groups[0].Value;
+                                        } else if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Group1Value)
+                                        {
+                                            if (_Match.Groups.Count < 2)
+                                                return;
+
+                                            _Price = _Match.Groups[1].Value;
+                                        }
                                     }
+
+                                    // If price doesn't contains decimal separator, add it
+                                    if (!_Price.Contains('.') && !_Price.Contains(',') && _Price.Length > 2)
+                                        _Price = _Price.Insert(_Price.Length - 2, ".");
+
+                                    if (double.TryParse(_Price, out double _PriceAsDouble))
+                                        this.Information.Price = _PriceAsDouble;
                                 }
 
-                                if (double.TryParse(_Price, out double _PriceAsDouble))
-                                    this.Information.Price = _PriceAsDouble;
-                            }
+                                break;
+                            case ManualScraperSequenceItemByInput _ManualScraperSequenceItemByInput:
+                                InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(_ManualScraperSequenceItemByInput.InputType, _ManualScraperSequenceItemByInput.InputParam);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException(nameof(_ManualScraperSequenceItem));
+                        }
 
-                            break;
-                        case ManualScraperSequenceItemByInput _ManualScraperSequenceItemByInput:
-                            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(_ManualScraperSequenceItemByInput.InputType, _ManualScraperSequenceItemByInput.InputParam);
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(_ManualScraperSequenceItem));
+                        if (_ManualScraperSequenceItem.WaitMsOnEnd > 0)
+                            WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItem.WaitMsOnEnd);
                     }
-
-                    if (_ManualScraperSequenceItem.WaitMsOnEnd > 0)
-                        WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItem.WaitMsOnEnd);
                 }
+            } catch (Exception _Ex)
+            {
+                LoggingManager.LogToFile($"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
+                throw;
             }
         }
 
@@ -158,5 +179,10 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         //                            Properties
         // ********************************************************************
         public ProductFetchedInformation Information { get; set; } = new();
+
+        /// <summary>
+        /// If a step failed, for example, a manual step and we had to fallback to the DOM parser (or other fallback), this will be true
+        /// </summary>
+        public bool OneOrMoreStepFailedAndRequiredAFallback { get; set; } = false;
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Radiant.Common.Tasks.Triggers
 {
@@ -55,8 +57,12 @@ namespace Radiant.Common.Tasks.Triggers
         /// <summary>
         /// A working task is a task that is currently evaluating or triggering
         /// </summary>
+        [XmlIgnore]
+        [JsonIgnore]
         public bool IsWorking { get; set; }
 
+        [XmlIgnore]
+        [JsonIgnore]
         public DateTime LastDateTimeTriggered { get; set; }
         public List<ITrigger> Triggers { get; set; }
     }

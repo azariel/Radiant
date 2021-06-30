@@ -29,6 +29,9 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
             Assert.NotNull(_ProductScraper.Information.Title);
             Assert.NotEmpty(_ProductScraper.Information.Title);
 
+            // If we needed a fallback, it means that a primary method isn't working
+            Assert.False(_ProductScraper.OneOrMoreStepFailedAndRequiredAFallback);
+
             return _ProductScraper.Information;
         }
 

@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.Custom.ProductsHistory.Scraper;
-using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers.Manual;
-using RadiantInputsManager;
-using RadiantInputsManager.InputsParam;
 
 namespace Radiant.Custom.ProductsHistory.Configuration
 {

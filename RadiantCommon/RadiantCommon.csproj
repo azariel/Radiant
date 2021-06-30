@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,7 +6,7 @@
     <Authors>Azariel</Authors>
     <Product>Radiant</Product>
     <RootNamespace>Radiant.Common</RootNamespace>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
 
@@ -23,6 +23,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="5.0.7" />

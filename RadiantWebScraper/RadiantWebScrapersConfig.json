@@ -1,0 +1,10 @@
+{
+    "$type": "Radiant.WebScraper.Configuration.WebScrapersConfiguration, RadiantWebScraper",
+    "SupportedBrowsers": [
+        {
+            "$type": "Radiant.WebScraper.Configuration.SupportedBrowserConfiguration, RadiantWebScraper",
+            "ExecutablePath": "C:\\Users\\cuser\\AppData\\Local\\Mozilla Firefox\\firefox.exe",
+            "SupportedBrowser": 0
+        }
+    ]
+}

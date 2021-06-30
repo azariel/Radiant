@@ -12,6 +12,7 @@ namespace Radiant.WebScraper.Parsers.DOM
         public enum DOMParserItemResultTarget
         {
             Value,
+            Group0Value,
             Group1Value
         }
 

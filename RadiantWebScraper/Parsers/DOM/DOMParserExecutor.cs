@@ -29,6 +29,16 @@ namespace Radiant.WebScraper.Parsers.DOM
                 case DOMParserItem.DOMParserItemResultTarget.Value:
                     _Value = _Match.Value;
                     break;
+                case DOMParserItem.DOMParserItemResultTarget.Group0Value:
+
+                    if (_Match.Groups.Count < 1)
+                    {
+                        LoggingManager.LogToFile($"Couldn't match content. Was expecting at least 1 group, but only [{_Match.Groups.Count}] found. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
+                        return null;
+                    }
+
+                    _Value = _Match.Groups[0].Value;
+                    break;
                 case DOMParserItem.DOMParserItemResultTarget.Group1Value:
 
                     if (_Match.Groups.Count < 2)

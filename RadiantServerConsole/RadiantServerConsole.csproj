@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,10 +6,19 @@
     <RootNamespace>Radiant.ServerConsole</RootNamespace>
     <Authors>Azariel</Authors>
     <Version>1.0.0.0</Version>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Custom\ProductsHistory\ProductsHistory.csproj" />
     <ProjectReference Include="..\RadiantWebScraper\RadiantWebScraper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="RadiantConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

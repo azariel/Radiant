@@ -13,9 +13,5 @@ namespace Radiant.Common.Database.Sqlite
         // ********************************************************************
         [Required]
         public DateTime InsertDateTime { get; set; }
-
-        [Required]
-        [Key]
-        public long Id { get; set; }
     }
 }

@@ -5,23 +5,15 @@ namespace Radiant.Common.Tasks.Triggers
     public class ScheduleTrigger : RadiantTrigger, ITrigger
     {
         // ********************************************************************
-        //                            Constructors
-        // ********************************************************************
-        public ScheduleTrigger()
-        {
-            //if (this.ResetTriggeredTimesOnStart)
-            //    AcknowledgeHasTriggered();
-        }
-
-        // ********************************************************************
         //                            Private
         // ********************************************************************
-        private DateTime fNextDateTimeToTrigger = DateTime.Now;
+        private DateTime fNextDateTimeToTrigger;
+        private long fTriggerEveryXSeconds;
 
         private void AcknowledgeHasTriggered()
         {
             DateTime _Now = DateTime.Now;
-            fNextDateTimeToTrigger = _Now.AddSeconds(this.TriggerEverySeconds);
+            fNextDateTimeToTrigger = _Now.AddSeconds(this.TriggerEveryXSeconds);
         }
 
         // ********************************************************************
@@ -43,8 +35,19 @@ namespace Radiant.Common.Tasks.Triggers
         /// <summary>
         /// Discard triggered times when program start.
         /// </summary>
+
         //public bool ResetTriggeredTimesOnStart { get; set; }
 
-        public long TriggerEverySeconds { get; set; }
+        public long TriggerEveryXSeconds
+        {
+            get => fTriggerEveryXSeconds;
+            set
+            {
+                fTriggerEveryXSeconds = value;
+
+                // Change NextDateTimeToTrigger
+                AcknowledgeHasTriggered();
+            }
+        }
     }
 }

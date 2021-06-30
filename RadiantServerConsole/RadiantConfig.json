@@ -1,0 +1,20 @@
+{
+    "$type": "Radiant.Common.Configuration.RadiantConfig, RadiantCommon",
+    "Tasks": {
+        "$type": "Radiant.Common.Configuration.RadiantTasksConfig, RadiantCommon",
+        "Tasks": [
+            {
+                "$type": "Radiant.Custom.ProductsHistory.Tasks.ProductsMonitorTask, ProductsHistory",
+                "IsEnabled": true,
+                "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
+                "Triggers": [
+                    {
+                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, RadiantCommon",
+                        "TriggerEveryXSeconds": 10,
+                        "UID": "17f3f3f8-a675-493e-b12b-60af75a4594e"
+                    }
+                ]
+            }
+        ]
+    }
+}
