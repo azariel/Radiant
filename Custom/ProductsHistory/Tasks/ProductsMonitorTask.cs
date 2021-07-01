@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
@@ -125,6 +126,9 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                 // Load specific product histories
                 _DataBaseContext.Entry(_Product).Collection(c => c.ProductHistoryCollection).Load();
                 EvaluateProduct(_Product);
+
+                // Mandatory wait between each products (bot tagging)
+                Thread.Sleep(5000);
             }
 
             _DataBaseContext.SaveChanges();

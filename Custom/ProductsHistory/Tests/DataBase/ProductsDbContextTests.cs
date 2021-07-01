@@ -115,7 +115,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
                 InsertDateTime = DateTime.Now,
                 FetchProductHistoryEnabled = true,
                 FetchProductHistoryEveryX = new TimeSpan(0, 10, 0),
-                FetchProductHistoryTimeSpanNoiseInPerc = 2.5f
+                FetchProductHistoryTimeSpanNoiseInPerc = 2.5f,
+                Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT"
             };
 
             _DataBaseContext.Products.Add(_Product2);

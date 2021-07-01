@@ -157,7 +157,7 @@
                     "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
                     "Operation": "Set",
                     "Value": "",
-                    "WaitMsOnEnd": 625
+                    "WaitMsOnEnd": 325
                 },
                 {
                     "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -259,7 +259,7 @@
                     "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
                     "Operation": "Set",
                     "Value": "",
-                    "WaitMsOnEnd": 595
+                    "WaitMsOnEnd": 395
                 },
                 {
                     "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -361,7 +361,7 @@
                     "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
                     "Operation": "Set",
                     "Value": "",
-                    "WaitMsOnEnd": 565
+                    "WaitMsOnEnd": 365
                 },
                 {
                     "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
