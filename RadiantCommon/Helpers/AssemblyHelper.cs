@@ -1,0 +1,40 @@
+﻿using System;
+using System.IO;
+using System.Reflection;
+using Radiant.Common.Diagnostics;
+
+namespace Radiant.Common.Helpers
+{
+    public static class AssemblyHelper
+    {
+        // ********************************************************************
+        //                            Public
+        // ********************************************************************
+        public static void LoadAssemblyFilesToMemory(string[] aAssemblyFilesPath)
+        {
+            if (aAssemblyFilesPath == null)
+                return;
+
+            foreach (string _FilePath in aAssemblyFilesPath)
+            {
+                if (!File.Exists(_FilePath))
+                    throw new Exception($"B729FD97-6217-4D40-AC70-E73C4BE18235 - Dependent custom library file [{_FilePath}] doesn't exists. Aborting.");
+            }
+
+            foreach (string _FilePath in aAssemblyFilesPath)
+            {
+                try
+                {
+                    // By using fileinfo, we allow relative path as well
+                    FileInfo _FileInfo = new FileInfo(_FilePath);
+                    Assembly.LoadFile(_FileInfo.FullName);
+
+                } catch (Exception _Exception)
+                {
+                    LoggingManager.LogToFile("38728BD0-BEB7-4082-8DA9-4097A5E7E810", $"Dependent custom library file [{_FilePath}] doesn't exists. Aborting.", _Exception);
+                    throw new Exception($"2F8BBF34-1269-4689-AFE0-FF0802D44A0A - Dll [{_FilePath}] could not be loaded.");
+                }
+            }
+        }
+    }
+}

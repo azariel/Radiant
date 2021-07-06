@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Radiant.Custom.ProductsHistory</RootNamespace>
+    <Version>1.0.0.0</Version>
+    <Authors>Azariel</Authors>
+    <Product>Radiant - ProductsHistory</Product>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+    <PackageReference Include="xunit.assert" Version="2.4.1" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\RadiantCommon\RadiantCommon.csproj" />
+    <ProjectReference Include="..\..\RadiantNotifier\RadiantNotifier.csproj" />
+    <ProjectReference Include="..\..\RadiantWebScraper\RadiantWebScraper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\UnitTestsResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UnitTestsResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\UnitTestsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UnitTestsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="RadiantProductsHistoryConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\ProductsHistory.dll&quot;" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="copy /Y &quot;C:\Dev\RadiantCore\RadiantWebScraper\bin\Debug\RadiantWebScrapersConfig.json&quot; &quot;C:\Dev\RadiantCore\Custom\ProductsHistory\bin\Debug\RadiantWebScrapersConfig.json&quot;" />
+  </Target>
+
+</Project>

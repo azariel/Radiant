@@ -1,0 +1,17 @@
+{
+    "$type": "Radiant.WebScraper.Configuration.WebScrapersConfiguration, RadiantWebScraper",
+    "SupportedBrowsers": [
+        {
+            "$type": "Radiant.WebScraper.Configuration.SupportedBrowserConfiguration, RadiantWebScraper",
+            "LinuxCommand": "chromium-browser",
+            "ExecutablePath": "C:\\Users\\cuser\\AppData\\Local\\Mozilla Firefox\\firefox.exe",
+            "SupportedBrowser": 0
+        },
+        {
+            "$type": "Radiant.WebScraper.Configuration.SupportedBrowserConfiguration, RadiantWebScraper",
+            "LinuxCommand": "chromium-browser",
+            "ExecutablePath": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+            "SupportedBrowser": 0
+        }
+    ]
+}
