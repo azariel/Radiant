@@ -154,7 +154,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 }
             } catch (Exception _Ex)
             {
-                LoggingManager.LogToFile($"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
+                LoggingManager.LogToFile("2AE999BA-5D76-4CF0-AC97-EB51D3EF2CC2", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
             }
         }

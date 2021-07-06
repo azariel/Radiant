@@ -66,7 +66,7 @@ namespace RadiantInputsManager.Linux.xdotool
 
                 if (!string.IsNullOrWhiteSpace(_ErrorOutput))
                 {
-                    LoggingManager.LogToFile($"Couldn't read mouse location. See error: [{_ErrorOutput}].");
+                    LoggingManager.LogToFile("968A5B47-A869-4230-95C1-2E393738CA5B", $"Couldn't read mouse location. See error: [{_ErrorOutput}].");
                     throw new Exception($"Couldn't read mouse location. See error: [{_ErrorOutput}].");
                 }
 
@@ -75,7 +75,7 @@ namespace RadiantInputsManager.Linux.xdotool
 
                 if (_Lines.Length < 2)
                 {
-                    LoggingManager.LogToFile($"Couldn't read mouse location. Nb Lines: [{_Lines.Length}].");
+                    LoggingManager.LogToFile("23A97477-6D0B-4F51-B5E3-8D260B991702", $"Couldn't read mouse location. Nb Lines: [{_Lines.Length}].");
                     throw new Exception($"Couldn't read mouse location. Nb Lines: [{_Lines.Length}].");
                 }
 
@@ -84,7 +84,7 @@ namespace RadiantInputsManager.Linux.xdotool
 
                 if (!int.TryParse(_StrX, out int _X) || !int.TryParse(_StrY, out int _Y))
                 {
-                    LoggingManager.LogToFile($"Couldn't read mouse location. X=[{_StrX}], Y=[{_StrY}]");
+                    LoggingManager.LogToFile("332AF934-1405-4318-8B62-F46E099BD353", $"Couldn't read mouse location. X=[{_StrX}], Y=[{_StrY}]");
                     throw new Exception($"Couldn't read mouse location. X=[{_StrX}], Y=[{_StrY}]");
                 }
 
@@ -151,10 +151,10 @@ namespace RadiantInputsManager.Linux.xdotool
             if (aInputParam.Delay != null)
                 _XdoToolArgs += $" --delay {aInputParam.Delay.Value}";
 
-            _XdoToolArgs += $" {aInputParam.KeyStrokeCodes[0]}";
+            _XdoToolArgs += $" {(byte)aInputParam.KeyStrokeCodes[0]}";
 
             foreach (Keycode _KeyStroke in aInputParam.KeyStrokeCodes.Skip(1))
-                _XdoToolArgs += $"+{_KeyStroke}";
+                _XdoToolArgs += $"+{(byte)_KeyStroke}";
 
             return _XdoToolArgs;
         }

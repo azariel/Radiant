@@ -30,7 +30,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
                 Delay = 120,
                 KeyStrokeCodes = new[]
                 {
-                    Keycode.CtrlL,
+                    Keycode.XK_Control_L,
                     Keycode.XK_u
                 }
             });
@@ -47,11 +47,11 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
             {
                 // Get DOM
                 ShowDOMInNewTab();
-                WaitForBrowserInputsReadyOrMax(3124);
+                WaitForBrowserInputsReadyOrMax(5124);
 
                 // Clear clipboard
                 ClipboardManager.SetClipboardValue("");
-                WaitForBrowserInputsReadyOrMax(151);
+                WaitForBrowserInputsReadyOrMax(351);
 
                 // Put in clipboard
                 ManualScraperSequenceHelper.CopyAllToClipboard();
@@ -67,7 +67,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
 
                 // Close the tab we created for the DOM
                 ManualScraperSequenceHelper.CloseCurrentTab();
-                WaitForBrowserInputsReadyOrMax(503);
+                WaitForBrowserInputsReadyOrMax(1303);
             }
         }
 

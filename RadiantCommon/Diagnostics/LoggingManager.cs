@@ -9,7 +9,7 @@ namespace Radiant.Common.Diagnostics
         // ********************************************************************
         //                            Constants
         // ********************************************************************
-        public const string DEFAULT_LOG_FILE_RELATIVE_PATH = "C:/temp/radiant.default.log";
+        public const string DEFAULT_LOG_FILE_RELATIVE_PATH = "radiant.log";
 
         // ********************************************************************
         //                            Public
@@ -17,7 +17,7 @@ namespace Radiant.Common.Diagnostics
         /// <summary>
         /// Format message and then log it to specified or default file
         /// </summary>
-        public static void LogToFile(string aLogContent, Exception aException = null, string aLogFilePath = DEFAULT_LOG_FILE_RELATIVE_PATH)
+        public static void LogToFile(string aLogUID, string aLogContent, Exception aException = null, string aLogFilePath = DEFAULT_LOG_FILE_RELATIVE_PATH)
         {
             string _Message = $"Message=[{aLogContent}]{Environment.NewLine}";
 
@@ -25,13 +25,9 @@ namespace Radiant.Common.Diagnostics
                 _Message += $"Exception=[{Environment.NewLine}{ExceptionHelper.BuildExceptionAndInnerExceptionsMessage(aException)}]{Environment.NewLine}";
 
             // Format message to add useful information
-            _Message = $"{DateTime.Now:yyyy-MM-dd HH.mm.ss.fff} - {_Message}";
+            _Message = $"{DateTime.Now:yyyy-MM-dd HH.mm.ss.fff} - [{aLogUID}] {_Message}";
 
-            // IO operations
-            if (!Directory.Exists(Path.GetDirectoryName(aLogFilePath)))
-                Directory.CreateDirectory(aLogFilePath);
-
-            File.WriteAllText(aLogFilePath, _Message);
+            File.AppendAllText(aLogFilePath, _Message);
         }
     }
 }

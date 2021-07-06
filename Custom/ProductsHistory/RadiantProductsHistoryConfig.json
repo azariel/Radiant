@@ -98,7 +98,7 @@
                         "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
                         "Delay": 89,
                         "KeyStrokeCodes": [
-                            "CtrlL",
+                            "XK_Control_L",
                             "XK_f"
                         ]
                     },
@@ -165,7 +165,7 @@
                         "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
                         "Delay": 273,
                         "KeyStrokeCodes": [
-                            "CtrlL",
+                            "XK_Control_L",
                             "XK_c"
                         ]
                     },
@@ -200,7 +200,7 @@
                         "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
                         "Delay": 111,
                         "KeyStrokeCodes": [
-                            "CtrlL",
+                            "XK_Control_L",
                             "XK_f"
                         ]
                     },
@@ -267,7 +267,7 @@
                         "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
                         "Delay": 309,
                         "KeyStrokeCodes": [
-                            "CtrlL",
+                            "XK_Control_L",
                             "XK_c"
                         ]
                     },
@@ -302,7 +302,7 @@
                         "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
                         "Delay": 107,
                         "KeyStrokeCodes": [
-                            "CtrlL",
+                            "XK_Control_L",
                             "XK_f"
                         ]
                     },
@@ -369,7 +369,7 @@
                         "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
                         "Delay": 289,
                         "KeyStrokeCodes": [
-                            "CtrlL",
+                            "XK_Control_L",
                             "XK_c"
                         ]
                     },

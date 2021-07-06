@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using Radiant.Common.Diagnostics;
+using Radiant.Common.OSDependent;
 using Radiant.WebScraper.Business.Objects.ScraperTargetValue;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Configuration;
@@ -23,7 +25,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         //                            Constants
         // ********************************************************************
-        private const int NB_MS_WAIT_FOR_INPUT_HANG = 120000;
+        private const int NB_MS_WAIT_FOR_INPUT_HANG = 60000;
 
         // ********************************************************************
         //                            Private
@@ -37,7 +39,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Delay = 290,
                 KeyStrokeCodes = new[]
                 {
-                    Keycode.CtrlL,
+                    Keycode.XK_Control_L,
                     Keycode.XK_w
                 }
             });
@@ -59,7 +61,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 _Process.Kill();
         }
 
-        private bool StartBrowser(SupportedBrowser aSupportedBrowser, string aDefaultUrl)
+        private bool StartBrowser(SupportedBrowser aSupportedBrowser, string aDefaultUrl, bool aUseDefaultBrowserAsFallback)
         {
             var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
 
@@ -67,23 +69,45 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
             if (_SupportedBrowserConfiguration == null)
             {
-                LoggingManager.LogToFile($"Browser [{aSupportedBrowser}] has no configuration. Aborting start of browser.");
-                return false;
+                LoggingManager.LogToFile("B8C37FE6-707E-4BCA-8644-EDAB3A589DF7", $"Browser [{aSupportedBrowser}] has no valid configuration.");
+
+                if (!aUseDefaultBrowserAsFallback)
+                    return false;
+
+                fBrowserProcessName = null;
+
+            } else
+                fBrowserProcessName = _SupportedBrowserConfiguration.ExecutablePath;
+
+            if (_SupportedBrowserConfiguration != null)
+            {
+                SupportedOperatingSystem _CurrentOS = OperatingSystemHelper.GetCurrentOperatingSystem();
+
+                switch (_CurrentOS)
+                {
+                    case SupportedOperatingSystem.Linux:
+                        fBrowserProcessName = _SupportedBrowserConfiguration.LinuxCommand;
+                        break;
+                    case SupportedOperatingSystem.Windows:
+                        fBrowserProcessName = _SupportedBrowserConfiguration.ExecutablePath;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
-            fBrowserProcessName = _SupportedBrowserConfiguration.ExecutablePath;
-            var _Process = new Process
+            var _StartInfo = new ProcessStartInfo
             {
-                StartInfo =
-                {
-                    Arguments = $"{aDefaultUrl}",
-                    FileName = fBrowserProcessName,
-                    CreateNoWindow = true,
-                    UseShellExecute = true,
-                    WindowStyle = ProcessWindowStyle.Maximized// not really working for browser ?...meh
-                }
+                Arguments = $"{aDefaultUrl}",
+                CreateNoWindow = true,
+                UseShellExecute = true,
+                WindowStyle = ProcessWindowStyle.Maximized // not really working for browser ?...meh
             };
 
+            if (!string.IsNullOrWhiteSpace(fBrowserProcessName))
+                _StartInfo.FileName = fBrowserProcessName;
+
+            var _Process = new Process { StartInfo = _StartInfo };
             _Process.Start();
 
             return true;
@@ -95,25 +119,22 @@ namespace Radiant.WebScraper.Scrapers.Manual
         public void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aParserItems)
         {
             Thread.Sleep(100);
-
-            List<IScraperTargetValue> _TargetValue = null;
+            //List<IScraperTargetValue> _TargetValue = null;
 
             // First thing is to get to the webpage
             // For the duration of the function, we're taking exclusivity of inputs to avoid conflicts
             InputsManager.ExecuteInputsWithExclusivity(() =>
             {
-                if (!StartBrowser(aSupportedBrowser, aUrl))
+                if (!StartBrowser(aSupportedBrowser, aUrl, false))
                 {
-                    LoggingManager.LogToFile($"Couldn't start browser [{aSupportedBrowser}]. Aborting {nameof(GetTargetValueFromUrl)} from URL [{aUrl}].");
+                    LoggingManager.LogToFile("311264B0-5EEC-41CA-9F67-1B085ECFB366", $"Couldn't start browser [{aSupportedBrowser}]. Aborting {nameof(GetTargetValueFromUrl)} from URL [{aUrl}].");
                     return;
                 }
-
                 if (!BrowserHelper.WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG))
                 {
-                    LoggingManager.LogToFile($"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
+                    LoggingManager.LogToFile("3A4B102B-E437-4C1B-90AA-EC1FCF3669B4", $"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
                     return;
                 }
-
                 // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
                 Thread.Sleep(5000);
 
@@ -131,7 +152,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
                 // Close the tab we created on the first step
                 CloseCurrentTab();
-                Thread.Sleep(250);
+                Thread.Sleep(500);
 
                 // Note: actually, we already closed our tab.. so.. no, don't kill the browser..
             });

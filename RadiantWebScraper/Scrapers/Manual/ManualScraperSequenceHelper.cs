@@ -19,7 +19,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Delay = 290,
                 KeyStrokeCodes = new[]
                 {
-                    Keycode.CtrlL,
+                    Keycode.XK_Control_L,
                     Keycode.XK_w
                 }
             });
@@ -36,7 +36,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Delay = 160,
                 KeyStrokeCodes = new[]
                 {
-                    Keycode.CtrlL,
+                    Keycode.XK_Control_L,
                     Keycode.XK_a
                 }
             });
@@ -48,7 +48,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Delay = 260,
                 KeyStrokeCodes = new[]
                 {
-                    Keycode.CtrlL,
+                    Keycode.XK_Control_L,
                     Keycode.XK_c
                 }
             });
@@ -67,7 +67,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Delay = 89,
                 KeyStrokeCodes = new[]
                 {
-                    Keycode.CtrlL,
+                    Keycode.XK_Control_L,
                     Keycode.XK_f
                 }
             });
