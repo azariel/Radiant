@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Threading;
+using Radiant.Common.Diagnostics;
 using Radiant.Common.Helpers;
 using Radiant.WebScraper.Helpers;
 using Radiant.WebScraper.Parsers.DOM;
@@ -66,14 +69,26 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         private readonly TargetScraperCoreOptions? fOptions;
 
-        private void TakeScreenshot()
+        private void TryTakeScreenshot(string aOutPutPath)
         {
-            using var _Bitmap = new Bitmap(1920, 1080, PixelFormat.Format32bppArgb);
-            using Graphics _Graphics = Graphics.FromImage(_Bitmap);
+            try
+            {
+                using var _Bitmap = new Bitmap(1920, 1080, PixelFormat.Format32bppArgb);
+                using Graphics _Graphics = Graphics.FromImage(_Bitmap);
 
-            _Graphics.CopyFromScreen(0, 0, 0, 0, _Bitmap.Size, CopyPixelOperation.SourceCopy);
-            _Bitmap.Save("C:\\temp\\a.png");
-            this.Screenshot = ImageHelper.ImageToByte2(_Bitmap);
+                _Graphics.CopyFromScreen(0, 0, 0, 0, _Bitmap.Size, CopyPixelOperation.SourceCopy);
+
+                string _ImagePath = $"{DateTime.Now:yyyy-MM-dd HH.mm.ss.fff}.png";
+
+                if (!Directory.Exists(aOutPutPath))
+                    Directory.CreateDirectory(aOutPutPath);
+
+                _Bitmap.Save(Path.Combine(aOutPutPath, _ImagePath));//"C:\\temp\\a.png"));
+                this.Screenshot = ImageHelper.ImageToByte2(_Bitmap);
+            } catch (Exception _Exception)
+            {
+                LoggingManager.LogToFile("1D33CEE8-20F0-4627-9EFE-B2FCFC4E71CE", "Couldn't take screenshot. Operation will be ignored.", _Exception);
+            }
         }
 
         // ********************************************************************
@@ -90,7 +105,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
 
             if (fOptions.Value.HasFlag(TargetScraperCoreOptions.Screenshot))
             {
-                TakeScreenshot();
+                TryTakeScreenshot("Screenshots");
                 Thread.Sleep(500);
             }
         }

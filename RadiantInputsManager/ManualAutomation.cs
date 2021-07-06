@@ -12,7 +12,7 @@ namespace RadiantInputsManager
         // ********************************************************************
         //                            Nested Types
         // ********************************************************************
-        
+
         public enum ManualAutomationOperationType
         {
             KeyboardExecute,
@@ -29,11 +29,11 @@ namespace RadiantInputsManager
             IInputExecutionResult _Result = InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, new MouseReadInputParam());
 
             if (!_Result.Success)
-                LoggingManager.LogToFile("Couldn't get mouse location.");
+                LoggingManager.LogToFile("4DFD6C1E-5AA0-4037-9A98-FAB3646AC541", "Couldn't get mouse location.");
 
             if (_Result is not IInputMouseReadExecutionResult _MouseReadExecutionResult)
             {
-                LoggingManager.LogToFile($"Mouse Read execution result wasn't of type {nameof(IInputMouseReadExecutionResult)}.");
+                LoggingManager.LogToFile("73B77EFF-D01A-4242-B963-D4E8149E788B", $"Mouse Read execution result wasn't of type {nameof(IInputMouseReadExecutionResult)}.");
                 throw new Exception($"Mouse Read execution result wasn't of type {nameof(IInputMouseReadExecutionResult)}.");
             }
 
@@ -49,7 +49,7 @@ namespace RadiantInputsManager
             });
 
             if (!_Result.Success)
-                LoggingManager.LogToFile($"Failed to execute keyboard keycodes [{aKeycodes}].");
+                LoggingManager.LogToFile("BEFC53F9-D50E-4FCD-824E-A8ED798740CF", $"Failed to execute keyboard keycodes [{aKeycodes}].");
         }
 
         public static void KeyboardType(string aTextToType, int aMinimumDelayBetweenKeyStrokes, int aMaximumDelayBetweenKeyStrokes)
@@ -64,7 +64,7 @@ namespace RadiantInputsManager
             });
 
             if (!_Result.Success)
-                LoggingManager.LogToFile($"Failed to execute keyboard type [{aTextToType}].");
+                LoggingManager.LogToFile("E6012DDA-BD0C-4AC2-BC13-2F1B8EAE6E9B", $"Failed to execute keyboard type [{aTextToType}].");
         }
 
         public static void MouseClick(Point aPoint, MouseOptions.MouseButtons aButton)
@@ -81,7 +81,7 @@ namespace RadiantInputsManager
             });
 
             if (!_Result.Success)
-                LoggingManager.LogToFile("Couldn't get mouse location.");
+                LoggingManager.LogToFile("278D42D9-03B6-43ED-B7CD-7FB595AC8E47", "Couldn't get mouse location.");
         }
 
         public static void MoveCursorToLocation(Point aPoint)
@@ -93,7 +93,7 @@ namespace RadiantInputsManager
             });
 
             if (!_Result.Success)
-                LoggingManager.LogToFile("Couldn't get mouse location.");
+                LoggingManager.LogToFile("4E48F6EA-3450-45E7-A75F-2BF73974E9A3","Couldn't get mouse location.");
         }
     }
 }

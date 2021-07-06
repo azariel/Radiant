@@ -19,7 +19,7 @@ namespace Radiant.WebScraper.Parsers.DOM
             Match _Match = _Regex.Match(aDOM);
             if (!_Match.Success)
             {
-                LoggingManager.LogToFile($"Couldn't match content. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
+                LoggingManager.LogToFile("95276771-4C9B-47FD-A2ED-1F3F2E707F9D", $"Couldn't match content. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
                 return null;
             }
 
@@ -33,7 +33,7 @@ namespace Radiant.WebScraper.Parsers.DOM
 
                     if (_Match.Groups.Count < 1)
                     {
-                        LoggingManager.LogToFile($"Couldn't match content. Was expecting at least 1 group, but only [{_Match.Groups.Count}] found. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
+                        LoggingManager.LogToFile("3107FB22-8575-496C-9DB5-313E0E583CB5", $"Couldn't match content. Was expecting at least 1 group, but only [{_Match.Groups.Count}] found. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
                         return null;
                     }
 
@@ -43,7 +43,7 @@ namespace Radiant.WebScraper.Parsers.DOM
 
                     if (_Match.Groups.Count < 2)
                     {
-                        LoggingManager.LogToFile($"Couldn't match content. Was expecting at least 2 groups, but only [{_Match.Groups.Count}] found. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
+                        LoggingManager.LogToFile("50C3D9BA-EE2A-4861-A7DB-BE724C4D99A4", $"Couldn't match content. Was expecting at least 2 groups, but only [{_Match.Groups.Count}] found. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
                         return null;
                     }
 

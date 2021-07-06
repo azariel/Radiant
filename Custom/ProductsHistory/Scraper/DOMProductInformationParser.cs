@@ -24,7 +24,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     return _Price;
             }
 
-            LoggingManager.LogToFile($"Couldn't find price in DOM using [{aDOMParserItems.Count}] DOM parsers for Url [{aUrl}].");
+            LoggingManager.LogToFile("A22DF9B4-66B7-4157-BFEA-D9F77F35CC14", $"Couldn't find price in DOM using [{aDOMParserItems.Count}] DOM parsers for Url [{aUrl}].");
             return null;
         }
 
@@ -41,7 +41,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     return _Value;
             }
 
-            LoggingManager.LogToFile($"Couldn't find title in DOM using [{aDOMParserItems.Count}] DOM parsers for Url [{aUrl}].");
+            LoggingManager.LogToFile("84FF8277-1D1F-4EEE-808D-4922A99C35CA", $"Couldn't find title in DOM using [{aDOMParserItems.Count}] DOM parsers for Url [{aUrl}].");
             return null;
         }
     }

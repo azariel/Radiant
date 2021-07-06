@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using RadiantInputsManager.Linux.xdotool;
@@ -69,12 +70,19 @@ namespace RadiantInputsManager.Windows
 
         public static void ExecuteKeyboardKey(Keycode aKeyCode, KeyStrokeAction aKeyStrokeAction)
         {
+            Keycode[] _ExtendedKeycodes =
+            {
+                Keycode.XK_Control_L,
+                Keycode.XK_Shift_L
+            };
+
             byte _KeyCode = aKeyCode switch
             {
                 Keycode.KP_Enter => (byte)WindowsVirtualKeys.Return,
                 Keycode.XK_F11 => (byte)WindowsVirtualKeys.F11,
-                Keycode.CtrlL => (byte)WindowsVirtualKeys.LeftControl,
+                Keycode.XK_Control_L => (byte)WindowsVirtualKeys.LeftControl,
                 Keycode.XK_Shift_L => (byte)WindowsVirtualKeys.LeftShift,
+                Keycode.XK_Left => (byte)WindowsVirtualKeys.Left,
                 Keycode.XK_Right => (byte)WindowsVirtualKeys.Right,
                 Keycode.XK_Escape => (byte)WindowsVirtualKeys.Escape,
                 Keycode.XK_u => (byte)WindowsVirtualKeys.U,
@@ -87,7 +95,14 @@ namespace RadiantInputsManager.Windows
             };
 
             // Note that KEYEVENTF_EXTENDEDKEY flag is required for Numpad, LSHIFT, etc
-            uint _FlagByAction = aKeyStrokeAction == KeyStrokeAction.Press ? KEYEVENTF_EXTENDEDKEY : KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP;
+
+            uint _FlagByAction;
+
+            if (_ExtendedKeycodes.Any(a => a == aKeyCode))
+                _FlagByAction = aKeyStrokeAction == KeyStrokeAction.Press ? KEYEVENTF_EXTENDEDKEY : KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP;
+            else
+                _FlagByAction = aKeyStrokeAction == KeyStrokeAction.Press ? 0 : KEYEVENTF_KEYUP;
+
             keybd_event(_KeyCode, 0, _FlagByAction, (UIntPtr)0);
         }
 

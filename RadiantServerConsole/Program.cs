@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Radiant.Common.Configuration;
+using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks;
 using Radiant.Custom.ProductsHistory.Configuration;
 using Radiant.ServerConsole.Configuration;

@@ -50,7 +50,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\RadiantProductsHistoryConfig.json&quot;" />
+    <Exec Command="copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\ProductsHistory.dll&quot;" />
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Radiant.Common.Diagnostics;
+using Radiant.Common.OSDependent;
 
 namespace Radiant.WebScraper.Configuration
 {
@@ -15,17 +18,28 @@ namespace Radiant.WebScraper.Configuration
 
             if (_MatchingConfigs == null || _MatchingConfigs.Length <= 0)
             {
-                LoggingManager.LogToFile($"No configuration found for {nameof(SupportedBrowser)} [{aSupportedBrowser}].");
+                LoggingManager.LogToFile("DAB57A35-D99F-417D-BE85-044B9B144792", $"No configuration found for {nameof(SupportedBrowser)} [{aSupportedBrowser}].");
                 return null;
             }
 
-            if (_MatchingConfigs.Length > 1)
+            SupportedOperatingSystem _CurrentOS = OperatingSystemHelper.GetCurrentOperatingSystem();
+            switch(_CurrentOS)
             {
-                LoggingManager.LogToFile($"Multiple- configurations found for {nameof(SupportedBrowser)} [{aSupportedBrowser}].");
-                return null;
+                case SupportedOperatingSystem.Linux:
+                    return _MatchingConfigs.First();
+                case SupportedOperatingSystem.Windows:
+                    // Return first one that exists on disk
+                    foreach (SupportedBrowserConfiguration _MatchingConfig in _MatchingConfigs)
+                    {
+                        if (File.Exists(_MatchingConfig.ExecutablePath))
+                            return _MatchingConfig;
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            return _MatchingConfigs.Single();
+            return null;
         }
 
         // ********************************************************************
