@@ -1,7 +1,7 @@
 {
-    "$type": "RadiantNotifier.Configuration.RadiantNotificationConfig, Radiant.Notifier",
+    "$type": "Radiant.Notifier.Configuration.RadiantNotificationConfig, Radiant.Notifier",
     "EmailServer": {
-        "$type": "RadiantNotifier.Notifications.Email.Mailkit.EmailServerConfiguration, Radiant.Notifier",
+        "$type": "Radiant.Notifier.Notifications.Email.Mailkit.EmailServerConfiguration, Radiant.Notifier",
         "SmtpPassword": "TODO",
         "SmtpPort": 587,
         "SmtpServer": "smtp.gmail.com",

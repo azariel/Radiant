@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Radiant.Common.Tests;
 using Radiant.Notifier.DataBase;
 using Xunit;
 
@@ -36,7 +37,7 @@ namespace Radiant.Notifier.UnitTests.DataBase
                     Content = "UnitTest AE2F5562-B7A4-48D0-BAF0-813E146B9509",
                     Subject = "Radiant Notifier UnitTest",
                     EmailFrom = "Radiant UnitTesting unit",
-                    EmailTo = { "frost.qc@gmail.com", "frost.qc@gmail.com" },// We want to test the duplicate error handling as well
+                    EmailTo = { RadiantCommonUnitTestsConstants.EMAIL, RadiantCommonUnitTestsConstants.EMAIL },// We want to test the duplicate error handling as well
                     MinimalDateTimetoSend = DateTime.Now
                 };
 

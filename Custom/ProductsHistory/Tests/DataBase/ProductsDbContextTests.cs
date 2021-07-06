@@ -30,7 +30,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             double _Price1 = 89.98;
 
             // Add a new product
-            var _Product1 = new ProductModel
+            var _Product1 = new RadiantProductModel
             {
                 Name = "ProductName-041BEB2A-A362-4139-9134-798B8B8AB770",
                 InsertDateTime = _Now
@@ -51,7 +51,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             string _Title2 = "UnitTestTitle-C2F867C4-9CAA-49F4-90B1-96752BCFCDAE";
             double _Price2 = 13.14;
 
-            var _Product2 = new ProductModel
+            var _Product2 = new RadiantProductModel
             {
                 Name = _Name2,
                 InsertDateTime = _Now,
@@ -60,7 +60,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
                 FetchProductHistoryTimeSpanNoiseInPerc = 0
             };
 
-            _Product2.ProductHistoryCollection.Add(new ProductHistoryModel
+            _Product2.ProductHistoryCollection.Add(new RadiantProductHistoryModel
             {
                 InsertDateTime = _Now,
                 Price = _Price2,
@@ -75,7 +75,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             // Switching to a brand new context to test navigation properties / FK / Lazy loading
             //using var _DataBaseContext2 = new ProductsDbContext();
 
-            ProductModel _Product2FromStorage = _DataBaseContext.Products.Single(s => s.Name == _Name2);
+            RadiantProductModel _Product2FromStorage = _DataBaseContext.Products.Single(s => s.Name == _Name2);
 
             // Load the product history of product 2
             _DataBaseContext.Entry(_Product2FromStorage).Collection(c => c.ProductHistoryCollection).Load();
@@ -99,7 +99,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             string _Title3 = "UnitTestTitle-3B94FD66-CB5B-4A70-97DB-FE527593F507";
             double _Price3 = 8.22;
 
-            var _Product3 = new ProductModel
+            var _Product3 = new RadiantProductModel
             {
                 Name = _Name3,
                 InsertDateTime = _Now,
@@ -114,7 +114,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
 
             using (var _DataBaseContextTemp = new ProductsDbContext())
             {
-                _Product3.ProductHistoryCollection.Add(new ProductHistoryModel
+                _Product3.ProductHistoryCollection.Add(new RadiantProductHistoryModel
                 {
                     InsertDateTime = _Now,
                     Price = _Price3,
@@ -140,17 +140,16 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
         {
             using var _DataBaseContext = new ProductsDbContext();
 
-            var _Product2 = new ProductModel
+            var _Product = new RadiantProductModel
             {
                 Name = "TestProductName",
-                InsertDateTime = DateTime.Now,
                 FetchProductHistoryEnabled = true,
                 FetchProductHistoryEveryX = new TimeSpan(0, 10, 0),
                 FetchProductHistoryTimeSpanNoiseInPerc = 2.5f,
                 Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT"
             };
 
-            _DataBaseContext.Products.Add(_Product2);
+            _DataBaseContext.Products.Add(_Product);
             _DataBaseContext.SaveChanges();
         }
     }

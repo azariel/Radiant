@@ -17,7 +17,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
         {
             using var _DataBaseContext = new ProductsDbContext();
 
-            var _Product2 = new ProductModel
+            var _Product2 = new RadiantProductModel
             {
                 Name = "TestProductName",
                 InsertDateTime = DateTime.Now.AddMinutes(-11),

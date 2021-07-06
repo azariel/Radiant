@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Sqlite;
 
-namespace Radiant.Custom.ProductsHistory.DataBase
+namespace Radiant.Common.Database.Common
 {
-    public class ProductsDbContext : RadiantSqliteDbContext
+    public class RadiantCommonDbContext : RadiantSqliteDbContext
     {
         // ********************************************************************
         //                            Constructors
         // ********************************************************************
-        public ProductsDbContext()
+        public RadiantCommonDbContext()
         {
             this.ChangeTracker.AutoDetectChangesEnabled = true;
 
             // We're having too much performance issue with this... we'll deal with load/include what we need manually..
-           // this.ChangeTracker.LazyLoadingEnabled = true;
+            // this.ChangeTracker.LazyLoadingEnabled = true;
         }
 
         // ********************************************************************
@@ -26,11 +26,12 @@ namespace Radiant.Custom.ProductsHistory.DataBase
             //aOptionsBuilder.UseLazyLoadingProxies();
         }
 
-        protected override string GetDataBaseFileName() => "RadiantProductsHistory.db";
+        protected override string GetDataBaseFileName() => "RadiantCommon.db";
 
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public DbSet<RadiantProductModel> Products { get; set; }
+        public DbSet<RadiantUserModel> Users { get; set; }
     }
 }
+

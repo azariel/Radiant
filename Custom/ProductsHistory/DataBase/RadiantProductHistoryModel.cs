@@ -5,7 +5,7 @@ using Radiant.Common.Database.Sqlite;
 namespace Radiant.Custom.ProductsHistory.DataBase
 {
     [Table("ProductHistory")]
-    public class ProductHistoryModel : RadiantSqliteBaseTable
+    public class RadiantProductHistoryModel : RadiantSqliteBaseTable
     {
         // ********************************************************************
         //                            Properties
@@ -13,7 +13,7 @@ namespace Radiant.Custom.ProductsHistory.DataBase
         [Required]
         public double Price { get; set; }
 
-        public virtual ProductModel Product { get; set; }
+        public virtual RadiantProductModel Product { get; set; }
 
         [Required]
         [Key]
@@ -23,8 +23,6 @@ namespace Radiant.Custom.ProductsHistory.DataBase
         /// FK to Product
         /// </summary>
         [Required]
-
-        //[ForeignKey("Product")]
         public long ProductId { get; set; }
 
         [MaxLength(512)]

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
+using Radiant.Common.Tests;
 using Radiant.Custom.ProductsHistory.Configuration;
 using Radiant.Custom.ProductsHistory.DataBase;
 using Radiant.Custom.ProductsHistory.Scraper;
@@ -17,7 +18,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
 {
     public class ProductsMonitorTask : RadiantTask
     {
-        private ProductHistoryModel CreateProductHistoryFromProductTargetScraper(ProductTargetScraper aProductScraper, ProductModel aProduct, string aProductTitle)
+        private RadiantProductHistoryModel CreateProductHistoryFromProductTargetScraper(ProductTargetScraper aProductScraper, RadiantProductModel aProduct, string aProductTitle)
         {
             if (aProductScraper?.Information?.Price == null)
                 return null;
@@ -30,7 +31,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                 return null;
             }
 
-            return new ProductHistoryModel
+            return new RadiantProductHistoryModel
             {
                 InsertDateTime = DateTime.Now,
                 Price = aProductScraper.Information.Price.Value,
@@ -43,7 +44,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private void EvaluateNotifications(ProductModel aProduct, ProductHistoryModel aNewProductHistory)
+        private void EvaluateNotifications(RadiantProductModel aProduct, RadiantProductHistoryModel aNewProductHistory)
         {
             // Check if the price is low enough to send notifications. Each user may have a watcher on this product with a different price, so we need to check all subscriptions
             // TODO
@@ -55,14 +56,14 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                 Content = $"<p>Product {aProduct.Name} is {aNewProductHistory.Price}$</p> <p>Url: {aProduct.Url}</p>",
                 Subject = $"Deal on {aProduct.Name} {aNewProductHistory.Price}$",
                 EmailFrom = "Radiant Product History",
-                EmailTo = { "frost.qc@gmail.com" },// TODO: by subscription
+                EmailTo = { RadiantCommonUnitTestsConstants.EMAIL },// TODO: by subscription
                 MinimalDateTimetoSend = DateTime.Now
             };
             _DbContext.Notifications.Add(_NewNotification);
             _DbContext.SaveChanges();
         }
 
-        private void EvaluateProduct(ProductModel aProduct)
+        private void EvaluateProduct(RadiantProductModel aProduct)
         {
             if (aProduct == null)
                 return;
@@ -81,7 +82,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                 FetchNewProductHistory(aProduct, _Now);
         }
 
-        private void FetchNewProductHistory(ProductModel aProduct, DateTime aNow)
+        private void FetchNewProductHistory(RadiantProductModel aProduct, DateTime aNow)
         {
             ManualScraper _ManualScraper = new();
             ProductTargetScraper _ProductScraper = new(BaseTargetScraper.TargetScraperCoreOptions.Screenshot);
@@ -90,9 +91,9 @@ namespace Radiant.Custom.ProductsHistory.Tasks
 
             _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, aProduct.Url, _ProductScraper, _ManualScrapers, _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList());
 
-            ProductHistoryModel? _MostRecentProductHistory = aProduct.ProductHistoryCollection.FirstOrDefault(f => f.InsertDateTime == aProduct.ProductHistoryCollection.Min(m => m.InsertDateTime));
+            RadiantProductHistoryModel? _MostRecentProductHistory = aProduct.ProductHistoryCollection.FirstOrDefault(f => f.InsertDateTime == aProduct.ProductHistoryCollection.Min(m => m.InsertDateTime));
 
-            ProductHistoryModel _ProductHistory = CreateProductHistoryFromProductTargetScraper(_ProductScraper, aProduct, _MostRecentProductHistory?.Title);
+            RadiantProductHistoryModel _ProductHistory = CreateProductHistoryFromProductTargetScraper(_ProductScraper, aProduct, _MostRecentProductHistory?.Title);
 
             if (_ProductHistory == null)
             {
@@ -115,7 +116,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             UpdateNextFetchDateTime(aProduct, aNow);
         }
 
-        private void UpdateNextFetchDateTime(ProductModel aProduct, DateTime aNow)
+        private void UpdateNextFetchDateTime(RadiantProductModel aProduct, DateTime aNow)
         {
             if (aProduct == null || !aProduct.FetchProductHistoryEnabled)
                 return;
@@ -138,12 +139,12 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             Thread.Sleep(1000);
             using var _DataBaseContext = new ProductsDbContext();
 
-            ProductModel? _ProductToUpdate = _DataBaseContext.Products.OrderByDescending(o => o.ProductHistoryCollection.Min(m => m.InsertDateTime)).FirstOrDefault();
+            RadiantProductModel? _ProductToUpdate = _DataBaseContext.Products.OrderByDescending(o => o.ProductHistoryCollection.Min(m => m.InsertDateTime)).FirstOrDefault();
 
             if (_ProductToUpdate == null)
                 return;
 
-            foreach (ProductModel _Product in _DataBaseContext.Products.Where(w => w.FetchProductHistoryEnabled).ToArray())
+            foreach (RadiantProductModel _Product in _DataBaseContext.Products.Where(w => w.FetchProductHistoryEnabled).ToArray())
             {
                 // Load specific product histories
                 _DataBaseContext.Entry(_Product).Collection(c => c.ProductHistoryCollection).Load();

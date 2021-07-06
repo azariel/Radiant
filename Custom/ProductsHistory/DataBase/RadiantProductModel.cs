@@ -7,7 +7,7 @@ using Radiant.Common.Database.Sqlite;
 namespace Radiant.Custom.ProductsHistory.DataBase
 {
     [Table("Products")]
-    public class ProductModel : RadiantSqliteBaseTable
+    public class RadiantProductModel : RadiantSqliteBaseTable
     {
         // ********************************************************************
         //                            Properties
@@ -42,7 +42,7 @@ namespace Radiant.Custom.ProductsHistory.DataBase
         /// </summary>
         public DateTime? NextFetchProductHistory { get; set; }
 
-        public virtual List<ProductHistoryModel> ProductHistoryCollection { get; set; } = new();
+        public virtual List<RadiantProductHistoryModel> ProductHistoryCollection { get; set; } = new();
 
         [Required]
         [Key]

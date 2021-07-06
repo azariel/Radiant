@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Radiant.Common.Tests;
 using Radiant.Notifier.Notifications.Email;
 using Radiant.Notifier.Notifications.Email.Mailkit;
 using Xunit;
@@ -21,7 +22,7 @@ namespace Radiant.Notifier.UnitTests.Notifications.Email
                 Subject = "Radiant-UnitTest",
                 EmailFrom = "Radiant-UnitTest-SendNotificationByEmail"
             };
-            _MailRequest.ToAddresses = new List<string> { "frost.qc@gmail.com" };
+            _MailRequest.ToAddresses = new List<string> { RadiantCommonUnitTestsConstants.EMAIL };
 
             _EmailNotification.Send(_MailRequest);
         }
