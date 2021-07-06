@@ -42,7 +42,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
         public void AmazonBasicTest()
         {
             ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.AMAZON_TYPICAL_PRODUCT_URL);
-            Assert.Equal(89.96, _Product.Price);
+            Assert.Equal(89.99, _Product.Price);
             Assert.Equal("PlayStation DualSense Wireless Controller – Midnight Black - Midnight Black Edition: PlayStation: Computer and Video Games - Amazon.ca", _Product.Title);
         }
 

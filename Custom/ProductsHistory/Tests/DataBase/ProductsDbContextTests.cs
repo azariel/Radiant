@@ -45,7 +45,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
 
             Assert.Equal(1, _DataBaseContext.Products.Count());
             Assert.Equal(_Name1, _DataBaseContext.Products.First().Name);
-            Assert.Equal(0, _DataBaseContext.Products.First().ProductHistoryCollection.Count());
+            Assert.Equal(0, _DataBaseContext.Products.First().ProductHistoryCollection.Count);
 
             // Add a second product with history
             string _Name2 = "ProductName-2520BC65-4DE7-45D5-83B6-3243B51064F0";
@@ -71,15 +71,15 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             _DataBaseContext.Products.Add(_Product2);
 
             _DataBaseContext.SaveChanges();
-            _DataBaseContext.Dispose();
+            //_DataBaseContext.Dispose();
 
             // Switching to a brand new context to test navigation properties / FK / Lazy loading
-            using var _DataBaseContext2 = new ProductsDbContext();
+            //using var _DataBaseContext2 = new ProductsDbContext();
 
-            Product _Product2FromStorage = _DataBaseContext2.Products.Single(s => s.Name == _Name2);
+            Product _Product2FromStorage = _DataBaseContext.Products.Single(s => s.Name == _Name2);
 
             // Load the product history of product 2
-            _DataBaseContext2.Entry(_Product2FromStorage).Collection(c => c.ProductHistoryCollection).Load();
+            _DataBaseContext.Entry(_Product2FromStorage).Collection(c => c.ProductHistoryCollection).Load();
 
             Assert.NotEqual(null, _Product2FromStorage);
             Assert.Equal(_Now, _Product2FromStorage.InsertDateTime);
@@ -87,24 +87,56 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             Assert.Equal(_Title2, _Product2FromStorage.ProductHistoryCollection.Single().Title);
 
             // Update second product price
-            var _LastProductHistory = _DataBaseContext2.Products.Single(w => w.Name == _Name2).ProductHistoryCollection.OrderByDescending(o => o.InsertDateTime).First();
+            var _LastProductHistory = _DataBaseContext.Products.Single(w => w.Name == _Name2).ProductHistoryCollection.OrderByDescending(o => o.InsertDateTime).First();
             _LastProductHistory.Price = 12.11;
-            _DataBaseContext2.SaveChanges();
+            _DataBaseContext.SaveChanges();
 
-            var _LastProductHistoryAfterModif = _DataBaseContext2.Products.Single(w => w.Name == _Name2).ProductHistoryCollection.OrderByDescending(o => o.InsertDateTime).First();
+            var _LastProductHistoryAfterModif = _DataBaseContext.Products.Single(w => w.Name == _Name2).ProductHistoryCollection.OrderByDescending(o => o.InsertDateTime).First();
 
             Assert.Equal(12.11, _LastProductHistoryAfterModif.Price);
 
+            // Test product history
+            string _Name3 = "ProductName-6ECFC80B-0C4D-46C1-8ACF-EFDD043AB4F3";
+            string _Title3 = "UnitTestTitle-3B94FD66-CB5B-4A70-97DB-FE527593F507";
+            double _Price3 = 8.22;
+
+            var _Product3 = new Product
+            {
+                Name = _Name3,
+                InsertDateTime = _Now,
+                FetchProductHistoryEnabled = true,
+                FetchProductHistoryEveryX = new TimeSpan(0, 0, 10),
+                FetchProductHistoryTimeSpanNoiseInPerc = 0
+            };
+            _DataBaseContext.Products.Add(_Product3);
+            _DataBaseContext.SaveChanges();
+
+            Assert.Equal(0, _DataBaseContext.Products.Single(w => w.Name == _Name3).ProductHistoryCollection.Count);
+
+            using (var _DataBaseContextTemp = new ProductsDbContext())
+            {
+                _Product3.ProductHistoryCollection.Add(new ProductHistory
+                {
+                    InsertDateTime = _Now,
+                    Price = _Price3,
+                    Title = _Title3
+                });
+                _DataBaseContextTemp.SaveChanges();
+            }
+
+            Assert.Equal(1, _DataBaseContext.Products.Single(w => w.Name == _Name3).ProductHistoryCollection.Count);
+
             // Clean up
-            _DataBaseContext2.Products.Remove(_Product1);
-            _DataBaseContext2.Products.Remove(_Product2FromStorage);
-            _DataBaseContext2.SaveChanges();
+            _DataBaseContext.Products.Remove(_Product1);
+            _DataBaseContext.Products.Remove(_Product2FromStorage);
+            _DataBaseContext.Products.Remove(_Product3);
+            _DataBaseContext.SaveChanges();
 
             // Check that clean up worked
-            Assert.Equal(0, _DataBaseContext2.Products.Count());
+            Assert.Equal(0, _DataBaseContext.Products.Count());
         }
 
-        [Fact]
+        [Fact(Skip = "Add a new Product in Database to Test ServerConsole or other client apps")]
         public void AddProductPersistent()
         {
             using var _DataBaseContext = new ProductsDbContext();
