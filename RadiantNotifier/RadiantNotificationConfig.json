@@ -1,0 +1,10 @@
+{
+    "$type": "RadiantNotifier.Configuration.RadiantNotificationConfig, Radiant.Notifier",
+    "EmailServer": {
+        "$type": "RadiantNotifier.Notifications.Email.Mailkit.EmailServerConfiguration, Radiant.Notifier",
+        "SmtpPassword": "TODO",
+        "SmtpPort": 587,
+        "SmtpServer": "smtp.gmail.com",
+        "SmtpUsername": "frost.qc2@gmail.com"
+    }
+}

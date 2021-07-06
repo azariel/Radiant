@@ -1,4 +1,4 @@
-﻿namespace RadiantNotifier.Notifications
+﻿namespace Radiant.Notifier.Notifications
 {
     public interface IRadiantNotification
     {

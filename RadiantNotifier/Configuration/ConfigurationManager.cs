@@ -1,15 +1,14 @@
-﻿
-using System.IO;
+﻿using System.IO;
 using Radiant.Common.Serialization;
 
-namespace RadiantNotifier.Configuration
+namespace Radiant.Notifier.Configuration
 {
     public static class NotificationConfigurationManager
     {
         // ********************************************************************
         //                            Constants
         // ********************************************************************
-        private const string RADIANT_CONFIG_FILE_NAME = "RadiantConfig.json";
+        private const string RADIANT_CONFIG_FILE_NAME = "RadiantNotificationConfig.json";
 
         // ********************************************************************
         //                            Private

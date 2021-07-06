@@ -1,8 +1,9 @@
-﻿using RadiantNotifier.Notifications.Email;
-using RadiantNotifier.Notifications.Email.Mailkit;
+﻿using System.Collections.Generic;
+using Radiant.Notifier.Notifications.Email;
+using Radiant.Notifier.Notifications.Email.Mailkit;
 using Xunit;
 
-namespace RadiantNotifier.UnitTests.Notifications.Email
+namespace Radiant.Notifier.UnitTests.Notifications.Email
 {
     public class EmailNotificationTests
     {
@@ -13,13 +14,16 @@ namespace RadiantNotifier.UnitTests.Notifications.Email
         public void SendNotificationByEmail()
         {
             RadiantEmailNotification _EmailNotification = new RadiantEmailNotification();
-            _EmailNotification.Send(new MailRequest
+
+            var _MailRequest = new MailRequest
             {
-                ToAddresses = { "frost.qc@gmail.com" },
                 Body = "UnitTest 9DDF162F-42C1-4D84-825C-D881CC983CC8",
                 Subject = "Radiant-UnitTest",
-                FromAddresses = { "frost.qc2@gmail.com" }
-            });
+                EmailFrom = "Radiant-UnitTest-SendNotificationByEmail"
+            };
+            _MailRequest.ToAddresses = new List<string> { "frost.qc@gmail.com" };
+
+            _EmailNotification.Send(_MailRequest);
         }
     }
 }

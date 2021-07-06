@@ -8,9 +8,12 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <AssemblyName>Radiant.Notifier</AssemblyName>
+    <RootNamespace>Radiant.Notifier</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" Version="1.52.0" />
+    <PackageReference Include="JetBrains.DotMemoryUnit" Version="3.1.20200127.214830" />
     <PackageReference Include="MailKit" Version="2.13.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
@@ -24,6 +27,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RadiantCommon\RadiantCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="RadiantNotificationConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

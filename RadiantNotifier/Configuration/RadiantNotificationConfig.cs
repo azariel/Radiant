@@ -1,6 +1,6 @@
-﻿using RadiantNotifier.Notifications.Email.Mailkit;
+﻿using Radiant.Notifier.Notifications.Email.Mailkit;
 
-namespace RadiantNotifier.Configuration
+namespace Radiant.Notifier.Configuration
 {
     /// <summary>
     /// Notifications configuration for Radiant

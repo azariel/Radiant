@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RadiantNotifier.Notifications.Email.Mailkit
+namespace Radiant.Notifier.Notifications.Email.Mailkit
 {
     public class MailRequest : INotificationRequest
     {
@@ -11,6 +11,6 @@ namespace RadiantNotifier.Notifications.Email.Mailkit
         public string Body { get; set; }
         public string Subject { get; set; }
         public List<string> ToAddresses { get; set; }
-        public List<string> FromAddresses { get; set; }
+        public string EmailFrom { get; set; }
     }
 }
