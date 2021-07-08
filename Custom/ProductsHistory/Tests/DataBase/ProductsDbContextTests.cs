@@ -1,12 +1,44 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Radiant.Common.Database.Common;
+using Radiant.Common.Tests;
 using Radiant.Custom.ProductsHistory.DataBase;
+using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
 using Xunit;
 
 namespace Radiant.Custom.ProductsHistory.Tests.DataBase
 {
     public class ProductsDbContextTests
     {
+        // ********************************************************************
+        //                            Private
+        // ********************************************************************
+        private void RemoveAllUsers()
+        {
+            using ProductsDbContext _DbContext = new();
+
+            foreach (RadiantUserProductsHistoryModel _User in _DbContext.Users)
+                _DbContext.Users.Remove(_User);
+
+            _DbContext.SaveChanges();
+        }
+
+        private void RemoveAllProducts()
+        {
+            using ProductsDbContext _DbContext = new();
+
+            foreach (RadiantProductModel _Product in _DbContext.Products)
+                _DbContext.Products.Remove(_Product);
+
+            //foreach (RadiantProductModel _Product in _DbContext.Products.Include(i => i.ProductSubscriptions).Include(i => i.ProductHistoryCollection))
+            //{
+            //    _DbContext.Remove(_Product);
+            //}
+
+            _DbContext.SaveChanges();
+        }
+
         // ********************************************************************
         //                            Public
         // ********************************************************************
@@ -136,7 +168,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
         }
 
         [Fact(Skip = "Add a new Product in Database to Test ServerConsole or other client apps")]
-        public void AddProductPersistent()
+        //[Fact]
+        public void AddTypicalProductAndDependencesPersistent()
         {
             using var _DataBaseContext = new ProductsDbContext();
 
@@ -150,7 +183,110 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             };
 
             _DataBaseContext.Products.Add(_Product);
+
+            // Add User
+            var _User = new RadiantUserProductsHistoryModel
+            {
+                Email = RadiantCommonUnitTestsConstants.EMAIL,
+                Password = "MySuperPassword",
+                Type = RadiantUserModel.UserType.User,
+                UserName = "MySuperUser"
+            };
+
+            _DataBaseContext.Users.Add(_User);
+
+            // Add subscription to recently added product
+            var _Subscription = new RadiantProductSubscriptionModel
+            {
+                Product = _Product,
+                User = _User,
+                MaximalPriceForNotification = 57.35,
+                SendEmailOnNotification = true
+            };
+            
+            _User.ProductSubscriptions.Add(_Subscription);
+
             _DataBaseContext.SaveChanges();
+        }
+
+        [Fact]
+        public void SubscriptionBasicDbContextTest()
+        {
+            using var _DataBaseContext = new ProductsDbContext();
+            _DataBaseContext.SaveChanges();
+        }
+
+        [Fact]
+        public void SubscriptionBasicTest()
+        {
+            using var _DataBaseContext = new ProductsDbContext();
+
+            // Add basic product
+            var _Product = new RadiantProductModel
+            {
+                Name = "A8FBFC17-BF62-458F-A018-AB87A0347EC4",
+                FetchProductHistoryEnabled = true,
+                FetchProductHistoryEveryX = new TimeSpan(0, 10, 0),
+                FetchProductHistoryTimeSpanNoiseInPerc = 5,
+                Url = "AGoodUrl.com"
+            };
+
+            _DataBaseContext.Products.Add(_Product);
+            _DataBaseContext.SaveChanges();
+
+            Assert.Equal(1, _DataBaseContext.Products.Count());
+
+            // Add new product history to test remove cascade while we're at it
+            var _ProductHistory = new RadiantProductHistoryModel
+            {
+                Price = 13.13,
+                ProductId = _Product.ProductId// Let's just refer to product id instead of directly product as we do later on in this unitTest (for subscription)
+            };
+
+            _DataBaseContext.ProductsHistory.Add(_ProductHistory);
+            _DataBaseContext.SaveChanges();
+
+            Assert.Equal(1, _DataBaseContext.Products.First().ProductHistoryCollection.Count);
+
+            // Add a new basic user
+            var _User = new RadiantUserProductsHistoryModel
+            {
+                Email = RadiantCommonUnitTestsConstants.EMAIL,
+                Password = "61B859D2-44CA-4834-8BEB-E3FE1707258A",
+                Type = RadiantUserModel.UserType.User,
+                UserName = "F8183CF2-67B3-4B12-8553-EEB41322F04C"
+            };
+
+            _DataBaseContext.Users.Add(_User);
+            _DataBaseContext.SaveChanges();
+
+            Assert.Equal(1, _DataBaseContext.Users.Count());
+
+            // Add a new subscription to basic product
+            var _Subscription = new RadiantProductSubscriptionModel
+            {
+                Product = _DataBaseContext.Products.First(),
+                User = _DataBaseContext.Users.First(),
+                MaximalPriceForNotification = 57.35
+            };
+            
+            _User.ProductSubscriptions.Add(_Subscription);
+            _DataBaseContext.SaveChanges();
+
+            _DataBaseContext.Users.Update(_User);
+            _DataBaseContext.SaveChanges();
+
+            Assert.Equal(1, _DataBaseContext.Subscriptions.Count());
+
+            // Clean
+            RemoveAllProducts();
+
+            Assert.Equal(0, _DataBaseContext.Products.Count());
+            Assert.Equal(0, _DataBaseContext.Subscriptions.Count());// Should have cascaded from product deletion
+            Assert.Equal(0, _DataBaseContext.ProductsHistory.Count());// Should have cascaded from product deletion
+
+            RemoveAllUsers();
+            Assert.Equal(0, _DataBaseContext.Users.Count());
         }
     }
 }

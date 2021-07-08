@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Radiant.Common.Database.Sqlite;
+using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
 
 namespace Radiant.Custom.ProductsHistory.DataBase
 {
@@ -47,6 +48,8 @@ namespace Radiant.Custom.ProductsHistory.DataBase
         [Required]
         [Key]
         public long ProductId { get; set; }
+
+        public virtual List<RadiantProductSubscriptionModel> ProductSubscriptions { get; set; } = new();
 
         [Required]
         [MaxLength(2048)]

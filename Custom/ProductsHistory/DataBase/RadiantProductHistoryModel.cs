@@ -13,17 +13,14 @@ namespace Radiant.Custom.ProductsHistory.DataBase
         [Required]
         public double Price { get; set; }
 
+        [ForeignKey("ProductId")]
         public virtual RadiantProductModel Product { get; set; }
+
+        public long ProductId { get; set; }
 
         [Required]
         [Key]
         public long ProductHistoryId { get; set; }
-
-        /// <summary>
-        /// FK to Product
-        /// </summary>
-        [Required]
-        public long ProductId { get; set; }
 
         [MaxLength(512)]
         public string Title { get; set; }

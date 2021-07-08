@@ -47,27 +47,27 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
             {
                 // Get DOM
                 ShowDOMInNewTab();
-                WaitForBrowserInputsReadyOrMax(5124);
+                WaitForBrowserInputsReadyOrMax(10154);
 
                 // Clear clipboard
                 ClipboardManager.SetClipboardValue("");
-                WaitForBrowserInputsReadyOrMax(351);
+                WaitForBrowserInputsReadyOrMax(751);
 
                 // Put in clipboard
                 ManualScraperSequenceHelper.CopyAllToClipboard();
-                WaitForBrowserInputsReadyOrMax(1026);
+                WaitForBrowserInputsReadyOrMax(3026);
 
                 // Copy clipboard value to var
                 this.DOM = ClipboardManager.GetClipboardValue();
-                WaitForBrowserInputsReadyOrMax(521);
+                WaitForBrowserInputsReadyOrMax(821);
 
                 // Clear clipboard
                 ClipboardManager.SetClipboardValue("");
-                WaitForBrowserInputsReadyOrMax(487);
+                WaitForBrowserInputsReadyOrMax(887);
 
                 // Close the tab we created for the DOM
                 ManualScraperSequenceHelper.CloseCurrentTab();
-                WaitForBrowserInputsReadyOrMax(1303);
+                WaitForBrowserInputsReadyOrMax(2303);
             }
         }
 
