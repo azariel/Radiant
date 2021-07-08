@@ -78,6 +78,23 @@ namespace Radiant.Custom.ProductsHistory.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!doctype html&gt;&lt;html lang=&quot;en-ca&quot; class=&quot;a-no-js&quot; data-19ax5a9jf=&quot;dingo&quot;&gt;&lt;!-- sp:feature:head-start --&gt;
+        ///&lt;head&gt;&lt;script&gt;var aPageStart = (new Date()).getTime();&lt;/script&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;
+        ///
+        ///&lt;script type=&apos;text/javascript&apos;&gt;var ue_t0=ue_t0||+new Date();&lt;/script&gt;
+        ///&lt;!-- sp:feature:cs-optimization --&gt;
+        ///&lt;meta http-equiv=&apos;x-dns-prefetch-control&apos; content=&apos;on&apos;&gt;
+        ///&lt;link rel=&quot;dns-prefetch&quot; href=&quot;https://images-na.ssl-images-amazon.com&quot;&gt;
+        ///&lt;link rel=&quot;dns-prefetch&quot; href=&quot;https://m.media-amazon.com&quot;&gt;
+        ///&lt;link rel=&quot;dns-pr [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Amazon_Product2_SourceCode {
+            get {
+                return ResourceManager.GetString("Amazon_Product2_SourceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///&lt;html lang= &quot;en&quot; &gt;
         ///

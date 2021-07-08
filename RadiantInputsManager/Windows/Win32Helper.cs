@@ -73,7 +73,10 @@ namespace RadiantInputsManager.Windows
             Keycode[] _ExtendedKeycodes =
             {
                 Keycode.XK_Control_L,
-                Keycode.XK_Shift_L
+                Keycode.XK_Shift_L,
+                Keycode.XK_Right,
+                Keycode.XK_Left,
+                Keycode.XK_End,
             };
 
             byte _KeyCode = aKeyCode switch
@@ -95,7 +98,6 @@ namespace RadiantInputsManager.Windows
             };
 
             // Note that KEYEVENTF_EXTENDEDKEY flag is required for Numpad, LSHIFT, etc
-
             uint _FlagByAction;
 
             if (_ExtendedKeycodes.Any(a => a == aKeyCode))
@@ -111,7 +113,7 @@ namespace RadiantInputsManager.Windows
             foreach (char _Char in aTextToType)
             {
                 keybd_event(0, Convert.ToByte(_Char), KEYEVENTF_UNICODE, (UIntPtr)0);
-                Thread.Sleep(32);
+                Thread.Sleep(64);
                 keybd_event(0, Convert.ToByte(_Char), KEYEVENTF_UNICODE | KEYEVENTF_KEYUP, (UIntPtr)0);
                 Thread.Sleep(aDelayBetweenType);
             }

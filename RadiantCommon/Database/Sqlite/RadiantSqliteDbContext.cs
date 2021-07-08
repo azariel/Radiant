@@ -10,7 +10,7 @@ namespace Radiant.Common.Database.Sqlite
         // The following configures EF to create a Sqlite database file in executing directory.
         protected override void OnConfiguring(DbContextOptionsBuilder aDbContextOptionsBuilder)
         {
-            aDbContextOptionsBuilder.UseSqlite(@$"Data Source={GetDataBaseFileName()};");
+            aDbContextOptionsBuilder.UseSqlite(@$"Data Source={GetDataBaseFileName()};");//Foreign Keys = False;
         }
 
         protected virtual string GetDataBaseFileName() => "Radiant.db";

@@ -39,24 +39,24 @@ namespace RadiantInputsManager.Windows
 
         private static void ExecuteKeyStrokes(IKeyboardKeyStrokeActionInputParam aKeyboardKeyStrokeActionInputParam)
         {
+            int _MsDelay = Math.Max(50, aKeyboardKeyStrokeActionInputParam.Delay ?? 0);
+
             // Press all one by one
             foreach (Keycode _KeyCode in aKeyboardKeyStrokeActionInputParam.KeyStrokeCodes)
             {
                 Win32Helper.ExecuteKeyboardKey(_KeyCode, Win32Helper.KeyStrokeAction.Press);
-
-                if (aKeyboardKeyStrokeActionInputParam.Delay.HasValue)
-                    Thread.Sleep(aKeyboardKeyStrokeActionInputParam.Delay.Value);
+                Thread.Sleep(_MsDelay);
             }
 
             Thread.Sleep(50);
+
+            _MsDelay = Math.Max(50, aKeyboardKeyStrokeActionInputParam.Delay / 10 ?? 0);
 
             // Release all one by one, but quicker
             foreach (Keycode _KeyCode in aKeyboardKeyStrokeActionInputParam.KeyStrokeCodes.Reverse())
             {
                 Win32Helper.ExecuteKeyboardKey(_KeyCode, Win32Helper.KeyStrokeAction.Release);
-
-                if (aKeyboardKeyStrokeActionInputParam.Delay.HasValue)
-                    Thread.Sleep(aKeyboardKeyStrokeActionInputParam.Delay.Value / 10);
+                Thread.Sleep(_MsDelay);
             }
         }
 

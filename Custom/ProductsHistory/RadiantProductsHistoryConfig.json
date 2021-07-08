@@ -5,7 +5,7 @@
             "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
             "ParserItemTarget": "Price",
             "IfUrlContains": "amazon.c",
-            "RegexPattern": "priceblock_ourprice(.*?)<\\/span>",
+            "RegexPattern": "priceblock_ourprice.*?>(.*?)<\\/span>",
             "SubParserToExecuteOnTargetValue": {
                 "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
                 "IfUrlContains": "amazon.c",
@@ -14,8 +14,24 @@
                 "Target": "Value",
                 "UID": "d96cf489-cd3f-4970-a591-0db2c32f73f1"
             },
-            "Target": "Value",
+            "Target": "group1value",
             "UID": "59720390-2643-47d9-a9c6-fdc2fda3020f"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+            "ParserItemTarget": "Price",
+            "IfUrlContains": "amazon.c",
+            "RegexPattern": "priceblock_dealprice.*?>(.*?)<\\/span>",
+            "SubParserToExecuteOnTargetValue": {
+                "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
+                "IfUrlContains": "amazon.c",
+                "RegexPattern": "[\\d,]+\\.\\d+",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Value",
+                "UID": "17e0ca3a-824d-46dc-a42e-f75ab32b2f03"
+            },
+            "Target": "group1value",
+            "UID": "e03df465-1bdd-4930-86d3-47b3ae4a1f6d"
         },
         {
             "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Radiant.Common.Database.Sqlite;
+using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
 
 namespace Radiant.Custom.ProductsHistory.DataBase
 {
     [Table("Products")]
-    public class ProductModel : RadiantSqliteBaseTable
+    public class RadiantProductModel : RadiantSqliteBaseTable
     {
         // ********************************************************************
         //                            Properties
@@ -42,11 +43,13 @@ namespace Radiant.Custom.ProductsHistory.DataBase
         /// </summary>
         public DateTime? NextFetchProductHistory { get; set; }
 
-        public virtual List<ProductHistoryModel> ProductHistoryCollection { get; set; } = new();
+        public virtual List<RadiantProductHistoryModel> ProductHistoryCollection { get; set; } = new();
 
         [Required]
         [Key]
         public long ProductId { get; set; }
+
+        public virtual List<RadiantProductSubscriptionModel> ProductSubscriptions { get; set; } = new();
 
         [Required]
         [MaxLength(2048)]

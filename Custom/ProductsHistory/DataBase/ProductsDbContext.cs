@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Radiant.Common.Database.Sqlite;
+using Radiant.Common.Database.Common;
+using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
 
 namespace Radiant.Custom.ProductsHistory.DataBase
 {
-    public class ProductsDbContext : RadiantSqliteDbContext
+    public class ProductsDbContext : RadiantCommonDbContext
     {
         // ********************************************************************
         //                            Constructors
@@ -13,22 +14,41 @@ namespace Radiant.Custom.ProductsHistory.DataBase
             this.ChangeTracker.AutoDetectChangesEnabled = true;
 
             // We're having too much performance issue with this... we'll deal with load/include what we need manually..
-           // this.ChangeTracker.LazyLoadingEnabled = true;
+            // this.ChangeTracker.LazyLoadingEnabled = true;
         }
 
         // ********************************************************************
         //                            Protected
         // ********************************************************************
-        protected override void OnConfiguring(DbContextOptionsBuilder aOptionsBuilder)
+        protected override void OnModelCreating(ModelBuilder aModelBuilder)
         {
-            base.OnConfiguring(aOptionsBuilder);
+            base.OnModelCreating(aModelBuilder);
 
-            //aOptionsBuilder.UseLazyLoadingProxies();
+            //aModelBuilder.Entity<RadiantProductModel>()
+            //    .HasMany(h => h.ProductHistoryCollection)
+            //    .WithOne()
+            //    .HasForeignKey(h=>h.ProductId)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            //aModelBuilder.Entity<RadiantProductModel>()
+            //    .HasMany(h => h.ProductSubscriptions)
+            //    .WithOne()
+            //    .HasForeignKey(h=>h.ProductId)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            //aModelBuilder.Entity<RadiantUserProductsHistoryModel>()
+            //    .HasMany(h => h.ProductSubscriptions)
+            //    .WithOne()
+            //    .HasForeignKey(h=>h.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
 
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public DbSet<ProductModel> Products { get; set; }
+        public DbSet<RadiantProductModel> Products { get; set; }
+        public DbSet<RadiantProductHistoryModel> ProductsHistory { get; set; }
+        public DbSet<RadiantProductSubscriptionModel> Subscriptions { get; set; }
+        public new DbSet<RadiantUserProductsHistoryModel> Users { get; set; }
     }
 }
