@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Radiant.Common.Business;
 using Radiant.Common.Diagnostics;
 
 namespace Radiant.WebScraper.Parsers.DOM
@@ -26,10 +27,10 @@ namespace Radiant.WebScraper.Parsers.DOM
             string _Value;
             switch (aParserItem.Target)
             {
-                case DOMParserItem.DOMParserItemResultTarget.Value:
+                case RegexItemResultTarget.Value:
                     _Value = _Match.Value;
                     break;
-                case DOMParserItem.DOMParserItemResultTarget.Group0Value:
+                case RegexItemResultTarget.Group0Value:
 
                     if (_Match.Groups.Count < 1)
                     {
@@ -39,7 +40,7 @@ namespace Radiant.WebScraper.Parsers.DOM
 
                     _Value = _Match.Groups[0].Value;
                     break;
-                case DOMParserItem.DOMParserItemResultTarget.Group1Value:
+                case RegexItemResultTarget.Group1Value:
 
                     if (_Match.Groups.Count < 2)
                     {

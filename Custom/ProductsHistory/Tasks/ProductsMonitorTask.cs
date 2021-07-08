@@ -40,7 +40,6 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             };
         }
 
-
         // ********************************************************************
         //                            Private
         // ********************************************************************
@@ -124,8 +123,9 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             ProductTargetScraper _ProductScraper = new(BaseTargetScraper.TargetScraperCoreOptions.Screenshot);
             ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             List<ManualScraperItemParser> _ManualScrapers = _Config.ManualScraperSequenceItems.Select(s => (ManualScraperItemParser)s).ToList();
+            List<DOMParserItem> _DomParsers = _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList();
 
-            _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, aProduct.Url, _ProductScraper, _ManualScrapers, _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList());
+            _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, aProduct.Url, _ProductScraper, _ManualScrapers, _DomParsers);
 
             RadiantProductHistoryModel? _MostRecentProductHistory = aProduct.ProductHistoryCollection.FirstOrDefault(f => f.InsertDateTime == aProduct.ProductHistoryCollection.Max(m => m.InsertDateTime));
 
@@ -136,6 +136,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                 LoggingManager.LogToFile("988B416D-BE97-42A3-BA2F-438FFBFEDAF4", $"Couldn't fetch new product history of product [{aProduct.Name}] or Url [{aProduct.Url}].");
 
                 // TODO: fail sequence
+                // Send email to Admin to inform of failure
 
                 // To avoid a query loop
                 UpdateNextFetchDateTime(aProduct, aNow);

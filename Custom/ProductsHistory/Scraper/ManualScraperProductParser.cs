@@ -10,10 +10,12 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public string IfUrlContains { get; set; }
-
         [JsonConverter(typeof(StringEnumConverter))]
         public ProductParserItemTarget Target { get; set; } = ProductParserItemTarget.Price;
-        public ProductDOMParserItem ValueParser { get; set; } = new();// When we have the value, fetched from ManualScraperSequenceItems, apply this to find value
+
+        /// <summary>
+        /// When we have the value, fetched from ManualScraperSequenceItems, apply this to find value
+        /// </summary>
+        public ProductDOMParserItem ValueParser { get; set; } = new();
     }
 }

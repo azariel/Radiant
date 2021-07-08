@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Radiant.Common.OSDependent.Clipboard
 {
@@ -21,7 +22,7 @@ namespace Radiant.Common.OSDependent.Clipboard
             }
         }
 
-        public static void SetClipboardValue(string aValue)
+        public static void SetClipboardValue(string aValue, bool aWaitOnEnd = true)
         {
             SupportedOperatingSystem _OperatingSystem = OperatingSystemHelper.GetCurrentOperatingSystem();
             switch (_OperatingSystem)
@@ -35,6 +36,9 @@ namespace Radiant.Common.OSDependent.Clipboard
                 default:
                     throw new ArgumentOutOfRangeException($"Getting clipboard value from Operating system [{_OperatingSystem}] isn't supported.");
             }
+
+            if(aWaitOnEnd)
+                Thread.Sleep(50);
         }
     }
 }

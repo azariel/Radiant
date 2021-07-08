@@ -1,21 +1,12 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Radiant.Common.Business;
 
 namespace Radiant.WebScraper.Parsers.DOM
 {
     public class DOMParserItem
     {
-        // ********************************************************************
-        //                            Nested
-        // ********************************************************************
-        public enum DOMParserItemResultTarget
-        {
-            Value,
-            Group0Value,
-            Group1Value
-        }
-
         // ********************************************************************
         //                            Properties
         // ********************************************************************
@@ -28,7 +19,7 @@ namespace Radiant.WebScraper.Parsers.DOM
         public DOMParserItem SubParserToExecuteOnTargetValue { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public DOMParserItemResultTarget Target { get; set; } = DOMParserItemResultTarget.Value;
+        public RegexItemResultTarget Target { get; set; } = RegexItemResultTarget.Value;
         public string UID { get; set; } = Guid.NewGuid().ToString();
     }
 }

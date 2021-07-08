@@ -20,7 +20,7 @@ namespace Radiant.WebScraper.Tests.Scrapers.Manual
         [Fact]
         public void TestExtendedKeys()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             // Assert that it doesn't throw
             ManualAutomation.KeyboardExecute(new[]
             {

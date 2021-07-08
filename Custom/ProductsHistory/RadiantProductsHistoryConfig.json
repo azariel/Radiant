@@ -5,6 +5,7 @@
             "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
             "ParserItemTarget": "Price",
             "IfUrlContains": "amazon.c",
+            "Condition": null,
             "RegexPattern": "priceblock_ourprice.*?>(.*?)<\\/span>",
             "SubParserToExecuteOnTargetValue": {
                 "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
@@ -21,10 +22,12 @@
             "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
             "ParserItemTarget": "Price",
             "IfUrlContains": "amazon.c",
+            "Condition": null,
             "RegexPattern": "priceblock_dealprice.*?>(.*?)<\\/span>",
             "SubParserToExecuteOnTargetValue": {
                 "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
                 "IfUrlContains": "amazon.c",
+                "Condition": null,
                 "RegexPattern": "[\\d,]+\\.\\d+",
                 "SubParserToExecuteOnTargetValue": null,
                 "Target": "Value",
@@ -37,10 +40,12 @@
             "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
             "ParserItemTarget": "Price",
             "IfUrlContains": "newegg.c",
+            "Condition": null,
             "RegexPattern": "\\\"price\\\":\\\"(.*?)[\\\"|,]",
             "SubParserToExecuteOnTargetValue": {
                 "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
                 "IfUrlContains": "newegg.c",
+                "Condition": null,
                 "RegexPattern": "[\\d,]+\\.\\d+",
                 "SubParserToExecuteOnTargetValue": null,
                 "Target": "Value",
@@ -53,10 +58,12 @@
             "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
             "ParserItemTarget": "Price",
             "IfUrlContains": "bestbuy.c",
+            "Condition": null,
             "RegexPattern": "priceWithEhf\":(.*?),",
             "SubParserToExecuteOnTargetValue": {
                 "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
                 "IfUrlContains": "bestbuy.c",
+                "Condition": null,
                 "RegexPattern": "[\\d,]+\\.\\d+",
                 "SubParserToExecuteOnTargetValue": null,
                 "Target": "Value",
@@ -69,6 +76,7 @@
             "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
             "ParserItemTarget": "Title",
             "IfUrlContains": "amazon.c",
+            "Condition": null,
             "RegexPattern": "<.*?title.*?>(.*?)<.*?\/title.*?>",
             "SubParserToExecuteOnTargetValue": null,
             "Target": "group1value",
@@ -78,6 +86,7 @@
             "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
             "ParserItemTarget": "Title",
             "IfUrlContains": "bestbuy.c",
+            "Condition": null,
             "RegexPattern": "<.*?title.*?>(.*?)<.*?\/title.*?>",
             "SubParserToExecuteOnTargetValue": null,
             "Target": "group1value",
@@ -87,6 +96,7 @@
             "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
             "ParserItemTarget": "Title",
             "IfUrlContains": "newegg.c",
+            "Condition": null,
             "RegexPattern": "<.*?title.*?>(.*?)<.*?\/title.*?>",
             "SubParserToExecuteOnTargetValue": null,
             "Target": "group1value",
@@ -97,11 +107,180 @@
         {
             "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
             "IfUrlContains": "amazon.c",
+            "Condition": {
+                "$type": "Radiant.WebScraper.Scrapers.Conditions.ManualScraperManualCondition, RadiantWebScraper",
+                "ExpectedValue": "Deal Price",
+                "ManualScraperSequenceItems": [
+                    {
+                        "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                        "InputParam": {
+                            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                            "Delay": 50,
+                            "KeyStrokeCodes": [
+                                "XK_Control_L",
+                                "XK_f"
+                            ]
+                        },
+                        "InputType": "Keyboard",
+                        "WaitMsOnEnd": 500
+                    },
+                    {
+                        "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                        "InputParam": {
+                            "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+                            "Delay": 115,
+                            "ValueToType": "Deal Price"
+                        },
+                        "InputType": "Keyboard",
+                        "WaitMsOnEnd": 1525
+                    },
+                    {
+                        "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                        "InputParam": {
+                            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                            "Delay": 50,
+                            "KeyStrokeCodes": [
+                                "XK_Escape"
+                            ]
+                        },
+                        "InputType": "Keyboard",
+                        "WaitMsOnEnd": 500
+                    },
+                    {
+                        "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                        "InputParam": {
+                            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                            "Delay": 50,
+                            "KeyStrokeCodes": [
+                                "XK_Control_L",
+                                "XK_c"
+                            ]
+                        },
+                        "InputType": "Keyboard",
+                        "WaitMsOnEnd": 650
+                    },
+                    {
+                        "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+                        "Operation": "Get",
+                        "Value": null,
+                        "WaitMsOnEnd": 500
+                    }
+                ],
+                "RegexPatternToApplyOnValue": "(.*)",
+                "Target": "Value",
+                "ValueStringComparison": 3,
+                "ConditionValidIfValueFound": true
+            },
             "Target": "Price",
             "ValueParser": {
                 "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
                 "ParserItemTarget": "Price",
                 "IfUrlContains": "amazon.c",
+                "Condition": null,
+                "RegexPattern": "[\\d,]+\\.\\d+",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "group0value",
+                "UID": "bd74f99f-2389-4d86-8a4e-9863a5debdcc"
+            },
+            "ManualScraperSequenceItems": [
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 89,
+                        "KeyStrokeCodes": [
+                            "XK_Control_L",
+                            "XK_f"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 650
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+                        "Delay": 115,
+                        "ValueToType": "Deal Price:"
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 1525
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 290,
+                        "KeyStrokeCodes": [
+                            "XK_Escape"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 625
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 321,
+                        "KeyStrokeCodes": [
+                            "XK_Shift_L",
+                            "XK_Right"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 422
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 159,
+                        "KeyStrokeCodes": [
+                            "XK_Shift_L",
+                            "XK_End"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 522
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+                    "Operation": "Set",
+                    "Value": "",
+                    "WaitMsOnEnd": 325
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 273,
+                        "KeyStrokeCodes": [
+                            "XK_Control_L",
+                            "XK_c"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 1714
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+                    "Operation": "Get",
+                    "Value": null,
+                    "WaitMsOnEnd": 1314
+                }
+            ]
+        },
+        {
+            "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+            "IfUrlContains": "amazon.c",
+            "Condition": null,
+            "Target": "Price",
+            "ValueParser": {
+                "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+                "ParserItemTarget": "Price",
+                "IfUrlContains": "amazon.c",
+                "Condition": null,
                 "RegexPattern": "[\\d,]+\\.\\d+",
                 "SubParserToExecuteOnTargetValue": null,
                 "Target": "group0value",
@@ -301,11 +480,13 @@
         {
             "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
             "IfUrlContains": "newegg.c",
+            "Condition": null,
             "Target": "Price",
             "ValueParser": {
                 "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
                 "ParserItemTarget": "Price",
                 "IfUrlContains": "newegg.c",
+                "Condition": null,
                 "RegexPattern": "[\\d,]+\\.\\d+",
                 "SubParserToExecuteOnTargetValue": null,
                 "Target": "Group0Value",

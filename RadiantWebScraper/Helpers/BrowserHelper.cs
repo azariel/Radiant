@@ -11,6 +11,27 @@ namespace Radiant.WebScraper.Helpers
         // ********************************************************************
         //                            Public
         // ********************************************************************
+        public static void WaitForBrowserInputsReadyOrMax(int aMinMsToWait, SupportedBrowser? aBrowser, int aMaxMsToWait = 60000)
+        {
+            Stopwatch _Stopwatch = new Stopwatch();
+            _Stopwatch.Start();
+
+            // TODO: check processes and wait for input
+            if (aBrowser.HasValue)
+            {
+                WaitForWebPageToFinishLoadingByBrowser(aBrowser.Value, (int)(aMaxMsToWait - _Stopwatch.ElapsedMilliseconds));
+                Thread.Sleep(50);
+
+                if (_Stopwatch.ElapsedMilliseconds > aMaxMsToWait)
+                    return;
+            }
+
+            int _MinMsToWait = (int)(aMinMsToWait - _Stopwatch.ElapsedMilliseconds);
+
+            if (_MinMsToWait > 0)
+                Thread.Sleep(_MinMsToWait);
+        }
+
         public static bool WaitForWebPageToFinishLoadingByBrowser(SupportedBrowser aSupportedBrowser, int aMaxMsToWait)
         {
             SupportedOperatingSystem _CurrentOS = OperatingSystemHelper.GetCurrentOperatingSystem();
@@ -56,7 +77,7 @@ namespace Radiant.WebScraper.Helpers
                 if (_NbMsToWait > 0)
                     Thread.Sleep(_NbMsToWait);
             }
-            
+
             return true;
         }
     }

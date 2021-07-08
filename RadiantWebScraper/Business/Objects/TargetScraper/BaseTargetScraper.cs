@@ -45,23 +45,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
 
         protected void WaitForBrowserInputsReadyOrMax(int aMinMsToWait, int aMaxMsToWait = 60000)
         {
-            Stopwatch _Stopwatch = new Stopwatch();
-            _Stopwatch.Start();
-
-            // TODO: check processes and wait for input
-            if (fBrowser.HasValue)
-            {
-                BrowserHelper.WaitForWebPageToFinishLoadingByBrowser(fBrowser.Value, (int)(aMaxMsToWait - _Stopwatch.ElapsedMilliseconds));
-                Thread.Sleep(50);
-
-                if (_Stopwatch.ElapsedMilliseconds > aMaxMsToWait)
-                    return;
-            }
-
-            int _MinMsToWait = (int)(aMinMsToWait - _Stopwatch.ElapsedMilliseconds);
-
-            if (_MinMsToWait > 0)
-                Thread.Sleep(_MinMsToWait);
+            BrowserHelper.WaitForBrowserInputsReadyOrMax(aMinMsToWait, fBrowser, aMaxMsToWait);
         }
 
         // ********************************************************************

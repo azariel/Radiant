@@ -116,7 +116,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aParserItems)
+        public void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
             Thread.Sleep(100);
             //List<IScraperTargetValue> _TargetValue = null;
@@ -143,7 +143,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Thread.Sleep(500);
 
                 // Evaluate the target and get the value
-                aTarget.Evaluate(aSupportedBrowser, aUrl, true, aManualScraperItems, aParserItems);
+                aTarget.Evaluate(aSupportedBrowser, aUrl, true, aManualScraperItems, aDOMParserItems);
 
                 // "Closing" sequence
                 // Exit F11
