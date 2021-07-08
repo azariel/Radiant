@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
+using Radiant.Common.Business;
+using Radiant.Common.Database.Common;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent.Clipboard;
+using Radiant.Custom.ProductsHistory.DataBase;
 using Radiant.Custom.ProductsHistory.Parsers;
+using Radiant.Notifier.DataBase;
 using Radiant.WebScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Parsers.DOM;
@@ -86,6 +92,10 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             {
                 foreach (ManualScraperProductParser _ManualScraperItemParser in fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price))
                 {
+                    // Check conditions (Certain manual scraper requires something to work. ex: if "Deal Price:" is found on the webpage, we can use a certain manual scraper
+                    if (_ManualScraperItemParser.Condition?.Evaluate(fBrowser) == false)
+                        continue;
+
                     foreach (ManualScraperSequenceItem _ManualScraperSequenceItem in _ManualScraperItemParser.ManualScraperSequenceItems)
                     {
                         switch (_ManualScraperSequenceItem)
@@ -115,15 +125,15 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                                         if (!_Match.Success)
                                             return;
 
-                                        if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Value)
+                                        if (_ManualScraperItemParser.ValueParser.Target == RegexItemResultTarget.Value)
                                             _Price = _Match.Value;
-                                        else if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Group0Value)
+                                        else if (_ManualScraperItemParser.ValueParser.Target == RegexItemResultTarget.Group0Value)
                                         {
                                             if (_Match.Groups.Count < 1)
                                                 return;
 
                                             _Price = _Match.Groups[0].Value;
-                                        } else if (_ManualScraperItemParser.ValueParser.Target == DOMParserItem.DOMParserItemResultTarget.Group1Value)
+                                        } else if (_ManualScraperItemParser.ValueParser.Target == RegexItemResultTarget.Group1Value)
                                         {
                                             if (_Match.Groups.Count < 2)
                                                 return;
@@ -136,7 +146,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                                     if (!_Price.Contains('.') && !_Price.Contains(',') && _Price.Length > 2)
                                         _Price = _Price.Insert(_Price.Length - 2, ".");
 
-                                    if (double.TryParse(_Price, out double _PriceAsDouble))
+                                    if (!string.IsNullOrWhiteSpace(_Price) && double.TryParse(_Price, out double _PriceAsDouble))
                                         this.Information.Price = _PriceAsDouble;
                                 }
 
@@ -164,8 +174,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
-            fDOMParserItems = aDOMParserItems.OfType<ProductDOMParserItem>().ToList();
-            fManualScraperItems = aManualScraperItems.OfType<ManualScraperProductParser>().Where(w => aUrl.ToLowerInvariant().Contains(w.IfUrlContains.ToLowerInvariant())).ToList();
+            fDOMParserItems = aDOMParserItems?.OfType<ProductDOMParserItem>().ToList();
+            fManualScraperItems = aManualScraperItems?.OfType<ManualScraperProductParser>().Where(w => aUrl.ToLowerInvariant().Contains(w.IfUrlContains.ToLowerInvariant())).ToList();
 
             base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations, aManualScraperItems, aDOMParserItems);
 
@@ -173,6 +183,51 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             // Fetch product information
             FetchProductInformation();
+
+            if (!this.Information.Price.HasValue)
+                HandleFailureProcess();
+        }
+
+        private void HandleFailureProcess()
+        {
+            LoggingManager.LogToFile("9C0FE4DD-408C-4F5A-A716-A9D7CF23D729", $"Couldn't fetch price on Url [{fUrl}].");
+
+            try
+            {
+                // TODO: send notification ? with screenshot and DOM
+                RadiantNotificationModel _NewNotification = new()
+                {
+                    Content = $"<p>Url: {fUrl}</p>",
+                    Subject = "Error couldn't fetch product information",
+                    EmailFrom = "Radiant Product History",
+                    MinimalDateTimetoSend = DateTime.Now
+
+                    // TODO: attachments = Screenshot + DOM
+                };
+
+                // Add all subscribed users email to notification EmailTo
+                using ProductsDbContext _ProductDbContext = new();
+                _ProductDbContext.Users.Load();
+
+                // Notify all Admins
+                _NewNotification.EmailTo.AddRange(_ProductDbContext.Users.Where(w => w.Type == RadiantUserModel.UserType.Admin).Select(s => s.Email));
+
+                using NotificationsDbContext _NotificationDbContext = new();
+                _NotificationDbContext.Notifications.Add(_NewNotification);
+                _NotificationDbContext.SaveChanges();
+
+                // Save Screenshot and DOM in error folder
+                string _RootFolder = "Errors";
+
+                if (!Directory.Exists(_RootFolder))
+                    Directory.CreateDirectory(_RootFolder);
+
+                File.WriteAllText(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}-DOM.txt"), this.DOM);
+                File.WriteAllBytes(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}.png"), this.Screenshot);
+            } catch (Exception _Ex)
+            {
+                LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
+            }
         }
 
         // ********************************************************************

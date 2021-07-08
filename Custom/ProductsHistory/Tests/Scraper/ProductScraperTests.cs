@@ -43,7 +43,15 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
         {
             ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.AMAZON_TYPICAL_PRODUCT_URL);
             Assert.Equal(89.96, _Product.Price);
-            Assert.Equal("PlayStation DualSense Wireless Controller – Midnight Black - Midnight Black Edition: PlayStation: Video Games - Amazon.ca", _Product.Title);
+            Assert.Equal("PlayStation DualSense Wireless Controller – Midnight Black - Midnight Black Edition: PlayStation: Computer and Video Games - Amazon.ca", _Product.Title);
+        }
+
+        [Fact]
+        public void AmazonProductAlternative2Test()
+        {
+            ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.AMAZON_ALTERNATIVE_PRODUCT_2_URL);
+            Assert.Equal(54.99, _Product.Price);
+            Assert.Equal("Fire TV Stick 4K streaming device with Alexa built in, Ultra HD, Dolby Vision, includes the Alexa Voice Remote : Amazon.ca: Amazon Devices &amp; Accessories", _Product.Title);
         }
 
         [Fact]
