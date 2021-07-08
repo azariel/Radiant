@@ -66,7 +66,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
         public void NeweggBasicTest()
         {
             ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL);
-            Assert.Equal(52.99, _Product.Price);
+            Assert.Equal(51.45, _Product.Price);
             Assert.Equal("DualShock 4 PS4 Controller Wireless for PlayStation 4 - Jet Black - Newegg.ca", _Product.Title);
         }
     }

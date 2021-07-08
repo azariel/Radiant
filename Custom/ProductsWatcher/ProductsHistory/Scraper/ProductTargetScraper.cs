@@ -222,8 +222,11 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 if (!Directory.Exists(_RootFolder))
                     Directory.CreateDirectory(_RootFolder);
 
-                File.WriteAllText(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}-DOM.txt"), this.DOM);
-                File.WriteAllBytes(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}.png"), this.Screenshot);
+                if (!string.IsNullOrWhiteSpace(this.DOM))
+                    File.WriteAllText(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}-DOM.txt"), this.DOM);
+
+                if (this.Screenshot != null && this.Screenshot.Length > 0)
+                    File.WriteAllBytes(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}.png"), this.Screenshot);
             } catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);

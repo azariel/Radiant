@@ -27,7 +27,7 @@ namespace Radiant.Custom.ProductsHistory.DataBase.Subscriptions
         /// If product is monitored when it's 150$, but we know that this product was 120$ last week, we can says that we don't want to be notified if product is 149$ next week for example.
         /// </summary>
         [Required]
-        public double MaximalPriceForNotification { get; set; } = 99999;
+        public double MaximalPriceForNotification { get; set; } = 999999;
 
         [Required]
         public bool SendEmailOnNotification { get; set; } = false;

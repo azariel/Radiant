@@ -53,6 +53,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
         {
             using var _DataBaseContext = new ProductsDbContext();
 
+            RemoveAllProducts();
+
             // Validate that the db is empty
             Assert.Equal(0, _DataBaseContext.Products.Count());
 
@@ -220,6 +222,9 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
         public void SubscriptionBasicTest()
         {
             using var _DataBaseContext = new ProductsDbContext();
+
+            RemoveAllProducts();
+            RemoveAllUsers();
 
             // Add basic product
             var _Product = new RadiantProductModel
