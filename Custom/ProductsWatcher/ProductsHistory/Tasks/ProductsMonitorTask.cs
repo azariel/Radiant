@@ -161,7 +161,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             Random _Random = new Random();
             int _Modifier = _Random.Next(-100, 100);
             float _NoisePercValue = aProduct.FetchProductHistoryTimeSpanNoiseInPerc * ((float)_Modifier / 100);
-            TimeSpan _NoiseValue = aProduct.FetchProductHistoryEveryX / 100 * (_NoisePercValue / 100 + 100);
+            TimeSpan _NoiseValue = aProduct.FetchProductHistoryEveryX / 100 * (_NoisePercValue + 100);
             DateTime _NextFetchDateTime = aNow + _NoiseValue;
 
             aProduct.NextFetchProductHistory = _NextFetchDateTime;

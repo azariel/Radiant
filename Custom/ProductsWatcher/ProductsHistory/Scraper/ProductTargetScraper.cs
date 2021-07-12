@@ -84,6 +84,9 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             if (_Price.HasValue)
                 this.Information.Price = _Price;
+
+            if(!this.Information.Price.HasValue)
+                LoggingManager.LogToFile("2CCDD325-3050-4FA5-A9F5-F9331A155C4F", $"DOM parser step to fetch price of product [{fUrl}] failed.");
         }
 
         private void TryFetchProductPriceByManualOperation()
@@ -167,6 +170,9 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 LoggingManager.LogToFile("2AE999BA-5D76-4CF0-AC97-EB51D3EF2CC2", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
             }
+
+            if(!this.Information.Price.HasValue)
+                LoggingManager.LogToFile("158B5041-37B1-476F-8DC2-C96430E2B0F9", $"Manual steps to fetch price of product [{fUrl}] failed.");
         }
 
         // ********************************************************************
@@ -194,6 +200,25 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             try
             {
+                // Save Screenshot and DOM in error folder
+                string _RootFolder = "Errors";
+
+                if (!Directory.Exists(_RootFolder))
+                    Directory.CreateDirectory(_RootFolder);
+
+                if (!string.IsNullOrWhiteSpace(this.DOM))
+                    File.WriteAllText(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}-DOM.txt"), this.DOM);
+
+                if (this.Screenshot != null && this.Screenshot.Length > 0)
+                    File.WriteAllBytes(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}.png"), this.Screenshot);
+
+            } catch (Exception _Ex)
+            {
+                LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
+            }
+
+            try
+            {
                 // TODO: send notification ? with screenshot and DOM
                 RadiantNotificationModel _NewNotification = new()
                 {
@@ -215,21 +240,9 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 using NotificationsDbContext _NotificationDbContext = new();
                 _NotificationDbContext.Notifications.Add(_NewNotification);
                 _NotificationDbContext.SaveChanges();
-
-                // Save Screenshot and DOM in error folder
-                string _RootFolder = "Errors";
-
-                if (!Directory.Exists(_RootFolder))
-                    Directory.CreateDirectory(_RootFolder);
-
-                if (!string.IsNullOrWhiteSpace(this.DOM))
-                    File.WriteAllText(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}-DOM.txt"), this.DOM);
-
-                if (this.Screenshot != null && this.Screenshot.Length > 0)
-                    File.WriteAllBytes(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}.png"), this.Screenshot);
             } catch (Exception _Ex)
             {
-                LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
+                LoggingManager.LogToFile("A1273815-7729-41E3-B4C6-94979F9908E9", $"Couldn't create notification on {nameof(ProductTargetScraper)} fetch failure.", _Ex);
             }
         }
 

@@ -46,6 +46,9 @@ namespace Radiant.Notifier
             if (aRadiantNotificationModel == null)
                 return;
 
+            // Timeout notification for an hour TODO: make this configurable ?
+            aRadiantNotificationModel.MinimalDateTimetoSend = DateTime.Now.AddHours(1);
+
             LoggingManager.LogToFile("0FBFDBD8-DE63-4CBA-9561-C4C52560A189", $"Failed to send notification ID [{aRadiantNotificationModel.NotificationId}]. This notification will be re-queued.");
         }
 
