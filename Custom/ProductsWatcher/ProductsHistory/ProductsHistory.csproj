@@ -24,9 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RadiantCommon\RadiantCommon.csproj" />
-    <ProjectReference Include="..\..\RadiantNotifier\RadiantNotifier.csproj" />
-    <ProjectReference Include="..\..\RadiantWebScraper\RadiantWebScraper.csproj" />
+    <ProjectReference Include="..\..\..\RadiantCommon\RadiantCommon.csproj" />
+    <ProjectReference Include="..\..\..\RadiantNotifier\RadiantNotifier.csproj" />
+    <ProjectReference Include="..\..\..\RadiantWebScraper\RadiantWebScraper.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,7 +55,7 @@
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="copy /Y &quot;C:\Dev\RadiantCore\RadiantWebScraper\bin\Debug\RadiantWebScrapersConfig.json&quot; &quot;C:\Dev\RadiantCore\Custom\ProductsHistory\bin\Debug\RadiantWebScrapersConfig.json&quot;" />
+    <Exec Command="copy /Y &quot;C:\Dev\RadiantCore\RadiantWebScraper\bin\Debug\RadiantWebScrapersConfig.json&quot; &quot;C:\Dev\RadiantCore\Custom\ProductsWatcher\ProductsHistory\bin\Debug\RadiantWebScrapersConfig.json&quot;" />
   </Target>
 
 </Project>

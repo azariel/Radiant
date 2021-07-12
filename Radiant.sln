@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantInputsManager", "Rad
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Custom", "Custom", "{3F568F1A-2E83-4ECB-9471-577C03B489DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsHistory", "Custom\ProductsHistory\ProductsHistory.csproj", "{8925251A-C071-4AF1-A55D-7EE6261E379A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsHistory", "Custom\ProductsWatcher\ProductsHistory\ProductsHistory.csproj", "{8925251A-C071-4AF1-A55D-7EE6261E379A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiantNotifier", "RadiantNotifier\RadiantNotifier.csproj", "{7607AADC-DEF2-4D6B-8BED-5409D2AE761D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantNotifier", "RadiantNotifier\RadiantNotifier.csproj", "{7607AADC-DEF2-4D6B-8BED-5409D2AE761D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products Watcher", "Products Watcher", "{37BF9709-16B7-42E6-ABE9-B52388D9CDA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsHistoryClient", "Custom\ProductsWatcher\ProductsHistoryClient\ProductsHistoryClient.csproj", "{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,12 +51,18 @@ Global
 		{7607AADC-DEF2-4D6B-8BED-5409D2AE761D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7607AADC-DEF2-4D6B-8BED-5409D2AE761D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7607AADC-DEF2-4D6B-8BED-5409D2AE761D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8925251A-C071-4AF1-A55D-7EE6261E379A} = {3F568F1A-2E83-4ECB-9471-577C03B489DF}
+		{8925251A-C071-4AF1-A55D-7EE6261E379A} = {37BF9709-16B7-42E6-ABE9-B52388D9CDA1}
+		{37BF9709-16B7-42E6-ABE9-B52388D9CDA1} = {3F568F1A-2E83-4ECB-9471-577C03B489DF}
+		{B76A52F1-6018-4CE0-AA61-8509CEC58FC8} = {37BF9709-16B7-42E6-ABE9-B52388D9CDA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B1D993C-526C-4722-8B7F-57AFF81FC466}

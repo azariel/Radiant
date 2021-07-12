@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Radiant.Common.Database.Common;
+using Radiant.Common.Tests;
 using Radiant.Custom.ProductsHistory.DataBase;
+using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
 using Radiant.Custom.ProductsHistory.Tasks;
 using Radiant.Notifier;
 using Radiant.Notifier.DataBase;
@@ -13,21 +16,44 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private void AddProduct1()
+        private void AddProduct1User1AndSubscriptionToProduct1()
         {
             using var _DataBaseContext = new ProductsDbContext();
 
-            var _Product2 = new RadiantProductModel
+            var _Product1 = new RadiantProductModel
             {
                 Name = "TestProductName",
-                InsertDateTime = DateTime.Now.AddMinutes(-11),
+                InsertDateTime = DateTime.Now.AddMinutes(-1),
                 FetchProductHistoryEnabled = true,
-                FetchProductHistoryEveryX = new TimeSpan(0, 10, 0),
+                FetchProductHistoryEveryX = new TimeSpan(0, 0, 1),
                 FetchProductHistoryTimeSpanNoiseInPerc = 2.5f,
                 Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT"
             };
 
-            _DataBaseContext.Products.Add(_Product2);
+            _DataBaseContext.Products.Add(_Product1);
+            _DataBaseContext.SaveChanges();
+
+            var _User = new RadiantUserProductsHistoryModel()
+            {
+                Email = RadiantCommonUnitTestsConstants.EMAIL,
+                Password = "passwordEC7FAB53-8D76-4561-8452-F6D0AA013045",
+                Type = RadiantUserModel.UserType.Admin,
+                UserName = "username31770FB5-981F-469A-B453-11AF855D5A2A"
+            };
+
+            _DataBaseContext.Users.Add(_User);
+            _DataBaseContext.SaveChanges();
+
+            var _Sub = new RadiantProductSubscriptionModel()
+            {
+                Product = _Product1,
+                User = _User,
+                BestPricePercentageForNotification = 10,
+                MaximalPriceForNotification = 1000,
+                SendEmailOnNotification = true,
+            };
+
+            _DataBaseContext.Subscriptions.Add(_Sub);
             _DataBaseContext.SaveChanges();
         }
 
@@ -58,7 +84,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
             RemoveAllProducts();
             RemoveAllNotifications();
 
-            AddProduct1();
+            AddProduct1User1AndSubscriptionToProduct1();
             Assert.Equal(1, _DataBaseContext.Products.Count());
 
             ProductsMonitorTask _Task = new ProductsMonitorTask
@@ -69,6 +95,19 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
 
             _DataBaseContext.Entry(_DataBaseContext.Products.Single()).Collection(c => c.ProductHistoryCollection).Load();
             Assert.Equal(1, _DataBaseContext.Products.Single().ProductHistoryCollection.Count);
+
+            // The very first time a product is fetched, no notification should occur
+            using (NotificationsDbContext _DbContext = new())
+            {
+                Assert.Equal(0, _DbContext.Notifications.Count());
+            }
+
+            // Bump the price. We will trig again and we want a notification to be created. If the price remains the same, no notification are created
+            _DataBaseContext.ProductsHistory.First().Price = 256;
+            _DataBaseContext.SaveChanges();
+
+            // Trig again to create a notification
+            _Task.ForceTriggerNow();
 
             // Check that notification was created
             using (NotificationsDbContext _DbContext = new())
