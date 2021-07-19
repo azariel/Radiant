@@ -50,6 +50,16 @@ namespace Radiant.WebScraper.Parsers.DOM
 
                     _Value = _Match.Groups[1].Value;
                     break;
+                case RegexItemResultTarget.LastGroupValue:
+
+                    if (_Match.Groups.Count < 1)
+                    {
+                        LoggingManager.LogToFile("78A366DE-8BC3-42D1-97D8-76788128160C", $"Couldn't match content. Was expecting at least 1 group, but only [{_Match.Groups.Count}] found. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
+                        return null;
+                    }
+
+                    _Value = _Match.Groups[^1].Value;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException($"{aParserItem.Target} is unhandled.");
             }

@@ -19,6 +19,8 @@ namespace RadiantInputsManager
         XK_w = 0x0077,// w
         XK_Left = 0x08fb,// Left Arrow
         XK_Right = 0x08fd,// Right Arrow
+        XK_Down = 0x08fe,// Down Arrow
+        XK_Up = 0x08fc,// Up Arrow
         XK_Shift_L = 0xffe1,// Left Shift
         XK_End = 0xff57,//End
     }

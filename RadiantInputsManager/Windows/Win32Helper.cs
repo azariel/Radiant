@@ -76,6 +76,8 @@ namespace RadiantInputsManager.Windows
                 Keycode.XK_Shift_L,
                 Keycode.XK_Right,
                 Keycode.XK_Left,
+                Keycode.XK_Down,
+                Keycode.XK_Up,
                 Keycode.XK_End,
             };
 
@@ -87,6 +89,8 @@ namespace RadiantInputsManager.Windows
                 Keycode.XK_Shift_L => (byte)WindowsVirtualKeys.LeftShift,
                 Keycode.XK_Left => (byte)WindowsVirtualKeys.Left,
                 Keycode.XK_Right => (byte)WindowsVirtualKeys.Right,
+                Keycode.XK_Down => (byte)WindowsVirtualKeys.Down,
+                Keycode.XK_Up => (byte)WindowsVirtualKeys.Up,
                 Keycode.XK_Escape => (byte)WindowsVirtualKeys.Escape,
                 Keycode.XK_u => (byte)WindowsVirtualKeys.U,
                 Keycode.XK_a => (byte)WindowsVirtualKeys.A,

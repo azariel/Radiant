@@ -4,6 +4,7 @@
     {
         Value,
         Group0Value,
-        Group1Value
+        Group1Value,
+        LastGroupValue
     }
 }

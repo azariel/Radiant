@@ -48,6 +48,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="API\GoogleDrive\gdriveoauth.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="API\GoogleDrive\radiant-319014-d7d51b9a40d1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="RadiantConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

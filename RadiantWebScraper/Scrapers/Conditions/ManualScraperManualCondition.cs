@@ -67,7 +67,7 @@ namespace Radiant.WebScraper.Scrapers.Conditions
                                         _ValueFound = _Match.Groups[0].Value;
                                         break;
                                     case RegexItemResultTarget.Group1Value:
-                                        if (_Match.Groups.Count < 1)
+                                        if (_Match.Groups.Count < 2)
                                         {
                                             LoggingManager.LogToFile("59EE703F-F9B0-4BD7-AB57-D944BC4235E7", $"[{nameof(ManualScraperManualCondition)}] couldn't parse found value [{_Value}] with regex pattern [{this.RegexPatternToApplyOnValue}]. The expected value was [{this.ExpectedValue}]. Match didn't contained at least 2 groups. Condition failed.");
                                             return false;
@@ -75,11 +75,20 @@ namespace Radiant.WebScraper.Scrapers.Conditions
 
                                         _ValueFound = _Match.Groups[1].Value;
                                         break;
+                                    case RegexItemResultTarget.LastGroupValue:
+                                        if (_Match.Groups.Count < 1)
+                                        {
+                                            LoggingManager.LogToFile("6E6A3798-D0BD-4B51-88C6-8967A1236D5B", $"[{nameof(ManualScraperManualCondition)}] couldn't parse found value [{_Value}] with regex pattern [{this.RegexPatternToApplyOnValue}]. The expected value was [{this.ExpectedValue}]. Match didn't contained at least 1 group. Condition failed.");
+                                            return false;
+                                        }
+
+                                        _ValueFound = _Match.Groups[^1].Value;
+                                        break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
                                 }
 
-                                if (string.Equals(this.ExpectedValue, _ValueFound, this.ValueStringComparison))
+                                if (string.Equals(this.ExpectedValue.Trim(), _ValueFound.Trim(), this.ValueStringComparison))
                                     return this.ConditionValidIfValueFound;
 
                                 return !this.ConditionValidIfValueFound;

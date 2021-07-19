@@ -85,7 +85,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             if (_Price.HasValue)
                 this.Information.Price = _Price;
 
-            if(!this.Information.Price.HasValue)
+            if (!this.Information.Price.HasValue)
                 LoggingManager.LogToFile("2CCDD325-3050-4FA5-A9F5-F9331A155C4F", $"DOM parser step to fetch price of product [{fUrl}] failed.");
         }
 
@@ -106,7 +106,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                             case ManualScraperSequenceItemByClipboard _ManualScraperSequenceItemByClipboard:
                                 if (_ManualScraperSequenceItemByClipboard.Operation == ManualScraperSequenceItemByClipboard.ClipboardOperation.Get)
                                 {
-                                    string _RawPrice = ClipboardManager.GetClipboardValue();
+                                    string _RawPrice = ClipboardManager.GetClipboardValue().Replace("\r", "").Replace("\n", "");
 
                                     if (_ManualScraperSequenceItemByClipboard.WaitMsOnEnd > 0)
                                         WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItemByClipboard.WaitMsOnEnd);
@@ -142,6 +142,12 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                                                 return;
 
                                             _Price = _Match.Groups[1].Value;
+                                        } else if (_ManualScraperItemParser.ValueParser.Target == RegexItemResultTarget.LastGroupValue)
+                                        {
+                                            if (_Match.Groups.Count < 1)
+                                                return;
+
+                                            _Price = _Match.Groups[^1].Value;
                                         }
                                     }
 
@@ -150,7 +156,10 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                                         _Price = _Price.Insert(_Price.Length - 2, ".");
 
                                     if (!string.IsNullOrWhiteSpace(_Price) && double.TryParse(_Price, out double _PriceAsDouble))
+                                    {
                                         this.Information.Price = _PriceAsDouble;
+                                        return;
+                                    }
                                 }
 
                                 break;
@@ -171,7 +180,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 throw;
             }
 
-            if(!this.Information.Price.HasValue)
+            if (!this.Information.Price.HasValue)
                 LoggingManager.LogToFile("158B5041-37B1-476F-8DC2-C96430E2B0F9", $"Manual steps to fetch price of product [{fUrl}] failed.");
         }
 
@@ -191,7 +200,18 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             FetchProductInformation();
 
             if (!this.Information.Price.HasValue)
+            {
                 HandleFailureProcess();
+                return;
+            }
+
+            // Validate fetched information with DOM parser to check if we should inform Admins that a configuration may be incorrect
+            double? _Price = DOMProductInformationParser.ParsePrice(fUrl, this.DOM, fDOMParserItems);
+
+            if (this.OneOrMoreStepFailedAndRequiredAFallback || !_Price.HasValue || Math.Abs(this.Information.Price.Value - _Price.Value) >= 0.01)
+            {
+                CreateErrorNotificationForAdministration($"this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}_Price.HasValue={_Price.HasValue}{Environment.NewLine}this.Information.Price.Value={this.Information.Price.Value}{Environment.NewLine}_Price.Value(by DOM only)={_Price}");
+            }
         }
 
         private void HandleFailureProcess()
@@ -217,12 +237,19 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
             }
 
+            CreateErrorNotificationForAdministration("Check DOM and screenshot saved on Server disk for more info.");
+        }
+
+        private void CreateErrorNotificationForAdministration(string aCustomContent)
+        {
             try
             {
+                string _Content = $"<p>Url: {fUrl}</p>{Environment.NewLine}{aCustomContent}";
+
                 // TODO: send notification ? with screenshot and DOM
                 RadiantNotificationModel _NewNotification = new()
                 {
-                    Content = $"<p>Url: {fUrl}</p>",
+                    Content = _Content,
                     Subject = "Error couldn't fetch product information",
                     EmailFrom = "Radiant Product History",
                     MinimalDateTimetoSend = DateTime.Now
