@@ -21,7 +21,7 @@ namespace Radiant.Notifier.DataBase
         // ********************************************************************
         //                            Protected
         // ********************************************************************
-        protected override string GetDataBaseFileName() => "Notifications.db";
+        public override string GetDataBaseFileName() => "Notifications.db";
 
         protected override void OnConfiguring(DbContextOptionsBuilder aOptionsBuilder)
         {

@@ -13,6 +13,9 @@ namespace Radiant.Common.Database.Sqlite
             aDbContextOptionsBuilder.UseSqlite(@$"Data Source={GetDataBaseFileName()};");//Foreign Keys = False;
         }
 
-        protected virtual string GetDataBaseFileName() => "Radiant.db";
+        // ********************************************************************
+        //                            Public
+        // ********************************************************************
+        public virtual string GetDataBaseFileName() => "Radiant.db";
     }
 }

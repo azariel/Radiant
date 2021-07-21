@@ -14,7 +14,7 @@ namespace ProductsHistoryClient.Products
         // ********************************************************************
         //                            Constants
         // ********************************************************************
-        public const string DATABASE_FILE_NAME = "RadiantCommon.db";
+        public static string fDataBaseFileName = new ProductsDbContext().GetDataBaseFileName();
 
         // ********************************************************************
         //                            Private
@@ -29,10 +29,10 @@ namespace ProductsHistoryClient.Products
             {
                 byte[] _DatabaseContent = ProductsRemoteManager.FetchRemoteDatabaseContent();
 
-                if (File.Exists(DATABASE_FILE_NAME))
-                    File.Delete(DATABASE_FILE_NAME);
+                if (File.Exists(fDataBaseFileName))
+                    File.Delete(fDataBaseFileName);
 
-                File.WriteAllBytes(DATABASE_FILE_NAME, _DatabaseContent);
+                File.WriteAllBytes(fDataBaseFileName, _DatabaseContent);
                 LoggingManager.LogToFile("0872B1E6-B9AE-4EDC-9DD8-AF5B4DCFAAA5", "Local Database was successfully updated.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
             } catch (Exception _Exception)
@@ -46,9 +46,9 @@ namespace ProductsHistoryClient.Products
         // ********************************************************************
         public static async Task<List<RadiantProductModel>> LoadProductsFromDisk()
         {
-            if (!File.Exists(DATABASE_FILE_NAME))
+            if (!File.Exists(fDataBaseFileName))
             {
-                ClientException.ThrowNewException("0284AA63-09BB-4838-A073-6D9056D005FC", $"Database was fetched, but wasn't found on disk [{DATABASE_FILE_NAME}].");
+                ClientException.ThrowNewException("0284AA63-09BB-4838-A073-6D9056D005FC", $"Database was fetched, but wasn't found on disk [{fDataBaseFileName}].");
                 return null;
             }
 
@@ -75,7 +75,7 @@ namespace ProductsHistoryClient.Products
             }
 
             // If the local database was deleted, we'll fetch the remote one
-            if (!File.Exists(DATABASE_FILE_NAME))
+            if (!File.Exists(fDataBaseFileName))
                 await TryRefreshLocalDataBaseWithRemoteDataBase();
 
             return await LoadProductsFromDisk();

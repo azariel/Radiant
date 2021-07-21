@@ -1,4 +1,6 @@
-﻿namespace ProductsHistoryClient.Configuration
+﻿using Radiant.Custom.ProductsHistoryCommon.Configuration;
+
+namespace ProductsHistoryClient.Configuration
 {
     public class ProductsHistoryClientConfiguration 
     {

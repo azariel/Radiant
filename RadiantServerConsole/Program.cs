@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Radiant.Common.Configuration;
 using Radiant.Common.Helpers;
 using Radiant.Common.Tasks;
-using Radiant.Common.Tasks.Triggers;
 using Radiant.ServerConsole.Configuration;
 
 namespace Radiant.ServerConsole
