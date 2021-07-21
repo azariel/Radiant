@@ -8,8 +8,8 @@ using Radiant.Common.Business;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent.Clipboard;
-using Radiant.Custom.ProductsHistory.DataBase;
 using Radiant.Custom.ProductsHistory.Parsers;
+using Radiant.Custom.ProductsHistoryCommon.DataBase;
 using Radiant.Notifier.DataBase;
 using Radiant.WebScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
@@ -33,6 +33,39 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         private List<ProductDOMParserItem> fDOMParserItems;
         private List<ManualScraperProductParser> fManualScraperItems;
+
+        private void CreateErrorNotificationForAdministration(string aCustomContent)
+        {
+            try
+            {
+                string _Content = $"<p>Url: {fUrl}</p>{Environment.NewLine}{aCustomContent}";
+
+                // TODO: send notification ? with screenshot and DOM
+                RadiantNotificationModel _NewNotification = new()
+                {
+                    Content = _Content,
+                    Subject = "Error couldn't fetch product information",
+                    EmailFrom = "Radiant Product History",
+                    MinimalDateTimetoSend = DateTime.Now
+
+                    // TODO: attachments = Screenshot + DOM
+                };
+
+                // Add all subscribed users email to notification EmailTo
+                using ProductsDbContext _ProductDbContext = new();
+                _ProductDbContext.Users.Load();
+
+                // Notify all Admins
+                _NewNotification.EmailTo.AddRange(_ProductDbContext.Users.Where(w => w.Type == RadiantUserModel.UserType.Admin).Select(s => s.Email));
+
+                using NotificationsDbContext _NotificationDbContext = new();
+                _NotificationDbContext.Notifications.Add(_NewNotification);
+                _NotificationDbContext.SaveChanges();
+            } catch (Exception _Ex)
+            {
+                LoggingManager.LogToFile("A1273815-7729-41E3-B4C6-94979F9908E9", $"Couldn't create notification on {nameof(ProductTargetScraper)} fetch failure.", _Ex);
+            }
+        }
 
         private void FetchProductInformation()
         {
@@ -67,6 +100,15 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             TryFetchProductPriceByDOM();
         }
 
+        private void HandleFailureProcess()
+        {
+            LoggingManager.LogToFile("9C0FE4DD-408C-4F5A-A716-A9D7CF23D729", $"Couldn't fetch price on Url [{fUrl}].");
+
+            WriteProductInformationToErrorFolder();
+
+            CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched. Will retry later.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
+        }
+
         private void TryFetchProductNameFromDOM()
         {
             if (string.IsNullOrWhiteSpace(this.DOM))
@@ -78,7 +120,12 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         private void TryFetchProductPriceByDOM()
         {
             if (string.IsNullOrWhiteSpace(this.DOM))
+            {
+                LoggingManager.LogToFile("1A1AF5EE-BDFA-4F71-A698-935341E133AD", $"Trying to fetch price of [{fUrl}], but no DOM parsers were configured matching this URL domain.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
                 return;
+            }
+
+            LoggingManager.LogToFile("D07C90BF-8570-4BE6-A98A-2EFB20322A4A", $"Trying to fetch price of [{fUrl}] using [{fDOMParserItems.Count}] DOM parsers", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
             double? _Price = DOMProductInformationParser.ParsePrice(fUrl, this.DOM, fDOMParserItems);
 
@@ -93,7 +140,10 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         {
             try
             {
-                foreach (ManualScraperProductParser _ManualScraperItemParser in fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price))
+                ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price).ToArray();
+                LoggingManager.LogToFile("013C0C5E-5149-465B-9D7E-1138169C5869", $"Trying to fetch price of [{fUrl}] using [{_AvailableProductParser.Length}]", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+
+                foreach (ManualScraperProductParser _ManualScraperItemParser in _AvailableProductParser)
                 {
                     // Check conditions (Certain manual scraper requires something to work. ex: if "Deal Price:" is found on the webpage, we can use a certain manual scraper
                     if (_ManualScraperItemParser.Condition?.Evaluate(fBrowser) == false)
@@ -184,6 +234,27 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 LoggingManager.LogToFile("158B5041-37B1-476F-8DC2-C96430E2B0F9", $"Manual steps to fetch price of product [{fUrl}] failed.");
         }
 
+        private void WriteProductInformationToErrorFolder()
+        {
+            try
+            {
+                // Save Screenshot and DOM in error folder
+                string _RootFolder = "Errors";
+
+                if (!Directory.Exists(_RootFolder))
+                    Directory.CreateDirectory(_RootFolder);
+
+                if (!string.IsNullOrWhiteSpace(this.DOM))
+                    File.WriteAllText(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}-DOM.txt"), this.DOM);
+
+                if (this.Screenshot != null && this.Screenshot.Length > 0)
+                    File.WriteAllBytes(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}.png"), this.Screenshot);
+            } catch (Exception _Ex)
+            {
+                LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
+            }
+        }
+
         // ********************************************************************
         //                            Public
         // ********************************************************************
@@ -210,66 +281,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             if (this.OneOrMoreStepFailedAndRequiredAFallback || !_Price.HasValue || Math.Abs(this.Information.Price.Value - _Price.Value) >= 0.01)
             {
-                CreateErrorNotificationForAdministration($"this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}_Price.HasValue={_Price.HasValue}{Environment.NewLine}this.Information.Price.Value={this.Information.Price.Value}{Environment.NewLine}_Price.Value(by DOM only)={_Price}");
-            }
-        }
-
-        private void HandleFailureProcess()
-        {
-            LoggingManager.LogToFile("9C0FE4DD-408C-4F5A-A716-A9D7CF23D729", $"Couldn't fetch price on Url [{fUrl}].");
-
-            try
-            {
-                // Save Screenshot and DOM in error folder
-                string _RootFolder = "Errors";
-
-                if (!Directory.Exists(_RootFolder))
-                    Directory.CreateDirectory(_RootFolder);
-
-                if (!string.IsNullOrWhiteSpace(this.DOM))
-                    File.WriteAllText(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}-DOM.txt"), this.DOM);
-
-                if (this.Screenshot != null && this.Screenshot.Length > 0)
-                    File.WriteAllBytes(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}.png"), this.Screenshot);
-
-            } catch (Exception _Ex)
-            {
-                LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
-            }
-
-            CreateErrorNotificationForAdministration("Check DOM and screenshot saved on Server disk for more info.");
-        }
-
-        private void CreateErrorNotificationForAdministration(string aCustomContent)
-        {
-            try
-            {
-                string _Content = $"<p>Url: {fUrl}</p>{Environment.NewLine}{aCustomContent}";
-
-                // TODO: send notification ? with screenshot and DOM
-                RadiantNotificationModel _NewNotification = new()
-                {
-                    Content = _Content,
-                    Subject = "Error couldn't fetch product information",
-                    EmailFrom = "Radiant Product History",
-                    MinimalDateTimetoSend = DateTime.Now
-
-                    // TODO: attachments = Screenshot + DOM
-                };
-
-                // Add all subscribed users email to notification EmailTo
-                using ProductsDbContext _ProductDbContext = new();
-                _ProductDbContext.Users.Load();
-
-                // Notify all Admins
-                _NewNotification.EmailTo.AddRange(_ProductDbContext.Users.Where(w => w.Type == RadiantUserModel.UserType.Admin).Select(s => s.Email));
-
-                using NotificationsDbContext _NotificationDbContext = new();
-                _NotificationDbContext.Notifications.Add(_NewNotification);
-                _NotificationDbContext.SaveChanges();
-            } catch (Exception _Ex)
-            {
-                LoggingManager.LogToFile("A1273815-7729-41E3-B4C6-94979F9908E9", $"Couldn't create notification on {nameof(ProductTargetScraper)} fetch failure.", _Ex);
+                WriteProductInformationToErrorFolder();
+                CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price.Value}</p><p>_Price.Value(by DOM only)={_Price}</p>");
             }
         }
 
@@ -279,8 +292,9 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         public ProductFetchedInformation Information { get; set; } = new();
 
         /// <summary>
-        /// If a step failed, for example, a manual step and we had to fallback to the DOM parser (or other fallback), this will be true
+        /// If a step failed, for example, a manual step and we had to fallback to the DOM parser (or other fallback), this will be
+        /// true
         /// </summary>
-        public bool OneOrMoreStepFailedAndRequiredAFallback { get; set; } = false;
+        public bool OneOrMoreStepFailedAndRequiredAFallback { get; set; }
     }
 }

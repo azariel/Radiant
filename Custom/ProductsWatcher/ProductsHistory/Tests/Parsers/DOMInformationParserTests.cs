@@ -150,7 +150,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             string _Product2DOM = GetDOMFromResource(ProductSourceCodeFile.NeweggProduct2);
 
             // This second format doesn't work. It's supposed to be 51.45, but this is nowhere in the DOM... it's probably handled after javascript eval...
-            //double? _Price = DOMProductInformationParser.ParsePrice("www.newegg.ca", _Product2DOM, _Config.DOMParserItems);
+            double? _Price = DOMProductInformationParser.ParsePrice("www.newegg.ca", _Product2DOM, _Config.DOMParserItems);
             //double _ExpectedPrice = 51.45;
             //Assert.Equal(_ExpectedPrice, _Price);
 

@@ -3,9 +3,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Radiant.Common.Configuration;
+using Radiant.Common.Helpers;
 using Radiant.Common.Tasks;
+using Radiant.Common.Tasks.Triggers;
 using Radiant.ServerConsole.Configuration;
-using AssemblyHelper = Radiant.Common.Helpers.AssemblyHelper;
 
 namespace Radiant.ServerConsole
 {
@@ -24,6 +25,7 @@ namespace Radiant.ServerConsole
             StartBackgroundProcesses();
             Console.WriteLine("-----Please choose and option-----");
             Console.WriteLine("0) Exit");
+
             //Console.WriteLine("1) Inputs Manager");
 
             ConsoleKeyInfo _Key = Console.ReadKey();
@@ -33,55 +35,56 @@ namespace Radiant.ServerConsole
                 case ConsoleKey.D0 or ConsoleKey.NumPad0:
                     Environment.Exit(0);
                     break;
-                //case ConsoleKey.D1 or ConsoleKey.NumPad1:
-                //    Console.Clear();
-                //    Console.WriteLine("-----Inputs Manager-----");
-                //    Console.WriteLine("---Status---");
 
-                //    RadiantConfig _test = new();
-                //    _test.Tasks.Tasks.Add(new ManualAutomationTask
-                //    {
-                //        Triggers = new List<ITrigger>
-                //        {
-                //            new ScheduleTrigger
-                //            {
-                //                TriggerEverySeconds = 10,
-                //                //ResetTriggeredTimesOnStart = true
-                //            }
-                //        },
-                //        Settings = new List<ManualAutomationSetting>
-                //        {
-                //            new()
-                //            {
-                //                ManualAutomationOperationType = ManualAutomation.ManualAutomationOperationType.MouseClick,
-                //                InputParam = new MouseActionInputParam
-                //                {
-                //                    X = 5,
-                //                    Y = 6,
-                //                    Button = MouseOptions.MouseButtons.Left
-                //                }
-                //            }
-                //        },
-                //        IsEnabled = true
-                //    });
-                    
-                //    _test.Tasks.Tasks.Add(new ProductsMonitorTask
-                //    {
-                //        Triggers = new List<ITrigger>
-                //        {
-                //            new ScheduleTrigger
-                //            {
-                //                TriggerEverySeconds = 10,
-                //            }
-                //        },
-                //        IsEnabled = true
-                //    });
-                //    CommonConfigurationManager.SetConfigInMemory(_test);
-                //    CommonConfigurationManager.SaveConfigInMemoryToDisk();
+                    //case ConsoleKey.D1 or ConsoleKey.NumPad1:
+                    //    Console.Clear();
+                    //    Console.WriteLine("-----Inputs Manager-----");
+                    //    Console.WriteLine("---Status---");
 
-                //    RadiantConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
+                    //    RadiantConfig _test = new();
+                    //    _test.Tasks.Tasks.Add(new ManualAutomationTask
+                    //    {
+                    //        Triggers = new List<ITrigger>
+                    //        {
+                    //            new ScheduleTrigger
+                    //            {
+                    //                TriggerEverySeconds = 10,
+                    //                //ResetTriggeredTimesOnStart = true
+                    //            }
+                    //        },
+                    //        Settings = new List<ManualAutomationSetting>
+                    //        {
+                    //            new()
+                    //            {
+                    //                ManualAutomationOperationType = ManualAutomation.ManualAutomationOperationType.MouseClick,
+                    //                InputParam = new MouseActionInputParam
+                    //                {
+                    //                    X = 5,
+                    //                    Y = 6,
+                    //                    Button = MouseOptions.MouseButtons.Left
+                    //                }
+                    //            }
+                    //        },
+                    //        IsEnabled = true
+                    //    });
 
-                //    break;
+                    //    _test.Tasks.Tasks.Add(new ProductsMonitorTask
+                    //    {
+                    //        Triggers = new List<ITrigger>
+                    //        {
+                    //            new ScheduleTrigger
+                    //            {
+                    //                TriggerEverySeconds = 10,
+                    //            }
+                    //        },
+                    //        IsEnabled = true
+                    //    });
+                    //    CommonConfigurationManager.SetConfigInMemory(_test);
+                    //    CommonConfigurationManager.SaveConfigInMemoryToDisk();
+
+                    //    RadiantConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
+
+                    //    break;
             }
 
             Console.ReadKey();
@@ -118,7 +121,7 @@ namespace Radiant.ServerConsole
                 // Evaluate each tasks async to avoid blocking evaluation of other tasks
                 foreach (IRadiantTask _RadiantTask in _RadiantConfig.Tasks.Tasks.Where(w => w.IsEnabled))
                     Task.Run(() => _RadiantTask.EvaluateTriggers());
-                
+
                 Thread.Sleep(CORE_LOOP_MS);
             }
         }

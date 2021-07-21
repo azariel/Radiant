@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Radiant.Common.Database.Sqlite;
-using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
+using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
 
-namespace Radiant.Custom.ProductsHistory.DataBase
+namespace Radiant.Custom.ProductsHistoryCommon.DataBase
 {
     [Table("Products")]
     public class RadiantProductModel : RadiantSqliteBaseTable

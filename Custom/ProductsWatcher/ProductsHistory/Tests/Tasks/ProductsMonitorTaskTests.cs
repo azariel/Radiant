@@ -2,9 +2,9 @@
 using System.Linq;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Tests;
-using Radiant.Custom.ProductsHistory.DataBase;
-using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
 using Radiant.Custom.ProductsHistory.Tasks;
+using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
 using Radiant.Notifier;
 using Radiant.Notifier.DataBase;
 using Xunit;

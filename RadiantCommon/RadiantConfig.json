@@ -10,8 +10,11 @@
                 "Triggers": [
                     {
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "TriggerEveryXSeconds": 10,
-                        "UID": "17f3f3f8-a675-493e-b12b-60af75a4594e"
+                        "BlackOutTimeFrame": {
+                            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
+                            "BlackOutEnd": "00:23:00",
+                            "BlackOutStart": "00:23:05"
+                        }
                     }
                 ]
             },

@@ -1,29 +1,15 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Tests;
-using Radiant.Custom.ProductsHistory.DataBase;
-using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
+using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
 using Xunit;
 
 namespace Radiant.Custom.ProductsHistory.Tests.DataBase
 {
     public class ProductsDbContextTests
     {
-        // ********************************************************************
-        //                            Private
-        // ********************************************************************
-        private void RemoveAllUsers()
-        {
-            using ProductsDbContext _DbContext = new();
-
-            foreach (RadiantUserProductsHistoryModel _User in _DbContext.Users)
-                _DbContext.Users.Remove(_User);
-
-            _DbContext.SaveChanges();
-        }
-
         private void RemoveAllProducts()
         {
             using ProductsDbContext _DbContext = new();
@@ -37,6 +23,62 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             //}
 
             _DbContext.SaveChanges();
+        }
+
+        // ********************************************************************
+        //                            Private
+        // ********************************************************************
+        private void RemoveAllUsers()
+        {
+            using ProductsDbContext _DbContext = new();
+
+            foreach (RadiantUserProductsHistoryModel _User in _DbContext.Users)
+                _DbContext.Users.Remove(_User);
+
+            _DbContext.SaveChanges();
+        }
+
+        [Fact(Skip = "Add a new Product in Database to Test ServerConsole or other client apps")]
+
+        //[Fact]
+        public void AddTypicalProductAndDependencesPersistent()
+        {
+            using var _DataBaseContext = new ProductsDbContext();
+
+            var _Product = new RadiantProductModel
+            {
+                Name = "TestProductName",
+                FetchProductHistoryEnabled = true,
+                FetchProductHistoryEveryX = new TimeSpan(0, 10, 0),
+                FetchProductHistoryTimeSpanNoiseInPerc = 2.5f,
+                Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT"
+            };
+
+            _DataBaseContext.Products.Add(_Product);
+
+            // Add User
+            var _User = new RadiantUserProductsHistoryModel
+            {
+                Email = RadiantCommonUnitTestsConstants.EMAIL,
+                Password = "MySuperPassword",
+                Type = RadiantUserModel.UserType.User,
+                UserName = "MySuperUser"
+            };
+
+            _DataBaseContext.Users.Add(_User);
+
+            // Add subscription to recently added product
+            var _Subscription = new RadiantProductSubscriptionModel
+            {
+                Product = _Product,
+                User = _User,
+                MaximalPriceForNotification = 57.35,
+                SendEmailOnNotification = true
+            };
+
+            _User.ProductSubscriptions.Add(_Subscription);
+
+            _DataBaseContext.SaveChanges();
         }
 
         // ********************************************************************
@@ -104,6 +146,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             _DataBaseContext.Products.Add(_Product2);
 
             _DataBaseContext.SaveChanges();
+
             //_DataBaseContext.Dispose();
 
             // Switching to a brand new context to test navigation properties / FK / Lazy loading
@@ -169,48 +212,6 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             Assert.Equal(0, _DataBaseContext.Products.Count());
         }
 
-        [Fact(Skip = "Add a new Product in Database to Test ServerConsole or other client apps")]
-        //[Fact]
-        public void AddTypicalProductAndDependencesPersistent()
-        {
-            using var _DataBaseContext = new ProductsDbContext();
-
-            var _Product = new RadiantProductModel
-            {
-                Name = "TestProductName",
-                FetchProductHistoryEnabled = true,
-                FetchProductHistoryEveryX = new TimeSpan(0, 10, 0),
-                FetchProductHistoryTimeSpanNoiseInPerc = 2.5f,
-                Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT"
-            };
-
-            _DataBaseContext.Products.Add(_Product);
-
-            // Add User
-            var _User = new RadiantUserProductsHistoryModel
-            {
-                Email = RadiantCommonUnitTestsConstants.EMAIL,
-                Password = "MySuperPassword",
-                Type = RadiantUserModel.UserType.User,
-                UserName = "MySuperUser"
-            };
-
-            _DataBaseContext.Users.Add(_User);
-
-            // Add subscription to recently added product
-            var _Subscription = new RadiantProductSubscriptionModel
-            {
-                Product = _Product,
-                User = _User,
-                MaximalPriceForNotification = 57.35,
-                SendEmailOnNotification = true
-            };
-            
-            _User.ProductSubscriptions.Add(_Subscription);
-
-            _DataBaseContext.SaveChanges();
-        }
-
         [Fact]
         public void SubscriptionBasicDbContextTest()
         {
@@ -274,7 +275,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
                 User = _DataBaseContext.Users.First(),
                 MaximalPriceForNotification = 57.35
             };
-            
+
             _User.ProductSubscriptions.Add(_Subscription);
             _DataBaseContext.SaveChanges();
 

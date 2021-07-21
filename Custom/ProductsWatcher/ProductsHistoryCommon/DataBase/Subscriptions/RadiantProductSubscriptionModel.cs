@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Radiant.Custom.ProductsHistory.DataBase.Subscriptions
+namespace Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions
 {
     [Table("ProductSubscriptions")]
     public class RadiantProductSubscriptionModel

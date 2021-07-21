@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
 using Radiant.Custom.ProductsHistory.Configuration;
-using Radiant.Custom.ProductsHistory.DataBase;
-using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
 using Radiant.Custom.ProductsHistory.Scraper;
+using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
 using Radiant.Notifier.DataBase;
 using Radiant.WebScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
@@ -40,6 +40,29 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             };
         }
 
+        private void EvaluateEmailNotifications(RadiantProductModel aProduct, RadiantProductHistoryModel aNewProductHistory, RadiantProductSubscriptionModel[] aSubscriptionModels)
+        {
+            RadiantProductSubscriptionModel[] _EmailSubscriptions = aSubscriptionModels.Where(w => w.SendEmailOnNotification).ToArray();
+
+            if (_EmailSubscriptions.Length <= 0)
+                return;
+
+            RadiantNotificationModel _NewNotification = new()
+            {
+                Content = $"<p>Product {aProduct.Name} is {aNewProductHistory.Price}$</p> <p>Url: {aProduct.Url}</p>",
+                Subject = $"Deal on {aProduct.Name} {aNewProductHistory.Price}$",
+                EmailFrom = "Radiant Product History",
+                MinimalDateTimetoSend = DateTime.Now
+            };
+
+            // Add all subscribed users email to notification EmailTo
+            _NewNotification.EmailTo.AddRange(_EmailSubscriptions.Select(s => s.User.Email));
+
+            using NotificationsDbContext _NotificationDbContext = new();
+            _NotificationDbContext.Notifications.Add(_NewNotification);
+            _NotificationDbContext.SaveChanges();
+        }
+
         // ********************************************************************
         //                            Private
         // ********************************************************************
@@ -67,35 +90,12 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             RadiantProductSubscriptionModel[] _SubscriptionsOnCurrentProduct = _ProductDbContext.Subscriptions.Where(w =>
                 w.Product.Equals(aProduct) &&
                 w.MaximalPriceForNotification >= aNewProductHistory.Price &&
-                aNewProductHistory.Price <= (_BestPriceLastYear + ((_BestPriceLastYear / 100) * w.BestPricePercentageForNotification))).ToArray();
+                aNewProductHistory.Price <= _BestPriceLastYear + _BestPriceLastYear / 100 * w.BestPricePercentageForNotification).ToArray();
 
             // Create email Notification model
             EvaluateEmailNotifications(aProduct, aNewProductHistory, _SubscriptionsOnCurrentProduct);
 
             // TODO: Other means of notifications
-        }
-
-        private void EvaluateEmailNotifications(RadiantProductModel aProduct, RadiantProductHistoryModel aNewProductHistory, RadiantProductSubscriptionModel[] aSubscriptionModels)
-        {
-            RadiantProductSubscriptionModel[] _EmailSubscriptions = aSubscriptionModels.Where(w => w.SendEmailOnNotification).ToArray();
-
-            if (_EmailSubscriptions.Length <= 0)
-                return;
-
-            RadiantNotificationModel _NewNotification = new()
-            {
-                Content = $"<p>Product {aProduct.Name} is {aNewProductHistory.Price}$</p> <p>Url: {aProduct.Url}</p>",
-                Subject = $"Deal on {aProduct.Name} {aNewProductHistory.Price}$",
-                EmailFrom = "Radiant Product History",
-                MinimalDateTimetoSend = DateTime.Now
-            };
-
-            // Add all subscribed users email to notification EmailTo
-            _NewNotification.EmailTo.AddRange(_EmailSubscriptions.Select(s => s.User.Email));
-
-            using NotificationsDbContext _NotificationDbContext = new();
-            _NotificationDbContext.Notifications.Add(_NewNotification);
-            _NotificationDbContext.SaveChanges();
         }
 
         private void EvaluateProduct(RadiantProductModel aProduct)
@@ -133,10 +133,9 @@ namespace Radiant.Custom.ProductsHistory.Tasks
 
             if (_ProductHistory == null)
             {
-                LoggingManager.LogToFile("988B416D-BE97-42A3-BA2F-438FFBFEDAF4", $"Couldn't fetch new product history of product [{aProduct.Name}] or Url [{aProduct.Url}].");
+                LoggingManager.LogToFile("988B416D-BE97-42A3-BA2F-438FFBFEDAF4", $"Couldn't fetch new product history of product [{aProduct.Name}] Url [{aProduct.Url}].");
 
-                // TODO: fail sequence
-                // Send email to Admin to inform of failure
+                // Note that when a product fetch fails, the ProductTargetScraper will handle the fail sequence to send notifications to admins, logging relevant informations about failure, etc.
 
                 // To avoid a query loop
                 UpdateNextFetchDateTime(aProduct, aNow);

@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantNotifier", "RadiantN
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products Watcher", "Products Watcher", "{37BF9709-16B7-42E6-ABE9-B52388D9CDA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsHistoryClient", "Custom\ProductsWatcher\ProductsHistoryClient\ProductsHistoryClient.csproj", "{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsHistoryClient", "Custom\ProductsWatcher\ProductsHistoryClient\ProductsHistoryClient.csproj", "{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsHistoryCommon", "Custom\ProductsWatcher\ProductsHistoryCommon\ProductsHistoryCommon.csproj", "{FBA41BF9-AD66-4AC3-AEE5-D973413F2150}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B76A52F1-6018-4CE0-AA61-8509CEC58FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA41BF9-AD66-4AC3-AEE5-D973413F2150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA41BF9-AD66-4AC3-AEE5-D973413F2150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA41BF9-AD66-4AC3-AEE5-D973413F2150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA41BF9-AD66-4AC3-AEE5-D973413F2150}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{8925251A-C071-4AF1-A55D-7EE6261E379A} = {37BF9709-16B7-42E6-ABE9-B52388D9CDA1}
 		{37BF9709-16B7-42E6-ABE9-B52388D9CDA1} = {3F568F1A-2E83-4ECB-9471-577C03B489DF}
 		{B76A52F1-6018-4CE0-AA61-8509CEC58FC8} = {37BF9709-16B7-42E6-ABE9-B52388D9CDA1}
+		{FBA41BF9-AD66-4AC3-AEE5-D973413F2150} = {37BF9709-16B7-42E6-ABE9-B52388D9CDA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B1D993C-526C-4722-8B7F-57AFF81FC466}

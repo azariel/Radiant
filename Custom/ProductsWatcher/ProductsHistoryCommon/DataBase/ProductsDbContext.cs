@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Common;
-using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
+using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
 
-namespace Radiant.Custom.ProductsHistory.DataBase
+namespace Radiant.Custom.ProductsHistoryCommon.DataBase
 {
+    /// TODO: RadiantCommonDbContext contains USERS and we're sharing the database with clients.... so yeah... we need a dedicated database for our products
     public class ProductsDbContext : RadiantCommonDbContext
     {
         // ********************************************************************

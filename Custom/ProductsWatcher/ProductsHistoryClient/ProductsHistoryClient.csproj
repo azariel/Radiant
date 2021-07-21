@@ -6,6 +6,22 @@
     <UseWPF>true</UseWPF>
     <Version>1.0.0.1</Version>
     <Authors>Azariel</Authors>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\RadiantCommon\RadiantCommon.csproj" />
+    <ProjectReference Include="..\ProductsHistoryCommon\ProductsHistoryCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ProductsHistoryClientConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ProductsRemoteServiceKeys.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

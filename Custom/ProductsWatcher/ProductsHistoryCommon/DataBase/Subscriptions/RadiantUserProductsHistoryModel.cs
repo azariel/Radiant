@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Radiant.Common.Database.Common;
 
-namespace Radiant.Custom.ProductsHistory.DataBase.Subscriptions
+namespace Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions
 {
     public class RadiantUserProductsHistoryModel : RadiantUserModel
     {

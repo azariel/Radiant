@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductsHistoryClient"
+        xmlns:login="clr-namespace:ProductsHistoryClient.View.Login"
+        xmlns:products="clr-namespace:ProductsHistoryClient.View.Products"
         mc:Ignorable="d"
-        Title="Radiant Products History Client" Height="450" Width="800">
+        Title="Radiant Products History Client" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-
+        <products:ProductsListView x:Name="ProductsListView"/>
     </Grid>
 </Window>

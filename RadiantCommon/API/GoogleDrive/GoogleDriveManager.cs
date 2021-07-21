@@ -13,21 +13,34 @@ using File = Google.Apis.Drive.v3.Data.File;
 
 namespace Radiant.Common.API.GoogleDrive
 {
-    public static class GoogleDriveManager
+    public class GoogleDriveManager
     {
+        // ********************************************************************
+        //                            Constructors
+        // ********************************************************************
+        public GoogleDriveManager(string aJsonServiceKeyFilePath)
+        {
+            if (!System.IO.File.Exists(aJsonServiceKeyFilePath))
+                throw new Exception($"Required file [{aJsonServiceKeyFilePath}] is missing.");
+
+            fJsonServiceKeyFilePath = aJsonServiceKeyFilePath;
+        }
+
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private static DriveService AuthenticateServiceAccount()
+        private readonly string fJsonServiceKeyFilePath;
+
+        private DriveService AuthenticateServiceAccount()
         {
-            const string _JSON_SERVICE_KEY_FILE_NAME = "API/GoogleDrive/radiant-319014-d7d51b9a40d1.json";
+            string _JsonServiceKeyFileName = fJsonServiceKeyFilePath;
 
             try
             {
-                if (string.IsNullOrEmpty(_JSON_SERVICE_KEY_FILE_NAME))
+                if (string.IsNullOrEmpty(_JsonServiceKeyFileName))
                     throw new Exception("Path to the .JSon service account credentials file is required.");
-                if (!System.IO.File.Exists(_JSON_SERVICE_KEY_FILE_NAME))
-                    throw new Exception("The service account credentials .JSon file does not exist at:" + _JSON_SERVICE_KEY_FILE_NAME);
+                if (!System.IO.File.Exists(_JsonServiceKeyFileName))
+                    throw new Exception("The service account credentials .JSon file does not exist at:" + _JsonServiceKeyFileName);
 
                 // These are the scopes of permissions you need. It is best to request only what you need and not all of them
                 string[] scopes =
@@ -41,7 +54,7 @@ namespace Radiant.Common.API.GoogleDrive
                     //DriveService.Scope.DriveReadonly,// View the files in your Google Drive
                     DriveService.Scope.DriveScripts
                 };// Modify your Google Apps Script scripts' behavior
-                Stream stream = new FileStream(_JSON_SERVICE_KEY_FILE_NAME, FileMode.Open, FileAccess.Read, FileShare.Read);
+                Stream stream = new FileStream(_JsonServiceKeyFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
                 var credential = GoogleCredential.FromStream(stream).CreateScoped(scopes);
 
                 // Create the  Drive service.
@@ -61,16 +74,16 @@ namespace Radiant.Common.API.GoogleDrive
         ///// Update file containing version
         ///// </summary>
         ///// <returns></returns>
-        //private static bool UpdateVersionFile()
+        //private  bool UpdateVersionFile()
         //{
         //    Assembly _Assembly = Assembly.GetExecutingAssembly();
         //    FileVersionInfo _FileVersionInfo = FileVersionInfo.GetVersionInfo(_Assembly.Location);
         //    return CreateOrUpdateFile(FILE_VERSION_FILE_ID, _FileVersionInfo.FileVersion);
         //}
 
-        public static bool CreateOrUpdateFile(string aFileId, string aFileContent)
+        public bool CreateOrUpdateFile(string aFileId, string aFileContent)
         {
-            File _File = TryGetFile(aFileId);
+            File _File = TryGetFile(aFileId, null);
 
             if (_File != null)
             {
@@ -82,8 +95,25 @@ namespace Radiant.Common.API.GoogleDrive
             return true;
         }
 
-        public static bool DeleteFiles(string[] aFileIds)
+        public bool CreateOrUpdateFile(string aFileId, byte[] aFileContent)
         {
+            File _File = TryGetFile(aFileId, null);
+
+            if (_File != null)
+            {
+                TryUpdateFileContent(aFileId, aFileContent);
+                return true;
+            }
+
+            TryCreateNewFile(aFileId, aFileContent, aFileId);
+            return true;
+        }
+
+        public bool DeleteFiles(string[] aFileIds)
+        {
+            if (aFileIds == null || aFileIds.Length <= 0)
+                return true;
+
             try
             {
                 DriveService _DriveService = AuthenticateServiceAccount();
@@ -98,7 +128,7 @@ namespace Radiant.Common.API.GoogleDrive
             return true;
         }
 
-        public static string GenerateFileId()
+        public string GenerateFileId()
         {
             try
             {
@@ -115,7 +145,7 @@ namespace Radiant.Common.API.GoogleDrive
             }
         }
 
-        public static bool PruneEverything()
+        public bool PruneEverything()
         {
             try
             {
@@ -135,9 +165,14 @@ namespace Radiant.Common.API.GoogleDrive
             return true;
         }
 
-        public static string TryCreateNewFile(string aFileNameWithExtension, string aFileContent, string aFileId = null)
+        public string TryCreateNewFile(string aFileNameWithExtension, string aFileContent, string aFileId = null)
         {
             using var _MemoryStream = aFileContent.ToStream();
+            return TryCreateNewFile(aFileNameWithExtension, _MemoryStream, "text/plain", aFileId);
+        }
+
+        public string TryCreateNewFile(string aFileNameWithExtension, Stream aStream, string aMimeType, string aFileId = null)
+        {
             try
             {
                 DriveService _DriveService = AuthenticateServiceAccount();
@@ -150,7 +185,7 @@ namespace Radiant.Common.API.GoogleDrive
                 if (aFileId != null)
                     _FileMetadata.Id = aFileId;
 
-                FilesResource.CreateMediaUpload _Request = _DriveService.Files.Create(_FileMetadata, _MemoryStream, "text/plain");
+                FilesResource.CreateMediaUpload _Request = _DriveService.Files.Create(_FileMetadata, aStream, aMimeType);
                 _Request.Fields = "id";
                 IUploadProgress _Response = _Request.Upload();
 
@@ -170,69 +205,14 @@ namespace Radiant.Common.API.GoogleDrive
             }
         }
 
-        // ********************************************************************
-        //                            Public
-        // ********************************************************************
-        public static string TryFetchDocumentContentAsString(string aFileID)
+        public string TryCreateNewFile(string aFileNameWithExtension, byte[] aFileContent, string aFileId = null)
         {
-            try
-            {
-                DriveService _DriveService = AuthenticateServiceAccount();
-                FilesResource.GetRequest _FileRequest = _DriveService.Files.Get(aFileID);
+            using MemoryStream _FileContentStream = new MemoryStream(aFileContent);
 
-                // Download file content to memory stream
-                using MemoryStream _MemoryStream = new MemoryStream();
-                _FileRequest.Download(_MemoryStream);
-
-                string _StringContent = Encoding.ASCII.GetString(_MemoryStream.ToArray());
-                return _StringContent;
-            } catch (Exception _Exception)
-            {
-                LoggingManager.LogToFile("3EF01799-16E1-48F8-9E24-7FA5DE6C731A", $"Couldn't fetch document content as string. FileID was [{aFileID}].", _Exception);
-                return null;
-            }
+            return TryCreateNewFile(aFileNameWithExtension, _FileContentStream, "application/octet-stream", aFileId);
         }
 
-        public static File TryGetFile(string aFileId)
-        {
-            try
-            {
-                DriveService _DriveService = AuthenticateServiceAccount();
-                FilesResource.GetRequest _FileRequest = _DriveService.Files.Get(aFileId);
-                return _FileRequest.Execute();
-            } catch (Exception _Exception)
-            {
-                LoggingManager.LogToFile("1CD25C90-37DA-4B2F-97E3-FE6F9F998354", $"Couldn't fetch document. FileID was [{aFileId}].", _Exception);
-            }
-
-            return null;
-        }
-
-        public static void TryUpdateFileContent(string aFileId, string aFileContent)
-        {
-            //if (aFile == null)
-            //    aFile = TryGetFile(aFileId);
-
-            Stream _Stream = aFileContent.ToStream();
-            try
-            {
-                DriveService _DriveService = AuthenticateServiceAccount();
-                var _MediaUpload = _DriveService.Files.Update(null, aFileId, _Stream, "text/plain").Upload();
-
-                if (_MediaUpload.Status == UploadStatus.Failed)
-                {
-                    LoggingManager.LogToFile("2BA3A24F-2EEC-4666-A130-30EAA0A312BB", $"Couldn't update document content. Request failed. FileID was [{aFileId}].");
-                }
-            } catch (Exception _Exception)
-            {
-                LoggingManager.LogToFile("F253BAFE-30A4-4DB7-8A85-22D3F643C7B6", $"Couldn't update document content. FileID was [{aFileId}].", _Exception);
-            } finally
-            {
-                _Stream.Close();
-            }
-        }
-
-        //public static bool TryDeleteFile(string aFileID)
+        //public  bool TryDeleteFile(string aFileID)
         //{
         //    try
         //    {
@@ -244,5 +224,88 @@ namespace Radiant.Common.API.GoogleDrive
         //        LoggingManager.LogToFile("F253BAFE-30A4-4DB7-8A85-22D3F643C7B6", $"Couldn't update document content. FileID was [{aFileID}].", _Exception);
         //    }
         //}
+        // ********************************************************************
+        //                            Public
+        // ********************************************************************
+        public byte[] TryFetchDocumentContentAsByteArray(string aFileID)
+        {
+            try
+            {
+                DriveService _DriveService = AuthenticateServiceAccount();
+                FilesResource.GetRequest _FileRequest = _DriveService.Files.Get(aFileID);
+
+                // Download file content to memory stream
+                using MemoryStream _MemoryStream = new MemoryStream();
+                _FileRequest.Download(_MemoryStream);
+
+                return _MemoryStream.ToArray();
+            } catch (Exception _Exception)
+            {
+                LoggingManager.LogToFile("E820BF3F-AFFD-4910-9A78-F179CE82ADB7", $"Couldn't fetch document content as string. FileID was [{aFileID}].", _Exception);
+                return null;
+            }
+        }
+
+        public string TryFetchDocumentContentAsString(string aFileID)
+        {
+            try
+            {
+                byte[] _StreamContent = TryFetchDocumentContentAsByteArray(aFileID);
+
+                string _StringContent = Encoding.ASCII.GetString(_StreamContent.ToArray());
+                return _StringContent;
+            } catch (Exception _Exception)
+            {
+                LoggingManager.LogToFile("45A0DB98-5723-4CD6-A8AF-611942064B04", $"Couldn't fetch document content as string. FileID was [{aFileID}].", _Exception);
+                return null;
+            }
+        }
+
+        public File TryGetFile(string aFileId, string aFieldsToSelect)
+        {
+            try
+            {
+                DriveService _DriveService = AuthenticateServiceAccount();
+                FilesResource.GetRequest _FileRequest = _DriveService.Files.Get(aFileId);
+                _FileRequest.Fields = aFieldsToSelect;
+
+                return _FileRequest.Execute();
+            } catch (Exception _Exception)
+            {
+                LoggingManager.LogToFile("1CD25C90-37DA-4B2F-97E3-FE6F9F998354", $"Couldn't fetch document. FileID was [{aFileId}].", _Exception);
+            }
+
+            return null;
+        }
+
+        public void TryUpdateFileContent(string aFileId, string aFileContent)
+        {
+            Stream _Stream = aFileContent.ToStream();
+            TryUpdateFileContent(aFileId, _Stream);
+        }
+
+        public void TryUpdateFileContent(string aFileId, byte[] aFileContent)
+        {
+            Stream _Stream = new MemoryStream(aFileContent);
+            TryUpdateFileContent(aFileId, _Stream);
+        }
+
+        public void TryUpdateFileContent(string aFileId, Stream aFileContentStream)
+        {
+            try
+            {
+                DriveService _DriveService = AuthenticateServiceAccount();
+                var _MediaUpload = _DriveService.Files.Update(null, aFileId, aFileContentStream, "text/plain").Upload();
+
+                if (_MediaUpload.Status == UploadStatus.Failed)
+                    LoggingManager.LogToFile("2BA3A24F-2EEC-4666-A130-30EAA0A312BB", $"Couldn't update document content. Request failed. FileID was [{aFileId}].");
+            } catch (Exception _Exception)
+            {
+                LoggingManager.LogToFile("F253BAFE-30A4-4DB7-8A85-22D3F643C7B6", $"Couldn't update document content. FileID was [{aFileId}].", _Exception);
+            } finally
+            {
+                aFileContentStream.Close();
+            }
+        }
     }
 }
