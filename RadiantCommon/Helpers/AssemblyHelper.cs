@@ -27,7 +27,7 @@ namespace Radiant.Common.Helpers
                 {
                     // By using fileinfo, we allow relative path as well
                     FileInfo _FileInfo = new FileInfo(_FilePath);
-                    Assembly.LoadFile(_FileInfo.FullName);
+                    Assembly.LoadFrom(_FileInfo.FullName);
 
                 } catch (Exception _Exception)
                 {

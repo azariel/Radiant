@@ -13,4 +13,8 @@
     <ProjectReference Include="..\..\..\RadiantCommon\RadiantCommon.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\ProductsHistoryCommon.dll&quot;" />
+  </Target>
+
 </Project>
