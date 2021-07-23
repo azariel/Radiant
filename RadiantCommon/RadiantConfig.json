@@ -12,10 +12,10 @@
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
                         "BlackOutTimeFrame": {
                             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-                            "BlackOutEnd": "00:23:00",
-                            "BlackOutStart": "00:23:05"
+                            "BlackOutEnd": "00:21:00",
+                            "BlackOutStart": "00:03:00"
                         },
-                        "TriggerEveryXSeconds": 18
+                        "TriggerEveryXSeconds": 180
                     }
                 ]
             },

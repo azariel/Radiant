@@ -32,8 +32,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private List<ProductDOMParserItem> fDOMParserItems;
-        private List<ManualScraperProductParser> fManualScraperItems;
+        private List<ProductDOMParserItem> fDOMParserItems = new();
+        private List<ManualScraperProductParser> fManualScraperItems = new();
 
         private void CreateErrorNotificationForAdministration(string aCustomContent)
         {
@@ -267,8 +267,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
-            fDOMParserItems = aDOMParserItems?.OfType<ProductDOMParserItem>().ToList();
-            fManualScraperItems = aManualScraperItems?.OfType<ManualScraperProductParser>().Where(w => aUrl.ToLowerInvariant().Contains(w.IfUrlContains.ToLowerInvariant())).ToList();
+            fDOMParserItems = aDOMParserItems?.OfType<ProductDOMParserItem>().ToList() ?? new List<ProductDOMParserItem>();
+            fManualScraperItems = aManualScraperItems?.OfType<ManualScraperProductParser>().Where(w => aUrl.ToLowerInvariant().Contains(w.IfUrlContains.ToLowerInvariant())).ToList() ?? new List<ManualScraperProductParser>();
 
             base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations, aManualScraperItems, aDOMParserItems);
 

@@ -68,7 +68,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
         {
             // Note that for Newegg, we still don't have a manual operation way to get the price.. The "$" ctr+f find response vary too much... the DOM parser is more stable
             ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, true);
-            Assert.Equal(51.45, _Product.Price);
+            Assert.Equal(52.97, _Product.Price);
             Assert.Equal("DualShock 4 PS4 Controller Wireless for PlayStation 4 - Jet Black - Newegg.ca", _Product.Title);
         }
     }

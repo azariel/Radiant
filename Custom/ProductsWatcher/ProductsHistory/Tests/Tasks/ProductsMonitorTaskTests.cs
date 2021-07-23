@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Tests;
 using Radiant.Custom.ProductsHistory.Tasks;
@@ -24,6 +25,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
             var _Product1 = new RadiantServerProductModel
             {
                 Name = "TestProductName",
+                FetchProductHistoryEnabled = true,
                 ProductDefinitionCollection = new List<RadiantServerProductDefinitionModel>
                 {
                     new()
@@ -32,6 +34,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
                         FetchProductHistoryEnabled = true,
                         FetchProductHistoryEveryX = new TimeSpan(0, 0, 1),
                         FetchProductHistoryTimeSpanNoiseInPerc = 2.5f,
+                        NextFetchProductHistory = DateTime.Now,
                         Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT"
                     }
                 }
@@ -100,7 +103,10 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
             };
             _Task.ForceTriggerNow();
 
-            _DataBaseContext.Entry(_DataBaseContext.Products.Single()).Collection(c => c.ProductDefinitionCollection).Load();
+            _DataBaseContext.ProductsHistory.Load();
+            _DataBaseContext.ProductDefinitions.Load();
+
+            //_DataBaseContext.Entry(_DataBaseContext.Products.Single()).Collection(c => c.ProductDefinitionCollection).Load();
             Assert.Equal(1, _DataBaseContext.Products.Single().ProductDefinitionCollection.Count);
             Assert.Equal(1, _DataBaseContext.Products.Single().ProductDefinitionCollection.Single().ProductHistoryCollection.Count);
 
