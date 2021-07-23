@@ -10,6 +10,7 @@ using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
 using Radiant.Notifier.DataBase;
 using Radiant.WebScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
@@ -52,11 +53,17 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 };
 
                 // Add all subscribed users email to notification EmailTo
-                using ProductsDbContext _ProductDbContext = new();
+                using ServerProductsDbContext _ProductDbContext = new();
                 _ProductDbContext.Users.Load();
 
                 // Notify all Admins
-                _NewNotification.EmailTo.AddRange(_ProductDbContext.Users.Where(w => w.Type == RadiantUserModel.UserType.Admin).Select(s => s.Email));
+                _NewNotification.EmailTo.AddRange(_ProductDbContext.Users.Where(w => w.Type == RadiantServerUserProductsHistoryModel.UserType.Admin).Select(s => s.Email));
+
+                if (_NewNotification.EmailTo.Count <= 0)
+                {
+                    LoggingManager.LogToFile("323A13DB-1D77-4693-BBD6-45C63A4A167A", $"No admin(s) found to send error notification. Error was Couldn't fetch product information");
+                    return;
+                }
 
                 using NotificationsDbContext _NotificationDbContext = new();
                 _NotificationDbContext.Notifications.Add(_NewNotification);

@@ -11,17 +11,17 @@ namespace ProductsHistoryClient.View.Products
         // ********************************************************************
         public ProductViewModel() { }
 
-        public ProductViewModel(RadiantProductModel aRadiantProductModel)
+        public ProductViewModel(RadiantClientProductDefinitionModel aRadiantProductModel)
         {
             this.ProductModel = aRadiantProductModel;
 
             DateTime _Now = DateTime.Now;
-            IOrderedEnumerable<RadiantProductHistoryModel> _OrderedProductHistory = aRadiantProductModel.ProductHistoryCollection.OrderByDescending(o => o.InsertDateTime);
+            IOrderedEnumerable<RadiantClientProductHistoryModel> _OrderedProductHistory = aRadiantProductModel.ProductHistoryCollection.OrderByDescending(o => o.InsertDateTime);
 
-            RadiantProductHistoryModel? _LatestProductHistory = _OrderedProductHistory.FirstOrDefault();
+            RadiantClientProductHistoryModel? _LatestProductHistory = _OrderedProductHistory.FirstOrDefault();
             this.CurrentPrice = _LatestProductHistory?.Price;
 
-            RadiantProductHistoryModel? _Best1YPriceProduct = aRadiantProductModel.ProductHistoryCollection.Where(w => w.InsertDateTime > _Now.AddYears(-1)).OrderBy(o => o.Price).FirstOrDefault();
+            RadiantClientProductHistoryModel? _Best1YPriceProduct = aRadiantProductModel.ProductHistoryCollection.Where(w => w.InsertDateTime > _Now.AddYears(-1)).OrderBy(o => o.Price).FirstOrDefault();
             this.BestPrice1Y = _Best1YPriceProduct?.Price;
         }
 
@@ -30,6 +30,6 @@ namespace ProductsHistoryClient.View.Products
         // ********************************************************************
         public double? BestPrice1Y { get; }
         public double? CurrentPrice { get; }
-        public RadiantProductModel ProductModel { get; }
+        public RadiantClientProductDefinitionModel ProductModel { get; }
     }
 }

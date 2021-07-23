@@ -10,9 +10,10 @@ namespace ProductsHistoryClient.Products.Database
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static List<RadiantProductModel> LoadProducts(bool aLoadProductsHistory)
+        public static List<RadiantClientProductModel> LoadProducts(bool aLoadProductsHistory)
         {
-            using var _DataBaseContext = new ProductsDbContext();
+            using var _DataBaseContext = new ClientProductsDbContext();
+            _DataBaseContext.ProductDefinitions.Load();
 
             if(aLoadProductsHistory)
                 _DataBaseContext.ProductsHistory.Load();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Tests;
@@ -18,22 +19,28 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
         // ********************************************************************
         private void AddProduct1User1AndSubscriptionToProduct1()
         {
-            using var _DataBaseContext = new ProductsDbContext();
+            using var _DataBaseContext = new ServerProductsDbContext();
 
-            var _Product1 = new RadiantProductModel
+            var _Product1 = new RadiantServerProductModel
             {
                 Name = "TestProductName",
-                InsertDateTime = DateTime.Now.AddMinutes(-1),
-                FetchProductHistoryEnabled = true,
-                FetchProductHistoryEveryX = new TimeSpan(0, 0, 1),
-                FetchProductHistoryTimeSpanNoiseInPerc = 2.5f,
-                Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT"
+                ProductDefinitionCollection = new List<RadiantServerProductDefinitionModel>
+                {
+                    new()
+                    {
+                        InsertDateTime = DateTime.Now.AddMinutes(-1),
+                        FetchProductHistoryEnabled = true,
+                        FetchProductHistoryEveryX = new TimeSpan(0, 0, 1),
+                        FetchProductHistoryTimeSpanNoiseInPerc = 2.5f,
+                        Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT"
+                    }
+                }
             };
 
             _DataBaseContext.Products.Add(_Product1);
             _DataBaseContext.SaveChanges();
 
-            var _User = new RadiantUserProductsHistoryModel()
+            var _User = new RadiantServerUserProductsHistoryModel
             {
                 Email = RadiantCommonUnitTestsConstants.EMAIL,
                 Password = "passwordEC7FAB53-8D76-4561-8452-F6D0AA013045",
@@ -44,7 +51,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
             _DataBaseContext.Users.Add(_User);
             _DataBaseContext.SaveChanges();
 
-            var _Sub = new RadiantProductSubscriptionModel()
+            var _Sub = new RadiantServerProductSubscriptionModel()
             {
                 Product = _Product1,
                 User = _User,
@@ -69,7 +76,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
 
         private void RemoveAllProducts()
         {
-            using var _DataBaseContext = new ProductsDbContext();
+            using var _DataBaseContext = new ServerProductsDbContext();
             _DataBaseContext.Products.RemoveRange(_DataBaseContext.Products);
             _DataBaseContext.SaveChanges();
         }
@@ -80,7 +87,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
         [Fact]
         public void EvaluateBasicAmazonProduct()
         {
-            using var _DataBaseContext = new ProductsDbContext();
+            using var _DataBaseContext = new ServerProductsDbContext();
             RemoveAllProducts();
             RemoveAllNotifications();
 
@@ -93,8 +100,9 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
             };
             _Task.ForceTriggerNow();
 
-            _DataBaseContext.Entry(_DataBaseContext.Products.Single()).Collection(c => c.ProductHistoryCollection).Load();
-            Assert.Equal(1, _DataBaseContext.Products.Single().ProductHistoryCollection.Count);
+            _DataBaseContext.Entry(_DataBaseContext.Products.Single()).Collection(c => c.ProductDefinitionCollection).Load();
+            Assert.Equal(1, _DataBaseContext.Products.Single().ProductDefinitionCollection.Count);
+            Assert.Equal(1, _DataBaseContext.Products.Single().ProductDefinitionCollection.Single().ProductHistoryCollection.Count);
 
             // The very first time a product is fetched, no notification should occur
             using (NotificationsDbContext _DbContext = new())

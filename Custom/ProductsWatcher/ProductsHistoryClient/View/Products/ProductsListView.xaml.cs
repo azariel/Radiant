@@ -19,7 +19,7 @@ namespace ProductsHistoryClient.View.Products
         /// <summary>
         /// Note: This function must be thread safe.
         /// </summary>
-        public void RefreshProducts(List<RadiantProductModel> aProducts)
+        public void RefreshProducts(List<RadiantClientProductModel> aProducts)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -27,8 +27,11 @@ namespace ProductsHistoryClient.View.Products
 
                 dataGridProducts.Items.Clear();
 
-                foreach (var _ViewModel in aProducts.Select(s => new ProductViewModel(s)))
-                    dataGridProducts.Items.Add(_ViewModel);
+                foreach (RadiantClientProductModel _Product in aProducts)
+                {
+                    foreach (var _ViewModel in _Product.ProductDefinitionCollection.Select(s => new ProductViewModel(s)))
+                        dataGridProducts.Items.Add(_ViewModel);
+                }
 
                 dataGridProducts.IsReadOnly = false;
             });

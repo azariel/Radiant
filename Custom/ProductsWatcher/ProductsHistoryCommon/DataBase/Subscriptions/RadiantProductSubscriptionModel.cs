@@ -9,18 +9,9 @@ namespace Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        [ForeignKey("ProductId")]
-        public virtual RadiantProductModel Product { get; set; }
-
-        public long ProductId { get; set; }
-
         [Required]
         [Key]
         public long ProductSubscriptionId { get; set; }
-
-        [ForeignKey("UserId")]
-        public virtual RadiantUserProductsHistoryModel User { get; set; }
-        public long UserId { get; set; }
 
         /// <summary>
         /// Will only notify user if product price is below or equal this price.

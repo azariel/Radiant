@@ -58,10 +58,6 @@ namespace Radiant.Notifier
                 return;
 
             aRadiantNotificationModel.Sent = true;
-
-            RadiantNotificationConfig _Configuration = NotificationConfigurationManager.ReloadConfig();
-            if (_Configuration.EmailServer.SleepMsBetweenEmailSent > 0)
-                Thread.Sleep(_Configuration.EmailServer.SleepMsBetweenEmailSent);
         }
 
         // ********************************************************************
@@ -83,6 +79,10 @@ namespace Radiant.Notifier
                     HandleNotificationFailure(_NotificationToSend);
                 else
                     HandleNotificationSuccess(_NotificationToSend);
+
+                RadiantNotificationConfig _Configuration = NotificationConfigurationManager.ReloadConfig();
+                if (_Configuration.EmailServer.SleepMsBetweenEmailSent > 0)
+                    Thread.Sleep(_Configuration.EmailServer.SleepMsBetweenEmailSent);
 
                 _DbContext.SaveChanges();
             }

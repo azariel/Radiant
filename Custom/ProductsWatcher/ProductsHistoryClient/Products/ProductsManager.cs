@@ -14,7 +14,7 @@ namespace ProductsHistoryClient.Products
         // ********************************************************************
         //                            Constants
         // ********************************************************************
-        public static string fDataBaseFileName = new ProductsDbContext().GetDataBaseFileName();
+        public static string fDataBaseFileName = new ClientProductsDbContext().GetDataBaseFileName();
 
         // ********************************************************************
         //                            Private
@@ -44,7 +44,7 @@ namespace ProductsHistoryClient.Products
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static async Task<List<RadiantProductModel>> LoadProductsFromDisk()
+        public static async Task<List<RadiantClientProductModel>> LoadProductsFromDisk()
         {
             if (!File.Exists(fDataBaseFileName))
             {
@@ -55,7 +55,7 @@ namespace ProductsHistoryClient.Products
             return StorageManager.LoadProducts(true);
         }
 
-        public static async Task<List<RadiantProductModel>> LoadProductsFromRemote()
+        public static async Task<List<RadiantClientProductModel>> LoadProductsFromRemote()
         {
             ProductsHistoryClientState _State = ProductsHistoryClientStateManager.ReloadConfig();
 
@@ -64,7 +64,7 @@ namespace ProductsHistoryClient.Products
             {
                 if (ProductsRemoteManager.IsRemoteDatabaseMoreRecentThanLocal())
                 {
-                    LoggingManager.LogToFile("9DA3D4EA-4B97-4E80-9EE3-CF713721B574", "Remote Database was updated since the last time it was fetched.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                    LoggingManager.LogToFile("9DA3D4EA-4B97-4E80-9EE3-CF713721B574", "Remote Database was updated since the last time it was fetched. Local Database will be updated to reflect the changes.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
                     // Update local database
                     await TryRefreshLocalDataBaseWithRemoteDataBase();

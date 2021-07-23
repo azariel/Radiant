@@ -4,13 +4,15 @@ using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
 
 namespace Radiant.Custom.ProductsHistoryCommon.DataBase
 {
-    /// TODO: RadiantCommonDbContext contains USERS and we're sharing the database with clients.... so yeah... we need a dedicated database for our products
-    public class ProductsDbContext : RadiantCommonDbContext
+    /// <summary>
+    /// This DbContext is to be used ONLY in server side. It may contains sensible information
+    /// </summary>
+    public class ServerProductsDbContext : RadiantCommonDbContext
     {
         // ********************************************************************
         //                            Constructors
         // ********************************************************************
-        public ProductsDbContext()
+        public ServerProductsDbContext()
         {
             this.ChangeTracker.AutoDetectChangesEnabled = true;
 
@@ -43,13 +45,16 @@ namespace Radiant.Custom.ProductsHistoryCommon.DataBase
             //    .HasForeignKey(h=>h.UserId)
             //    .OnDelete(DeleteBehavior.Cascade);
         }
-
+        public override string GetDataBaseFileName() => "RadiantServerProducts.db";
+        
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public DbSet<RadiantProductModel> Products { get; set; }
-        public DbSet<RadiantProductHistoryModel> ProductsHistory { get; set; }
-        public DbSet<RadiantProductSubscriptionModel> Subscriptions { get; set; }
-        public new DbSet<RadiantUserProductsHistoryModel> Users { get; set; }
+        public DbSet<RadiantServerProductDefinitionModel> ProductDefinitions { get; set; }
+        public DbSet<RadiantServerProductModel> Products { get; set; }
+        public DbSet<RadiantServerProductHistoryModel> ProductsHistory { get; set; }
+        public DbSet<RadiantServerProductSubscriptionModel> Subscriptions { get; set; }
+
+        public new DbSet<RadiantServerUserProductsHistoryModel> Users { get; set; }
     }
 }
