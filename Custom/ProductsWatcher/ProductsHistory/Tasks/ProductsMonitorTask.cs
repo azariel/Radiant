@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
+using Radiant.Common.Database.Common;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
 using Radiant.Custom.ProductsHistory.Configuration;
@@ -29,14 +30,29 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             {
                 LoggingManager.LogToFile("E24BD4BD-0AE7-41B5-BF66-1D703B75905A", $"Product Id [{aProduct.ProductId}] was fetched but Title was mismatching. Title expected: [{aProductTitle}] but found [{aProductScraper.Information.Title?.Trim()}].");
 
-                return null;
+                // Send a notification to admins
+                RadiantNotificationModel _NewNotification = new()
+                {
+                    Content = $"<p>Product {aProduct.Product.Name} may be mismatched</p><p>Please check that the product hasn't changed.</p><p>Expected: {aProductScraper.Information.Title}</p><p>Found: {aProductTitle}</p><p>{aProduct.Url}</p>",
+                    Subject = $"Product {aProduct.Product.Name} may be mismatched",
+                    EmailFrom = "Radiant Product History",
+                    MinimalDateTimetoSend = DateTime.Now
+                };
+
+                using ServerProductsDbContext _DbContext = new();
+                _DbContext.Users.Load();
+                _NewNotification.EmailTo.AddRange(_DbContext.Users.Where(w=>w.Type == RadiantUserModel.UserType.Admin).Select(s=>s.Email));
+
+                using NotificationsDbContext _NotificationDbContext = new();
+                _NotificationDbContext.Notifications.Add(_NewNotification);
+                _NotificationDbContext.SaveChanges();
             }
 
             return new RadiantServerProductHistoryModel
             {
                 InsertDateTime = DateTime.Now,
                 Price = aProductScraper.Information.Price.Value,
-                Title = aProductScraper.Information.Title.Trim()
+                Title = aProductScraper.Information.Title?.Trim()
             };
         }
 

@@ -85,6 +85,8 @@ namespace RadiantInputsManager.Windows
             {
                 Keycode.KP_Enter => (byte)WindowsVirtualKeys.Return,
                 Keycode.XK_F11 => (byte)WindowsVirtualKeys.F11,
+                Keycode.XK_F12 => (byte)WindowsVirtualKeys.F12,
+                Keycode.XK_TAB => (byte)WindowsVirtualKeys.Tab,
                 Keycode.XK_Control_L => (byte)WindowsVirtualKeys.LeftControl,
                 Keycode.XK_Shift_L => (byte)WindowsVirtualKeys.LeftShift,
                 Keycode.XK_Left => (byte)WindowsVirtualKeys.Left,

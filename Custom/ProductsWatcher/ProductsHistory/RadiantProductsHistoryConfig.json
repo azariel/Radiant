@@ -82,7 +82,7 @@
             "ParserItemTarget": "Title",
             "IfUrlContains": "amazon.c",
             "Condition": null,
-            "RegexPattern": "<.*?title.*?>(.*?)<.*?\/title.*?>",
+            "RegexPattern": "<title.*?>(.*?)<.*?\/title.*?>",
             "SubParserToExecuteOnTargetValue": null,
             "Target": "group1value",
             "UID": "4383cf72-3ce5-40f3-8a27-159009951a33"
@@ -92,7 +92,7 @@
             "ParserItemTarget": "Title",
             "IfUrlContains": "bestbuy.c",
             "Condition": null,
-            "RegexPattern": "<.*?title.*?>(.*?)<.*?\/title.*?>",
+            "RegexPattern": "productName.*?>(.*)<\/h1>",
             "SubParserToExecuteOnTargetValue": null,
             "Target": "group1value",
             "UID": "eb1c631c-c6fa-4564-ade4-4b127af91df1"
@@ -102,7 +102,7 @@
             "ParserItemTarget": "Title",
             "IfUrlContains": "newegg.c",
             "Condition": null,
-            "RegexPattern": "<.*?title.*?>(.*?)<.*?\/title.*?>",
+            "RegexPattern": "product-title\".*?>(.*?)<",
             "SubParserToExecuteOnTargetValue": null,
             "Target": "group1value",
             "UID": "c39afe74-6139-4d32-b5ad-78f5d4451148"

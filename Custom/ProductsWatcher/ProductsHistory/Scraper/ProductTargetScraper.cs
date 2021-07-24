@@ -8,6 +8,7 @@ using Radiant.Common.Business;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent.Clipboard;
+using Radiant.Common.Serialization;
 using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.Custom.ProductsHistoryCommon.DataBase;
 using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
@@ -57,11 +58,11 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 _ProductDbContext.Users.Load();
 
                 // Notify all Admins
-                _NewNotification.EmailTo.AddRange(_ProductDbContext.Users.Where(w => w.Type == RadiantServerUserProductsHistoryModel.UserType.Admin).Select(s => s.Email));
+                _NewNotification.EmailTo.AddRange(_ProductDbContext.Users.Where(w => w.Type == RadiantUserModel.UserType.Admin).Select(s => s.Email));
 
                 if (_NewNotification.EmailTo.Count <= 0)
                 {
-                    LoggingManager.LogToFile("323A13DB-1D77-4693-BBD6-45C63A4A167A", $"No admin(s) found to send error notification. Error was Couldn't fetch product information");
+                    LoggingManager.LogToFile("323A13DB-1D77-4693-BBD6-45C63A4A167A", $"No admin(s) found to send error notification. Error was : Couldn't fetch product information");
                     return;
                 }
 
@@ -148,7 +149,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             try
             {
                 ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price).ToArray();
-                LoggingManager.LogToFile("013C0C5E-5149-465B-9D7E-1138169C5869", $"Trying to fetch price of [{fUrl}] using [{_AvailableProductParser.Length}]", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                LoggingManager.LogToFile("013C0C5E-5149-465B-9D7E-1138169C5869", $"Trying to fetch price of [{fUrl}] using [{_AvailableProductParser.Length}] Manual Product Parsers.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
                 foreach (ManualScraperProductParser _ManualScraperItemParser in _AvailableProductParser)
                 {
@@ -239,6 +240,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             if (!this.Information.Price.HasValue)
                 LoggingManager.LogToFile("158B5041-37B1-476F-8DC2-C96430E2B0F9", $"Manual steps to fetch price of product [{fUrl}] failed.");
+            else
+                LoggingManager.LogToFile("161DD11D-5DE3-4120-83F7-9A6061173878", "Product price was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
         }
 
         private void WriteProductInformationToErrorFolder()
@@ -251,11 +254,21 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 if (!Directory.Exists(_RootFolder))
                     Directory.CreateDirectory(_RootFolder);
 
+                DateTime _Now = DateTime.Now;
+
                 if (!string.IsNullOrWhiteSpace(this.DOM))
-                    File.WriteAllText(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}-DOM.txt"), this.DOM);
+                    File.WriteAllText(Path.Combine(_RootFolder, $"{_Now:HH.mm.ss}-DOM.txt"), this.DOM);
 
                 if (this.Screenshot != null && this.Screenshot.Length > 0)
-                    File.WriteAllBytes(Path.Combine(_RootFolder, $"{DateTime.Now:HH24.mm.ss}.png"), this.Screenshot);
+                    File.WriteAllBytes(Path.Combine(_RootFolder, $"{_Now:HH.mm.ss}.png"), this.Screenshot);
+
+                // Log other relevant information to a single file
+                File.WriteAllText(Path.Combine(_RootFolder, $"{_Now:HH.mm.ss}-INFO.txt"),
+                    @$"Url: {fUrl}{Environment.NewLine}
+                              OneOrMoreStepFailedAndRequiredAFallback: {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}
+                              this.Information: {JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}
+");
+
             } catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);

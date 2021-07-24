@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Radiant.Common.Diagnostics;
 using Radiant.Custom.ProductsHistory.Parsers;
@@ -32,6 +33,12 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         {
             if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Count <= 0)
                 return null;
+            
+            //int _IndexOfTitleTag = aDOM.IndexOf("</title>", StringComparison.InvariantCultureIgnoreCase);
+            //if (_IndexOfTitleTag < 0)
+            //    _IndexOfTitleTag = Math.Min(aDOM.Length, 100000);
+
+            //string _TruncatedDOM = aDOM[..(_IndexOfTitleTag + 8)];//+8 = nb char in "</title>"
 
             foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Title))
             {

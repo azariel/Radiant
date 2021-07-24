@@ -11,6 +11,8 @@ namespace RadiantInputsManager
         KP_Enter = 0xff0d,// Enter
         XK_Escape = 0xff1b,//Escape
         XK_F11 = 0xffc8,// F11
+        XK_F12 = 0xffc9,// F12
+        XK_TAB = 0xff09,// TAB
         XK_Control_L = 0xffe3,// Left Control
         XK_u = 0x0075,// u
         XK_a = 0x0061,// a
