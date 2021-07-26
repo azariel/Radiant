@@ -56,6 +56,16 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
         }
 
         [Fact]
+        public void AmazonProductAlternative3Test()
+        {
+            // List Price: <striked>$89.99</striked>
+            // and just below, we have Price: $76.00
+            ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.AMAZON_ALTERNATIVE_PRODUCT_3_URL, true);
+            Assert.Equal(82.95, _Product.Price);
+            Assert.Equal("DualSense Wireless Controller - DualSense Controller Edition: PlayStation 5: Video Games - Amazon.ca", _Product.Title);
+        }
+
+        [Fact]
         public void BestBuyBasicTest()
         {
             ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.BESTBUY_TYPICAL_PRODUCT_URL, true);

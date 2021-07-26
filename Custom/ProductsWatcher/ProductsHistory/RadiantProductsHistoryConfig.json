@@ -517,6 +517,7 @@
                 "IfUrlContains": "amazon.c",
                 "Condition": null,
                 "RegexPattern": "[\\d,]+\\.\\d+",
+                "RegexMatch": "Last",
                 "SubParserToExecuteOnTargetValue": null,
                 "Target": "group0value",
                 "UID": "bd74f99f-2389-4d86-8a4e-9863a5debdcc"
@@ -582,6 +583,32 @@
                     },
                     "InputType": "Keyboard",
                     "WaitMsOnEnd": 522
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 259,
+                        "KeyStrokeCodes": [
+                            "XK_Shift_L",
+                            "XK_Down"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 322
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 179,
+                        "KeyStrokeCodes": [
+                            "XK_Shift_L",
+                            "XK_End"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 422
                 },
                 {
                     "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",

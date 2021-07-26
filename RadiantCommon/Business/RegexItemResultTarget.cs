@@ -7,4 +7,10 @@
         Group1Value,
         LastGroupValue
     }
+
+    public enum RegexItemResultMatch
+    {
+        First,
+        Last
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -43,13 +44,20 @@ namespace Radiant.WebScraper.Scrapers.Conditions
                                 ClipboardManager.SetClipboardValue("");
 
                                 Regex _ValueRegex = new Regex(this.RegexPatternToApplyOnValue, RegexOptions.CultureInvariant);
-                                Match _Match = _ValueRegex.Match(_Value);
-
-                                if (!_Match.Success)
+                                MatchCollection _Matches = _ValueRegex.Matches(_Value);
+                                
+                                if (_Matches.Count <= 0)
                                 {
                                     LoggingManager.LogToFile("1BD9877F-5CE6-403D-825A-45E0FEB100EF", $"[{nameof(ManualScraperManualCondition)}] couldn't parse found value [{_Value}] with regex pattern [{this.RegexPatternToApplyOnValue}]. The expected value was [{this.ExpectedValue}]. Condition failed.");
                                     return false;
                                 }
+
+                                Match _SelectedMatch = this.RegexMatch switch
+                                {
+                                    RegexItemResultMatch.First => _Matches.First(),
+                                    RegexItemResultMatch.Last => _Matches.Last(),
+                                    _ => throw new Exception($"{nameof(RegexItemResultMatch)} value [{this.RegexMatch}] is unhandled.")
+                                };
 
                                 string _ValueFound;
                                 switch (this.Target)
@@ -58,31 +66,31 @@ namespace Radiant.WebScraper.Scrapers.Conditions
                                         _ValueFound = _Value;
                                         break;
                                     case RegexItemResultTarget.Group0Value:
-                                        if (_Match.Groups.Count < 1)
+                                        if (_SelectedMatch.Groups.Count < 1)
                                         {
                                             LoggingManager.LogToFile("EEA3F01B-C930-443E-BEC2-DFFD6E4C8570", $"[{nameof(ManualScraperManualCondition)}] couldn't parse found value [{_Value}] with regex pattern [{this.RegexPatternToApplyOnValue}]. The expected value was [{this.ExpectedValue}]. Match didn't contained at least 1 group. Condition failed.");
                                             return false;
                                         }
 
-                                        _ValueFound = _Match.Groups[0].Value;
+                                        _ValueFound = _SelectedMatch.Groups[0].Value;
                                         break;
                                     case RegexItemResultTarget.Group1Value:
-                                        if (_Match.Groups.Count < 2)
+                                        if (_SelectedMatch.Groups.Count < 2)
                                         {
                                             LoggingManager.LogToFile("59EE703F-F9B0-4BD7-AB57-D944BC4235E7", $"[{nameof(ManualScraperManualCondition)}] couldn't parse found value [{_Value}] with regex pattern [{this.RegexPatternToApplyOnValue}]. The expected value was [{this.ExpectedValue}]. Match didn't contained at least 2 groups. Condition failed.");
                                             return false;
                                         }
 
-                                        _ValueFound = _Match.Groups[1].Value;
+                                        _ValueFound = _SelectedMatch.Groups[1].Value;
                                         break;
                                     case RegexItemResultTarget.LastGroupValue:
-                                        if (_Match.Groups.Count < 1)
+                                        if (_SelectedMatch.Groups.Count < 1)
                                         {
                                             LoggingManager.LogToFile("6E6A3798-D0BD-4B51-88C6-8967A1236D5B", $"[{nameof(ManualScraperManualCondition)}] couldn't parse found value [{_Value}] with regex pattern [{this.RegexPatternToApplyOnValue}]. The expected value was [{this.ExpectedValue}]. Match didn't contained at least 1 group. Condition failed.");
                                             return false;
                                         }
 
-                                        _ValueFound = _Match.Groups[^1].Value;
+                                        _ValueFound = _SelectedMatch.Groups[^1].Value;
                                         break;
                                     default:
                                         throw new ArgumentOutOfRangeException();
@@ -123,6 +131,9 @@ namespace Radiant.WebScraper.Scrapers.Conditions
 
         [JsonConverter(typeof(StringEnumConverter))]
         public RegexItemResultTarget Target { get; set; } = RegexItemResultTarget.Value;
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public RegexItemResultMatch RegexMatch { get; set; } = RegexItemResultMatch.First;
 
         public StringComparison ValueStringComparison { get; set; } = StringComparison.InvariantCultureIgnoreCase;
 

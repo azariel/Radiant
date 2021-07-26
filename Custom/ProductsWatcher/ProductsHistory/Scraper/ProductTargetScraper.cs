@@ -181,31 +181,38 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                                     {
                                         // Parse price
                                         Regex _PriceRegex = new Regex(_ManualScraperItemParser.ValueParser?.RegexPattern, RegexOptions.CultureInvariant);
-                                        Match _Match = _PriceRegex.Match(_RawPrice);
+                                        MatchCollection _Matches = _PriceRegex.Matches(_RawPrice);
 
-                                        if (!_Match.Success)
+                                        if (_Matches.Count <= 0)
                                             return;
 
-                                        if (_ManualScraperItemParser.ValueParser.Target == RegexItemResultTarget.Value)
-                                            _Price = _Match.Value;
-                                        else if (_ManualScraperItemParser.ValueParser.Target == RegexItemResultTarget.Group0Value)
+                                        Match _SelectedMatch = _ManualScraperItemParser.ValueParser.RegexMatch switch
                                         {
-                                            if (_Match.Groups.Count < 1)
-                                                return;
+                                            RegexItemResultMatch.First => _Matches.First(),
+                                            RegexItemResultMatch.Last => _Matches.Last(),
+                                            _ => throw new Exception($"{nameof(RegexItemResultMatch)} value [{_ManualScraperItemParser.ValueParser.RegexMatch}] is unhandled.")
+                                        };
 
-                                            _Price = _Match.Groups[0].Value;
-                                        } else if (_ManualScraperItemParser.ValueParser.Target == RegexItemResultTarget.Group1Value)
+                                        switch (_ManualScraperItemParser.ValueParser.Target)
                                         {
-                                            if (_Match.Groups.Count < 2)
+                                            case RegexItemResultTarget.Value:
+                                                _Price = _SelectedMatch.Value;
+                                                break;
+                                            case RegexItemResultTarget.Group0Value when _SelectedMatch.Groups.Count < 1:
                                                 return;
-
-                                            _Price = _Match.Groups[1].Value;
-                                        } else if (_ManualScraperItemParser.ValueParser.Target == RegexItemResultTarget.LastGroupValue)
-                                        {
-                                            if (_Match.Groups.Count < 1)
+                                            case RegexItemResultTarget.Group0Value:
+                                                _Price = _SelectedMatch.Groups[0].Value;
+                                                break;
+                                            case RegexItemResultTarget.Group1Value when _SelectedMatch.Groups.Count < 2:
                                                 return;
-
-                                            _Price = _Match.Groups[^1].Value;
+                                            case RegexItemResultTarget.Group1Value:
+                                                _Price = _SelectedMatch.Groups[1].Value;
+                                                break;
+                                            case RegexItemResultTarget.LastGroupValue when _SelectedMatch.Groups.Count < 1:
+                                                return;
+                                            case RegexItemResultTarget.LastGroupValue:
+                                                _Price = _SelectedMatch.Groups[^1].Value;
+                                                break;
                                         }
                                     }
 
