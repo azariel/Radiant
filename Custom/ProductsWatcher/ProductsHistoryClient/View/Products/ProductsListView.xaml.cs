@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Radiant.Custom.ProductsHistoryCommon.DataBase;
 
 namespace ProductsHistoryClient.View.Products
@@ -36,6 +36,12 @@ namespace ProductsHistoryClient.View.Products
 
                 dataGridProducts.IsReadOnly = false;
             });
+        }
+
+        private void OnMouseDownOnRow(object aSender, MouseButtonEventArgs aE)
+        {
+            if (aSender is DataGridRow row)
+                row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

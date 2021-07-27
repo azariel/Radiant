@@ -40,6 +40,11 @@
         <StackPanel Orientation="Vertical">
             <DataGrid Name="dataGridProducts" CanUserAddRows="False" CanUserDeleteRows="False" Background="#0c0c0c" RowHeaderWidth="0"
                       RowBackground="#1e1e1e" AlternationCount="2" AlternatingRowBackground="#1f1f1f" Foreground="White">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnMouseDownOnRow"/>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="#0c0c0c"/>

@@ -5,25 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProductsHistoryClient.View.Products"
              xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:loading="clr-namespace:ProductsHistoryClient.View.Loading"
              mc:Ignorable="d" 
              d:DesignHeight="950" d:DesignWidth="800">
-    <!--<Grid Name="mainGrid">
-        <StackPanel Orientation="Vertical">
-            -->
-    <!--<TextBlock FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Text="{Binding DetailProductViewModel.Name, RelativeSource={RelativeSource AncestorType=local:UcProductDetail}}" />-->
-    <!--<wpf:CartesianChart Name="CartesianChart">
-               
-            </wpf:CartesianChart>-->
-    <!--
-            <Grid Height="300" Width="500">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <wpf:CartesianChart Name="CartesianChart" Series="{Binding Series}" Colors="new ">
-                </wpf:CartesianChart>
-            </Grid>
-        </StackPanel>
-    </Grid>-->
     <Grid Width="650">
         <Grid Grid.Column="0" Margin="15, 20, 15, 15" MaxHeight="900">
             <Grid.Effect>
@@ -65,13 +49,12 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="3.5*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
             <Border x:Name="Border2" Grid.Row="0" Grid.RowSpan="4" CornerRadius="5" Background="White" />
             <Border Grid.Row="0" Grid.RowSpan="3" Background="#454545" ></Border>
-            <TextBlock Grid.Row="0" TextAlignment="Center" Padding="10, 10, 0, 5" Foreground="White" FontSize="18">
-                    Product Name
-            </TextBlock>
-            <TextBlock Grid.Row="1" TextAlignment="Center" Foreground="#59FFFFFF" Padding="0,0,0,20">2014.12.25</TextBlock>
+            <TextBlock Name="txtBlockProductName" Grid.Row="0" TextAlignment="Center" Padding="10, 10, 0, 5" Foreground="White" FontSize="18" />
+            <TextBlock Name="txtBlockLastUpdateDate" Grid.Row="1" TextAlignment="Center" Foreground="#59FFFFFF" Padding="0,0,0,20" />
             <!--<Button Grid.Row="3" Width="40" Height="40" VerticalAlignment="Top" 
                     HorizontalAlignment="Right" Margin="20, -20" Panel.ZIndex="1">
                 <Button.Template>
@@ -91,6 +74,7 @@
                 </Button.Template>
             </Button>-->
             <wpf:CartesianChart Name="ProductHistoryChart" Grid.Row="2" Margin="10, 0, 10, 20" Hoverable="True" DataTooltip="{x:Null}" LegendLocation="Bottom" MinHeight="350">
+                <!--<wpf:Axis x:Name="RankGraphAxisX"></wpf:Axis>-->
                 <!--<wpf:CartesianChart.AxisY>
                     <wpf:Axis Name="Axis">
                         <wpf:Axis.Sections>
@@ -120,19 +104,20 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="25, 0" Orientation="Vertical">
                     <TextBlock Opacity=".4" FontSize="20" Foreground="#DDD">Current</TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="txtBlockCurrentPrice" Foreground="White" FontSize="40" Text="20.45" />
-                        <TextBlock Foreground="White" FontSize="18" VerticalAlignment="Bottom" Margin="8, 6">$</TextBlock>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Name="txtBlockCurrentPrice" Foreground="White" VerticalAlignment="Center" FontSize="40" Text="" />
+                        <TextBlock Foreground="White" FontSize="45" VerticalAlignment="Center" Margin="8, 6">$</TextBlock>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="25, 0" Orientation="Vertical">
                     <TextBlock Opacity=".4" FontSize="20" Foreground="#DDD">Best (365 days)</TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="txtBlockBestPrice365" Foreground="White" FontSize="40" Text="20.45" />
-                        <TextBlock Foreground="White" FontSize="18" VerticalAlignment="Bottom" Margin="8, 6">$</TextBlock>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Name="txtBlockBestPrice365" Foreground="White" VerticalAlignment="Center" FontSize="40" Text="" />
+                        <TextBlock Foreground="White" FontSize="45" VerticalAlignment="Center" Margin="8, 6">$</TextBlock>
                     </StackPanel>
                 </StackPanel>
             </Grid>
+            <TextBlock Grid.Row="4" Name="txtBlockCurrentUrl" HorizontalAlignment="Center" Foreground="White" FontSize="12" Margin="0,5,0,0" Text="" MouseUp="TxtBlockCurrentUrl_OnMouseUp" Cursor="Hand" />
         </Grid>
     </Grid>
 </UserControl>

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using ProductsHistoryClient.Products;
+using ProductsHistoryClient.View.Products;
 
 namespace ProductsHistoryClient
 {
@@ -17,7 +18,22 @@ namespace ProductsHistoryClient
             InitializeComponent();
 
             // Load products to UI
-            Task.Run(ProductsManager.LoadProductsFromRemote).ContinueWith(aProducts => { ProductsListView.RefreshProducts(aProducts.Result); });
+            Task.Run(ProductsManager.LoadProductsFromRemote).ContinueWith(aProducts =>
+            {
+                ProductsListView _ProductsListView = null;
+                this.Dispatcher.Invoke(() =>
+                {
+                    _ProductsListView = new ProductsListView();
+                });
+                
+                _ProductsListView.RefreshProducts(aProducts.Result);
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    mainGrid.Children.Clear();
+                    mainGrid.Children.Add(_ProductsListView);
+                });
+            });
         }
     }
 }
