@@ -67,7 +67,7 @@ namespace Radiant.Common.Tests.API.GoogleDrive
             Assert.Empty(_FileContentDeleted);
         }
 
-        [Fact]
+        //[Fact]
         public void DEBUG_CreateDefaultFilesInRemote()
         {
             GoogleDriveManager _GoogleDriveManager = new GoogleDriveManager("API/GoogleDrive/radiant-319014-d7d51b9a40d1.json");

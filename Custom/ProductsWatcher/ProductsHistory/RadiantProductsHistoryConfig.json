@@ -2,8 +2,8 @@
     "$type": "Radiant.Custom.ProductsHistory.Configuration.ProductsHistoryConfiguration, ProductsHistory",
     "GoogleDriveAPIConfig": {
         "$type": "Radiant.Custom.ProductsHistoryCommon.Configuration.GoogleDriveAPIConfig, ProductsHistoryCommon",
-        "DatabaseFileId": "1xZIxoBBNUpUOlb-8iYvfVgv7YSmMOwGG",
-        "VersionFileId": null
+        "DatabaseFileId": "1Fsx5kzm_fL4lxdmlm9M7Av7ALX3vfv1a",
+        "VersionFileId": "1Fsx5kzm_fL4lxdmlm9M7Av7ALX3vfv1a"
     },
     "DOMParserItems": [
         {

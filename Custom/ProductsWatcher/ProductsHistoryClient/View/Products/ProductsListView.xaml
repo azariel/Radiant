@@ -10,11 +10,12 @@
         <Style TargetType="DataGridCell">
             <Setter Property="TextBlock.TextAlignment" Value="Center" />
             <Setter Property="MinHeight" Value="40" />
+            <Setter Property="FontWeight" Value="DemiBold" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridCell}">
                         <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center" />
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -47,14 +48,26 @@
                         <Setter Property="Height" Value="30"/>
                         <Setter Property="FontWeight" Value="SemiBold"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding ProductModel.Name}" IsReadOnly="True" MinWidth="50" />
-                    <DataGridTextColumn Header="Url" Binding="{Binding ProductModel.Url}" IsReadOnly="True" MinWidth="50" />
-                    <DataGridTextColumn Header="Price" Binding="{Binding CurrentPrice , StringFormat={}{0} $}" IsReadOnly="True" MinWidth="50" MaxWidth="100" />
-                    <DataGridTextColumn Header="Best 1Y" Binding="{Binding BestPrice1Y , StringFormat={}{0} $}" IsReadOnly="True" MinWidth="50" MaxWidth="180" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" MinWidth="50" />
+                    <DataGridTextColumn Header="Url" Binding="{Binding Url, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" MinWidth="50" />
+                    <DataGridTemplateColumn  Header="Price" IsReadOnly="True" MinWidth="80" MaxWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <local:UcProductPriceCell ProductViewModel="{Binding Path='', UpdateSourceTrigger=PropertyChanged}"></local:UcProductPriceCell>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Best 365 days" Binding="{Binding BestPrice1Y, StringFormat={}{0} $}" IsReadOnly="True" MinWidth="100" MaxWidth="180" />
                 </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <local:UcProductDetail DetailProductViewModel="{Binding Path='', UpdateSourceTrigger=PropertyChanged}"></local:UcProductDetail>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
             </DataGrid>
         </StackPanel>
     </Grid>

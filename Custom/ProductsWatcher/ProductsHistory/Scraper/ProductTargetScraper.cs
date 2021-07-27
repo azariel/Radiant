@@ -11,7 +11,6 @@ using Radiant.Common.OSDependent.Clipboard;
 using Radiant.Common.Serialization;
 using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.Custom.ProductsHistoryCommon.DataBase;
-using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
 using Radiant.Notifier.DataBase;
 using Radiant.WebScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
@@ -272,10 +271,9 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 // Log other relevant information to a single file
                 File.WriteAllText(Path.Combine(_RootFolder, $"{_Now:HH.mm.ss}-INFO.txt"),
                     @$"Url: {fUrl}{Environment.NewLine}
-                              OneOrMoreStepFailedAndRequiredAFallback: {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}
-                              this.Information: {JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}
+OneOrMoreStepFailedAndRequiredAFallback: {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}
+this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}
 ");
-
             } catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);

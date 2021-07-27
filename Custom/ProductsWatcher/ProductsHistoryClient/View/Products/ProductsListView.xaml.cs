@@ -29,8 +29,9 @@ namespace ProductsHistoryClient.View.Products
 
                 foreach (RadiantClientProductModel _Product in aProducts)
                 {
-                    foreach (var _ViewModel in _Product.ProductDefinitionCollection.Select(s => new ProductViewModel(s)))
-                        dataGridProducts.Items.Add(_ViewModel);
+                    var _ProductViewModel = new ProductViewModel(_Product);
+
+                    dataGridProducts.Items.Add(_ProductViewModel);
                 }
 
                 dataGridProducts.IsReadOnly = false;

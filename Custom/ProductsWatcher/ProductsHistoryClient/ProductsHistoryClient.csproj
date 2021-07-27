@@ -11,6 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\RadiantCommon\RadiantCommon.csproj" />
     <ProjectReference Include="..\ProductsHistoryCommon\ProductsHistoryCommon.csproj" />
   </ItemGroup>
