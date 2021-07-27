@@ -7,6 +7,15 @@ namespace Radiant.Common.Diagnostics
     public static class LoggingManager
     {
         // ********************************************************************
+        //                            Nested
+        // ********************************************************************
+        public enum LogVerbosity
+        {
+            Minimal,
+            Verbose
+        }
+
+        // ********************************************************************
         //                            Constants
         // ********************************************************************
         public const string DEFAULT_LOG_FILE_RELATIVE_PATH = "radiant.log";
@@ -17,7 +26,7 @@ namespace Radiant.Common.Diagnostics
         /// <summary>
         /// Format message and then log it to specified or default file
         /// </summary>
-        public static void LogToFile(string aLogUID, string aLogContent, Exception aException = null, string aLogFilePath = DEFAULT_LOG_FILE_RELATIVE_PATH)
+        public static void LogToFile(string aLogUID, string aLogContent, Exception aException = null, LogVerbosity aLogVerbosity = LogVerbosity.Minimal, string aLogFilePath = DEFAULT_LOG_FILE_RELATIVE_PATH)
         {
             string _Message = $"Message=[{aLogContent}]{Environment.NewLine}";
 

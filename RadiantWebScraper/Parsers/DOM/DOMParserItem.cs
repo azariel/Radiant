@@ -20,6 +20,10 @@ namespace Radiant.WebScraper.Parsers.DOM
 
         [JsonConverter(typeof(StringEnumConverter))]
         public RegexItemResultTarget Target { get; set; } = RegexItemResultTarget.Value;
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public RegexItemResultMatch RegexMatch { get; set; } = RegexItemResultMatch.First;
+
         public string UID { get; set; } = Guid.NewGuid().ToString();
     }
 }

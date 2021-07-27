@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="ProductsHistoryClient.View.Products.ProductsListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProductsHistoryClient.View.Products"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#111" />
+                    <Setter Property="Foreground" Value="#FFF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="DataGridRow">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="BorderBrush"  Value="#464646" />
+                    <Setter Property="BorderThickness" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="Black">
+        <StackPanel Orientation="Vertical">
+            <DataGrid Name="dataGridProducts" CanUserAddRows="False" CanUserDeleteRows="False" Background="#0c0c0c" RowHeaderWidth="0"
+                      RowBackground="#1e1e1e" AlternationCount="2" AlternatingRowBackground="#1f1f1f" Foreground="White">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnMouseDownOnRow"/>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#0c0c0c"/>
+                        <Setter Property="Foreground" Value="WhiteSmoke"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" MinWidth="50" />
+                    <DataGridTextColumn Header="Url" Binding="{Binding Url, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" MinWidth="50" />
+                    <DataGridTemplateColumn  Header="Price" IsReadOnly="True" MinWidth="80" MaxWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <local:UcProductPriceCell ProductViewModel="{Binding Path='', UpdateSourceTrigger=PropertyChanged}"></local:UcProductPriceCell>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Best 365 days" Binding="{Binding BestPrice1Y, StringFormat={}{0} $}" IsReadOnly="True" MinWidth="100" MaxWidth="180" />
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <local:UcProductDetail DetailProductViewModel="{Binding Path='', UpdateSourceTrigger=PropertyChanged}"></local:UcProductDetail>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</UserControl>

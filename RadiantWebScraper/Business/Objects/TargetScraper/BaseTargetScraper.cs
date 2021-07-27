@@ -62,13 +62,18 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
 
                 _Graphics.CopyFromScreen(0, 0, 0, 0, _Bitmap.Size, CopyPixelOperation.SourceCopy);
 
-                string _ImagePath = $"{DateTime.Now:yyyy-MM-dd HH.mm.ss.fff}.png";
+                DateTime _Now = DateTime.Now;
+                string _ImagePath = $"{_Now:yyyy-MM-dd HH.mm.ss.fff}.png";
 
                 if (!Directory.Exists(aOutPutPath))
                     Directory.CreateDirectory(aOutPutPath);
 
                 _Bitmap.Save(Path.Combine(aOutPutPath, _ImagePath));//"C:\\temp\\a.png"));
                 this.Screenshot = ImageHelper.ImageToByte2(_Bitmap);
+
+                // Add a info file beside
+                File.WriteAllText(Path.Combine(aOutPutPath, $"{_Now:yyyy-MM-dd HH.mm.ss.fff}-INFO.txt"), $"Url: {fUrl}");
+
             } catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("1D33CEE8-20F0-4627-9EFE-B2FCFC4E71CE", "Couldn't take screenshot. Operation will be ignored.", _Exception);
@@ -80,6 +85,8 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         public virtual void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
+            Thread.Sleep(5000);
+
             fBrowser = aSupportedBrowser;
             fUrl = aUrl;
             fAllowManualOperations = aAllowManualOperations;

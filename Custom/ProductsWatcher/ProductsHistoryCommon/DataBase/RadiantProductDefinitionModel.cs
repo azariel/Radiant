@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Radiant.Common.Database.Sqlite;
-using Radiant.Custom.ProductsHistory.DataBase.Subscriptions;
 
-namespace Radiant.Custom.ProductsHistory.DataBase
+namespace Radiant.Custom.ProductsHistoryCommon.DataBase
 {
-    [Table("Products")]
-    public class RadiantProductModel : RadiantSqliteBaseTable
+    [Table("ProductDefinitions")]
+    public class RadiantProductDefinitionModel : RadiantSqliteBaseTable
     {
         // ********************************************************************
         //                            Properties
         // ********************************************************************
         /// <summary>
-        /// Enable this product to fetch new product history
+        /// Enable this product definition to fetch new product history
         /// </summary>
         [Required]
         public bool FetchProductHistoryEnabled { get; set; }
@@ -33,23 +31,15 @@ namespace Radiant.Custom.ProductsHistory.DataBase
         [Required]
         public float FetchProductHistoryTimeSpanNoiseInPerc { get; set; }
 
-        [Required]
-        [MaxLength(255)]
-        public string Name { get; set; }
-
         /// <summary>
         /// Built from FetchProductHistoryEveryX using FetchProductHistoryTimeSpanNoiseInPerc if FetchProductHistoryEnabled is
         /// enabled
         /// </summary>
         public DateTime? NextFetchProductHistory { get; set; }
 
-        public virtual List<RadiantProductHistoryModel> ProductHistoryCollection { get; set; } = new();
-
         [Required]
         [Key]
-        public long ProductId { get; set; }
-
-        public virtual List<RadiantProductSubscriptionModel> ProductSubscriptions { get; set; } = new();
+        public long ProductDefinitionId { get; set; }
 
         [Required]
         [MaxLength(2048)]

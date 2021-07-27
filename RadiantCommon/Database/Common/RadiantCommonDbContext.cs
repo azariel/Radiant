@@ -26,7 +26,7 @@ namespace Radiant.Common.Database.Common
             //aOptionsBuilder.UseLazyLoadingProxies();
         }
 
-        protected override string GetDataBaseFileName() => "RadiantCommon.db";
+        public override string GetDataBaseFileName() => "RadiantCommon.db";
 
         // ********************************************************************
         //                            Properties

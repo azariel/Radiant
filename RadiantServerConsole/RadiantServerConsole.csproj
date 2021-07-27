@@ -11,7 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Custom\ProductsHistory\ProductsHistory.csproj" />
     <ProjectReference Include="..\RadiantNotifier\RadiantNotifier.csproj" />
     <ProjectReference Include="..\RadiantWebScraper\RadiantWebScraper.csproj" />
   </ItemGroup>

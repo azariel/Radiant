@@ -11,6 +11,8 @@ namespace RadiantInputsManager
         KP_Enter = 0xff0d,// Enter
         XK_Escape = 0xff1b,//Escape
         XK_F11 = 0xffc8,// F11
+        XK_F12 = 0xffc9,// F12
+        XK_TAB = 0xff09,// TAB
         XK_Control_L = 0xffe3,// Left Control
         XK_u = 0x0075,// u
         XK_a = 0x0061,// a
@@ -19,6 +21,8 @@ namespace RadiantInputsManager
         XK_w = 0x0077,// w
         XK_Left = 0x08fb,// Left Arrow
         XK_Right = 0x08fd,// Right Arrow
+        XK_Down = 0x08fe,// Down Arrow
+        XK_Up = 0x08fc,// Up Arrow
         XK_Shift_L = 0xffe1,// Left Shift
         XK_End = 0xff57,//End
     }

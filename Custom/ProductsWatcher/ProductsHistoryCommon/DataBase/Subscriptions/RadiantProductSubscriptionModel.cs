@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Radiant.Custom.ProductsHistory.DataBase.Subscriptions
+namespace Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions
 {
     [Table("ProductSubscriptions")]
     public class RadiantProductSubscriptionModel
@@ -9,18 +9,9 @@ namespace Radiant.Custom.ProductsHistory.DataBase.Subscriptions
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        [ForeignKey("ProductId")]
-        public virtual RadiantProductModel Product { get; set; }
-
-        public long ProductId { get; set; }
-
         [Required]
         [Key]
         public long ProductSubscriptionId { get; set; }
-
-        [ForeignKey("UserId")]
-        public virtual RadiantUserProductsHistoryModel User { get; set; }
-        public long UserId { get; set; }
 
         /// <summary>
         /// Will only notify user if product price is below or equal this price.

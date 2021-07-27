@@ -46,6 +46,9 @@ namespace Radiant.Notifier
             if (aRadiantNotificationModel == null)
                 return;
 
+            // Timeout notification for an hour TODO: make this configurable ?
+            aRadiantNotificationModel.MinimalDateTimetoSend = DateTime.Now.AddHours(1);
+
             LoggingManager.LogToFile("0FBFDBD8-DE63-4CBA-9561-C4C52560A189", $"Failed to send notification ID [{aRadiantNotificationModel.NotificationId}]. This notification will be re-queued.");
         }
 
@@ -55,10 +58,6 @@ namespace Radiant.Notifier
                 return;
 
             aRadiantNotificationModel.Sent = true;
-
-            RadiantNotificationConfig _Configuration = NotificationConfigurationManager.ReloadConfig();
-            if (_Configuration.EmailServer.SleepMsBetweenEmailSent > 0)
-                Thread.Sleep(_Configuration.EmailServer.SleepMsBetweenEmailSent);
         }
 
         // ********************************************************************
@@ -80,6 +79,10 @@ namespace Radiant.Notifier
                     HandleNotificationFailure(_NotificationToSend);
                 else
                     HandleNotificationSuccess(_NotificationToSend);
+
+                RadiantNotificationConfig _Configuration = NotificationConfigurationManager.ReloadConfig();
+                if (_Configuration.EmailServer.SleepMsBetweenEmailSent > 0)
+                    Thread.Sleep(_Configuration.EmailServer.SleepMsBetweenEmailSent);
 
                 _DbContext.SaveChanges();
             }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.WebScraper.Parsers.DOM;
 using Radiant.WebScraper.Scrapers.Manual;
@@ -22,7 +23,54 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private void ShowDOMInNewTab()
+        private void CloseInspector()
+        {
+            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            {
+                Delay = 120,
+                KeyStrokeCodes = new[]
+                {
+                    Keycode.XK_F12
+                }
+            });
+            WaitForBrowserInputsReadyOrMax(2303);
+        }
+
+        private void ExtractDOM()
+        {
+            // Get DOM
+            ShowAndFocusDOMInInspector();
+
+            // Clear clipboard
+            ClipboardManager.SetClipboardValue("");
+            WaitForBrowserInputsReadyOrMax(451);
+
+            // Put in clipboard
+            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            {
+                Delay = 260,
+                KeyStrokeCodes = new[]
+                {
+                    Keycode.XK_Control_L,
+                    Keycode.XK_c
+                }
+            });
+
+            WaitForBrowserInputsReadyOrMax(3026);
+
+            // Copy clipboard value to var
+            this.DOM = ClipboardManager.GetClipboardValue();
+            WaitForBrowserInputsReadyOrMax(821);
+
+            // Clear clipboard
+            ClipboardManager.SetClipboardValue("");
+            WaitForBrowserInputsReadyOrMax(387);
+
+            // Close the inspector window
+            CloseInspector();
+        }
+
+        private void ShowAndFocusDOMInInspector()
         {
             // Note that it's the same in every supported browser (atm)
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
@@ -30,10 +78,60 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
                 Delay = 120,
                 KeyStrokeCodes = new[]
                 {
-                    Keycode.XK_Control_L,
-                    Keycode.XK_u
+                    Keycode.XK_F12
                 }
             });
+            WaitForBrowserInputsReadyOrMax(15154);
+
+            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            {
+                Delay = 120,
+                KeyStrokeCodes = new[]
+                {
+                    Keycode.XK_TAB
+                }
+            });
+            WaitForBrowserInputsReadyOrMax(526);
+
+            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            {
+                Delay = 180,
+                KeyStrokeCodes = new[]
+                {
+                    Keycode.XK_TAB
+                }
+            });
+            WaitForBrowserInputsReadyOrMax(326);
+
+            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            {
+                Delay = 220,
+                KeyStrokeCodes = new[]
+                {
+                    Keycode.XK_TAB
+                }
+            });
+            WaitForBrowserInputsReadyOrMax(376);
+
+            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            {
+                Delay = 160,
+                KeyStrokeCodes = new[]
+                {
+                    Keycode.XK_TAB
+                }
+            });
+            WaitForBrowserInputsReadyOrMax(399);
+
+            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            {
+                Delay = 320,
+                KeyStrokeCodes = new[]
+                {
+                    Keycode.XK_TAB
+                }
+            });
+            WaitForBrowserInputsReadyOrMax(926);
         }
 
         // ********************************************************************
@@ -45,30 +143,46 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
 
             if (aAllowManualOperations)
             {
-                // Get DOM
-                ShowDOMInNewTab();
-                WaitForBrowserInputsReadyOrMax(10154);
+                ExtractDOM();
 
-                // Clear clipboard
-                ClipboardManager.SetClipboardValue("");
-                WaitForBrowserInputsReadyOrMax(751);
+                if (string.IsNullOrWhiteSpace(this.DOM))
+                {
+                    ShowAndFocusDOMInInspector();
 
-                // Put in clipboard
-                ManualScraperSequenceHelper.CopyAllToClipboard();
-                WaitForBrowserInputsReadyOrMax(3026);
+                    // Try to close split console
+                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+                    {
+                        Delay = 320,
+                        KeyStrokeCodes = new[]
+                        {
+                            Keycode.XK_Escape
+                        }
+                    });
+                    WaitForBrowserInputsReadyOrMax(352);
 
-                // Copy clipboard value to var
-                this.DOM = ClipboardManager.GetClipboardValue();
-                WaitForBrowserInputsReadyOrMax(821);
+                    CloseInspector();
 
-                // Clear clipboard
-                ClipboardManager.SetClipboardValue("");
-                WaitForBrowserInputsReadyOrMax(887);
-
-                // Close the tab we created for the DOM
-                ManualScraperSequenceHelper.CloseCurrentTab();
-                WaitForBrowserInputsReadyOrMax(2303);
+                    // Try again, but with split console closed as it messed with TAB focus
+                    ExtractDOM();
+                }
             }
+
+            ShrinkDOM();
+        }
+
+        /// <summary>
+        /// DOM is often filled with Scripts and other things we don't need. executing a Regex on 1 million lines take a very long time that can be largely reduced
+        /// </summary>
+        private void ShrinkDOM()
+        {
+            if (string.IsNullOrWhiteSpace(this.DOM))
+                return;
+
+            //Regex _RemScript = new Regex(@"<script[^>]*>[\s\S]*?</script>");
+            //this.DOM = _RemScript.Replace(this.DOM, "");
+
+            //Regex _RemStyle = new Regex(@"<style[^>]*>[\s\S]*?</style>");
+            //this.DOM = _RemStyle.Replace(this.DOM, "");
         }
 
         // ********************************************************************

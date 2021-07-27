@@ -8,6 +8,14 @@ namespace Radiant.Common.Tasks.Triggers
     public abstract class RadiantTask : IRadiantTask
     {
         // ********************************************************************
+        //                            Private
+        // ********************************************************************
+        /// <summary>
+        /// A working task is a task that is currently evaluating or triggering
+        /// </summary>
+        private bool fIsWorking;
+
+        // ********************************************************************
         //                            Protected
         // ********************************************************************
         protected abstract void TriggerNowImplementation();
@@ -17,10 +25,10 @@ namespace Radiant.Common.Tasks.Triggers
         // ********************************************************************
         public void EvaluateTriggers()
         {
-            if (!this.IsEnabled || this.IsWorking)
+            if (!this.IsEnabled || fIsWorking)
                 return;
 
-            this.IsWorking = true;
+            fIsWorking = true;
             try
             {
                 foreach (ITrigger _Trigger in this.Triggers)
@@ -35,7 +43,7 @@ namespace Radiant.Common.Tasks.Triggers
                 }
             } finally
             {
-                this.IsWorking = false;
+                fIsWorking = false;
             }
         }
 
@@ -52,18 +60,12 @@ namespace Radiant.Common.Tasks.Triggers
         //                            Properties
         // ********************************************************************
         public bool IsEnabled { get; set; }
-        public string UID { get; set; } = Guid.NewGuid().ToString("D");
-
-        /// <summary>
-        /// A working task is a task that is currently evaluating or triggering
-        /// </summary>
-        [XmlIgnore]
-        [JsonIgnore]
-        public bool IsWorking { get; set; }
 
         [XmlIgnore]
         [JsonIgnore]
         public DateTime LastDateTimeTriggered { get; set; }
+
         public List<ITrigger> Triggers { get; set; }
+        public string UID { get; set; } = Guid.NewGuid().ToString("D");
     }
 }

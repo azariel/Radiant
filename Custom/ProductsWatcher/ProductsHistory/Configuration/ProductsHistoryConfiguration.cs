@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.Custom.ProductsHistory.Scraper;
+using Radiant.Custom.ProductsHistoryCommon.Configuration;
 
 namespace Radiant.Custom.ProductsHistory.Configuration
 {
@@ -131,5 +132,7 @@ namespace Radiant.Custom.ProductsHistory.Configuration
             //        }
             //    }
             //};
+
+            public GoogleDriveAPIConfig GoogleDriveAPIConfig { get; set; } = new();
     }
 }
