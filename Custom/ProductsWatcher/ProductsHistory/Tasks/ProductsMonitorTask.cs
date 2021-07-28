@@ -53,6 +53,8 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                 InsertDateTime = DateTime.Now,
                 Price = aProductScraper.Information.Price.Value,
                 ShippingCost = aProductScraper.Information.ShippingCost,
+                DiscountPrice = aProductScraper.Information.DiscountPrice,
+                DiscountPercentage = aProductScraper.Information.DiscountPercentage,
                 Title = aProductScraper.Information.Title?.Trim()
             };
         }
@@ -66,7 +68,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
 
             RadiantNotificationModel _NewNotification = new()
             {
-                Content = $"<p>Product {aProductDefinition.Product.Name} is {aNewProductHistory.Price}$ with {aNewProductHistory.ShippingCost} $ for shipping</p> <p>Url: {aProductDefinition.Url}</p>",
+                Content = $"<p>Product {aProductDefinition.Product.Name} is {aNewProductHistory.Price}$ with {aNewProductHistory.ShippingCost} $ for shipping</p> <p>Shown total discount: -{aNewProductHistory.DiscountPrice} $ and {aNewProductHistory.DiscountPercentage} %</p> <p>Url: {aProductDefinition.Url}</p>",
                 Subject = $"Deal on {aProductDefinition.Product.Name} {aNewProductHistory.Price}$",
                 EmailFrom = "Radiant Product History",
                 MinimalDateTimetoSend = DateTime.Now
@@ -99,7 +101,8 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             foreach (RadiantServerProductDefinitionModel _ProductDefinition in aProductDefinition.Product.ProductDefinitionCollection)
             {
                 var _LatestProductHistory = _ProductDefinition.ProductHistoryCollection.OrderByDescending(o => o.InsertDateTime).FirstOrDefault();
-                double? _LastPriceOfThisDefinition = _LatestProductHistory?.Price + (_LatestProductHistory?.ShippingCost ?? 0);
+                double _TempDiscountedPrice = (_LatestProductHistory?.Price ?? 0) - (_LatestProductHistory?.DiscountPrice ?? 0);
+                double? _LastPriceOfThisDefinition = _LatestProductHistory?.Price + (_LatestProductHistory?.ShippingCost ?? 0) - (_LatestProductHistory?.DiscountPrice ?? 0) - (_TempDiscountedPrice * _LatestProductHistory?.DiscountPercentage ?? 0);
 
                 if (_LastPriceOfThisDefinition.HasValue && (!_LastPrice.HasValue || _LastPrice > _LastPriceOfThisDefinition))
                     _LastPrice = _LastPriceOfThisDefinition;
@@ -111,6 +114,12 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             if (aNewProductHistory.ShippingCost.HasValue)
                 _CurrentPrice += Math.Round(aNewProductHistory.ShippingCost.Value, 2);
 
+            if (aNewProductHistory.DiscountPrice.HasValue)
+                _CurrentPrice -= Math.Round(aNewProductHistory.DiscountPrice.Value, 2);
+
+            if (aNewProductHistory.DiscountPercentage.HasValue)
+                _CurrentPrice -= _CurrentPrice * Math.Round(aNewProductHistory.DiscountPercentage.Value, 2);
+
             // If current price is the same, ignore
             if (!_LastPrice.HasValue || Math.Abs(Math.Round(Math.Round(_CurrentPrice, 2) - Math.Round(_LastPrice.Value, 2), 2)) < 0.01)
                 return;
@@ -119,7 +128,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             RadiantServerProductHistoryModel[] _ProductsHistory = aProductDefinition.Product.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection.Where(w => w.InsertDateTime >= DateTime.Now.AddYears(-1))).ToArray();
 
             if (_ProductsHistory.Any())
-                _BestPriceLastYear = _ProductsHistory.Min(m => m.Price + (m.ShippingCost ?? 0));
+                _BestPriceLastYear = _ProductsHistory.Min(m => m.Price + (m.ShippingCost ?? 0) - (m.DiscountPrice ?? 0) - ((m.Price - (m.DiscountPrice ?? 0)) * m.DiscountPercentage ?? 0));
 
             // Check if the price is low enough to send notifications. Each user may have a watcher on this product with a different price, so we need to check all subscriptions
             using ServerProductsDbContext _ProductDbContext = new();

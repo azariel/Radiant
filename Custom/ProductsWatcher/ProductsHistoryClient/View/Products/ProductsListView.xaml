@@ -67,6 +67,9 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Best 365 days" Binding="{Binding BestPrice1Y, StringFormat={}{0} $}" IsReadOnly="True" MinWidth="100" MaxWidth="180" />
+                    <DataGridTextColumn Header="Shipping" Binding="{Binding ShippingCost , StringFormat={}{0} $}" IsReadOnly="True" MinWidth="80" MaxWidth="100" />
+                    <DataGridTextColumn Header="Shipping" Binding="{Binding DiscountPrice , StringFormat=-{0} $}" IsReadOnly="True" MinWidth="80" MaxWidth="100" />
+                    <DataGridTextColumn Header="Shipping" Binding="{Binding DiscountPercentage , StringFormat={}{0} %}" IsReadOnly="True" MinWidth="80" MaxWidth="100" />
                 </DataGrid.Columns>
                 <DataGrid.RowDetailsTemplate>
                     <DataTemplate>

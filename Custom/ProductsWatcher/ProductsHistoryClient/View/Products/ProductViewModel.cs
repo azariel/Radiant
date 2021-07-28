@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Radiant.Custom.ProductsHistoryCommon.DataBase;
 
 namespace ProductsHistoryClient.View.Products
@@ -18,11 +20,23 @@ namespace ProductsHistoryClient.View.Products
             RadiantClientProductHistoryModel[] _HistoryCollection = aRadiantProductModel.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection).ToArray();
 
             DateTime _Now = DateTime.Now;
-            IOrderedEnumerable<RadiantClientProductHistoryModel> _OrderedProductHistory = _HistoryCollection.OrderByDescending(o => o.InsertDateTime);
+            DateTime? _MostRecentDate = _HistoryCollection.OrderByDescending(o => o.InsertDateTime).FirstOrDefault()?.InsertDateTime.Date;
+
+            if (!_MostRecentDate.HasValue)
+            {
+                MessageBox.Show("75AE56D0-5114-4877-BC13-532D9B5C8AB2");
+                return;
+            }
 
             // Current Price
-            RadiantClientProductHistoryModel? _LatestProductHistory = _OrderedProductHistory.FirstOrDefault();
+            RadiantClientProductHistoryModel[] _LatestProductHistoryModels = _HistoryCollection.Where(w => w.InsertDateTime.Date == _MostRecentDate).ToArray();
+
+            RadiantClientProductHistoryModel _LatestProductHistory = _LatestProductHistoryModels.OrderBy(o=>o.Price).First();
             this.CurrentPrice = _LatestProductHistory?.Price;
+
+            this.ShippingCost = _LatestProductHistory?.ShippingCost ?? 0;
+            this.DiscountPrice = _LatestProductHistory?.DiscountPrice ?? 0;
+            this.DiscountPercentage = _LatestProductHistory?.DiscountPercentage ?? 0;
 
             // BestPrice1Y
             RadiantClientProductHistoryModel? _Best1YPriceProduct = _HistoryCollection.Where(w => w.InsertDateTime > _Now.AddYears(-1)).OrderBy(o => o.Price).FirstOrDefault();
@@ -44,8 +58,11 @@ namespace ProductsHistoryClient.View.Products
         public double? BestPrice1Y { get; }
         public double? CurrentPrice { get; }
         public double? DifferenceBestPrice1YVsCurrentPrice { get; }
+        public double? DiscountPercentage { get; }
+        public double? DiscountPrice { get; }
         public string Name { get; set; }
         public RadiantClientProductModel ProductModel { get; }
+        public double? ShippingCost { get; }
 
         /// <summary>
         /// Url of current best price

@@ -21,7 +21,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             AmazonProduct2,
             AmazonProduct3,
             NeweggProduct2,
-            NeweggProduct3
+            NeweggProduct3,
+            NeweggProduct4,
         }
 
         // ********************************************************************
@@ -45,6 +46,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
                     return UnitTestsResources.ResourceManager.GetObject("Newegg_Product2_SourceCode") as string;
                 case ProductSourceCodeFile.NeweggProduct3:
                     return UnitTestsResources.ResourceManager.GetObject("Newegg_Product3_SourceCode") as string;// With 39.96$ shipping
+                case ProductSourceCodeFile.NeweggProduct4:
+                    return UnitTestsResources.ResourceManager.GetObject("Newegg_Product4_SourceCode") as string;// With 100.00$ discount
                 default:
                     throw new ArgumentOutOfRangeException(nameof(aProductSourceCodeFile), aProductSourceCodeFile, null);
             }
@@ -181,6 +184,19 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             string _Title = DOMProductInformationParser.ParseTitle(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems);
             string _ExpectedTitle = "DualShock 4 PS4 Controller Wireless for PlayStation 4 - Jet Black";
             Assert.Equal(_ExpectedTitle, _Title);
+        }
+
+        [Fact]
+        public void TestParseTypicalNeweggDiscountInAmount()
+        {
+            ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
+            string _DOM = GetDOMFromResource(ProductSourceCodeFile.NeweggProduct4);
+
+            double? _DiscountInAmount = DOMProductInformationParser.Parse(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.DiscountPrice).ToArray());
+            Assert.Equal(100, _DiscountInAmount);
+
+            double? _DiscountInPercentage = DOMProductInformationParser.Parse(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.DiscountPercentage).ToArray());
+            Assert.Equal(null, _DiscountInPercentage);
         }
     }
 }

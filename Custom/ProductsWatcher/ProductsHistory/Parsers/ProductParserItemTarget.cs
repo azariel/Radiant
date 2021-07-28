@@ -5,5 +5,7 @@
         Price,
         ShippingCost,
         Title,
+        DiscountPrice,
+        DiscountPercentage
     }
 }

@@ -74,6 +74,14 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
         }
 
         [Fact]
+        public void NeweggProductWithDiscountInDollarsTest()
+        {
+            ProductFetchedInformation _Product = TestProductFetchForSpecificUrl(ProductsHistoryTestConstants.NEWEGG_DISCOUNT_IN_AMOUNT_PRODUCT_URL, true);
+            Assert.Equal(98.99, _Product.Price - _Product.DiscountPrice);
+            Assert.Equal("HUAWEI WiFi AX3 Quad Core Router with Wi-Fi 6 Plus, Speed up to 3000 Mbps, Quad-Core 1.4GHz CPU, 160 MHz frequency bandwidth, supports 1024-QAM (Canada Warranty)", _Product.Title);
+        }
+
+        [Fact]
         public void NeweggBasicTest()
         {
             // Note that for Newegg, we still don't have a manual operation way to get the price.. The "$" ctr+f find response vary too much... the DOM parser is more stable

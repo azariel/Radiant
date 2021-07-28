@@ -156,5 +156,14 @@ namespace Radiant.Custom.ProductsHistory.Resources {
                 return ResourceManager.GetString("Newegg_Product3_SourceCode", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;body&gt;&lt;div id=&quot;mf__div&quot; style=&quot;display: none;&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;script type=&quot;text/javascript&quot;&gt;;;;(function(){var e=document.querySelector(&apos;meta[name=&quot;viewport&quot;]&apos;),t=document.createElement(&quot;meta&quot;);t.name=&quot;viewport&quot;,t.content=&quot;width=device-width&quot;,e||document.head.appendChild(t)})();&lt;/script&gt;&lt;/div&gt;&lt;div&gt;&lt;script type=&quot;text/javascript&quot;&gt;var nebs=nebs||{};nebs.errors=[];window.onerror=function(){nebs.errors.push(arguments);return true;}&lt;/script&gt;&lt;/div&gt;&lt;div&gt;&lt;script src=&quot;https://c1.neweggimages.com/webResource/Scripts/WWW/ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Newegg_Product4_SourceCode {
+            get {
+                return ResourceManager.GetString("Newegg_Product4_SourceCode", resourceCulture);
+            }
+        }
     }
 }
