@@ -2,9 +2,9 @@
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace Radiant.Common.Helpers
+namespace Radiant.Common.Utils
 {
-    public static class ImageHelper
+    public static class ImageUtils
     {
         // ********************************************************************
         //                            Public

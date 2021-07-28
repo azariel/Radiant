@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using Radiant.Common.Diagnostics;
-using Radiant.Common.Helpers;
+using Radiant.Common.Utils;
 using Radiant.WebScraper.Helpers;
 using Radiant.WebScraper.Parsers.DOM;
 using Radiant.WebScraper.Scrapers.Manual;
@@ -68,8 +68,8 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
                 if (!Directory.Exists(aOutPutPath))
                     Directory.CreateDirectory(aOutPutPath);
 
-                _Bitmap.Save(Path.Combine(aOutPutPath, _ImagePath));//"C:\\temp\\a.png"));
-                this.Screenshot = ImageHelper.ImageToByte2(_Bitmap);
+                _Bitmap.Save(Path.Combine(aOutPutPath, _ImagePath));
+                this.Screenshot = ImageUtils.ImageToByte2(_Bitmap);
 
                 // Add a info file beside
                 File.WriteAllText(Path.Combine(aOutPutPath, $"{_Now:yyyy-MM-dd HH.mm.ss.fff}-INFO.txt"), $"Url: {fUrl}");
@@ -96,7 +96,12 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
 
             if (fOptions.Value.HasFlag(TargetScraperCoreOptions.Screenshot))
             {
-                TryTakeScreenshot("Screenshots");
+                string _RootFolder = "Screenshots";
+
+                if (!string.IsNullOrWhiteSpace(fUrl))
+                    _RootFolder = Path.Combine(_RootFolder, RegexUtils.GetWebSiteDomain(fUrl));
+
+                TryTakeScreenshot(_RootFolder);
                 Thread.Sleep(500);
             }
         }

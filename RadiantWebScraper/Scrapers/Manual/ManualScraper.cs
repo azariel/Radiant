@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Threading;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent;
-using Radiant.WebScraper.Business.Objects.ScraperTargetValue;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Configuration;
 using Radiant.WebScraper.Helpers;
@@ -136,7 +135,9 @@ namespace Radiant.WebScraper.Scrapers.Manual
                     return;
                 }
                 // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
-                Thread.Sleep(5000);
+                var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
+                SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
+                Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? 30000);
 
                 // Fullscreen
                 ExecuteFullScreenF11();

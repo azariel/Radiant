@@ -1,5 +1,5 @@
 ﻿using System;
-using Radiant.Common.Helpers.MiscHelpers;
+using Radiant.Common.Utils.MiscUtils;
 using Xunit;
 
 namespace Radiant.Common.Tests.MiscHelpers
@@ -14,7 +14,7 @@ namespace Radiant.Common.Tests.MiscHelpers
         {
             Exception _TestException = new("Level-1", new Exception("Level 2", new Exception("Level_3")));
 
-            string _GeneratedMessage = ExceptionHelper.BuildExceptionAndInnerExceptionsMessage(_TestException);
+            string _GeneratedMessage = ExceptionUtils.BuildExceptionAndInnerExceptionsMessage(_TestException);
             const string _HARD_CODED_REFERENCE_VALUE =
               @" [
   Message=[Level-1]

@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Radiant.Common.Configuration;
-using Radiant.Common.Helpers;
 using Radiant.Common.Tasks;
+using Radiant.Common.Utils;
 using Radiant.ServerConsole.Configuration;
 
 namespace Radiant.ServerConsole
@@ -108,7 +108,7 @@ namespace Radiant.ServerConsole
         {
             // Register tasks in custom libraries
             RadiantServerConsoleConfiguration _ServerConfig = RadiantConsoleConfigurationManager.ReloadConfig();
-            AssemblyHelper.LoadAssemblyFilesToMemory(_ServerConfig.DependentLibraries);
+            AssemblyUtils.LoadAssemblyFilesToMemory(_ServerConfig.DependentLibraries);
 
             RadiantConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
 

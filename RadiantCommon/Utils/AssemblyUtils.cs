@@ -3,9 +3,9 @@ using System.IO;
 using System.Reflection;
 using Radiant.Common.Diagnostics;
 
-namespace Radiant.Common.Helpers
+namespace Radiant.Common.Utils
 {
-    public static class AssemblyHelper
+    public static class AssemblyUtils
     {
         // ********************************************************************
         //                            Public

@@ -9,6 +9,7 @@ using Radiant.Common.Database.Common;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.Common.Serialization;
+using Radiant.Common.Utils;
 using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.Custom.ProductsHistoryCommon.DataBase;
 using Radiant.Notifier.DataBase;
@@ -61,7 +62,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
                 if (_NewNotification.EmailTo.Count <= 0)
                 {
-                    LoggingManager.LogToFile("323A13DB-1D77-4693-BBD6-45C63A4A167A", $"No admin(s) found to send error notification. Error was : Couldn't fetch product information");
+                    LoggingManager.LogToFile("323A13DB-1D77-4693-BBD6-45C63A4A167A", "No admin(s) found to send error notification. Error was : Couldn't fetch product information");
                     return;
                 }
 
@@ -78,8 +79,9 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         {
             FetchProductPrice();
             FetchProductName();
+            FetchShippingCost();
 
-            // TODO: fetch product shipping cost, etc
+            // TODO: fetch product discounts
         }
 
         /// <summary>
@@ -96,15 +98,59 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         {
             // First, try to find the price by search
             if (fAllowManualOperations)
-                TryFetchProductPriceByManualOperation();
+                this.Information.Price = TryFetchProductParserTargetByManualOperation(ProductParserItemTarget.Price, true, true);
 
             if (this.Information.Price.HasValue)
+            {
+                LoggingManager.LogToFile("87278768-40EA-4B01-AC63-8C1E2331AC4D", "Product price was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
                 return;
+            }
 
-            this.OneOrMoreStepFailedAndRequiredAFallback = true;
+            if (fAllowManualOperations)
+            {
+                LoggingManager.LogToFile("2781E8CF-F080-4B51-A831-7EDC06560E43", $"Manual steps to fetch price of product [{fUrl}] failed.");
+
+                // We consider this an error only if we had at least 1 config available
+                ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price).ToArray();
+                if (_AvailableProductParser.Any())
+                    this.OneOrMoreStepFailedAndRequiredAFallback = true;
+            }
 
             // If it doesn't work, fallback to find the price in the DOM
             TryFetchProductPriceByDOM();
+
+            if (!this.Information.Price.HasValue && fDOMParserItems.Any(w => w.ParserItemTarget == ProductParserItemTarget.Price))
+                this.OneOrMoreStepFailedAndRequiredAFallback = true;
+        }
+
+        private void FetchShippingCost()
+        {
+            // First, try to find the price by search
+
+            if (fAllowManualOperations)
+                this.Information.ShippingCost = TryFetchProductParserTargetByManualOperation(ProductParserItemTarget.ShippingCost, true, true);
+
+            if (this.Information.ShippingCost.HasValue)
+            {
+                LoggingManager.LogToFile("E6CD9AF3-E26B-4826-9B61-45EA37C492D0", "Product shipping cost was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                return;
+            }
+
+            if (fAllowManualOperations)
+            {
+                LoggingManager.LogToFile("4C0E794F-3F15-4D56-83F0-9084ED439CC8", $"Manual steps to fetch shipping cost of product [{fUrl}] failed.");
+
+                // We consider this an error only if we had at least 1 config available
+                ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.ShippingCost).ToArray();
+                if (_AvailableProductParser.Any())
+                    this.OneOrMoreStepFailedAndRequiredAFallback = true;
+            }
+
+            // If it doesn't work, fallback to find the price in the DOM
+            TryFetchProductShippingCostByDOM();
+
+            if (!this.Information.ShippingCost.HasValue && fDOMParserItems.Any(w => w.ParserItemTarget == ProductParserItemTarget.ShippingCost))
+                this.OneOrMoreStepFailedAndRequiredAFallback = true;
         }
 
         private void HandleFailureProcess()
@@ -124,31 +170,12 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             this.Information.Title = DOMProductInformationParser.ParseTitle(fUrl, this.DOM, fDOMParserItems);
         }
 
-        private void TryFetchProductPriceByDOM()
-        {
-            if (string.IsNullOrWhiteSpace(this.DOM))
-            {
-                LoggingManager.LogToFile("1A1AF5EE-BDFA-4F71-A698-935341E133AD", $"Trying to fetch price of [{fUrl}], but no DOM parsers were configured matching this URL domain.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
-                return;
-            }
-
-            LoggingManager.LogToFile("D07C90BF-8570-4BE6-A98A-2EFB20322A4A", $"Trying to fetch price of [{fUrl}] using [{fDOMParserItems.Count}] DOM parsers", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
-
-            double? _Price = DOMProductInformationParser.ParsePrice(fUrl, this.DOM, fDOMParserItems);
-
-            if (_Price.HasValue)
-                this.Information.Price = _Price;
-
-            if (!this.Information.Price.HasValue)
-                LoggingManager.LogToFile("2CCDD325-3050-4FA5-A9F5-F9331A155C4F", $"DOM parser step to fetch price of product [{fUrl}] failed.");
-        }
-
-        private void TryFetchProductPriceByManualOperation()
+        private double? TryFetchProductParserTargetByManualOperation(ProductParserItemTarget aProductParserItemTarget, bool aTruncateEmptyLinesInValueFound, bool aApplyPriceTransformationToTargetValue)
         {
             try
             {
-                ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price).ToArray();
-                LoggingManager.LogToFile("013C0C5E-5149-465B-9D7E-1138169C5869", $"Trying to fetch price of [{fUrl}] using [{_AvailableProductParser.Length}] Manual Product Parsers.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == aProductParserItemTarget).ToArray();
+                LoggingManager.LogToFile("D11C642D-DABC-4625-B004-41E8C39D582A", $"Trying to fetch {aProductParserItemTarget} of [{fUrl}] using [{_AvailableProductParser.Length}] Manual Product Parsers.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
                 foreach (ManualScraperProductParser _ManualScraperItemParser in _AvailableProductParser)
                 {
@@ -163,7 +190,10 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                             case ManualScraperSequenceItemByClipboard _ManualScraperSequenceItemByClipboard:
                                 if (_ManualScraperSequenceItemByClipboard.Operation == ManualScraperSequenceItemByClipboard.ClipboardOperation.Get)
                                 {
-                                    string _RawPrice = ClipboardManager.GetClipboardValue().Replace("\r", "").Replace("\n", "");
+                                    string _RawTargetValue = ClipboardManager.GetClipboardValue();
+
+                                    if (aTruncateEmptyLinesInValueFound)
+                                        _RawTargetValue = _RawTargetValue.Replace("\r", "").Replace("\n", "");
 
                                     if (_ManualScraperSequenceItemByClipboard.WaitMsOnEnd > 0)
                                         WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItemByClipboard.WaitMsOnEnd);
@@ -174,16 +204,16 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                                     if (_ManualScraperSequenceItemByClipboard.WaitMsOnEnd > 0)
                                         WaitForBrowserInputsReadyOrMax(_ManualScraperSequenceItemByClipboard.WaitMsOnEnd / 2);
 
-                                    // If price doesn't contains decimal separator, add it
-                                    string _Price = _RawPrice;
+                                    // If target doesn't contains decimal separator, add it
+                                    string _TargetValue = _RawTargetValue;
                                     if (_ManualScraperItemParser.ValueParser?.RegexPattern != null)
                                     {
-                                        // Parse price
+                                        // Parse target value
                                         Regex _PriceRegex = new Regex(_ManualScraperItemParser.ValueParser?.RegexPattern, RegexOptions.CultureInvariant);
-                                        MatchCollection _Matches = _PriceRegex.Matches(_RawPrice);
+                                        MatchCollection _Matches = _PriceRegex.Matches(_RawTargetValue);
 
                                         if (_Matches.Count <= 0)
-                                            return;
+                                            return null;
 
                                         Match _SelectedMatch = _ManualScraperItemParser.ValueParser.RegexMatch switch
                                         {
@@ -195,35 +225,32 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                                         switch (_ManualScraperItemParser.ValueParser.Target)
                                         {
                                             case RegexItemResultTarget.Value:
-                                                _Price = _SelectedMatch.Value;
+                                                _TargetValue = _SelectedMatch.Value;
                                                 break;
                                             case RegexItemResultTarget.Group0Value when _SelectedMatch.Groups.Count < 1:
-                                                return;
+                                                return null;
                                             case RegexItemResultTarget.Group0Value:
-                                                _Price = _SelectedMatch.Groups[0].Value;
+                                                _TargetValue = _SelectedMatch.Groups[0].Value;
                                                 break;
                                             case RegexItemResultTarget.Group1Value when _SelectedMatch.Groups.Count < 2:
-                                                return;
+                                                return null;
                                             case RegexItemResultTarget.Group1Value:
-                                                _Price = _SelectedMatch.Groups[1].Value;
+                                                _TargetValue = _SelectedMatch.Groups[1].Value;
                                                 break;
                                             case RegexItemResultTarget.LastGroupValue when _SelectedMatch.Groups.Count < 1:
-                                                return;
+                                                return null;
                                             case RegexItemResultTarget.LastGroupValue:
-                                                _Price = _SelectedMatch.Groups[^1].Value;
+                                                _TargetValue = _SelectedMatch.Groups[^1].Value;
                                                 break;
                                         }
                                     }
 
                                     // If price doesn't contains decimal separator, add it
-                                    if (!_Price.Contains('.') && !_Price.Contains(',') && _Price.Length > 2)
-                                        _Price = _Price.Insert(_Price.Length - 2, ".");
+                                    if (aApplyPriceTransformationToTargetValue && !_TargetValue.Contains('.') && !_TargetValue.Contains(',') && _TargetValue.Length > 2)
+                                        _TargetValue = _TargetValue.Insert(_TargetValue.Length - 2, ".");
 
-                                    if (!string.IsNullOrWhiteSpace(_Price) && double.TryParse(_Price, out double _PriceAsDouble))
-                                    {
-                                        this.Information.Price = _PriceAsDouble;
-                                        return;
-                                    }
+                                    if (!string.IsNullOrWhiteSpace(_TargetValue) && double.TryParse(_TargetValue, out double _PriceAsDouble))
+                                        return _PriceAsDouble;
                                 }
 
                                 break;
@@ -240,14 +267,53 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 }
             } catch (Exception _Ex)
             {
-                LoggingManager.LogToFile("2AE999BA-5D76-4CF0-AC97-EB51D3EF2CC2", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
+                LoggingManager.LogToFile("FA210BC6-9321-422A-9378-4874AB53F241", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
             }
 
+            return null;
+        }
+
+        private void TryFetchProductPriceByDOM()
+        {
+            if (string.IsNullOrWhiteSpace(this.DOM))
+            {
+                LoggingManager.LogToFile("1A1AF5EE-BDFA-4F71-A698-935341E133AD", $"Trying to fetch shipping cost of [{fUrl}], but no DOM was found on this Url.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                return;
+            }
+
+            ProductDOMParserItem[] _PriceParsers = fDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray();
+
+            LoggingManager.LogToFile("D07C90BF-8570-4BE6-A98A-2EFB20322A4A", $"Trying to fetch price of [{fUrl}] using [{_PriceParsers.Length}] DOM parsers / {fDOMParserItems} for this domain.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+
+            double? _Price = DOMProductInformationParser.Parse(fUrl, this.DOM, _PriceParsers);
+
+            if (_Price.HasValue)
+                this.Information.Price = _Price;
+
             if (!this.Information.Price.HasValue)
-                LoggingManager.LogToFile("158B5041-37B1-476F-8DC2-C96430E2B0F9", $"Manual steps to fetch price of product [{fUrl}] failed.");
-            else
-                LoggingManager.LogToFile("161DD11D-5DE3-4120-83F7-9A6061173878", "Product price was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                LoggingManager.LogToFile("2CCDD325-3050-4FA5-A9F5-F9331A155C4F", $"DOM parser step to fetch price of product [{fUrl}] failed.");
+        }
+
+        private void TryFetchProductShippingCostByDOM()
+        {
+            if (string.IsNullOrWhiteSpace(this.DOM))
+            {
+                LoggingManager.LogToFile("D1E84B62-052B-4AB4-BF9A-3075145ED459", $"Trying to fetch shipping cost of [{fUrl}], but no DOM was found on this Url.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                return;
+            }
+
+            ProductDOMParserItem[] _ShippingCostParsers = fDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.ShippingCost).ToArray();
+
+            LoggingManager.LogToFile("B56BFC7A-0E62-4B85-87A9-7C5F007D0B35", $"Trying to fetch shipping cost of [{fUrl}] using [{_ShippingCostParsers.Length}] DOM parsers / {fDOMParserItems} for this domain.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+
+            double? _ShippingCost = DOMProductInformationParser.Parse(fUrl, this.DOM, _ShippingCostParsers);
+
+            if (_ShippingCost.HasValue)
+                this.Information.ShippingCost = _ShippingCost;
+
+            if (!this.Information.ShippingCost.HasValue)
+                LoggingManager.LogToFile("8D020C36-2542-4944-B41B-17D9931E6915", $"DOM parser step to fetch price of product [{fUrl}] failed.");
         }
 
         private void WriteProductInformationToErrorFolder()
@@ -256,6 +322,10 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             {
                 // Save Screenshot and DOM in error folder
                 string _RootFolder = "Errors";
+
+                // Add website domain to rootFolder
+                if (!string.IsNullOrWhiteSpace(fUrl))
+                    _RootFolder = Path.Combine(_RootFolder, RegexUtils.GetWebSiteDomain(fUrl));
 
                 if (!Directory.Exists(_RootFolder))
                     Directory.CreateDirectory(_RootFolder);
@@ -290,6 +360,9 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
 
             base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations, aManualScraperItems, aDOMParserItems);
 
+            // Refine DOM Parsers with the information we got from parents
+            fDOMParserItems = fDOMParserItems.Where(w => fUrl.Contains(w.IfUrlContains, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
             WaitForBrowserInputsReadyOrMax(500);
 
             // Fetch product information
@@ -302,12 +375,12 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
             }
 
             // Validate fetched information with DOM parser to check if we should inform Admins that a configuration may be incorrect
-            double? _Price = DOMProductInformationParser.ParsePrice(fUrl, this.DOM, fDOMParserItems);
+            double? _Price = DOMProductInformationParser.Parse(fUrl, this.DOM, fDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
 
             if (this.OneOrMoreStepFailedAndRequiredAFallback || !_Price.HasValue || Math.Abs(this.Information.Price.Value - _Price.Value) >= 0.01)
             {
                 WriteProductInformationToErrorFolder();
-                CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price.Value}</p><p>_Price.Value(by DOM only)={_Price}</p>");
+                CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price.Value}</p><p>_Price.Value(by DOM only)={_Price}</p><p>Shipping Cost: {this.Information.ShippingCost}</p>");
             }
         }
 

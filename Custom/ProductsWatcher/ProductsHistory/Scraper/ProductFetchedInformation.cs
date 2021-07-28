@@ -9,6 +9,7 @@
         //                            Properties
         // ********************************************************************
         public double? Price { get; set; }
+        public double? ShippingCost { get; set; }
         public string Title { get; set; }
     }
 }

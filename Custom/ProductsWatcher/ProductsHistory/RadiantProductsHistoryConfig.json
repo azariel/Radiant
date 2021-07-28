@@ -106,6 +106,16 @@
             "SubParserToExecuteOnTargetValue": null,
             "Target": "group1value",
             "UID": "c39afe74-6139-4d32-b5ad-78f5d4451148"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+            "ParserItemTarget": "ShippingCost",
+            "IfUrlContains": "newegg.c",
+            "Condition": null,
+            "RegexPattern": "ShippingCharge\":(.*?),",
+            "SubParserToExecuteOnTargetValue": null,
+            "Target": "group1value",
+            "UID": "e9cc192c-645f-48ea-85e5-387b82b0b8bb"
         }
     ],
     "ManualScraperSequenceItems": [

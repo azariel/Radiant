@@ -12,24 +12,24 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         //                            Internal
         // ********************************************************************
-        internal static double? ParsePrice(string aUrl, string aDOM, List<ProductDOMParserItem> aDOMParserItems)
-        {
-            if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Count <= 0)
-                return null;
+        //internal static double? ParsePrice(string aUrl, string aDOM, ProductDOMParserItem[] aDOMParserItems)
+        //{
+        //    if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Length <= 0)
+        //        return null;
 
-            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price))
-            {
-                string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
+        //    foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price))
+        //    {
+        //        string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
 
-                if (_Value != null && double.TryParse(_Value, out double _Price))
-                    return _Price;
-            }
+        //        if (_Value != null && double.TryParse(_Value, out double _Price))
+        //            return _Price;
+        //    }
 
-            LoggingManager.LogToFile("A22DF9B4-66B7-4157-BFEA-D9F77F35CC14", $"Couldn't find price in DOM using [{aDOMParserItems.Count}] DOM parsers for Url [{aUrl}].");
-            return null;
-        }
+        //    LoggingManager.LogToFile("A22DF9B4-66B7-4157-BFEA-D9F77F35CC14", $"Couldn't find price in DOM using [{aDOMParserItems.Length}] DOM parsers for Url [{aUrl}].");
+        //    return null;
+        //}
 
-        public static string ParseTitle(string aUrl, string aDOM, List<ProductDOMParserItem> aDOMParserItems)
+        internal static string ParseTitle(string aUrl, string aDOM, List<ProductDOMParserItem> aDOMParserItems)
         {
             if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Count <= 0)
                 return null;
@@ -49,6 +49,23 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             }
 
             LoggingManager.LogToFile("84FF8277-1D1F-4EEE-808D-4922A99C35CA", $"Couldn't find title in DOM using [{aDOMParserItems.Count}] DOM parsers for Url [{aUrl}].");
+            return null;
+        }
+
+        internal static double? Parse(string aUrl, string aDOM, ProductDOMParserItem[] aDOMParserItems)
+        {
+            if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Length <= 0)
+                return null;
+
+            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w=>aUrl.Contains(w.IfUrlContains, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
+
+                if (_Value != null && double.TryParse(_Value, out double _Price))
+                    return _Price;
+            }
+
+            LoggingManager.LogToFile("413486D0-7DA3-4D3C-A203-432CCA1A3A55", $"Couldn't find target value in DOM using [{aDOMParserItems.Length}] DOM parsers for Url [{aUrl}].");
             return null;
         }
     }

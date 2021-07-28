@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Radiant.Common.Helpers.MiscHelpers
+namespace Radiant.Common.Utils.MiscUtils
 {
     /// <summary>
     /// Helping functions relative to exception
     /// </summary>
-    public static class ExceptionHelper
+    public static class ExceptionUtils
     {
         public static string BuildExceptionAndInnerExceptionsMessage(Exception aException, int aSpacingLevel = 1)
         {

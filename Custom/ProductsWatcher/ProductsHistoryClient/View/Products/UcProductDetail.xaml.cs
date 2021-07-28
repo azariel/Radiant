@@ -9,6 +9,7 @@ using LiveCharts;
 using LiveCharts.Configurations;
 using LiveCharts.Wpf;
 using Radiant.Common.OSDependent.Clipboard;
+using Radiant.Common.Utils;
 using Radiant.Custom.ProductsHistoryCommon.DataBase;
 
 namespace ProductsHistoryClient.View.Products
@@ -46,8 +47,8 @@ namespace ProductsHistoryClient.View.Products
         {
             InitializeComponent();
 
-            Loaded -= OnLoaded;
-            Loaded += OnLoaded;
+            this.Loaded -= OnLoaded;
+            this.Loaded += OnLoaded;
         }
 
         // ********************************************************************
@@ -117,9 +118,7 @@ namespace ProductsHistoryClient.View.Products
                 _Serie.Fill = Brushes.Transparent;
                 //_Serie.Fill = _SerieColor.FillColor;
 
-                _Serie.Title = Regex.Match(_ProductDefinition.Url, "^(?:https?:\\/\\/)?(?:[^@\\n]+@)?(?:www\\.)?([^:\\/\\n?]+)").Value
-                                    .Replace("http://www.", "", StringComparison.InvariantCultureIgnoreCase)
-                                    .Replace("https://www.", "", StringComparison.InvariantCultureIgnoreCase);
+                _Serie.Title = RegexUtils.GetWebSiteDomain(_ProductDefinition.Url);
 
                 RadiantClientProductHistoryModel[] _ProductHistoryLast1Y = _ProductDefinition.ProductHistoryCollection.Where(w => w.InsertDateTime > DateTime.Now.AddYears(-1)).ToArray();
 

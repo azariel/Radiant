@@ -17,6 +17,8 @@ namespace Radiant.Custom.ProductsHistoryCommon.DataBase
         [Key]
         public long ProductHistoryId { get; set; }
 
+        public double? ShippingCost { get; set; }
+
         [MaxLength(512)]
         public string Title { get; set; }
     }

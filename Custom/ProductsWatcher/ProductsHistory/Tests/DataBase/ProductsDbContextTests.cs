@@ -34,8 +34,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             _DbContext.SaveChanges();
         }
 
-        //[Fact(Skip = "Add a new Product in Database to Test ServerConsole or other client apps")]
-        [Fact]
+        [Fact(Skip = "Add a new Product in Database to Test ServerConsole or other client apps")]
+        //[Fact]
         public void AddTypicalProductAndDependencesPersistent()
         {
             using var _DataBaseContext = new ServerProductsDbContext();
@@ -65,7 +65,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             {
                 Email = RadiantCommonUnitTestsConstants.EMAIL,
                 Password = "MySuperPassword",
-                Type = RadiantUserModel.UserType.User,
+                Type = RadiantUserModel.UserType.Admin,
                 UserName = "MySuperUser"
             };
 
@@ -76,7 +76,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             {
                 Product = _Product,
                 User = _User,
-                MaximalPriceForNotification = 57.35,
+                MaximalPriceForNotification = 90,
                 SendEmailOnNotification = true
             };
 
