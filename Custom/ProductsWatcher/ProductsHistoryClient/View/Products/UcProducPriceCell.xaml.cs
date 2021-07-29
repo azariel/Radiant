@@ -86,7 +86,7 @@ namespace ProductsHistoryClient.View.Products
                 var _BlockDifferenceColor = new SolidColorBrush(_DifferenceColor);
                 txtBlockDifference.Foreground = _BlockDifferenceColor;
                 txtBlockDifferenceQuote.Foreground = _BlockDifferenceColor;
-                txtBlockDifferenceQuote.Text = "-";
+                //txtBlockDifferenceQuote.Text = "-"; - is already contained in price
             }
         }
 

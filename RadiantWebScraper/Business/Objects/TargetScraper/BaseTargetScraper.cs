@@ -101,6 +101,9 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
                 if (!string.IsNullOrWhiteSpace(fUrl))
                     _RootFolder = Path.Combine(_RootFolder, RegexUtils.GetWebSiteDomain(fUrl));
 
+                // Add current date to root folder
+                _RootFolder = Path.Combine(_RootFolder, $"{DateTime.Now:yyyy-MM-dd}");
+
                 TryTakeScreenshot(_RootFolder);
                 Thread.Sleep(500);
             }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -132,7 +131,7 @@ namespace ProductsHistoryClient.View.Products
                     _Points.Add(new AxisPoint
                     {
                         DateTime = _ProductHistoryGroupOfThatDay.Key,
-                        Value = _ProductHistoryGroupOfThatDay.Min(m => m.Price)
+                        Value = _ProductHistoryGroupOfThatDay.Min(m => m.Price - (m.DiscountPrice ?? 0) - ((m.Price - (m.DiscountPrice ?? 0)) / 100 * (m.DiscountPercentage ?? 0)) + (m.ShippingCost ?? 0))
                     });
                 }
 
@@ -175,7 +174,7 @@ namespace ProductsHistoryClient.View.Products
                 _BestPoints.Add(new AxisPoint
                 {
                     DateTime = _ProductHistoryGroupOfThatDay.Key,
-                    Value = _ProductHistoryGroupOfThatDay.Min(m => m.Price)
+                    Value = _ProductHistoryGroupOfThatDay.Min(m => m.Price - (m.DiscountPrice ?? 0) - ((m.Price - (m.DiscountPrice ?? 0)) / 100 * (m.DiscountPercentage ?? 0)) + (m.ShippingCost ?? 0))
                 });
             }
 
@@ -208,7 +207,7 @@ namespace ProductsHistoryClient.View.Products
 
             txtBlockCurrentPrice.Text = $"{this.DetailProductViewModel.CurrentPrice:F}";
             txtBlockBestPrice365.Text = $"{this.DetailProductViewModel.BestPrice1Y:F}";
-            txtBlockCurrentUrl.Text = this.DetailProductViewModel.Url;
+            txtBlockCurrentUrl.Text = this.DetailProductViewModel.Domain;
         }
 
         // ********************************************************************
@@ -228,6 +227,15 @@ namespace ProductsHistoryClient.View.Products
         private void TxtBlockCurrentUrl_OnMouseUp(object aSender, MouseButtonEventArgs aE)
         {
             ClipboardManager.SetClipboardValue(txtBlockCurrentUrl.Text, false);
+
+            // avoid details collapsing
+            aE.Handled = true;
+        }
+
+        private void UIElement_OnMouseLeftButtonUp(object aSender, MouseButtonEventArgs aE)
+        {
+            // avoid details collapsing
+            aE.Handled = true;
         }
     }
 }

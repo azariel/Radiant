@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ProductsHistoryClient.View.Loading"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="WhiteSmoke">
-            <Label Foreground="Black" FontWeight="Bold" FontSize="22">Launching...</Label>
+    <Grid Background="Black">
+            <Label Foreground="White" FontWeight="Bold" FontSize="22">Launching...</Label>
     </Grid>
 </UserControl>

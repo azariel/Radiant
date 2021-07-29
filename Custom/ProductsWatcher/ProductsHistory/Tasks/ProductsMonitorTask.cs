@@ -59,7 +59,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             };
         }
 
-        private void EvaluateEmailNotifications(RadiantServerProductDefinitionModel aProductDefinition, RadiantServerProductHistoryModel aNewProductHistory, RadiantServerProductSubscriptionModel[] aSubscriptionModels)
+        private void EvaluateEmailNotifications(RadiantServerProductDefinitionModel aProductDefinition, RadiantServerProductHistoryModel aNewProductHistory, RadiantServerProductSubscriptionModel[] aSubscriptionModels, double aBestPriceLastYear)
         {
             RadiantServerProductSubscriptionModel[] _EmailSubscriptions = aSubscriptionModels.Where(w => w.SendEmailOnNotification).ToArray();
 
@@ -68,9 +68,9 @@ namespace Radiant.Custom.ProductsHistory.Tasks
 
             RadiantNotificationModel _NewNotification = new()
             {
-                Content = $"<p>Product {aProductDefinition.Product.Name} is {aNewProductHistory.Price}$ with {aNewProductHistory.ShippingCost} $ for shipping</p> <p>Shown total discount: -{aNewProductHistory.DiscountPrice} $ and {aNewProductHistory.DiscountPercentage} %</p> <p>Url: {aProductDefinition.Url}</p>",
-                Subject = $"Deal on {aProductDefinition.Product.Name} {aNewProductHistory.Price}$",
-                EmailFrom = "Radiant Product History",
+                Content = $"<p>Product {aProductDefinition.Product.Name} is {aNewProductHistory.Price:F}$</p><p>Shipping Cost: {aNewProductHistory.ShippingCost:F}$</p> <p>Shown total discount: {aNewProductHistory.DiscountPrice:F}$ and {aNewProductHistory.DiscountPercentage:F}%</p><p>Best price for last 365 days: {aBestPriceLastYear:F}$</p><p>Url: {aProductDefinition.Url}</p>",
+                Subject = $"{aNewProductHistory.Price:F}$ -> {aProductDefinition.Product.Name}",
+                EmailFrom = "Radiant - Product History",
                 MinimalDateTimetoSend = DateTime.Now
             };
 
@@ -124,6 +124,10 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             if (!_LastPrice.HasValue || Math.Abs(Math.Round(Math.Round(_CurrentPrice, 2) - Math.Round(_LastPrice.Value, 2), 2)) < 0.01)
                 return;
 
+            // If the current price is higher than the very last one, don't send notification..
+            if (_LastPrice.Value < _CurrentPrice)
+                return;
+
             double _BestPriceLastYear = _CurrentPrice;
             RadiantServerProductHistoryModel[] _ProductsHistory = aProductDefinition.Product.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection.Where(w => w.InsertDateTime >= DateTime.Now.AddYears(-1))).ToArray();
 
@@ -141,7 +145,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                 _CurrentPrice <= _BestPriceLastYear + (_BestPriceLastYear / 100 * w.BestPricePercentageForNotification)).ToArray();
 
             // Create email Notification model
-            EvaluateEmailNotifications(aProductDefinition, aNewProductHistory, _SubscriptionsOnCurrentProduct);
+            EvaluateEmailNotifications(aProductDefinition, aNewProductHistory, _SubscriptionsOnCurrentProduct, _BestPriceLastYear);
 
             // TODO: Other means of notifications
         }

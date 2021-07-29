@@ -433,6 +433,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         {
             try
             {
+                DateTime _Now = DateTime.Now;
+
                 // Save Screenshot and DOM in error folder
                 string _RootFolder = "Errors";
 
@@ -440,19 +442,22 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 if (!string.IsNullOrWhiteSpace(fUrl))
                     _RootFolder = Path.Combine(_RootFolder, RegexUtils.GetWebSiteDomain(fUrl));
 
+                // Add current date to root folder
+                _RootFolder = Path.Combine(_RootFolder, $"{_Now:yyyy-MM-dd}");
+
                 if (!Directory.Exists(_RootFolder))
                     Directory.CreateDirectory(_RootFolder);
 
-                DateTime _Now = DateTime.Now;
+                string _FileFormat = "HH.mm.ss";
 
                 if (!string.IsNullOrWhiteSpace(this.DOM))
-                    File.WriteAllText(Path.Combine(_RootFolder, $"{_Now:HH.mm.ss}-DOM.txt"), this.DOM);
+                    File.WriteAllText(Path.Combine(_RootFolder, $"{_Now:_FileFormat}-DOM.txt"), this.DOM);
 
                 if (this.Screenshot != null && this.Screenshot.Length > 0)
-                    File.WriteAllBytes(Path.Combine(_RootFolder, $"{_Now:HH.mm.ss}.png"), this.Screenshot);
+                    File.WriteAllBytes(Path.Combine(_RootFolder, $"{_Now:_FileFormat}.png"), this.Screenshot);
 
                 // Log other relevant information to a single file
-                File.WriteAllText(Path.Combine(_RootFolder, $"{_Now:HH.mm.ss}-INFO.txt"),
+                File.WriteAllText(Path.Combine(_RootFolder, $"{_Now:_FileFormat}-INFO.txt"),
                     @$"Url: {fUrl}{Environment.NewLine}
 OneOrMoreStepFailedAndRequiredAFallback: {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}
 this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}

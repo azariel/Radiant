@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using Radiant.Common.Utils;
 using Radiant.Custom.ProductsHistoryCommon.DataBase;
 
 namespace ProductsHistoryClient.View.Products
@@ -28,11 +28,11 @@ namespace ProductsHistoryClient.View.Products
                 return;
             }
 
-            // Current Price
+            // Raw Price
             RadiantClientProductHistoryModel[] _LatestProductHistoryModels = _HistoryCollection.Where(w => w.InsertDateTime.Date == _MostRecentDate).ToArray();
 
-            RadiantClientProductHistoryModel _LatestProductHistory = _LatestProductHistoryModels.OrderBy(o=>o.Price).First();
-            this.CurrentPrice = _LatestProductHistory?.Price;
+            RadiantClientProductHistoryModel _LatestProductHistory = _LatestProductHistoryModels.OrderBy(o => o.Price).FirstOrDefault();
+            this.RawPrice = _LatestProductHistory?.Price;
 
             this.ShippingCost = _LatestProductHistory?.ShippingCost ?? 0;
             this.DiscountPrice = _LatestProductHistory?.DiscountPrice ?? 0;
@@ -40,9 +40,17 @@ namespace ProductsHistoryClient.View.Products
 
             // BestPrice1Y
             RadiantClientProductHistoryModel? _Best1YPriceProduct = _HistoryCollection.Where(w => w.InsertDateTime > _Now.AddYears(-1)).OrderBy(o => o.Price).FirstOrDefault();
-            this.BestPrice1Y = _Best1YPriceProduct?.Price;
-            this.Url = _Best1YPriceProduct?.ProductDefinition.Url;
+
+            this.BestPrice1Y = -1;
+            if (_Best1YPriceProduct != null)
+                this.BestPrice1Y = _Best1YPriceProduct.Price - (_Best1YPriceProduct.DiscountPrice ?? 0) - ((_Best1YPriceProduct.Price - (_Best1YPriceProduct.DiscountPrice ?? 0)) / 100 * (_Best1YPriceProduct.DiscountPercentage ?? 0)) + (_Best1YPriceProduct.ShippingCost ?? 0);
+            
+            this.Domain = RegexUtils.GetWebSiteDomain(_Best1YPriceProduct?.ProductDefinition.Url);
             this.Name = _Best1YPriceProduct?.ProductDefinition.Product.Name;
+
+            // Current Price
+            this.CurrentPrice = this.RawPrice - this.DiscountPrice;
+            this.CurrentPrice = this.CurrentPrice - this.CurrentPrice / 100 * this.DiscountPercentage.Value + this.ShippingCost;
 
             // Difference from BestPrice1Y vs CurrentPrice
             if (this.CurrentPrice.HasValue && this.BestPrice1Y.HasValue)
@@ -62,11 +70,17 @@ namespace ProductsHistoryClient.View.Products
         public double? DiscountPrice { get; }
         public string Name { get; set; }
         public RadiantClientProductModel ProductModel { get; }
+
+        /// <summary>
+        /// Price without discount and shipping
+        /// </summary>
+        public double? RawPrice { get; }
+
         public double? ShippingCost { get; }
 
         /// <summary>
         /// Url of current best price
         /// </summary>
-        public string Url { get; set; }
+        public string Domain { get; set; }
     }
 }
