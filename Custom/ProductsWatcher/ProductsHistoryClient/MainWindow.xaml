@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="Radiant Products History Client" Height="800" Width="1260" WindowStartupLocation="CenterScreen">
     <Grid Name="mainGrid">
-        <loading:UcStarting></loading:UcStarting>
+        <loading:UcStarting x:Name="StartingControl"></loading:UcStarting>
         <!--<products:ProductsListView x:Name="ProductsListView"/>-->
     </Grid>
 </Window>

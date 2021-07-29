@@ -43,8 +43,9 @@ namespace ProductsHistoryClient.View.Products
 
             this.BestPrice1Y = -1;
             if (_Best1YPriceProduct != null)
-                this.BestPrice1Y = _Best1YPriceProduct.Price - (_Best1YPriceProduct.DiscountPrice ?? 0) - ((_Best1YPriceProduct.Price - (_Best1YPriceProduct.DiscountPrice ?? 0)) / 100 * (_Best1YPriceProduct.DiscountPercentage ?? 0)) + (_Best1YPriceProduct.ShippingCost ?? 0);
-            
+                this.BestPrice1Y = _Best1YPriceProduct.Price - (_Best1YPriceProduct.DiscountPrice ?? 0) - (_Best1YPriceProduct.Price - (_Best1YPriceProduct.DiscountPrice ?? 0)) / 100 * (_Best1YPriceProduct.DiscountPercentage ?? 0) + (_Best1YPriceProduct.ShippingCost ?? 0);
+
+            this.Url = _Best1YPriceProduct?.ProductDefinition.Url;
             this.Domain = RegexUtils.GetWebSiteDomain(_Best1YPriceProduct?.ProductDefinition.Url);
             this.Name = _Best1YPriceProduct?.ProductDefinition.Product.Name;
 
@@ -68,6 +69,12 @@ namespace ProductsHistoryClient.View.Products
         public double? DifferenceBestPrice1YVsCurrentPrice { get; }
         public double? DiscountPercentage { get; }
         public double? DiscountPrice { get; }
+
+        /// <summary>
+        /// Url of current best price
+        /// </summary>
+        public string Domain { get; set; }
+
         public string Name { get; set; }
         public RadiantClientProductModel ProductModel { get; }
 
@@ -78,9 +85,6 @@ namespace ProductsHistoryClient.View.Products
 
         public double? ShippingCost { get; }
 
-        /// <summary>
-        /// Url of current best price
-        /// </summary>
-        public string Domain { get; set; }
+        public string Url { get; set; }
     }
 }

@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProductsHistoryClient.View.Loading"
+             xmlns:wpf="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="Black">
-            <Label Foreground="White" FontWeight="Bold" FontSize="22">Launching...</Label>
+        <StackPanel Grid.Column="0" Grid.Row="0"  Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <wpf:LoadingIndicator Name="LoadingIndicatorRing" Style="{StaticResource LoadingIndicatorRingStyleKey}" SpeedRatio="{Binding SpeedRatio}" IsActive="{Binding IsArcsActive}" Background="Transparent" Foreground="White" />
+            <TextBlock Name="lblInformation" Foreground="White" FontWeight="Bold" FontSize="12" Margin="0,5,0,0">Loading...</TextBlock>
+        </StackPanel>
     </Grid>
 </UserControl>

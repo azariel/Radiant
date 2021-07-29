@@ -207,7 +207,7 @@ namespace ProductsHistoryClient.View.Products
 
             txtBlockCurrentPrice.Text = $"{this.DetailProductViewModel.CurrentPrice:F}";
             txtBlockBestPrice365.Text = $"{this.DetailProductViewModel.BestPrice1Y:F}";
-            txtBlockCurrentUrl.Text = this.DetailProductViewModel.Domain;
+            txtBlockCurrentUrl.Text = this.DetailProductViewModel.Url;
         }
 
         // ********************************************************************
