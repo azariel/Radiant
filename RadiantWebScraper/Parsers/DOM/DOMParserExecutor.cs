@@ -16,7 +16,7 @@ namespace Radiant.WebScraper.Parsers.DOM
             if (!aUrl.ToLowerInvariant().Contains(aParserItem.IfUrlContains.ToLowerInvariant()))
                 return null;
 
-            Regex _Regex = new Regex(aParserItem.RegexPattern);
+            var _Regex = new Regex(aParserItem.RegexPattern);
 
             MatchCollection _Matches = _Regex.Matches(aDOM);
             if (_Matches.Count <= 0)

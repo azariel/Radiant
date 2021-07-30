@@ -8,7 +8,7 @@ using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Upload;
 using Radiant.Common.Diagnostics;
-using Radiant.Common.Helpers;
+using Radiant.Common.Utils;
 using File = Google.Apis.Drive.v3.Data.File;
 
 namespace Radiant.Common.API.GoogleDrive

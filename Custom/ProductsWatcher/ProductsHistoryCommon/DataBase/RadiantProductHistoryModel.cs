@@ -10,12 +10,20 @@ namespace Radiant.Custom.ProductsHistoryCommon.DataBase
         // ********************************************************************
         //                            Properties
         // ********************************************************************
+        public double? DiscountPercentage { get; set; }
+        public double? DiscountPrice { get; set; }
+
+        /// <summary>
+        /// Raw price, without shipping cost, discount, etc.
+        /// </summary>
         [Required]
         public double Price { get; set; }
 
         [Required]
         [Key]
         public long ProductHistoryId { get; set; }
+
+        public double? ShippingCost { get; set; }
 
         [MaxLength(512)]
         public string Title { get; set; }

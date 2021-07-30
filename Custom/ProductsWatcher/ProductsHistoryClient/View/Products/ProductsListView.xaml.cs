@@ -38,10 +38,22 @@ namespace ProductsHistoryClient.View.Products
             });
         }
 
-        private void OnMouseDownOnRow(object aSender, MouseButtonEventArgs aE)
+        private void OnMouseUpOnRow(object aSender, MouseButtonEventArgs aE)
         {
-            if (aSender is DataGridRow row)
-                row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            if (aSender is not DataGridRow _Row)
+                return;
+
+            // Hide all rows details
+            for (int i = 0; i < dataGridProducts.Items.Count; i++)
+            {
+                DataGridRow _RowToHide = (DataGridRow)dataGridProducts.ItemContainerGenerator.ContainerFromIndex(i);
+
+                if (_Row != _RowToHide)
+                    _RowToHide.DetailsVisibility = Visibility.Collapsed;
+            }
+
+            // Show or hide selected row
+            _Row.DetailsVisibility = _Row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

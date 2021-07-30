@@ -3,6 +3,9 @@
     public enum ProductParserItemTarget
     {
         Price,
-        Title
+        ShippingCost,
+        Title,
+        DiscountPrice,
+        DiscountPercentage
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Radiant.Common.Helpers.MiscHelpers;
+using Radiant.Common.Utils.MiscUtils;
 
 namespace Radiant.Common.Diagnostics
 {
@@ -31,7 +31,7 @@ namespace Radiant.Common.Diagnostics
             string _Message = $"Message=[{aLogContent}]{Environment.NewLine}";
 
             if (aException != null)
-                _Message += $"Exception=[{Environment.NewLine}{ExceptionHelper.BuildExceptionAndInnerExceptionsMessage(aException)}]{Environment.NewLine}";
+                _Message += $"Exception=[{Environment.NewLine}{ExceptionUtils.BuildExceptionAndInnerExceptionsMessage(aException)}]{Environment.NewLine}";
 
             // Format message to add useful information
             _Message = $"{DateTime.Now:yyyy-MM-dd HH.mm.ss.fff} - [{aLogUID}] {_Message}";

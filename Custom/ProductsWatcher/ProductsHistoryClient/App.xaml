@@ -4,5 +4,17 @@
              xmlns:local="clr-namespace:ProductsHistoryClient"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/styles/LoadingThreeDots.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/styles/loadingarcs.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/styles/loadingarcsring.xaml"/>
+                <!--<ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/styles/loadingdoublebounce.xaml"/>-->
+                <!--<ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/styles/loadingflipplane.xaml"/>-->
+                <!--<ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/styles/loadingpulse.xaml"/>-->
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/styles/loadingring.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/styles/loadingwave.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

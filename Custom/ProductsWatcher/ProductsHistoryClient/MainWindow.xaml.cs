@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using ProductsHistoryClient.Products;
 using ProductsHistoryClient.View.Products;
@@ -17,22 +18,37 @@ namespace ProductsHistoryClient
         {
             InitializeComponent();
 
-            // Load products to UI
-            Task.Run(ProductsManager.LoadProductsFromRemote).ContinueWith(aProducts =>
-            {
-                ProductsListView _ProductsListView = null;
-                this.Dispatcher.Invoke(() =>
-                {
-                    _ProductsListView = new ProductsListView();
-                });
-                
-                _ProductsListView.RefreshProducts(aProducts.Result);
+            //Load products to UI
+            Action _LoadingRemoteDataAction = LoadingRemoteData;
+            Action _LoadingRemoteDataCompletedAction = LoadingRemoteDataCompleted;
+            Task.Run(async () => await ProductsManager.LoadProductsFromRemote(_LoadingRemoteDataAction, _LoadingRemoteDataCompletedAction)).ContinueWith(aProducts =>
+             {
+                 ProductsListView _ProductsListView = null;
+                 this.Dispatcher.Invoke(() => { _ProductsListView = new ProductsListView(); });
 
-                this.Dispatcher.Invoke(() =>
-                {
-                    mainGrid.Children.Clear();
-                    mainGrid.Children.Add(_ProductsListView);
-                });
+                 _ProductsListView.RefreshProducts(aProducts.Result);
+
+                 this.Dispatcher.Invoke(() =>
+                 {
+                     mainGrid.Children.Clear();
+                     mainGrid.Children.Add(_ProductsListView);
+                 });
+             });
+        }
+
+        private void LoadingRemoteData()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                StartingControl.lblInformation.Text = "Downloading remote data...";
+            });
+        }
+
+        private void LoadingRemoteDataCompleted()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                StartingControl.lblInformation.Text = "Loading Database...";
             });
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Radiant.Common.Helpers
+namespace Radiant.Common.Utils
 {
     public static class StreamUtils
     {

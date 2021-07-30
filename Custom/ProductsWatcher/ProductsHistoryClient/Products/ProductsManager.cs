@@ -14,7 +14,7 @@ namespace ProductsHistoryClient.Products
         // ********************************************************************
         //                            Constants
         // ********************************************************************
-        public static string fDataBaseFileName = new ClientProductsDbContext().GetDataBaseFileName();
+        public static string fDataBaseFileName = "RadiantClientProducts.db";
 
         // ********************************************************************
         //                            Private
@@ -44,7 +44,7 @@ namespace ProductsHistoryClient.Products
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static async Task<List<RadiantClientProductModel>> LoadProductsFromDisk()
+        public static List<RadiantClientProductModel> LoadProductsFromDisk()
         {
             if (!File.Exists(fDataBaseFileName))
             {
@@ -55,9 +55,20 @@ namespace ProductsHistoryClient.Products
             return StorageManager.LoadProducts(true);
         }
 
-        public static async Task<List<RadiantClientProductModel>> LoadProductsFromRemote()
+        public static async Task<List<RadiantClientProductModel>> LoadProductsFromRemote(Action aLoadRemoteProductCallback, Action aLoadLocalData)
         {
             ProductsHistoryClientState _State = ProductsHistoryClientStateManager.ReloadConfig();
+
+            // If the local database was deleted, we'll fetch the remote one
+            if (!File.Exists(fDataBaseFileName))
+            {
+                // Update state to avoid re-downloading db right after
+                _State.RemoteDataBaseState.LastTimeEvaluated = DateTime.Now;
+                ProductsHistoryClientStateManager.SaveConfigInMemoryToDisk();
+
+                aLoadRemoteProductCallback?.Invoke();// Inform caller that we're downloading remote database
+                await TryRefreshLocalDataBaseWithRemoteDataBase();
+            }
 
             // To avoid spamming the API, execute an update check only once every X hours
             if ((DateTime.Now - _State.RemoteDataBaseState.LastTimeEvaluated).TotalHours > 1)
@@ -67,6 +78,7 @@ namespace ProductsHistoryClient.Products
                     LoggingManager.LogToFile("9DA3D4EA-4B97-4E80-9EE3-CF713721B574", "Remote Database was updated since the last time it was fetched. Local Database will be updated to reflect the changes.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
                     // Update local database
+                    aLoadRemoteProductCallback?.Invoke();// Inform caller that we're downloading remote database
                     await TryRefreshLocalDataBaseWithRemoteDataBase();
                 } else
                 {
@@ -74,11 +86,10 @@ namespace ProductsHistoryClient.Products
                 }
             }
 
-            // If the local database was deleted, we'll fetch the remote one
-            if (!File.Exists(fDataBaseFileName))
-                await TryRefreshLocalDataBaseWithRemoteDataBase();
+            
 
-            return await LoadProductsFromDisk();
+            aLoadLocalData?.Invoke();
+            return LoadProductsFromDisk();
         }
     }
 }

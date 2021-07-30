@@ -98,7 +98,7 @@ namespace Radiant.Custom.ProductsHistoryCommon.DataBase
                         InsertDateTime = _ServerProductDefinition.InsertDateTime,
                         NextFetchProductHistory = _ServerProductDefinition.NextFetchProductHistory,
                         ProductDefinitionId = _ServerProductDefinition.ProductDefinitionId,
-                        Url = _ServerProductDefinition.Url
+                        Url = _ServerProductDefinition.Url,
                     });
                 }
 
@@ -110,7 +110,10 @@ namespace Radiant.Custom.ProductsHistoryCommon.DataBase
                         Price = _ServerProductHistory.Price,
                         ProductDefinitionId = _ServerProductHistory.ProductDefinitionId,
                         ProductHistoryId = _ServerProductHistory.ProductHistoryId,
-                        Title = _ServerProductHistory.Title
+                        Title = _ServerProductHistory.Title,
+                        ShippingCost = _ServerProductHistory.ShippingCost,
+                        DiscountPrice = _ServerProductHistory.DiscountPrice,
+                        DiscountPercentage = _ServerProductHistory.DiscountPercentage,
                     });
                 }
 
@@ -121,7 +124,7 @@ namespace Radiant.Custom.ProductsHistoryCommon.DataBase
                         InsertDateTime = _ServerUser.InsertDateTime,
                         Type = _ServerUser.Type,
                         UserId = _ServerUser.UserId,
-                        UserName = _ServerUser.UserName
+                        UserName = _ServerUser.UserName,
                     });
                 }
 

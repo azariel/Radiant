@@ -37,43 +37,56 @@
         </Style>
     </UserControl.Resources>
     <Grid Background="Black">
-        <StackPanel Orientation="Vertical">
-            <DataGrid Name="dataGridProducts" CanUserAddRows="False" CanUserDeleteRows="False" Background="#0c0c0c" RowHeaderWidth="0"
-                      RowBackground="#1e1e1e" AlternationCount="2" AlternatingRowBackground="#1f1f1f" Foreground="White">
-                <DataGrid.ItemContainerStyle>
-                    <Style TargetType="DataGridRow">
-                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnMouseDownOnRow"/>
-                    </Style>
-                </DataGrid.ItemContainerStyle>
-                <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="#0c0c0c"/>
-                        <Setter Property="Foreground" Value="WhiteSmoke"/>
-                        <Setter Property="FontSize" Value="18"/>
-                        <Setter Property="Height" Value="30"/>
-                        <Setter Property="FontWeight" Value="SemiBold"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                        <Setter Property="VerticalContentAlignment" Value="Center" />
-                    </Style>
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" MinWidth="50" />
-                    <DataGridTextColumn Header="Url" Binding="{Binding Url, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" MinWidth="50" />
-                    <DataGridTemplateColumn  Header="Price" IsReadOnly="True" MinWidth="80" MaxWidth="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <local:UcProductPriceCell ProductViewModel="{Binding Path='', UpdateSourceTrigger=PropertyChanged}"></local:UcProductPriceCell>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Best 365 days" Binding="{Binding BestPrice1Y, StringFormat={}{0} $}" IsReadOnly="True" MinWidth="100" MaxWidth="180" />
-                </DataGrid.Columns>
-                <DataGrid.RowDetailsTemplate>
-                    <DataTemplate>
-                        <local:UcProductDetail DetailProductViewModel="{Binding Path='', UpdateSourceTrigger=PropertyChanged}"></local:UcProductDetail>
-                    </DataTemplate>
-                </DataGrid.RowDetailsTemplate>
-            </DataGrid>
-        </StackPanel>
+        <DataGrid Name="dataGridProducts" CanUserAddRows="False" CanUserDeleteRows="False" Background="#0c0c0c" RowHeaderWidth="0"
+                      RowBackground="#1e1e1e" AlternationCount="2" AlternatingRowBackground="#1f1f1f" Foreground="White"
+                      VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" IsReadOnly="True" SelectionMode="Single" RowDetailsVisibilityMode="Collapsed">
+            <!--<DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnMouseDownOnCell"/>
+                </Style>
+            </DataGrid.CellStyle>-->
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseLeftButtonUp" Handler="OnMouseUpOnRow"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <!--<DataGrid.RowHeaderStyle>
+                <Style TargetType="{x:Type DataGridRowHeader}">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnMouseDownOnRow"/>
+                </Style>
+            </DataGrid.RowHeaderStyle>-->
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#0c0c0c"/>
+                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" MinWidth="470" />
+                <DataGridTextColumn Header="Url" Binding="{Binding Domain, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" MinWidth="140" />
+                <DataGridTemplateColumn  Header="Price" IsReadOnly="True" MinWidth="80" MaxWidth="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <local:UcProductPriceCell ProductViewModel="{Binding Path='', UpdateSourceTrigger=PropertyChanged}"></local:UcProductPriceCell>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Best 365 days" Binding="{Binding BestPrice1Y, StringFormat={}{0:#,#.00} $}" IsReadOnly="True" MinWidth="100" MaxWidth="180" />
+                <DataGridTextColumn Header="Shipping" Binding="{Binding ShippingCost , StringFormat={}{0:#,#.00} $}" IsReadOnly="True" MinWidth="100" MaxWidth="120" />
+                <DataGridTextColumn Header="Discount ($)" Binding="{Binding DiscountPrice , StringFormat=-{0:#,#.00} $}" IsReadOnly="True" MinWidth="120" MaxWidth="140" />
+                <DataGridTextColumn Header="Discount (%)" Binding="{Binding DiscountPercentage , StringFormat={}{0:#,#.00} %}" IsReadOnly="True" MinWidth="120" MaxWidth="140" />
+                <DataGridTextColumn Header="Raw Price" Binding="{Binding RawPrice , StringFormat={}{0:#,#.00} $}" IsReadOnly="True" MinWidth="100" MaxWidth="120" />
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <local:UcProductDetail DetailProductViewModel="{Binding Path='', UpdateSourceTrigger=PropertyChanged}"></local:UcProductDetail>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
     </Grid>
 </UserControl>

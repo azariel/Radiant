@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,6 +8,7 @@ using LiveCharts;
 using LiveCharts.Configurations;
 using LiveCharts.Wpf;
 using Radiant.Common.OSDependent.Clipboard;
+using Radiant.Common.Utils;
 using Radiant.Custom.ProductsHistoryCommon.DataBase;
 
 namespace ProductsHistoryClient.View.Products
@@ -46,8 +46,8 @@ namespace ProductsHistoryClient.View.Products
         {
             InitializeComponent();
 
-            Loaded -= OnLoaded;
-            Loaded += OnLoaded;
+            this.Loaded -= OnLoaded;
+            this.Loaded += OnLoaded;
         }
 
         // ********************************************************************
@@ -117,9 +117,7 @@ namespace ProductsHistoryClient.View.Products
                 _Serie.Fill = Brushes.Transparent;
                 //_Serie.Fill = _SerieColor.FillColor;
 
-                _Serie.Title = Regex.Match(_ProductDefinition.Url, "^(?:https?:\\/\\/)?(?:[^@\\n]+@)?(?:www\\.)?([^:\\/\\n?]+)").Value
-                                    .Replace("http://www.", "", StringComparison.InvariantCultureIgnoreCase)
-                                    .Replace("https://www.", "", StringComparison.InvariantCultureIgnoreCase);
+                _Serie.Title = RegexUtils.GetWebSiteDomain(_ProductDefinition.Url);
 
                 RadiantClientProductHistoryModel[] _ProductHistoryLast1Y = _ProductDefinition.ProductHistoryCollection.Where(w => w.InsertDateTime > DateTime.Now.AddYears(-1)).ToArray();
 
@@ -133,7 +131,7 @@ namespace ProductsHistoryClient.View.Products
                     _Points.Add(new AxisPoint
                     {
                         DateTime = _ProductHistoryGroupOfThatDay.Key,
-                        Value = _ProductHistoryGroupOfThatDay.Min(m => m.Price)
+                        Value = _ProductHistoryGroupOfThatDay.Min(m => m.Price - (m.DiscountPrice ?? 0) - ((m.Price - (m.DiscountPrice ?? 0)) / 100 * (m.DiscountPercentage ?? 0)) + (m.ShippingCost ?? 0))
                     });
                 }
 
@@ -176,7 +174,7 @@ namespace ProductsHistoryClient.View.Products
                 _BestPoints.Add(new AxisPoint
                 {
                     DateTime = _ProductHistoryGroupOfThatDay.Key,
-                    Value = _ProductHistoryGroupOfThatDay.Min(m => m.Price)
+                    Value = _ProductHistoryGroupOfThatDay.Min(m => m.Price - (m.DiscountPrice ?? 0) - ((m.Price - (m.DiscountPrice ?? 0)) / 100 * (m.DiscountPercentage ?? 0)) + (m.ShippingCost ?? 0))
                 });
             }
 
@@ -229,6 +227,15 @@ namespace ProductsHistoryClient.View.Products
         private void TxtBlockCurrentUrl_OnMouseUp(object aSender, MouseButtonEventArgs aE)
         {
             ClipboardManager.SetClipboardValue(txtBlockCurrentUrl.Text, false);
+
+            // avoid details collapsing
+            aE.Handled = true;
+        }
+
+        private void UIElement_OnMouseLeftButtonUp(object aSender, MouseButtonEventArgs aE)
+        {
+            // avoid details collapsing
+            aE.Handled = true;
         }
     }
 }
