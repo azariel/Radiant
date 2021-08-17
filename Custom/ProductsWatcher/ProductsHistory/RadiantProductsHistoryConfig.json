@@ -1355,6 +1355,108 @@
                     "WaitMsOnEnd": 1254
                 }
             ]
+        },
+        {
+            "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+            "IfUrlContains": "sauterellesetcoccinelles.com",
+            "Target": "Price",
+            "ValueParser": {
+                "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+                "ParserItemTarget": "Price",
+                "IfUrlContains": "sauterellesetcoccinelles.com",
+                "RegexPattern": "(.*)\\$",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Group1Value",
+                "UID": "49216de9-5c4f-433f-85c7-2f7df6d0625f"
+            },
+            "ManualScraperSequenceItems": [
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 131,
+                        "KeyStrokeCodes": [
+                            "XK_Control_L",
+                            "XK_f"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 765
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+                        "Delay": 111,
+                        "ValueToType": "$"
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 1536
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 310,
+                        "KeyStrokeCodes": [
+                            "XK_Escape"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 597
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 471,
+                        "KeyStrokeCodes": [
+                            "XK_Shift_L",
+                            "XK_Left"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 442
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 163,
+                        "KeyStrokeCodes": [
+                            "XK_Shift_L",
+                            "XK_Home"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 567
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+                    "Operation": "Set",
+                    "Value": "",
+                    "WaitMsOnEnd": 395
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+                    "InputParam": {
+                        "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+                        "Delay": 309,
+                        "KeyStrokeCodes": [
+                            "XK_Control_L",
+                            "XK_c"
+                        ]
+                    },
+                    "InputType": "Keyboard",
+                    "WaitMsOnEnd": 1801
+                },
+                {
+                    "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+                    "Operation": "Get",
+                    "Value": null,
+                    "WaitMsOnEnd": 1254
+                }
+            ]
         }
     ]
 }

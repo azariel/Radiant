@@ -15,7 +15,7 @@
                             "BlackOutEnd": "00:21:00",
                             "BlackOutStart": "00:03:00"
                         },
-                        "TriggerEveryXSeconds": 300
+                        "TriggerEveryXSeconds": 30
                     }
                 ]
             },
