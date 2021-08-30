@@ -1,0 +1,45 @@
+{
+    "$type": "EveRay.Configuration.EveRayConfiguration, EveRay",
+    "ZonesWatcher": [
+        {
+            "$type": "EveRay.Zones.ZoneWatcher, EveRay",
+            "Enabled": false,
+            "Treshold": 50,
+            "TriggerAction": {
+                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
+                "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\Rat.wav"
+            },
+            "WatchItems": [
+                {
+                    "$type": "EveRay.Watch.WatchItemColors, EveRay",
+                    "Colors": [ "Red", "255,200,25,25", "255,225,35,35", "255,200,0,0", "255,210,25,25", "255,215,30,30", "255,205,20,20" ]
+                }
+            ],
+            "Zone": {
+                "$type": "EveRay.Zones.EveRayZone, EveRay",
+                "Location": "1978, 215",
+                "Size": "6, 855"
+            }
+        },
+        {
+            "$type": "EveRay.Zones.ZoneWatcher, EveRay",
+            "Enabled": true,
+            "Treshold": 5,
+            "TriggerAction": {
+                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
+                "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\PlayerAlert.wav"
+            },
+            "WatchItems": [
+                {
+                    "$type": "EveRay.Watch.WatchItemColors, EveRay",
+                    "Colors": [ "255,100,100,100", "255,110,110,110", "255,120,120,120", "255,130,130,130" ]
+                }
+            ],
+            "Zone": {
+                "$type": "EveRay.Zones.EveRayZone, EveRay",
+                "Location": "1970, 215",
+                "Size": "2, 855"
+            }
+        }
+    ]
+}
