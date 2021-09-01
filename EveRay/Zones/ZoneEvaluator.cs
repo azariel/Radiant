@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 using EveRay.TriggerActions;
 using EveRay.Watch;
+using Color = System.Windows.Media.Color;
 
 namespace EveRay.Zones
 {
@@ -20,7 +22,7 @@ namespace EveRay.Zones
         //                            Public
         // ********************************************************************
 
-        public static void EvaluateZones(List<ZoneWatcher> aConfigZonesWatcher, Action<ZoneWatcher> aShowZoneAction)
+        public static void EvaluateZones(List<ZoneWatcher> aConfigZonesWatcher, Action<Point, Size, Color, int?> aShowZoneAction)
         {
             foreach (ZoneWatcher _ZoneWatcher in aConfigZonesWatcher)
             {
@@ -32,11 +34,25 @@ namespace EveRay.Zones
 
                     switch (_ZoneWatcherWatchItem)
                     {
-                        case WatchItemColor _WatchItemColor:
-                            if (_ZoneWatcher.Zone.ContainsColor(_WatchItemColor.Color, _ZoneWatcher.Treshold))
+                        case WatchItemBitmapNoise _WatchItemBitmapNoise:
+
+                            if (_ZoneWatcher.Zone.IsDifferentFromLastEvaluation(_WatchItemBitmapNoise.NoiseTreshold, _WatchItemBitmapNoise.WatchItemNbPixelsToTrigger))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
-                                aShowZoneAction?.Invoke(_ZoneWatcher);
+                                aShowZoneAction?.Invoke(_ZoneWatcher.Zone.Location, _ZoneWatcher.Zone.Size, _ZoneWatcherWatchItem.StrokeColor, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
+
+                                Thread.Sleep(1000);
+                                _Triggered = true;
+                            }
+
+                            break;
+                        case WatchItemColor _WatchItemColor:
+                            if (_ZoneWatcher.Zone.ContainsColor(_WatchItemColor.Color, _WatchItemColor.ColorTreshold, _WatchItemColor.WatchItemNbPixelsToTrigger, out Point? _HitPointLocationOfColor))
+                            {
+                                TriggerAction(_ZoneWatcher.TriggerAction);
+
+                                if (_HitPointLocationOfColor.HasValue)
+                                    aShowZoneAction?.Invoke(_HitPointLocationOfColor.Value, new Size(500, 30), _ZoneWatcherWatchItem.StrokeColor, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
 
                                 Thread.Sleep(1000);
                                 _Triggered = true;
@@ -44,10 +60,12 @@ namespace EveRay.Zones
 
                             break;
                         case WatchItemColors _WatchItemColors:
-                            if (_ZoneWatcher.Zone.ContainsColors(_WatchItemColors.Colors, _ZoneWatcher.Treshold))
+                            if (_ZoneWatcher.Zone.ContainsColors(_WatchItemColors.Colors, _WatchItemColors.ColorTreshold, _WatchItemColors.WatchItemNbPixelsToTrigger, out Point? _HitPointLocationOfColors))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
-                                aShowZoneAction?.Invoke(_ZoneWatcher);
+
+                                if (_HitPointLocationOfColors.HasValue)
+                                    aShowZoneAction?.Invoke(_HitPointLocationOfColors.Value, new Size(500, 30), _ZoneWatcherWatchItem.StrokeColor, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
 
                                 Thread.Sleep(1000);
                             }

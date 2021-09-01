@@ -1,4 +1,10 @@
-﻿namespace EveRay.Watch
+﻿using System.Windows.Media;
+
+namespace EveRay.Watch
 {
-    public interface IWatchItem { }
+    public interface IWatchItem
+    {
+        int MsToShowZoneOnDetection { get; set; }
+        Color StrokeColor { get; set; }
+    }
 }

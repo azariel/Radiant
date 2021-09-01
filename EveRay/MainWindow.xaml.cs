@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -9,9 +10,15 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using EveRay.Configuration;
+using EveRay.TriggerActions;
+using EveRay.Watch;
 using EveRay.Zones;
+using Brush = System.Windows.Media.Brush;
+using Brushes = System.Windows.Media.Brushes;
 using Color = System.Windows.Media.Color;
+using Point = System.Drawing.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
+using Size = System.Drawing.Size;
 
 namespace EveRay
 {
@@ -56,63 +63,64 @@ namespace EveRay
             //_Config.ZonesWatcher.Clear();
             //_Config.ZonesWatcher.Add(new ZoneWatcher()
             //{
-            //    Zone = new EveRayZone()
+            //    WatchItems = new List<IWatchItem>()
             //    {
-            //        Location = new Point(10, 10),
-            //        Size = new Size(1000, 1000)
-            //    },
-            //    WatchItem = new WatchItemColor()
-            //    {
-            //        Color = Color.White
-            //    },
-            //    TriggerAction = new SoundAlertTriggerAction()
-            //    {
-            //       SoundFilePath = @"H:\Games\Misc\EVE\PixelNotifier\EVE Online Audio Warnings and Chimes v2\EVE Online - Structure Warning.wav"
+            //        new WatchItemColor()
+            //        {
+            //            StrokeColorBrush = Brushes.DarkRed
+            //        }
             //    }
             //});
             //EveRayConfigurationManager.SaveConfigInMemoryToDisk();
 
+            // Show zones if required
+            foreach (ZoneWatcher _ZoneWatcher in _Config.ZonesWatcher.Where(w => w.Enabled && w.AlwaysShowZone))
+                ShowZoneAction(_ZoneWatcher.Zone.Location, _ZoneWatcher.Zone.Size, Color.FromArgb(255, 24, 115, 204), null);
+
             while (true)
             {
-                ZoneEvaluator.EvaluateZones(_Config.ZonesWatcher.Where(w=>w.Enabled).ToList(), ShowZoneAction);
+                ZoneEvaluator.EvaluateZones(_Config.ZonesWatcher.Where(w => w.Enabled).ToList(), ShowZoneAction);
                 Thread.Sleep(3000);
             }
         }
 
-        private void ShowZoneAction(ZoneWatcher aZoneWatcher)
+        private void ShowZoneAction(Point aZoneLocation, Size aZoneSize, Color aStrokeColor, int? aTimeOutMs = 1500)
         {
             Task.Run(() =>
             {
+                Rectangle rec = null;
                 this.Dispatcher.Invoke(() =>
                 {
-                    Rectangle rec = new();
-
                     // Create the rectangle
                     rec = new()
                     {
-                        Width = aZoneWatcher.Zone.Size.Width,
-                        Height = aZoneWatcher.Zone.Size.Height,
-                        Fill = new SolidColorBrush(Color.FromArgb(8,255,0,0)),
-                        Stroke = System.Windows.Media.Brushes.DarkRed,
+                        Width = aZoneSize.Width,
+                        Height = aZoneSize.Height,
+                        Fill = new SolidColorBrush(Color.FromArgb(8, aStrokeColor.R, aStrokeColor.G, aStrokeColor.B)),
+                        Stroke = new SolidColorBrush(aStrokeColor),
                         StrokeThickness = 1,
                         IsHitTestVisible = false,
                     };
 
                     // Add to a canvas for example
                     TopCanvas.Children.Add(rec);
-                    Canvas.SetTop(rec, aZoneWatcher.Zone.Location.Y);
-                    Canvas.SetLeft(rec, aZoneWatcher.Zone.Location.X);
+                    Canvas.SetTop(rec, aZoneLocation.Y);
+                    Canvas.SetLeft(rec, aZoneLocation.X);
 
                     var hwnd = new WindowInteropHelper(this).Handle;
                     SetWindowExTransparent(hwnd);
                 });
 
-                Thread.Sleep(1500);
-
-                this.Dispatcher.Invoke(() =>
+                // Remove rectangle from screen
+                if (aTimeOutMs.HasValue)
                 {
-                    TopCanvas.Children.Clear();
-                });
+                    //Task.Delay(aTimeOutMs.Value);
+                    Thread.Sleep(aTimeOutMs.Value);
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        TopCanvas.Children.Remove(rec);
+                    });
+                }
             });
         }
     }

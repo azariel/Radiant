@@ -9,8 +9,9 @@ namespace EveRay.Zones
         // ********************************************************************
         //                            Properties
         // ********************************************************************
+        public bool AlwaysShowZone { get; set; } = false;
         public bool Enabled { get; set; } = true;
-        public float Treshold { get; set; } = 1;
+        public bool SaveImageOnDisk { get; set; }
         public ITriggerAction TriggerAction { get; set; }
         public List<IWatchItem> WatchItems { get; set; }
         public EveRayZone Zone { get; set; } = new();

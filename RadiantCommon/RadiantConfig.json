@@ -15,7 +15,7 @@
                             "BlackOutEnd": "00:21:00",
                             "BlackOutStart": "00:03:00"
                         },
-                        "TriggerEveryXSeconds": 30
+                        "TriggerEveryXSeconds": 600
                     }
                 ]
             },
@@ -26,7 +26,7 @@
                 "Triggers": [
                     {
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "TriggerEveryXSeconds": 60,
+                        "TriggerEveryXSeconds": 300,
                         "UID": "f2dc3da0-6999-4e61-bf92-5e7e2c79c2af"
                     }
                 ]

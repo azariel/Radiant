@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -37,18 +36,6 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         }
 
         // ********************************************************************
-        //                            Protected
-        // ********************************************************************
-        protected bool fAllowManualOperations;
-        protected SupportedBrowser? fBrowser;
-        protected string fUrl;
-
-        protected void WaitForBrowserInputsReadyOrMax(int aMinMsToWait, int aMaxMsToWait = 60000)
-        {
-            BrowserHelper.WaitForBrowserInputsReadyOrMax(aMinMsToWait, fBrowser, aMaxMsToWait);
-        }
-
-        // ********************************************************************
         //                            Private
         // ********************************************************************
         private readonly TargetScraperCoreOptions? fOptions;
@@ -73,11 +60,22 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
 
                 // Add a info file beside
                 File.WriteAllText(Path.Combine(aOutPutPath, $"{_Now:yyyy-MM-dd HH.mm.ss.fff}-INFO.txt"), $"Url: {fUrl}");
-
             } catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("1D33CEE8-20F0-4627-9EFE-B2FCFC4E71CE", "Couldn't take screenshot. Operation will be ignored.", _Exception);
             }
+        }
+
+        // ********************************************************************
+        //                            Protected
+        // ********************************************************************
+        protected bool fAllowManualOperations;
+        protected SupportedBrowser? fBrowser;
+        protected string fUrl;
+
+        protected void WaitForBrowserInputsReadyOrMax(int aMinMsToWait, int aMaxMsToWait = 60000)
+        {
+            BrowserHelper.WaitForBrowserInputsReadyOrMax(aMinMsToWait, fBrowser, aMaxMsToWait);
         }
 
         // ********************************************************************

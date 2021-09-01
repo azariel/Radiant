@@ -84,7 +84,26 @@ namespace Radiant.Notifier
                 if (_Configuration.EmailServer.SleepMsBetweenEmailSent > 0)
                     Thread.Sleep(_Configuration.EmailServer.SleepMsBetweenEmailSent);
 
-                _DbContext.SaveChanges();
+                int _RetryCounter = 0;
+                while (true)
+                {
+                    if (_RetryCounter > 300)// 30 sec
+                    {
+                        LoggingManager.LogToFile("8DFC5A7A-EB6F-4726-8C68-A59BDC753C82", $"Error. Couldn't add notification to database. Subject: {_NotificationToSend.Subject} Destination: {string.Join(",", _NotificationToSend.EmailTo)}.");
+                        return;
+                    }
+
+                    try
+                    {
+                        _DbContext.SaveChanges();
+                        return;
+                    } catch (Exception)
+                    {
+                        Thread.Sleep(100);
+                    }
+
+                    ++_RetryCounter;
+                }
             }
         }
     }

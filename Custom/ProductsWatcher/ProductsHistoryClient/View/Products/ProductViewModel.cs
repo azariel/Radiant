@@ -22,9 +22,11 @@ namespace ProductsHistoryClient.View.Products
             DateTime _Now = DateTime.Now;
             DateTime? _MostRecentDate = _HistoryCollection.OrderByDescending(o => o.InsertDateTime).FirstOrDefault()?.InsertDateTime.Date;
 
+            this.Name = aRadiantProductModel.Name;
             if (!_MostRecentDate.HasValue)
             {
-                MessageBox.Show("75AE56D0-5114-4877-BC13-532D9B5C8AB2");
+                // TODO: set yellow
+
                 return;
             }
 

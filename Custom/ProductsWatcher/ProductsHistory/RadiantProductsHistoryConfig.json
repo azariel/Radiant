@@ -126,6 +126,24 @@
             "SubParserToExecuteOnTargetValue": null,
             "Target": "group1value",
             "UID": "095c31c1-2c7d-454a-89e6-9334b01032cc"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+            "ParserItemTarget": "OutOfStock",
+            "IfUrlContains": "newegg.c",
+            "Condition": null,
+            "RegexPattern": "Out of Stock(.*?)",
+            "SubParserToExecuteOnTargetValue": {
+                "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
+                "IfUrlContains": "newegg.c",
+                "Condition": null,
+                "RegexPattern": "(.*)",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Value",
+                "UID": "89e6bebc-4e50-4c7e-9bfd-dbe8df9f44c9"
+            },
+            "Target": "Value",
+            "UID": "674c6587-e28c-4bab-85c9-3038c7cf405b"
         }
     ],
     "ManualScraperSequenceItems": [
