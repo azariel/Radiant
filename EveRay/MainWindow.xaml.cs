@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -10,11 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using EveRay.Configuration;
-using EveRay.TriggerActions;
-using EveRay.Watch;
 using EveRay.Zones;
-using Brush = System.Windows.Media.Brush;
-using Brushes = System.Windows.Media.Brushes;
 using Color = System.Windows.Media.Color;
 using Point = System.Drawing.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
@@ -74,8 +68,8 @@ namespace EveRay
             //EveRayConfigurationManager.SaveConfigInMemoryToDisk();
 
             // Show zones if required
-            foreach (ZoneWatcher _ZoneWatcher in _Config.ZonesWatcher.Where(w => w.Enabled && w.AlwaysShowZone))
-                ShowZoneAction(_ZoneWatcher.Zone.Location, _ZoneWatcher.Zone.Size, Color.FromArgb(255, 24, 115, 204), null);
+            foreach (ZoneWatcher _ZoneWatcher in _Config.ZonesWatcher.Where(w => w.AlwaysShowZone))
+                ShowZoneAction(_ZoneWatcher.Zone.Location, _ZoneWatcher.Zone.Size, Color.FromArgb(255, 24, 115, 204), 1, null);
 
             while (true)
             {
@@ -84,7 +78,7 @@ namespace EveRay
             }
         }
 
-        private void ShowZoneAction(Point aZoneLocation, Size aZoneSize, Color aStrokeColor, int? aTimeOutMs = 1500)
+        private void ShowZoneAction(Point aZoneLocation, Size aZoneSize, Color aStrokeColor, int aStrokeThickness, int? aTimeOutMs = 1500)
         {
             Task.Run(() =>
             {
@@ -98,7 +92,7 @@ namespace EveRay
                         Height = aZoneSize.Height,
                         Fill = new SolidColorBrush(Color.FromArgb(8, aStrokeColor.R, aStrokeColor.G, aStrokeColor.B)),
                         Stroke = new SolidColorBrush(aStrokeColor),
-                        StrokeThickness = 1,
+                        StrokeThickness = aStrokeThickness,
                         IsHitTestVisible = false,
                     };
 

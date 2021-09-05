@@ -3,34 +3,34 @@
     "ZonesWatcher": [
         {
             "$type": "EveRay.Zones.ZoneWatcher, EveRay",
-            "AlwaysShowZone": true,
-            "Enabled": true,
-            "SaveImageOnDisk": true,
+            "AlwaysShowZone": false,
+            "Enabled": false,
+            "SaveImageOnDisk": false,
             "TriggerAction": {
                 "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
-                "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\Rat.wav"
+                "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\NewRatDetected.wav"
             },
             "WatchItems": [
                 {
                     "$type": "EveRay.Watch.WatchItemColors, EveRay",
-                    "Colors": [ "Red", "255,200,25,25", "255,225,35,35", "255,200,0,0", "255,210,25,25", "255,215,30,30", "255,205,20,20", "255,215,105,25" ],
+                    "Colors": [ "Red", "255,200,25,25", "255,225,35,35", "255,200,0,0", "255,210,25,25", "255,215,30,30", "255,205,20,20", "255,215,105,25", "255,160,20,20", "255,125,25,25", "255,130,25,25", "255,180,30,30" ],
                     "ColorTreshold": 50,
                     "MsToShowZoneOnDetection": 1500,
                     "StrokeColor": "#FF8B0000",
-                    "WatchItemNbPixelsToTrigger": 5
+                    "WatchItemNbPixelsToTrigger": 1
                 }
             ],
             "Zone": {
                 "$type": "EveRay.Zones.EveRayZone, EveRay",
-                "Location": "1978, 215",
-                "Size": "6, 855"
+                "Location": "2035, 175",
+                "Size": "10, 665"
             }
         },
         {
             "$type": "EveRay.Zones.ZoneWatcher, EveRay",
-            "AlwaysShowZone": true,
+            "AlwaysShowZone": false,
             "Enabled": true,
-            "SaveImageOnDisk": true,
+            "SaveImageOnDisk": false,
             "TriggerAction": {
                 "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
                 "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\PlayerOnGrid.wav"
@@ -38,7 +38,16 @@
             "WatchItems": [
                 {
                     "$type": "EveRay.Watch.WatchItemColors, EveRay",
-                    "Colors": [ "255,100,100,100", "255,110,110,110", "255,120,120,120", "255,130,130,130" ],
+                    "Colors": [
+                        // Gray
+                        "255,100,100,100",
+                        "255,110,110,110",
+                        "255,120,120,120",
+                        "255,125,125,125",
+                        "255,130,130,130",
+                        // Yellow
+                        "255,145,110,25"
+                    ],
                     "ColorTreshold": 10,
                     "MsToShowZoneOnDetection": 1500,
                     "StrokeColor": "#FF8B0000",
@@ -47,32 +56,32 @@
             ],
             "Zone": {
                 "$type": "EveRay.Zones.EveRayZone, EveRay",
-                "Location": "1970, 215",
-                "Size": "2, 855"
+                "Location": "2030, 173",
+                "Size": "2, 667"
             }
         },
         {
             "$type": "EveRay.Zones.ZoneWatcher, EveRay",
             "AlwaysShowZone": false,
             "Enabled": false,
-            "SaveImageOnDisk": true,
+            "SaveImageOnDisk": false,
             "TriggerAction": {
                 "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
-                "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\Local.wav"
+                "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\LocalPlayerChangeDetected.wav"
             },
             "WatchItems": [
                 {
                     "$type": "EveRay.Watch.WatchItemBitmapNoise, EveRay",
-                    "NoiseTreshold": 100,
+                    "NoiseTreshold": 200,
                     "MsToShowZoneOnDetection": 1500,
                     "StrokeColor": "#FF8B0000",
-                    "WatchItemNbPixelsToTrigger": 20
+                    "WatchItemNbPixelsToTrigger": 5
                 }
             ],
             "Zone": {
                 "$type": "EveRay.Zones.EveRayZone, EveRay",
-                "Location": "10, 10",
-                "Size": "100, 100"
+                "Location": "350, 1021",
+                "Size": "110, 50"
             }
         }
     ]

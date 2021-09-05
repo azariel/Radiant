@@ -13,15 +13,15 @@ namespace EveRay.Zones
         private Bitmap fBitmap;// Bitmap that holds the image
         private Size fSize = new(1, 1);
 
-        public bool ContainsColor(Color aColor, float aTreshold, float aWatchItemNbPixelsToTrigger, out Point? aHitPointLocation)
+        public bool ContainsColor(Color aColor, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
         {
-            return ContainsColors(new List<Color> { aColor }, aTreshold, aWatchItemNbPixelsToTrigger, out aHitPointLocation);
+            return ContainsColors(new List<Color> { aColor }, aTreshold, aWatchItemNbPixelsToTrigger, aSaveImageOnDisk, out aHitPointLocation);
         }
 
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public unsafe bool ContainsColors(List<Color> aColors, float aTreshold, float aWatchItemNbPixelsToTrigger, out Point? aHitPointLocation)
+        public unsafe bool ContainsColors(List<Color> aColors, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
         {
             aHitPointLocation = null;
 
@@ -86,7 +86,7 @@ namespace EveRay.Zones
                             ++_NbPixelsMatchingWatchItem;
 
                             if (aHitPointLocation == null)
-                                aHitPointLocation = new Point(this.Location.X - 7 + x, this.Location.Y - 7 + y);
+                                aHitPointLocation = new Point(this.Location.X + x, this.Location.Y - 1 + y);
 
                             if (_NbPixelsMatchingWatchItem >= aWatchItemNbPixelsToTrigger)
                                 break;
@@ -100,14 +100,16 @@ namespace EveRay.Zones
 
             if (_NbPixelsMatchingWatchItem >= aWatchItemNbPixelsToTrigger)
             {
-                fBitmap.Save($"C:\\Temp\\COLOR_{Guid.NewGuid()}.png");
+                if (aSaveImageOnDisk)
+                    fBitmap.Save($"C:\\Temp\\COLOR_{Guid.NewGuid()}.png");
+
                 return true;
             }
 
             return false;
         }
 
-        public unsafe bool IsDifferentFromLastEvaluation(float aNoiseTreshold, float aWatchItemNbPixelsToTrigger)
+        public unsafe bool IsDifferentFromLastEvaluation(float aNoiseTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk)
         {
             Bitmap _LastBitmap = new Bitmap(fBitmap);
 
@@ -142,6 +144,11 @@ namespace EveRay.Zones
                         float r = *pRow++;
                         pRow++;// skip alpha
 
+                        // We're skipping black and white colors for black/white screen avoidance
+                        if ((r <= 5 && g <= 5 && b <= 5) ||
+                            (r >= 250 && g >= 250 && b >= 250))
+                            continue;
+
                         float bLast = *pRowLast++;
                         float gLast = *pRowLast++;
                         float rLast = *pRowLast++;
@@ -162,7 +169,9 @@ namespace EveRay.Zones
 
             if (_NbPixelsMatching >= aWatchItemNbPixelsToTrigger)
             {
-                fBitmap.Save($"C:\\Temp\\NOISE_{Guid.NewGuid()}.png");
+                if (aSaveImageOnDisk)
+                    fBitmap.Save($"C:\\Temp\\NOISE_{Guid.NewGuid()}.png");
+
                 return true;
             }
 

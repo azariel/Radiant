@@ -22,7 +22,7 @@ namespace EveRay.Zones
         //                            Public
         // ********************************************************************
 
-        public static void EvaluateZones(List<ZoneWatcher> aConfigZonesWatcher, Action<Point, Size, Color, int?> aShowZoneAction)
+        public static void EvaluateZones(List<ZoneWatcher> aConfigZonesWatcher, Action<Point, Size, Color, int, int?> aShowZoneAction)
         {
             foreach (ZoneWatcher _ZoneWatcher in aConfigZonesWatcher)
             {
@@ -36,10 +36,10 @@ namespace EveRay.Zones
                     {
                         case WatchItemBitmapNoise _WatchItemBitmapNoise:
 
-                            if (_ZoneWatcher.Zone.IsDifferentFromLastEvaluation(_WatchItemBitmapNoise.NoiseTreshold, _WatchItemBitmapNoise.WatchItemNbPixelsToTrigger))
+                            if (_ZoneWatcher.Zone.IsDifferentFromLastEvaluation(_WatchItemBitmapNoise.NoiseTreshold, _WatchItemBitmapNoise.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
-                                aShowZoneAction?.Invoke(_ZoneWatcher.Zone.Location, _ZoneWatcher.Zone.Size, _ZoneWatcherWatchItem.StrokeColor, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
+                                aShowZoneAction?.Invoke(_ZoneWatcher.Zone.Location, _ZoneWatcher.Zone.Size, _ZoneWatcherWatchItem.StrokeColor, 1, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
 
                                 Thread.Sleep(1000);
                                 _Triggered = true;
@@ -47,12 +47,12 @@ namespace EveRay.Zones
 
                             break;
                         case WatchItemColor _WatchItemColor:
-                            if (_ZoneWatcher.Zone.ContainsColor(_WatchItemColor.Color, _WatchItemColor.ColorTreshold, _WatchItemColor.WatchItemNbPixelsToTrigger, out Point? _HitPointLocationOfColor))
+                            if (_ZoneWatcher.Zone.ContainsColor(_WatchItemColor.Color, _WatchItemColor.ColorTreshold, _WatchItemColor.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk, out Point? _HitPointLocationOfColor))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
 
                                 if (_HitPointLocationOfColor.HasValue)
-                                    aShowZoneAction?.Invoke(_HitPointLocationOfColor.Value, new Size(500, 30), _ZoneWatcherWatchItem.StrokeColor, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
+                                    aShowZoneAction?.Invoke(_HitPointLocationOfColor.Value, new Size(533, 18), _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
 
                                 Thread.Sleep(1000);
                                 _Triggered = true;
@@ -60,12 +60,12 @@ namespace EveRay.Zones
 
                             break;
                         case WatchItemColors _WatchItemColors:
-                            if (_ZoneWatcher.Zone.ContainsColors(_WatchItemColors.Colors, _WatchItemColors.ColorTreshold, _WatchItemColors.WatchItemNbPixelsToTrigger, out Point? _HitPointLocationOfColors))
+                            if (_ZoneWatcher.Zone.ContainsColors(_WatchItemColors.Colors, _WatchItemColors.ColorTreshold, _WatchItemColors.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk, out Point? _HitPointLocationOfColors))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
 
                                 if (_HitPointLocationOfColors.HasValue)
-                                    aShowZoneAction?.Invoke(_HitPointLocationOfColors.Value, new Size(500, 30), _ZoneWatcherWatchItem.StrokeColor, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
+                                    aShowZoneAction?.Invoke(_HitPointLocationOfColors.Value, new Size(533, 18), _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
 
                                 Thread.Sleep(1000);
                             }
