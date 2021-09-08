@@ -153,6 +153,9 @@ namespace Radiant.Custom.ProductsHistory.Tasks
 
         private void EvaluateProductDefinition(RadiantServerProductDefinitionModel aProductDefinition)
         {
+            if (aProductDefinition == null)
+                return;
+
             DateTime _Now = DateTime.Now;
             //if (aProductDefinition.ProductHistoryCollection == null || aProductDefinition.ProductHistoryCollection.Count <= 0)
             //{
@@ -160,10 +163,11 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             //    return;
             //}
 
+            // If product was never fetch, set the next fetch time to right now
             if (!aProductDefinition.NextFetchProductHistory.HasValue)
                 UpdateNextFetchDateTime(aProductDefinition, _Now);
 
-            if (_Now > aProductDefinition.NextFetchProductHistory.Value)
+            if (_Now > aProductDefinition.NextFetchProductHistory)
                 FetchNewProductHistory(aProductDefinition, _Now);
         }
 

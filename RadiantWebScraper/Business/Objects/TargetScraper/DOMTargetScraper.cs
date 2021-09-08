@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.WebScraper.Parsers.DOM;
 using Radiant.WebScraper.Scrapers.Manual;

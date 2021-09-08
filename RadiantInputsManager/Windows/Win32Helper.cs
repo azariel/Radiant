@@ -79,6 +79,7 @@ namespace RadiantInputsManager.Windows
                 Keycode.XK_Down,
                 Keycode.XK_Up,
                 Keycode.XK_End,
+                Keycode.XK_Home,
             };
 
             byte _KeyCode = aKeyCode switch

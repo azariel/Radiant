@@ -1382,7 +1382,7 @@
                 "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
                 "ParserItemTarget": "Price",
                 "IfUrlContains": "sauterellesetcoccinelles.com",
-                "RegexPattern": "(.*)\\$",
+                "RegexPattern": "(.*)",
                 "SubParserToExecuteOnTargetValue": null,
                 "Target": "Group1Value",
                 "UID": "49216de9-5c4f-433f-85c7-2f7df6d0625f"

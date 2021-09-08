@@ -40,7 +40,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         private readonly TargetScraperCoreOptions? fOptions;
 
-        private void TryTakeScreenshot(string aOutPutPath)
+        private void TryTakeScreenshotAndInfo(string aOutPutPath)
         {
             try
             {
@@ -60,6 +60,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
 
                 // Add a info file beside
                 File.WriteAllText(Path.Combine(aOutPutPath, $"{_Now:yyyy-MM-dd HH.mm.ss.fff}-INFO.txt"), $"Url: {fUrl}");
+
             } catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("1D33CEE8-20F0-4627-9EFE-B2FCFC4E71CE", "Couldn't take screenshot. Operation will be ignored.", _Exception);
@@ -102,7 +103,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
                 // Add current date to root folder
                 _RootFolder = Path.Combine(_RootFolder, $"{DateTime.Now:yyyy-MM-dd}");
 
-                TryTakeScreenshot(_RootFolder);
+                TryTakeScreenshotAndInfo(_RootFolder);
                 Thread.Sleep(500);
             }
         }
