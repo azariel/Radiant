@@ -52,7 +52,7 @@ namespace EveRay.Zones
                                 TriggerAction(_ZoneWatcher.TriggerAction);
 
                                 if (_HitPointLocationOfColor.HasValue)
-                                    aShowZoneAction?.Invoke(_HitPointLocationOfColor.Value, new Size(533, 18), _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
+                                    aShowZoneAction?.Invoke(_HitPointLocationOfColor.Value, _ZoneWatcher.Zone.Size, _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
 
                                 Thread.Sleep(1000);
                                 _Triggered = true;
@@ -65,7 +65,7 @@ namespace EveRay.Zones
                                 TriggerAction(_ZoneWatcher.TriggerAction);
 
                                 if (_HitPointLocationOfColors.HasValue)
-                                    aShowZoneAction?.Invoke(_HitPointLocationOfColors.Value, new Size(533, 18), _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
+                                    aShowZoneAction?.Invoke(_HitPointLocationOfColors.Value, _ZoneWatcher.Zone.Size, _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
 
                                 Thread.Sleep(1000);
                             }
