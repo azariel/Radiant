@@ -12,6 +12,7 @@ namespace EveRay.Zones
         // ********************************************************************
         private Bitmap fBitmap;// Bitmap that holds the image
         private Size fSize = new(1, 1);
+        private bool fIsFirstCheck = true;
 
         public bool ContainsColor(Color aColor, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
         {
@@ -98,6 +99,8 @@ namespace EveRay.Zones
                 fBitmap.UnlockBits(_BitmapData);
             }
 
+            SaveImageIfFirstCheckForManualValidation();
+
             if (_NbPixelsMatchingWatchItem >= aWatchItemNbPixelsToTrigger)
             {
                 if (aSaveImageOnDisk)
@@ -107,6 +110,15 @@ namespace EveRay.Zones
             }
 
             return false;
+        }
+
+        private void SaveImageIfFirstCheckForManualValidation()
+        {
+            if (!fIsFirstCheck)
+                return;
+
+            fIsFirstCheck = false;
+            fBitmap.Save($"C:\\Temp\\FOR_VALIDATION_{Guid.NewGuid()}.png");
         }
 
         public unsafe bool IsDifferentFromLastEvaluation(float aNoiseTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk)
@@ -167,10 +179,15 @@ namespace EveRay.Zones
                 fBitmap.UnlockBits(_BitmapData);
             }
 
+            SaveImageIfFirstCheckForManualValidation();
+
             if (_NbPixelsMatching >= aWatchItemNbPixelsToTrigger)
             {
                 if (aSaveImageOnDisk)
-                    fBitmap.Save($"C:\\Temp\\NOISE_{Guid.NewGuid()}.png");
+                {
+                    fBitmap.Save($"C:\\Temp\\NOISE_{Guid.NewGuid()}_A.png");
+                    _LastBitmap.Save($"C:\\Temp\\NOISE_{Guid.NewGuid()}_B.png");
+                }
 
                 return true;
             }
@@ -182,6 +199,7 @@ namespace EveRay.Zones
         //                            Properties
         // ********************************************************************
         public Point Location { get; set; } = new(0, 0);
+        public Point OnCurrentScreenShowLocation { get; set; } = new(0, 0);
 
         public Size Size
         {

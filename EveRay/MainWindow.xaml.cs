@@ -54,22 +54,10 @@ namespace EveRay
         private void Start()
         {
             EveRayConfiguration _Config = EveRayConfigurationManager.ReloadConfig();
-            //_Config.ZonesWatcher.Clear();
-            //_Config.ZonesWatcher.Add(new ZoneWatcher()
-            //{
-            //    WatchItems = new List<IWatchItem>()
-            //    {
-            //        new WatchItemColor()
-            //        {
-            //            StrokeColorBrush = Brushes.DarkRed
-            //        }
-            //    }
-            //});
-            //EveRayConfigurationManager.SaveConfigInMemoryToDisk();
 
             // Show zones if required
             foreach (ZoneWatcher _ZoneWatcher in _Config.ZonesWatcher.Where(w => w.AlwaysShowZone))
-                ShowZoneAction(_ZoneWatcher.Zone.Location, _ZoneWatcher.Zone.Size, Color.FromArgb(255, 24, 115, 204), 1, null);
+                ShowZoneAction(_ZoneWatcher.Zone.OnCurrentScreenShowLocation, _ZoneWatcher.Zone.Size, Color.FromArgb(255, 24, 115, 204), 1, null);
 
             while (true)
             {
