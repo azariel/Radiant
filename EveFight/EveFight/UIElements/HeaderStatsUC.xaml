@@ -7,9 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="200">
     <Grid>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
             <Label Name="LblDPSTank" Foreground="White" FontWeight="Bold" FontSize="10" />
             <Label Name="lblDPSConst" Foreground="White" FontWeight="Bold" FontSize="10" Margin="-5,0,0,0">dps</Label>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Name="LblUserDPSTank" Foreground="DarkCyan" FontWeight="Bold" FontSize="10" />
+            <Label Name="lblUserDPSConst" Foreground="White" FontWeight="Bold" FontSize="10" Margin="-5,0,0,0">dps</Label>
         </StackPanel>
     </Grid>
 </UserControl>

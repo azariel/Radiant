@@ -119,7 +119,7 @@ namespace EveFight
                     ShipsManager.UpdateShipListItems(_Config.CompactUI, ShipsListBox);
 
                     int _TotalDPS = ShipsManager.GetTotalDPS();
-                    StatsUc.Update(_TotalDPS);
+                    StatsUc.Update(_TotalDPS, ShipsManager.UserShip.DPS);
 
                     ShowRedBorderIfRequired(_TotalDPS);
                 });

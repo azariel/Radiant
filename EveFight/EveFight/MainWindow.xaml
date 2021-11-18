@@ -14,7 +14,7 @@
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
-                <RowDefinition Height="8*" />
+                <RowDefinition Height="7*" />
             </Grid.RowDefinitions>
             <uiElements:HeaderStatsUC x:Name="StatsUc" />
             <ListBox Name="ShipsListBox" Padding="0" Grid.Row="1" BorderThickness="0" IsHitTestVisible="False" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" />

@@ -18,9 +18,10 @@ namespace EveFight.UIElements
         {
             EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
 
-            LblDPSTank.Content = $"{this.TotalDPS}";
+            LblDPSTank.Content = $"{this.TotalDPSInbound}";
+            LblUserDPSTank.Content = this.TotalDPSOutbound;
 
-            switch (this.TotalDPS)
+            switch (this.TotalDPSInbound)
             {
                 case int _Red when _Red >= _Config.TankInfo.TotalDPSRed:
                     LblDPSTank.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
@@ -38,13 +39,16 @@ namespace EveFight.UIElements
 
         }
 
-        public void Update(int aTotalDps)
+        public void Update(int aTotalDpsInbound, int aTotalDpsOutbound)
         {
-            TotalDPS = aTotalDps;
+            this.TotalDPSInbound = aTotalDpsInbound;
+            this.TotalDPSOutbound = aTotalDpsOutbound;
 
             SetControlState();
         }
 
-        public int TotalDPS { get; private set; }
+        public int TotalDPSInbound { get; private set; }
+        public int TotalDPSOutbound { get; private set; }
+        
     }
 }

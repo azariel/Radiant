@@ -8,12 +8,16 @@ namespace EveFight.Configuration
         //                            Properties
         // ********************************************************************
         public bool CompactUI { get; set; }
+        public string LogsDirectoryPath { get; set; }
+
+        /// <summary>
+        /// If user is running multiple instances, he can decide which account to track by player name in log
+        /// </summary>
+        public string ForcePlayerNameInLogs { get; set; }
         public int PlayerNameMaxDigits { get; set; }
         public TankInfo TankInfo { get; set; }
-        public ThreatDetermination ThreatDetermination { get; set; }
-
-        public bool UseThreatColorByDPS { get; set; } = true;
         public ThreatColorByDps ThreatColorByDps { get; set; } = new();
+        public ThreatDetermination ThreatDetermination { get; set; }
 
         public Point UILocation { get; set; }
 
@@ -23,5 +27,7 @@ namespace EveFight.Configuration
         public bool UILocked { get; set; }
 
         public Size UISize { get; set; }
+
+        public bool UseThreatColorByDPS { get; set; } = true;
     }
 }
