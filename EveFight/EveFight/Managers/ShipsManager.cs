@@ -167,7 +167,7 @@ namespace EveFight.Managers
 
             int _NbTotalLines = _EveLogFileLines.Length;
             if (_EveLogFileLines.Length < fNbLinesToSkip)
-                throw new Exception($"FileLog [{_EveLogFile.FullName}] was corrupted. Try reloading the tool.");
+                fNbLinesToSkip = 0;
 
             // Skip already processed lines
             _EveLogFileLines = _EveLogFileLines.Skip(fNbLinesToSkip).ToArray();

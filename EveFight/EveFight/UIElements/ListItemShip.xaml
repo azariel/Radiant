@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:EveFight.UIElements"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Name="ListBoxItemMainGrid">
+    <Grid Name="ListBoxItemMainGrid" Margin="0,-2,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="2*" />

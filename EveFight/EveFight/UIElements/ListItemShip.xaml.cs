@@ -87,7 +87,7 @@ namespace EveFight.UIElements
             LblThreatType.FontSize = 10;
             LblShipName.FontSize = 8;
 
-            ListBoxItemMainGrid.Margin = new Thickness(0, -5, 0, 0);
+            ListBoxItemMainGrid.Margin = new Thickness(0, -3, 0, 0);
             Panel.Margin = new Thickness(0, -12, 0, 0);
         }
 
