@@ -17,7 +17,7 @@ namespace Radiant.Custom.ProductsHistoryCommon.DataBase
         {
             try
             {
-                using ClientProductsDbContext _ClientProductsDbContext = new ClientProductsDbContext();
+                using ClientProductsDbContext _ClientProductsDbContext = new();
                 _ClientProductsDbContext.Products.Load();
                 _ClientProductsDbContext.ProductDefinitions.Load();
                 _ClientProductsDbContext.ProductsHistory.Load();
@@ -62,14 +62,14 @@ namespace Radiant.Custom.ProductsHistoryCommon.DataBase
 
             try
             {
-                using ClientProductsDbContext _ClientProductsDbContext = new ClientProductsDbContext();
+                using ClientProductsDbContext _ClientProductsDbContext = new();
                 _ClientProductsDbContext.Products.Load();
                 _ClientProductsDbContext.ProductDefinitions.Load();
                 _ClientProductsDbContext.ProductsHistory.Load();
                 _ClientProductsDbContext.Users.Load();
                 _ClientProductsDbContext.Subscriptions.Load();
 
-                using ServerProductsDbContext _ServerProductsDbContext = new ServerProductsDbContext();
+                using ServerProductsDbContext _ServerProductsDbContext = new();
                 _ServerProductsDbContext.Products.Load();
                 _ServerProductsDbContext.ProductDefinitions.Load();
                 _ServerProductsDbContext.ProductsHistory.Load();

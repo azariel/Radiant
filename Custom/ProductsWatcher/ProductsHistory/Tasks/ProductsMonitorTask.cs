@@ -22,7 +22,8 @@ namespace Radiant.Custom.ProductsHistory.Tasks
     {
         private RadiantServerProductHistoryModel CreateProductHistoryFromProductTargetScraper(ProductTargetScraper aProductScraper, RadiantServerProductDefinitionModel aProduct, string aProductTitle)
         {
-            if (aProductScraper?.Information?.Price == null)
+            // Note that is the product is out of stock, we consider the fetched information to be wrong. No point in having an awesome price on a product that isn't available
+            if (aProductScraper?.Information?.Price == null || aProductScraper.Information.OutOfStock == true)
                 return null;
 
             // Check that the Title match. Some website (cough couch Amazon) keep the SAME url, but change the product..
@@ -152,6 +153,9 @@ namespace Radiant.Custom.ProductsHistory.Tasks
 
         private void EvaluateProductDefinition(RadiantServerProductDefinitionModel aProductDefinition)
         {
+            if (aProductDefinition == null)
+                return;
+
             DateTime _Now = DateTime.Now;
             //if (aProductDefinition.ProductHistoryCollection == null || aProductDefinition.ProductHistoryCollection.Count <= 0)
             //{
@@ -159,10 +163,11 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             //    return;
             //}
 
+            // If product was never fetch, set the next fetch time to right now
             if (!aProductDefinition.NextFetchProductHistory.HasValue)
                 UpdateNextFetchDateTime(aProductDefinition, _Now);
 
-            if (_Now > aProductDefinition.NextFetchProductHistory.Value)
+            if (_Now > aProductDefinition.NextFetchProductHistory)
                 FetchNewProductHistory(aProductDefinition, _Now);
         }
 
@@ -182,7 +187,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
 
             if (_ProductHistory == null)
             {
-                LoggingManager.LogToFile("988B416D-BE97-42A3-BA2F-438FFBFEDAF4", $"Couldn't fetch new product history of product [{aProductDefinition.Product.Name}] Url [{aProductDefinition.Url}].");
+                LoggingManager.LogToFile("988B416D-BE97-42A3-BA2F-438FFBFEDAF4", $"Couldn't fetch new product history of product [{aProductDefinition.Product.Name}] Url [{aProductDefinition.Url}]. {(_ProductScraper.Information.OutOfStock == true ? "Product was Out of Stock. Skipping it." : "")}");
 
                 // Note that when a product fetch fails, the ProductTargetScraper will handle the fail sequence to send notifications to admins, logging relevant informations about failure, etc.
 
@@ -193,7 +198,8 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             }
 
             // Handle notifications
-            EvaluateNotifications(aProductDefinition, _ProductHistory);
+            if (_ProductScraper.Information.OutOfStock != true)// Never send a notification on an out of stock product
+                EvaluateNotifications(aProductDefinition, _ProductHistory);
 
             aProductDefinition.ProductHistoryCollection.Add(_ProductHistory);
 
@@ -209,7 +215,8 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             Random _Random = new Random();
             int _Modifier = _Random.Next(-100, 100);
             float _NoisePercValue = aProductDefinition.FetchProductHistoryTimeSpanNoiseInPerc * ((float)_Modifier / 100);
-            TimeSpan _NoiseValue = aProductDefinition.FetchProductHistoryEveryX / 100 * (_NoisePercValue + 100);
+            TimeSpan _NoiseValue = aProductDefinition.FetchProductHistoryEveryX / 100;
+            _NoiseValue *= (_NoisePercValue + 100);
             DateTime _NextFetchDateTime = aNow + _NoiseValue;
 
             aProductDefinition.NextFetchProductHistory = _NextFetchDateTime;

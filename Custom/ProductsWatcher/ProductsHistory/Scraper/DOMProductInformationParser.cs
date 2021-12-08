@@ -12,33 +12,10 @@ namespace Radiant.Custom.ProductsHistory.Scraper
         // ********************************************************************
         //                            Internal
         // ********************************************************************
-        //internal static double? ParsePrice(string aUrl, string aDOM, ProductDOMParserItem[] aDOMParserItems)
-        //{
-        //    if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Length <= 0)
-        //        return null;
-
-        //    foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price))
-        //    {
-        //        string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
-
-        //        if (_Value != null && double.TryParse(_Value, out double _Price))
-        //            return _Price;
-        //    }
-
-        //    LoggingManager.LogToFile("A22DF9B4-66B7-4157-BFEA-D9F77F35CC14", $"Couldn't find price in DOM using [{aDOMParserItems.Length}] DOM parsers for Url [{aUrl}].");
-        //    return null;
-        //}
-
         internal static string ParseTitle(string aUrl, string aDOM, List<ProductDOMParserItem> aDOMParserItems)
         {
             if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Count <= 0)
                 return null;
-            
-            //int _IndexOfTitleTag = aDOM.IndexOf("</title>", StringComparison.InvariantCultureIgnoreCase);
-            //if (_IndexOfTitleTag < 0)
-            //    _IndexOfTitleTag = Math.Min(aDOM.Length, 100000);
-
-            //string _TruncatedDOM = aDOM[..(_IndexOfTitleTag + 8)];//+8 = nb char in "</title>"
 
             foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Title))
             {
@@ -52,20 +29,36 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             return null;
         }
 
-        internal static double? Parse(string aUrl, string aDOM, ProductDOMParserItem[] aDOMParserItems)
+        internal static double? ParseDouble(string aUrl, string aDOM, ProductDOMParserItem[] aDOMParserItems)
         {
             if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Length <= 0)
                 return null;
 
-            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w=>aUrl.Contains(w.IfUrlContains, StringComparison.InvariantCultureIgnoreCase)))
+            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => aUrl.Contains(w.IfUrlContains, StringComparison.InvariantCultureIgnoreCase)))
             {
                 string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
 
-                if (_Value != null && double.TryParse(_Value, out double _Price))
-                    return _Price;
+                if (_Value != null && double.TryParse(_Value, out double _DoubleValue))
+                    return _DoubleValue;
             }
 
             LoggingManager.LogToFile("413486D0-7DA3-4D3C-A203-432CCA1A3A55", $"Couldn't find target value in DOM using [{aDOMParserItems.Length}] DOM parsers for Url [{aUrl}].");
+            return null;
+        }
+
+        public static bool? ParseBoolean(string aUrl, string aDOM, ProductDOMParserItem[] aDOMParserItems)
+        {
+            if (string.IsNullOrWhiteSpace(aUrl) || string.IsNullOrWhiteSpace(aDOM) || aDOMParserItems == null || aDOMParserItems.Length <= 0)
+                return null;
+
+            foreach (ProductDOMParserItem _ParserItem in aDOMParserItems.Where(w => aUrl.Contains(w.IfUrlContains, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                string _Value = DOMParserExecutor.Execute(aUrl, aDOM, _ParserItem);
+
+                return !string.IsNullOrWhiteSpace(_Value);
+            }
+
+            LoggingManager.LogToFile("F80BCA19-6B8F-4C20-9B6D-5D63A68CDD57", $"Couldn't find target value in DOM using [{aDOMParserItems.Length}] DOM parsers for Url [{aUrl}].");
             return null;
         }
     }

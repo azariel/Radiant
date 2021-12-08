@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -37,23 +36,11 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         }
 
         // ********************************************************************
-        //                            Protected
-        // ********************************************************************
-        protected bool fAllowManualOperations;
-        protected SupportedBrowser? fBrowser;
-        protected string fUrl;
-
-        protected void WaitForBrowserInputsReadyOrMax(int aMinMsToWait, int aMaxMsToWait = 60000)
-        {
-            BrowserHelper.WaitForBrowserInputsReadyOrMax(aMinMsToWait, fBrowser, aMaxMsToWait);
-        }
-
-        // ********************************************************************
         //                            Private
         // ********************************************************************
         private readonly TargetScraperCoreOptions? fOptions;
 
-        private void TryTakeScreenshot(string aOutPutPath)
+        private void TryTakeScreenshotAndInfo(string aOutPutPath)
         {
             try
             {
@@ -81,6 +68,18 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         }
 
         // ********************************************************************
+        //                            Protected
+        // ********************************************************************
+        protected bool fAllowManualOperations;
+        protected SupportedBrowser? fBrowser;
+        protected string fUrl;
+
+        protected void WaitForBrowserInputsReadyOrMax(int aMinMsToWait, int aMaxMsToWait = 60000)
+        {
+            BrowserHelper.WaitForBrowserInputsReadyOrMax(aMinMsToWait, fBrowser, aMaxMsToWait);
+        }
+
+        // ********************************************************************
         //                            Public
         // ********************************************************************
         public virtual void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
@@ -104,7 +103,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
                 // Add current date to root folder
                 _RootFolder = Path.Combine(_RootFolder, $"{DateTime.Now:yyyy-MM-dd}");
 
-                TryTakeScreenshot(_RootFolder);
+                TryTakeScreenshotAndInfo(_RootFolder);
                 Thread.Sleep(500);
             }
         }

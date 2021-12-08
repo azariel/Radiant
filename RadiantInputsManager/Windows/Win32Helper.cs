@@ -79,6 +79,7 @@ namespace RadiantInputsManager.Windows
                 Keycode.XK_Down,
                 Keycode.XK_Up,
                 Keycode.XK_End,
+                Keycode.XK_Home,
             };
 
             byte _KeyCode = aKeyCode switch
@@ -100,6 +101,7 @@ namespace RadiantInputsManager.Windows
                 Keycode.XK_f => (byte)WindowsVirtualKeys.F,
                 Keycode.XK_w => (byte)WindowsVirtualKeys.W,
                 Keycode.XK_End => (byte)WindowsVirtualKeys.End,
+                Keycode.XK_Home => (byte)WindowsVirtualKeys.Home,
                 _ => throw new ArgumentOutOfRangeException(nameof(aKeyCode), aKeyCode, null)
             };
 

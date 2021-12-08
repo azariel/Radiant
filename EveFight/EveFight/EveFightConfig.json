@@ -1,0 +1,52 @@
+{
+    "$type": "EveFight.Configuration.EveFightConfiguration, EveFight",
+    "CompactUI": false,
+    "LogsDirectoryPath": "C:\\Users\\Azariel-PC\\Documents\\EVE\\logs\\Gamelogs",
+    "ForcePlayerNameInLogs": "Seyrdis",
+    "PlayerNameMaxDigits": 500,
+    "TankInfo": {
+        "$type": "EveFight.Configuration.TankInfo, EveFight",
+        "TotalDPSOrange": 1000,
+        "TotalDPSRed": 1300,
+        "TotalDPSYellow": 500
+    },
+    "ThreatColorByDps": {
+        "$type": "EveFight.Configuration.ThreatColorByDps, EveFight",
+        "ThreatColorDpsList": [
+            {
+                "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
+                "Treshold": -1,
+                "Color": "#9600AF00"
+            },
+            {
+                "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
+                "Treshold": 100,
+                "Color": "#96AFAF00"
+            },
+            {
+                "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
+                "Treshold": 350,
+                "Color": "#96C87D00"
+            },
+            {
+                "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
+                "Treshold": 700,
+                "Color": "#96AF0000"
+            },
+            {
+                "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
+                "Treshold": 1000,
+                "Color": "#96FF0000"
+            }
+        ]
+    },
+    "ThreatDetermination": {
+        "$type": "EveFight.Configuration.ThreatDetermination, EveFight",
+        "PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumber": 1,
+        "PrioritizeLogiShipsIfDpsBelowThisNumber": 1000
+    },
+    "UILocation": "1040, 482",
+    "UILocked": false,
+    "UISize": "311, 199",
+    "UseThreatColorByDPS": true
+}

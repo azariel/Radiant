@@ -6,6 +6,7 @@
         ShippingCost,
         Title,
         DiscountPrice,
-        DiscountPercentage
+        DiscountPercentage,
+        OutOfStock
     }
 }

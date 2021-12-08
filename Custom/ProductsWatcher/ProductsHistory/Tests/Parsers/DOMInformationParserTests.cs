@@ -23,6 +23,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             NeweggProduct2,
             NeweggProduct3,
             NeweggProduct4,
+            NeweggProduct5,
         }
 
         // ********************************************************************
@@ -48,6 +49,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
                     return UnitTestsResources.ResourceManager.GetObject("Newegg_Product3_SourceCode") as string;// With 39.96$ shipping
                 case ProductSourceCodeFile.NeweggProduct4:
                     return UnitTestsResources.ResourceManager.GetObject("Newegg_Product4_SourceCode") as string;// With 100.00$ discount
+                case ProductSourceCodeFile.NeweggProduct5:
+                    return UnitTestsResources.ResourceManager.GetObject("Newegg_Product5_SourceCode") as string;// Out of Stock
                 default:
                     throw new ArgumentOutOfRangeException(nameof(aProductSourceCodeFile), aProductSourceCodeFile, null);
             }
@@ -63,7 +66,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             string _Product2DOM = GetDOMFromResource(ProductSourceCodeFile.AmazonProduct2);
 
-            double? _Price = DOMProductInformationParser.Parse("www.amazon.ca", _Product2DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
+            double? _Price = DOMProductInformationParser.ParseDouble("www.amazon.ca", _Product2DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
             double _ExpectedPrice = 54.99;
             Assert.Equal(_ExpectedPrice, _Price);
 
@@ -74,7 +77,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             // Product 3
             string _Product3DOM = GetDOMFromResource(ProductSourceCodeFile.AmazonProduct3);
 
-            double? _Price3 = DOMProductInformationParser.Parse("www.amazon.ca", _Product3DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
+            double? _Price3 = DOMProductInformationParser.ParseDouble("www.amazon.ca", _Product3DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
             double _ExpectedPrice3 = 28.02;// NOTE: that product was actually 18.02 because there's a 10.00$ COUPON !
             Assert.Equal(_ExpectedPrice3, _Price3);
 
@@ -91,7 +94,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             string _Product2DOM = GetDOMFromResource(ProductSourceCodeFile.NeweggProduct2);
 
             // This second format doesn't work. It's supposed to be 51.45, but this is nowhere in the DOM... it's probably handled after javascript eval...
-            double? _Price = DOMProductInformationParser.Parse("www.newegg.ca", _Product2DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
+            double? _Price = DOMProductInformationParser.ParseDouble("www.newegg.ca", _Product2DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
 
             //double _ExpectedPrice = 51.45;
             //Assert.Equal(_ExpectedPrice, _Price);
@@ -107,13 +110,13 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             string _DOM = GetDOMFromResource(ProductSourceCodeFile.NeweggProduct3);
 
-            double? _ShippingCost = DOMProductInformationParser.Parse("www.newegg.ca", _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.ShippingCost).ToArray());
+            double? _ShippingCost = DOMProductInformationParser.ParseDouble("www.newegg.ca", _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.ShippingCost).ToArray());
             double _ExpectedShippingCost = 39.96;
             Assert.Equal(_ExpectedShippingCost, _ShippingCost);
 
 
             string _DOM2 = GetDOMFromResource(ProductSourceCodeFile.NeweggProduct2);
-            double? _ShippingCost2 = DOMProductInformationParser.Parse("www.newegg.ca", _DOM2, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.ShippingCost).ToArray());
+            double? _ShippingCost2 = DOMProductInformationParser.ParseDouble("www.newegg.ca", _DOM2, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.ShippingCost).ToArray());
             double _ExpectedShippingCost2 = 0.01;
             Assert.Equal(_ExpectedShippingCost2, _ShippingCost2);
         }
@@ -124,7 +127,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             string _DOM = GetDOMFromResource(ProductSourceCodeFile.AmazonTypicalProduct);
 
-            double? _Price = DOMProductInformationParser.Parse(ProductsHistoryTestConstants.AMAZON_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
+            double? _Price = DOMProductInformationParser.ParseDouble(ProductsHistoryTestConstants.AMAZON_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
             double _ExpectedPrice = 89.96;
             Assert.Equal(_ExpectedPrice, _Price);
         }
@@ -147,7 +150,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
 
             string _DOM = GetDOMFromResource(ProductSourceCodeFile.BestBuyTypicalProduct);
 
-            double? _Price = DOMProductInformationParser.Parse(ProductsHistoryTestConstants.BESTBUY_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
+            double? _Price = DOMProductInformationParser.ParseDouble(ProductsHistoryTestConstants.BESTBUY_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
             double _ExpectedPrice = 90.19;
             Assert.Equal(_ExpectedPrice, _Price);
         }
@@ -170,7 +173,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
 
             string _DOM = GetDOMFromResource(ProductSourceCodeFile.NeweggTypicalProduct);
 
-            double? _Price = DOMProductInformationParser.Parse(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
+            double? _Price = DOMProductInformationParser.ParseDouble(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
             double _ExpectedPrice = 52.99;
             Assert.Equal(_ExpectedPrice, _Price);
         }
@@ -192,11 +195,29 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             string _DOM = GetDOMFromResource(ProductSourceCodeFile.NeweggProduct4);
 
-            double? _DiscountInAmount = DOMProductInformationParser.Parse(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.DiscountPrice).ToArray());
+            double? _DiscountInAmount = DOMProductInformationParser.ParseDouble(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.DiscountPrice).ToArray());
             Assert.Equal(100, _DiscountInAmount);
 
-            double? _DiscountInPercentage = DOMProductInformationParser.Parse(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.DiscountPercentage).ToArray());
+            double? _DiscountInPercentage = DOMProductInformationParser.ParseDouble(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.DiscountPercentage).ToArray());
             Assert.Equal(null, _DiscountInPercentage);
+        }
+
+        [Fact]
+        public void TestParseTypicalNeweggOutOfStock()
+        {
+            ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
+            string _DOM = GetDOMFromResource(ProductSourceCodeFile.NeweggProduct5);
+
+            bool? _IsProductOutOfStock = DOMProductInformationParser.ParseBoolean(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.OutOfStock).ToArray());
+
+            Assert.Equal(true, _IsProductOutOfStock);
+
+            // Test with a product NOT out of stock
+            _DOM = GetDOMFromResource(ProductSourceCodeFile.NeweggProduct4);
+
+            _IsProductOutOfStock = DOMProductInformationParser.ParseBoolean(ProductsHistoryTestConstants.NEWEGG_TYPICAL_PRODUCT_URL, _DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.OutOfStock).ToArray());
+
+            Assert.Equal(false, _IsProductOutOfStock);
         }
     }
 }

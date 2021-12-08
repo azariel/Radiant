@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent;
@@ -117,13 +118,16 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         public void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
-            Thread.Sleep(100);
-            //List<IScraperTargetValue> _TargetValue = null;
+            Thread.Sleep(500);
 
             // First thing is to get to the webpage
             // For the duration of the function, we're taking exclusivity of inputs to avoid conflicts
             InputsManager.ExecuteInputsWithExclusivity(() =>
             {
+                // Close all tabs to avoid "browser ready" state issue
+                CloseAllTabs(aSupportedBrowser, aTarget);
+
+                // Re-open browser
                 if (!StartBrowser(aSupportedBrowser, aUrl, false))
                 {
                     LoggingManager.LogToFile("311264B0-5EEC-41CA-9F67-1B085ECFB366", $"Couldn't start browser [{aSupportedBrowser}]. Aborting {nameof(GetTargetValueFromUrl)} from URL [{aUrl}].");
@@ -139,12 +143,15 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
                 Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? 30000);
 
+                Thread.Sleep(500);
+
                 // Fullscreen
                 ExecuteFullScreenF11();
                 Thread.Sleep(500);
 
                 // Evaluate the target and get the value
                 aTarget.Evaluate(aSupportedBrowser, aUrl, true, aManualScraperItems, aDOMParserItems);
+                Thread.Sleep(500);
 
                 // "Closing" sequence
                 // Exit F11
@@ -157,6 +164,48 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
                 // Note: actually, we already closed our tab.. so.. no, don't kill the browser..
             });
+        }
+
+        private void CloseAllTabs(SupportedBrowser aSupportedBrowser, IScraperTarget aTarget)
+        {
+            string _Url = "www.google.com";
+            // Re-open browser
+            if (!StartBrowser(aSupportedBrowser, _Url, false))
+            {
+                LoggingManager.LogToFile("D5288A56-B37B-4F6C-B691-A2B738F92A1E", $"Couldn't start browser [{aSupportedBrowser}]. Aborting {nameof(GetTargetValueFromUrl)} from URL [{_Url}].");
+                return;
+            }
+            if (!BrowserHelper.WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG))
+            {
+                LoggingManager.LogToFile("238B040E-7FC0-456D-ADCD-0EF3B6C2D98C", $"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
+                return;
+            }
+
+            // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
+            var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
+            SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
+            Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? 30000);
+
+            var _Stopwatch = new Stopwatch();
+            _Stopwatch.Start();
+            while (true)
+            {
+                // Check if process still running
+                Process[] _ProcessesToKill = ScraperProcessHelper.GetProcessesAssociatedWithBrowser(aSupportedBrowser);
+
+                if (!_ProcessesToKill.Any())
+                    break;
+
+                Thread.Sleep(1000);
+                CloseCurrentTab();
+                Thread.Sleep(5000);
+
+                if (_Stopwatch.Elapsed.TotalHours > 1)
+                {
+                    LoggingManager.LogToFile("5F3A2CE4-C4A8-42B9-828E-86F2BC7FDA45", "Process to kill browser tabs was stuck.");
+                    throw new Exception("Process to kill browser tabs was stuck.");
+                }
+            }
         }
     }
 }

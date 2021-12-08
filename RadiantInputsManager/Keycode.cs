@@ -25,5 +25,6 @@ namespace RadiantInputsManager
         XK_Up = 0x08fc,// Up Arrow
         XK_Shift_L = 0xffe1,// Left Shift
         XK_End = 0xff57,//End
+        XK_Home = 0xff50//Home
     }
 }
