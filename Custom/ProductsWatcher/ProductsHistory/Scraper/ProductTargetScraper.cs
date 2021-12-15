@@ -49,7 +49,6 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     Subject = "Error couldn't fetch product information",
                     EmailFrom = "Radiant Product History",
                     MinimalDateTimetoSend = DateTime.Now
-
                     // TODO: attachments = Screenshot + DOM
                 };
 
@@ -69,7 +68,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 using NotificationsDbContext _NotificationDbContext = new();
                 _NotificationDbContext.Notifications.Add(_NewNotification);
                 _NotificationDbContext.SaveChanges();
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("A1273815-7729-41E3-B4C6-94979F9908E9", $"Couldn't create notification on {nameof(ProductTargetScraper)} fetch failure.", _Ex);
             }
@@ -196,7 +196,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             WriteProductInformationToErrorFolder();
 
-            CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched. Will retry later.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
+            CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched. Will retry on {TAG_NEXT_FETCH_DATETIME}.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
         }
 
         private void TryFetchProductDiscountByDOM(ProductParserItemTarget aProductParserItemTarget)
@@ -279,7 +279,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     if (_Price.HasValue)
                         return _Price;
                 }
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("FA210BC6-9321-422A-9378-4874AB53F241", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
@@ -441,7 +442,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     if (_Amount.HasValue)
                         _TotalAmount += _Amount.Value;
                 }
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("D17DCA12-0872-4F45-AB00-120259233C8F", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
@@ -483,7 +485,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 OneOrMoreStepFailedAndRequiredAFallback: {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}
 this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}
 ");
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
             }

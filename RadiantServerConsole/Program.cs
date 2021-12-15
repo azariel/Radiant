@@ -24,7 +24,7 @@ namespace Radiant.ServerConsole
             StartBackgroundProcesses();
             Console.WriteLine("-----Please choose and option-----");
             Console.WriteLine("0) Exit");
-
+                
             //Console.WriteLine("1) Inputs Manager");
 
             ConsoleKeyInfo _Key = Console.ReadKey();

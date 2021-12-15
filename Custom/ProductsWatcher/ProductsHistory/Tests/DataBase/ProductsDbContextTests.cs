@@ -34,10 +34,12 @@ namespace Radiant.Custom.ProductsHistory.Tests.DataBase
             _DbContext.SaveChanges();
         }
 
-        [Fact(Skip = "Add a new Product in Database to Test ServerConsole or other client apps")]
-        //[Fact]
+        //[Fact(Skip = "Add a new Product in Database to Test ServerConsole or other client apps")]
+        [Fact]
         public void AddTypicalProductAndDependencesPersistent()
         {
+            RemoveAllProducts();
+
             using var _DataBaseContext = new ServerProductsDbContext();
 
             // Add product
