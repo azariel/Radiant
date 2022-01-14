@@ -188,6 +188,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             if (_ProductHistory == null)
             {
                 LoggingManager.LogToFile("988B416D-BE97-42A3-BA2F-438FFBFEDAF4", $"Couldn't fetch new product history of product [{aProductDefinition.Product.Name}] Url [{aProductDefinition.Url}]. {(_ProductScraper.Information.OutOfStock == true ? "Product was Out of Stock. Skipping it." : "")}");
+                LoggingManager.LogToFile("ADCB5E84-034F-4A7F-BE21-784D5DBC4A77", $"Product [{aProductDefinition.Product.Name}] next update is scheduled on [{aProductDefinition.NextFetchProductHistory}].");
 
                 // Note that when a product fetch fails, the ProductTargetScraper will handle the fail sequence to send notifications to admins, logging relevant informations about failure, etc.
 

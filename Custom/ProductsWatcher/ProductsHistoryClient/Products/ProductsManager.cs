@@ -86,8 +86,6 @@ namespace ProductsHistoryClient.Products
                 }
             }
 
-            
-
             aLoadLocalData?.Invoke();
             return LoadProductsFromDisk();
         }

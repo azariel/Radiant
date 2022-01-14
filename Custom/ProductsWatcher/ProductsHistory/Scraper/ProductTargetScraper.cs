@@ -49,7 +49,6 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     Subject = "Error couldn't fetch product information",
                     EmailFrom = "Radiant Product History",
                     MinimalDateTimetoSend = DateTime.Now
-
                     // TODO: attachments = Screenshot + DOM
                 };
 
@@ -69,7 +68,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 using NotificationsDbContext _NotificationDbContext = new();
                 _NotificationDbContext.Notifications.Add(_NewNotification);
                 _NotificationDbContext.SaveChanges();
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("A1273815-7729-41E3-B4C6-94979F9908E9", $"Couldn't create notification on {nameof(ProductTargetScraper)} fetch failure.", _Ex);
             }
@@ -196,7 +196,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             WriteProductInformationToErrorFolder();
 
-            CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched. Will retry later.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
+            CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched. Will retry on {TAG_NEXT_FETCH_DATETIME}.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
         }
 
         private void TryFetchProductDiscountByDOM(ProductParserItemTarget aProductParserItemTarget)
@@ -279,7 +279,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     if (_Price.HasValue)
                         return _Price;
                 }
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("FA210BC6-9321-422A-9378-4874AB53F241", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
@@ -441,7 +442,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     if (_Amount.HasValue)
                         _TotalAmount += _Amount.Value;
                 }
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("D17DCA12-0872-4F45-AB00-120259233C8F", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
@@ -483,7 +485,8 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 OneOrMoreStepFailedAndRequiredAFallback: {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}
 this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}
 ");
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
             }
@@ -522,9 +525,14 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
             // Validate fetched information with DOM parser to check if we should inform Admins that a configuration may be incorrect
             double? _Price = DOMProductInformationParser.ParseDouble(fUrl, this.DOM, fDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
 
-            if (this.OneOrMoreStepFailedAndRequiredAFallback || !_Price.HasValue || Math.Abs(this.Information.Price.Value - _Price.Value) >= 0.01)
+            if (!_Price.HasValue)
             {
-                LoggingManager.LogToFile("3D62E30F-4D4D-4A64-8EC7-09C060D7D4AF", "Error. Price fetched from scrapper is different from price fetched from DOM parser. One of those prices is probably the right one, but this will be ignored as the configuration is obviously incorrect.");
+                LoggingManager.LogToFile("5CFCB97E-5DD2-467D-A555-6967F2ADD23A", $"Price couldn't be fetched from DOM. [{fUrl}]");
+            }
+
+            if (this.OneOrMoreStepFailedAndRequiredAFallback || (_Price.HasValue && Math.Abs(this.Information.Price.Value - _Price.Value) >= 0.01))
+            {
+                LoggingManager.LogToFile("3D62E30F-4D4D-4A64-8EC7-09C060D7D4AF", $"Error. Price fetched from scrapper [{this.Information.Price}] is different from price fetched from DOM parser [{_Price}]. One of those prices is probably the right one, but this will be ignored as the configuration is obviously incorrect.");
 
                 WriteProductInformationToErrorFolder();
                 CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price.Value}</p><p>_Price.Value(by DOM only)={_Price}</p><p>Shipping Cost: {this.Information.ShippingCost}</p>");

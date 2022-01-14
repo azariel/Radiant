@@ -47,11 +47,18 @@ namespace ProductsHistoryClient.Products
             // Update State
             File _DatabaseFile = _DriveManager.TryGetFile(_Config.GoogleDriveAPIConfig.DatabaseFileId, "modifiedTime");
 
+            if (_DatabaseFile == null)
+            {
+                LoggingManager.LogToFile("88B53D7E-F824-4F97-9ECE-237495CC2B08", "Remote database was not found.");
+                throw new Exception("Remote database was not found.");
+            }
+
             if (_DatabaseFile.ModifiedTime.HasValue)
             {
                 _State.RemoteDataBaseState.LastFetchedDataBaseModifiedDateTime = _DatabaseFile.ModifiedTime.Value;
                 ProductsHistoryClientStateManager.SaveConfigInMemoryToDisk();
-            } else
+            }
+            else
                 LoggingManager.LogToFile("8AF6F7B3-37C7-4CAE-B781-23D0AF12BFD8", "Fetched database file, but modifiedTime was null. The local State won't be updated.");
 
             if (_DataBaseContent == null || _DataBaseContent.Length <= 0)

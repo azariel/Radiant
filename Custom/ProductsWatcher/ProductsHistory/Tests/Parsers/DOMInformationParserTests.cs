@@ -20,6 +20,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             NeweggTypicalProduct,
             AmazonProduct2,
             AmazonProduct3,
+            AmazonProduct4,
             NeweggProduct2,
             NeweggProduct3,
             NeweggProduct4,
@@ -39,6 +40,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
                     return UnitTestsResources.ResourceManager.GetObject("Amazon_Product2_SourceCode") as string;
                 case ProductSourceCodeFile.AmazonProduct3:
                     return UnitTestsResources.ResourceManager.GetObject("Amazon_Product3_SourceCode") as string;// With 10.00$ coupon
+                case ProductSourceCodeFile.AmazonProduct4:
+                    return UnitTestsResources.ResourceManager.GetObject("Amazon_Product4_SourceCode") as string;// error.. DOM Price was null
                 case ProductSourceCodeFile.BestBuyTypicalProduct:
                     return UnitTestsResources.ResourceManager.GetObject("BestBuy_Product1_SourceCode") as string;
                 case ProductSourceCodeFile.NeweggTypicalProduct:
@@ -62,8 +65,9 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
         [Fact]
         public void TestAmazonBulkProducts()
         {
-            // Product 2
             ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
+
+            //Product 2
             string _Product2DOM = GetDOMFromResource(ProductSourceCodeFile.AmazonProduct2);
 
             double? _Price = DOMProductInformationParser.ParseDouble("www.amazon.ca", _Product2DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
@@ -84,6 +88,17 @@ namespace Radiant.Custom.ProductsHistory.Tests.Parsers
             string _Title3 = DOMProductInformationParser.ParseTitle("www.amazon.ca", _Product3DOM, _Config.DOMParserItems);
             string _ExpectedTitle3 = "Single Monitor Mount - Gas Spring Monitor Arm, Adjustable VESA Mount Desk Stand with Clamp and Grommet Base - Fits 17 to 27 Inch LCD Computer Screen Monitors 4.4 to 14.3lbs : Amazon.ca: Office Products";
             Assert.Equal(_ExpectedTitle3, _Title3);
+
+            // Product 4
+            string _Product4DOM = GetDOMFromResource(ProductSourceCodeFile.AmazonProduct4);
+
+            double? _Price4 = DOMProductInformationParser.ParseDouble("www.amazon.ca", _Product4DOM, _Config.DOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());
+            double _ExpectedPrice4 = 299;
+            Assert.Equal(_ExpectedPrice4, _Price4);
+
+            string _Title4 = DOMProductInformationParser.ParseTitle("www.amazon.ca", _Product4DOM, _Config.DOMParserItems);
+            string _ExpectedTitle4 = "ADAM Audio T5V Studio Monitor Single : Amazon.ca: Musical Instruments, Stage &amp; Studio";
+            Assert.Equal(_ExpectedTitle4, _Title4);
         }
 
         [Fact]

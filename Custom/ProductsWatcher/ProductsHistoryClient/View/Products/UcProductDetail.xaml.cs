@@ -189,7 +189,12 @@ namespace ProductsHistoryClient.View.Products
 
             txtBlockProductName.Text = this.DetailProductViewModel.Name;
 
-            txtBlockLastUpdateDate.Text = this.DetailProductViewModel.ProductModel.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection).Max(w => w.InsertDateTime).ToString("yyyy/MM/dd");
+            RadiantClientProductHistoryModel[] _ProductHistoryCollection = this.DetailProductViewModel.ProductModel.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection).ToArray();
+
+            if (_ProductHistoryCollection.Any())
+                txtBlockLastUpdateDate.Text = this.DetailProductViewModel.ProductModel.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection).Max(w => w.InsertDateTime).ToString("yyyy/MM/dd");
+            else
+                txtBlockLastUpdateDate.Text = "No data yet.";
 
             CartesianMapper<AxisPoint> _DayConfig = Mappers.Xy<AxisPoint>().X(x => x.DateTime.Ticks / TimeSpan.FromDays(1).Ticks).Y(y => y.Value);
             SeriesCollection _SeriesCollection = new(_DayConfig);

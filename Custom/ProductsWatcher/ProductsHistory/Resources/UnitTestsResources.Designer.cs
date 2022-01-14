@@ -19,7 +19,7 @@ namespace Radiant.Custom.ProductsHistory.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class UnitTestsResources {
@@ -108,6 +108,15 @@ namespace Radiant.Custom.ProductsHistory.Resources {
         internal static string Amazon_Product3_SourceCode {
             get {
                 return ResourceManager.GetString("Amazon_Product3_SourceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;body class=&quot;a-aui_72554-c a-aui_accordion_a11y_role_354025-c a-aui_killswitch_csa_logger_372963-c a-aui_launch_2021_ally_fixes_392482-c a-aui_pci_risk_banner_210084-c a-aui_preload_261698-c a-aui_rel_noreferrer_noopener_309527-c a-aui_template_weblab_cache_333406-c a-aui_tnr_v2_180836-c a-meter-animate&quot;&gt;&lt;div id=&quot;ap_container&quot;&gt;&lt;/div&gt;&lt;iframe tabindex=&quot;-1&quot; src=&quot;javascript:void(false)&quot; style=&quot;display:none;position:absolute;z-index:0;filter:Alpha(Opacity=&apos;0&apos;);opacity:0;&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&lt;iframe tabinde [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Amazon_Product4_SourceCode {
+            get {
+                return ResourceManager.GetString("Amazon_Product4_SourceCode", resourceCulture);
             }
         }
         
