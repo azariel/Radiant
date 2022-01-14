@@ -127,6 +127,9 @@
   <data name="Amazon_Product3_SourceCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>amazon_product3_sourcecode.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="Amazon_Product4_SourceCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>amazon_product4_sourcecode.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="BestBuy_Product1_SourceCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>bestbuy_product1_sourcecode.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

@@ -44,6 +44,24 @@
     {
       "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
       "ParserItemTarget": "Price",
+      "IfUrlContains": "amazon.c",
+      "Condition": null,
+      "RegexPattern": "priceAmount\":(.*?),",
+      "SubParserToExecuteOnTargetValue": {
+        "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
+        "IfUrlContains": "amazon.c",
+        "Condition": null,
+        "RegexPattern": "[\\d,]+\\.\\d+",
+        "SubParserToExecuteOnTargetValue": null,
+        "Target": "Value",
+        "UID": "0c263b7c-a445-4b9b-ad74-b56d3c1d5711"
+      },
+      "Target": "group1value",
+      "UID": "e03df465-1bdd-4930-86d3-47b3ae4a1f6d"
+    },
+    {
+      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "ParserItemTarget": "Price",
       "IfUrlContains": "newegg.c",
       "Condition": null,
       "RegexPattern": "\\\"price\\\":\\\"(.*?)[\\\"|,]",
