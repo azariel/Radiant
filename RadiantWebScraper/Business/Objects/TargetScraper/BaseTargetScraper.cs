@@ -44,7 +44,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         {
             try
             {
-                using var _Bitmap = new Bitmap(1920, 1080, PixelFormat.Format32bppArgb);
+                using var _Bitmap = new Bitmap(1920, 1080, PixelFormat.Format32bppArgb);// TODO: get screen size dynamically
                 using Graphics _Graphics = Graphics.FromImage(_Bitmap);
 
                 _Graphics.CopyFromScreen(0, 0, 0, 0, _Bitmap.Size, CopyPixelOperation.SourceCopy);
