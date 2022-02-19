@@ -139,7 +139,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             if (this.Information.Price.HasValue)
             {
-                LoggingManager.LogToFile("87278768-40EA-4B01-AC63-8C1E2331AC4D", "Product price was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                LoggingManager.LogToFile("87278768-40EA-4B01-AC63-8C1E2331AC4D", $"Product price [{this.Information.Price}] was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
                 return;
             }
 
@@ -192,9 +192,9 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
         private void HandleFailureProcess()
         {
-            LoggingManager.LogToFile("9C0FE4DD-408C-4F5A-A716-A9D7CF23D729", $"Couldn't fetch price on Url [{fUrl}].");
-
-            WriteProductInformationToErrorFolder();
+            string _ErrorMessage = $"Couldn't fetch price on Url [{fUrl}].";
+            LoggingManager.LogToFile("9C0FE4DD-408C-4F5A-A716-A9D7CF23D729", _ErrorMessage);
+            WriteProductInformationToErrorFolder(_ErrorMessage);
 
             CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched. Will retry on {TAG_NEXT_FETCH_DATETIME}.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
         }
@@ -452,7 +452,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             return _TotalAmount;
         }
 
-        private void WriteProductInformationToErrorFolder()
+        private void WriteProductInformationToErrorFolder(string aErrorMessage)
         {
             try
             {
@@ -483,7 +483,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 File.WriteAllText(Path.Combine(_RootFolder, $"{_Now:_FileFormat}-INFO.txt"),
                     @$"Url: {fUrl}{Environment.NewLine}
 OneOrMoreStepFailedAndRequiredAFallback: {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}
-this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}
+this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}{aErrorMessage}{Environment.NewLine}
 ");
             }
             catch (Exception _Ex)
@@ -532,10 +532,14 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
 
             if (this.OneOrMoreStepFailedAndRequiredAFallback || (_Price.HasValue && Math.Abs(this.Information.Price.Value - _Price.Value) >= 0.01))
             {
-                LoggingManager.LogToFile("3D62E30F-4D4D-4A64-8EC7-09C060D7D4AF", $"Error. Price fetched from scrapper [{this.Information.Price}] is different from price fetched from DOM parser [{_Price}]. One of those prices is probably the right one, but this will be ignored as the configuration is obviously incorrect.");
+                string _ErrorMessage = $"Error. Price fetched from scrapper [{this.Information.Price}] is different from price fetched from DOM parser [{_Price}]. Price [{_Price}] will be considered as the right one. Abs Diff was [{Math.Abs(this.Information.Price.Value - _Price ?? 0)}].";
+                LoggingManager.LogToFile("3D62E30F-4D4D-4A64-8EC7-09C060D7D4AF", _ErrorMessage);
 
-                WriteProductInformationToErrorFolder();
-                CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price.Value}</p><p>_Price.Value(by DOM only)={_Price}</p><p>Shipping Cost: {this.Information.ShippingCost}</p>");
+                // We consider DOM parser better than manual steps that can fail more easily. Ex: Amazon price could be $299.99 without "Price: " and we mismatch the next "Price: 314.14" we found. True case = https://www.amazon.ca/ADAM-Audio-Two-Way-Nearfield-Monitor/dp/B07B6JXBZH
+                this.Information.Price = _Price;
+
+                WriteProductInformationToErrorFolder(_ErrorMessage);
+                CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price}</p><p>_Price.Value(by DOM only)={_Price}</p><p>Shipping Cost: {this.Information.ShippingCost}</p>");
             }
         }
 

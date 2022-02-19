@@ -39,7 +39,7 @@
                     {
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
                         "BlackOutTimeFrame": null,
-                        "TriggerEveryXSeconds": 10
+                        "TriggerEveryXSeconds": 3600
                     }
                 ]
             }
