@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RadiantCommon\RadiantCommon.csproj" />
+    <ProjectReference Include="..\..\..\..\RadiantCommon\RadiantCommon.csproj" />
   </ItemGroup>
 
   <ItemGroup>
