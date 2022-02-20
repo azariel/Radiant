@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
 using Radiant.Notifier.Configuration;
 using Radiant.Notifier.DataBase;
@@ -14,6 +15,25 @@ namespace Radiant.Notifier
         // ********************************************************************
         //                            Private
         // ********************************************************************
+        private static void HandleNotificationFailure(RadiantNotificationModel aRadiantNotificationModel)
+        {
+            if (aRadiantNotificationModel == null)
+                return;
+
+            // Timeout notification for an hour TODO: make this configurable ?
+            aRadiantNotificationModel.MinimalDateTimetoSend = DateTime.Now.AddHours(value: 1);
+
+            LoggingManager.LogToFile("0FBFDBD8-DE63-4CBA-9561-C4C52560A189", $"Failed to send notification ID [{aRadiantNotificationModel.NotificationId}]. This notification will be re-queued.");
+        }
+
+        private static void HandleNotificationSuccess(RadiantNotificationModel aRadiantNotificationModel)
+        {
+            if (aRadiantNotificationModel == null)
+                return;
+
+            aRadiantNotificationModel.Sent = true;
+        }
+
         private static bool SendMailNotification(RadiantNotificationModel aRadiantNotificationModel)
         {
             MailRequest _MailRequest = new()
@@ -21,7 +41,14 @@ namespace Radiant.Notifier
                 Subject = aRadiantNotificationModel.Subject,
                 Body = aRadiantNotificationModel.Content,
                 ToAddresses = aRadiantNotificationModel.EmailTo.Distinct().ToList(),
-                EmailFrom = aRadiantNotificationModel.EmailFrom
+                EmailFrom = aRadiantNotificationModel.EmailFrom,
+                Attachments = aRadiantNotificationModel.Attachments.Select(s => new MailRequestAttachment
+                {
+                    FileName = s.FileName,
+                    Content = s.Content,
+                    MediaType = s.MediaType,
+                    MediaSubType = s.MediaSubType
+                }).ToList()
             };
 
             return new RadiantEmailNotification().Send(_MailRequest);
@@ -41,25 +68,6 @@ namespace Radiant.Notifier
             }
         }
 
-        private static void HandleNotificationFailure(RadiantNotificationModel aRadiantNotificationModel)
-        {
-            if (aRadiantNotificationModel == null)
-                return;
-
-            // Timeout notification for an hour TODO: make this configurable ?
-            aRadiantNotificationModel.MinimalDateTimetoSend = DateTime.Now.AddHours(1);
-
-            LoggingManager.LogToFile("0FBFDBD8-DE63-4CBA-9561-C4C52560A189", $"Failed to send notification ID [{aRadiantNotificationModel.NotificationId}]. This notification will be re-queued.");
-        }
-
-        private static void HandleNotificationSuccess(RadiantNotificationModel aRadiantNotificationModel)
-        {
-            if (aRadiantNotificationModel == null)
-                return;
-
-            aRadiantNotificationModel.Sent = true;
-        }
-
         // ********************************************************************
         //                            Public
         // ********************************************************************
@@ -69,6 +77,8 @@ namespace Radiant.Notifier
         public static void EvaluateNotificationsInStorage()
         {
             using NotificationsDbContext _DbContext = new();
+            _DbContext.Notifications.Load();
+            _DbContext.NotificationAttachments.Load();
 
             var _Now = DateTime.Now;
             foreach (RadiantNotificationModel _NotificationToSend in _DbContext.Notifications.Where(w => !w.Sent && w.MinimalDateTimetoSend < _Now))
@@ -99,7 +109,7 @@ namespace Radiant.Notifier
                         return;
                     } catch (Exception)
                     {
-                        Thread.Sleep(100);
+                        Thread.Sleep(millisecondsTimeout: 100);
                     }
 
                     ++_RetryCounter;
