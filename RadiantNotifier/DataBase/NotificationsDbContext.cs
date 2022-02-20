@@ -46,5 +46,6 @@ namespace Radiant.Notifier.DataBase
         //                            Properties
         // ********************************************************************
         public DbSet<RadiantNotificationModel> Notifications { get; set; }
+        public DbSet<RadiantNotificationAttachmentModel> NotificationAttachments { get; set; }
     }
 }

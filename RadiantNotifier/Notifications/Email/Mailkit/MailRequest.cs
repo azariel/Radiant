@@ -7,7 +7,7 @@ namespace Radiant.Notifier.Notifications.Email.Mailkit
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public List<byte[]> Attachments { get; set; }
+        public List<MailRequestAttachment> Attachments { get; set; }
         public string Body { get; set; }
         public string Subject { get; set; }
         public List<string> ToAddresses { get; set; }

@@ -20,16 +20,18 @@ namespace Radiant.Notifier.DataBase
         // ********************************************************************
         //                            Properties
         // ********************************************************************
+        public virtual List<RadiantNotificationAttachmentModel> Attachments { get; set; } = new();
+
         [Required]
-        [MaxLength(4096)]
+        [MaxLength(length: 4096)]
         public string Content { get; set; } = "";
 
         [Required]
-        [MaxLength(255)]
+        [MaxLength(length: 255)]
         public string EmailFrom { get; set; } = "Radiant Notifier Module";
 
         [Required]
-        [MaxLength(2048)]
+        [MaxLength(length: 2048)]
         public List<string> EmailTo { get; set; } = new();
 
         [Required]
@@ -45,7 +47,7 @@ namespace Radiant.Notifier.DataBase
         public bool Sent { get; set; } = false;
 
         [Required]
-        [MaxLength(255)]
+        [MaxLength(length: 255)]
         public string Subject { get; set; } = "";
     }
 }

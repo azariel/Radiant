@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Business;
@@ -42,22 +43,51 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             {
                 string _Content = $"<p>Url: {fUrl}</p>{Environment.NewLine}{aCustomContent}";
 
-                // TODO: send notification ? with screenshot and DOM
                 RadiantNotificationModel _NewNotification = new()
                 {
                     Content = _Content,
                     Subject = "Error couldn't fetch product information",
                     EmailFrom = "Radiant Product History",
                     MinimalDateTimetoSend = DateTime.Now
-                    // TODO: attachments = Screenshot + DOM
                 };
+
+                // Attachments
+                string _UniqueIdentifier = Guid.NewGuid().ToString();
+
+                // Screenshot attachment
+                if (this.Screenshot != null && this.Screenshot.Length > 0)
+                {
+                    _NewNotification.Attachments.Add(new()
+                    {
+                        Content = this.Screenshot,
+                        NotificationId = _NewNotification.NotificationId,
+                        FileName = $"Screenshot_{_UniqueIdentifier}.png",
+                        MediaType = "image",
+                        MediaSubType = "png"
+                    });
+                }
+
+                // DOM attachment
+                if (!string.IsNullOrWhiteSpace(this.DOM))
+                {
+                    _NewNotification.Attachments.Add(new()
+                    {
+                        Content = Encoding.ASCII.GetBytes(this.DOM),
+                        NotificationId = _NewNotification.NotificationId,
+                        FileName = $"DOM_{_UniqueIdentifier}.txt",
+                        MediaType = "text",
+                        MediaSubType = ""
+                    });
+                }
 
                 // Add all subscribed users email to notification EmailTo
                 using ServerProductsDbContext _ProductDbContext = new();
                 _ProductDbContext.Users.Load();
 
                 // Notify all Admins
-                _NewNotification.EmailTo.AddRange(_ProductDbContext.Users.Where(w => w.Type == RadiantUserModel.UserType.Admin).Select(s => s.Email));
+                IEnumerable<string> _Emails = _ProductDbContext.Users.Where(w => w.Type == RadiantUserModel.UserType.Admin).Select(s => s.Email).ToList().Distinct();
+                
+                _NewNotification.EmailTo.AddRange(_Emails);
 
                 if (_NewNotification.EmailTo.Count <= 0)
                 {
@@ -68,8 +98,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 using NotificationsDbContext _NotificationDbContext = new();
                 _NotificationDbContext.Notifications.Add(_NewNotification);
                 _NotificationDbContext.SaveChanges();
-            }
-            catch (Exception _Ex)
+            } catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("A1273815-7729-41E3-B4C6-94979F9908E9", $"Couldn't create notification on {nameof(ProductTargetScraper)} fetch failure.", _Ex);
             }
@@ -279,8 +308,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     if (_Price.HasValue)
                         return _Price;
                 }
-            }
-            catch (Exception _Ex)
+            } catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("FA210BC6-9321-422A-9378-4874AB53F241", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
@@ -442,8 +470,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                     if (_Amount.HasValue)
                         _TotalAmount += _Amount.Value;
                 }
-            }
-            catch (Exception _Ex)
+            } catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("D17DCA12-0872-4F45-AB00-120259233C8F", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
@@ -485,8 +512,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 OneOrMoreStepFailedAndRequiredAFallback: {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}
 this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}{aErrorMessage}{Environment.NewLine}
 ");
-            }
-            catch (Exception _Ex)
+            } catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
             }
@@ -535,11 +561,12 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
                 string _ErrorMessage = $"Error. Price fetched from scrapper [{this.Information.Price}] is different from price fetched from DOM parser [{_Price}]. Price [{_Price}] will be considered as the right one. Abs Diff was [{Math.Abs(this.Information.Price.Value - _Price ?? 0)}].";
                 LoggingManager.LogToFile("3D62E30F-4D4D-4A64-8EC7-09C060D7D4AF", _ErrorMessage);
 
+                CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price}</p><p>_Price.Value(by DOM only)={_Price}</p><p>Shipping Cost: {this.Information.ShippingCost}</p>");
+
                 // We consider DOM parser better than manual steps that can fail more easily. Ex: Amazon price could be $299.99 without "Price: " and we mismatch the next "Price: 314.14" we found. True case = https://www.amazon.ca/ADAM-Audio-Two-Way-Nearfield-Monitor/dp/B07B6JXBZH
                 this.Information.Price = _Price;
 
                 WriteProductInformationToErrorFolder(_ErrorMessage);
-                CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price}</p><p>_Price.Value(by DOM only)={_Price}</p><p>Shipping Cost: {this.Information.ShippingCost}</p>");
             }
         }
 
