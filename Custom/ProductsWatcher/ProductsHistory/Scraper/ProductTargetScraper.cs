@@ -225,7 +225,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             LoggingManager.LogToFile("9C0FE4DD-408C-4F5A-A716-A9D7CF23D729", _ErrorMessage);
             WriteProductInformationToErrorFolder(_ErrorMessage);
 
-            CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched. Will retry on {TAG_NEXT_FETCH_DATETIME}.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
+            CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
         }
 
         private void TryFetchProductDiscountByDOM(ProductParserItemTarget aProductParserItemTarget)
