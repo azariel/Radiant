@@ -68,17 +68,17 @@ namespace Radiant.Custom.ProductsHistory.Scraper
                 }
 
                 // DOM attachment
-                if (!string.IsNullOrWhiteSpace(this.DOM))
-                {
-                    _NewNotification.Attachments.Add(new()
-                    {
-                        Content = Encoding.ASCII.GetBytes(this.DOM),
-                        NotificationId = _NewNotification.NotificationId,
-                        FileName = $"DOM_{_UniqueIdentifier}.txt",
-                        MediaType = "text",
-                        MediaSubType = ""
-                    });
-                }
+                //if (!string.IsNullOrWhiteSpace(this.DOM))
+                //{
+                //    _NewNotification.Attachments.Add(new()
+                //    {
+                //        Content = Encoding.ASCII.GetBytes(this.DOM),
+                //        NotificationId = _NewNotification.NotificationId,
+                //        FileName = $"DOM_{_UniqueIdentifier}.txt",
+                //        MediaType = "text",
+                //        MediaSubType = ""
+                //    });
+                //}
 
                 // Add all subscribed users email to notification EmailTo
                 using ServerProductsDbContext _ProductDbContext = new();
