@@ -225,7 +225,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
             LoggingManager.LogToFile("9C0FE4DD-408C-4F5A-A716-A9D7CF23D729", _ErrorMessage);
             WriteProductInformationToErrorFolder(_ErrorMessage);
 
-            CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched. Will retry on {TAG_NEXT_FETCH_DATETIME}.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
+            CreateErrorNotificationForAdministration("<p>Product price couldn't be fetched.</p><p>Check DOM and screenshot saved on Server disk for more info.</p>");
         }
 
         private void TryFetchProductDiscountByDOM(ProductParserItemTarget aProductParserItemTarget)
@@ -561,7 +561,7 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
                 string _ErrorMessage = $"Error. Price fetched from scrapper [{this.Information.Price}] is different from price fetched from DOM parser [{_Price}]. Price [{_Price}] will be considered as the right one. Abs Diff was [{Math.Abs(this.Information.Price.Value - _Price ?? 0)}].";
                 LoggingManager.LogToFile("3D62E30F-4D4D-4A64-8EC7-09C060D7D4AF", _ErrorMessage);
 
-                CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price}</p><p>_Price.Value(by DOM only)={_Price}</p><p>Shipping Cost: {this.Information.ShippingCost}</p>");
+                CreateErrorNotificationForAdministration($"<p>The price fetched was different from DOM parser price fetched.</p><p>this.OneOrMoreStepFailedAndRequiredAFallback = {this.OneOrMoreStepFailedAndRequiredAFallback}</p><p>_Price.HasValue={_Price.HasValue}</p><p>this.Information.Price.Value={this.Information.Price}</p><p>_Price.Value(by DOM only)={_Price}</p><p>Shipping Cost: {this.Information.ShippingCost}</p><p>Assuming product price is {_Price}. If it's not, please update database accordingly.</p>");
 
                 // We consider DOM parser better than manual steps that can fail more easily. Ex: Amazon price could be $299.99 without "Price: " and we mismatch the next "Price: 314.14" we found. True case = https://www.amazon.ca/ADAM-Audio-Two-Way-Nearfield-Monitor/dp/B07B6JXBZH
                 this.Information.Price = _Price;
