@@ -8,14 +8,14 @@ using Radiant.Common.Diagnostics;
 using Radiant.Common.Utils;
 using Radiant.WebScraper.Helpers;
 using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers.Manual;
+using Radiant.WebScraper.Scrapers;
 
-namespace Radiant.WebScraper.Business.Objects.TargetScraper
+namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
 {
     /// <summary>
     /// Base implementation with several helping scrap functions
     /// </summary>
-    public abstract class BaseTargetScraper : IScraperTarget
+    public abstract class ManualBaseTargetScraper : IScraperTarget
     {
         // ********************************************************************
         //                            Nested
@@ -28,9 +28,9 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         //                            Constructors
         // ********************************************************************
-        public BaseTargetScraper() { }
+        public ManualBaseTargetScraper() { }
 
-        public BaseTargetScraper(TargetScraperCoreOptions aOptions)
+        public ManualBaseTargetScraper(TargetScraperCoreOptions aOptions)
         {
             fOptions = aOptions;
         }
@@ -71,7 +71,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         //                            Protected
         // ********************************************************************
         protected bool fAllowManualOperations;
-        protected SupportedBrowser? fBrowser;
+        protected Browser? fBrowser;
         protected string fUrl;
 
         protected void WaitForBrowserInputsReadyOrMax(int aMinMsToWait, int aMaxMsToWait = 60000)
@@ -82,7 +82,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public virtual void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
+        public virtual void Evaluate(Browser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<IScraperItemParser> aScraperItemsParser, List<DOMParserItem> aDOMParserItems)
         {
             Thread.Sleep(5000);
 

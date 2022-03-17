@@ -9,7 +9,7 @@ namespace Radiant.WebScraper.Helpers
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static Process[] GetProcessesAssociatedWithBrowser(SupportedBrowser aBrowserToKill)
+        public static Process[] GetProcessesAssociatedWithBrowser(Browser aBrowserToKill)
         {
             var _Processes = Process.GetProcesses().Where(w => string.Equals(w.ProcessName, aBrowserToKill.ToString(), StringComparison.InvariantCultureIgnoreCase)).ToArray();
 

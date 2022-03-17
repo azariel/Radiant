@@ -79,7 +79,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
             ProductTargetScraper _ProductScraper = new ProductTargetScraper();
 
             // Assert that it doesn't crash
-            _ManualScraper.GetTargetValueFromUrl(SupportedBrowser.Firefox, "www.perdu.com", _ProductScraper, new List<ManualScraperItemParser> { _ItemParserWithCondition }, null);
+            _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, "www.perdu.com", _ProductScraper, new List<ManualScraperItemParser> { _ItemParserWithCondition }, null);
         }
     }
 }

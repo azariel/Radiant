@@ -16,13 +16,14 @@ using Radiant.Custom.ProductsHistoryCommon.DataBase;
 using Radiant.Notifier.DataBase;
 using Radiant.WebScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
+using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
 using Radiant.WebScraper.Parsers.DOM;
 using Radiant.WebScraper.Scrapers.Manual;
 using RadiantInputsManager;
 
 namespace Radiant.Custom.ProductsHistory.Scraper
 {
-    public class ProductTargetScraper : DOMTargetScraper, IScraperTarget
+    public class ProductTargetScraper : ManualDOMTargetScraper, IScraperTarget
     {
         // ********************************************************************
         //                            Constructors
@@ -521,7 +522,7 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
+        public override void Evaluate(Browser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
             fDOMParserItems = aDOMParserItems?.OfType<ProductDOMParserItem>().ToList() ?? new List<ProductDOMParserItem>();
             fManualScraperItems = aManualScraperItems?.OfType<ManualScraperProductParser>().Where(w => aUrl.ToLowerInvariant().Contains(w.IfUrlContains.ToLowerInvariant())).ToList() ?? new List<ManualScraperProductParser>();

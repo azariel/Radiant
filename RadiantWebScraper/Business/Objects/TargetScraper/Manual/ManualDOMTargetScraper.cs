@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers.Manual;
+using Radiant.WebScraper.Scrapers;
 using RadiantInputsManager;
 using RadiantInputsManager.InputsParam;
 
-namespace Radiant.WebScraper.Business.Objects.TargetScraper
+namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
 {
     /// <summary>
     /// Define how to get DOM from scraper
     /// </summary>
-    public class DOMTargetScraper : BaseTargetScraper, IScraperTarget
+    public class ManualDOMTargetScraper : ManualBaseTargetScraper, IScraperTarget
     {
         // ********************************************************************
         //                            Constructors
         // ********************************************************************
-        public DOMTargetScraper() { }
+        public ManualDOMTargetScraper() { }
 
-        public DOMTargetScraper(TargetScraperCoreOptions aOptions) : base(aOptions) { }
+        public ManualDOMTargetScraper(TargetScraperCoreOptions aOptions) : base(aOptions) { }
 
         // ********************************************************************
         //                            Private
@@ -136,9 +136,9 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public override void Evaluate(SupportedBrowser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
+        public override void Evaluate(Browser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<IScraperItemParser> aScraperItemsParser, List<DOMParserItem> aDOMParserItems)
         {
-            base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations, aManualScraperItems, aDOMParserItems);
+            base.Evaluate(aSupportedBrowser, aUrl, aAllowManualOperations, aScraperItemsParser, aDOMParserItems);
 
             if (aAllowManualOperations)
             {

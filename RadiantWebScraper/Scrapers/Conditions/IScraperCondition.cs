@@ -5,6 +5,6 @@
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public bool Evaluate(SupportedBrowser? aBrowser);
+        public bool Evaluate(Browser? aBrowser);
     }
 }
