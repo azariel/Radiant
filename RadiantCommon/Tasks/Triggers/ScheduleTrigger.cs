@@ -33,7 +33,21 @@ namespace Radiant.Common.Tasks.Triggers
             if (this.BlackOutTimeFrame == null)
                 return false;
 
-            return aNow.TimeOfDay > this.BlackOutTimeFrame.BlackOutStart && aNow.TimeOfDay < this.BlackOutTimeFrame.BlackOutEnd;
+            double _BlackOutStartNbSeconds = this.BlackOutTimeFrame.BlackOutStart.TotalSeconds;
+            double _BlackOutEndNbSeconds = this.BlackOutTimeFrame.BlackOutEnd.TotalSeconds;
+            double _NowTotalSeconds = aNow.TimeOfDay.TotalSeconds;
+
+            if (_BlackOutStartNbSeconds < _BlackOutEndNbSeconds)
+            {
+                // ex: 00h00 to 23h59
+                return _BlackOutStartNbSeconds < _NowTotalSeconds && _BlackOutEndNbSeconds > _NowTotalSeconds;
+            }
+
+            // temporary
+            throw new Exception("ccda1e5d-5cca-471b-9017-535807a5d91d_unhandled");
+
+            // ex: 23h30 to 04h30
+            //return _BlackOutStartNbSeconds > _NowTotalSeconds && _BlackOutEndNbSeconds < _NowTotalSeconds;
         }
 
         // ********************************************************************

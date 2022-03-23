@@ -15,6 +15,7 @@ using Radiant.WebScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
 using Radiant.WebScraper.Parsers.DOM;
+using Radiant.WebScraper.Scrapers;
 using Radiant.WebScraper.Scrapers.Manual;
 
 namespace Radiant.Custom.ProductsHistory.Tasks
@@ -177,7 +178,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             ManualScraper _ManualScraper = new();
             ProductTargetScraper _ProductScraper = new(ManualBaseTargetScraper.TargetScraperCoreOptions.Screenshot);
             ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
-            List<ManualScraperItemParser> _ManualScrapers = _Config.ManualScraperSequenceItems.Select(s => (ManualScraperItemParser)s).ToList();
+            List<IScraperItemParser> _ManualScrapers = _Config.ManualScraperSequenceItems.Select(s => (IScraperItemParser)s).ToList();
             List<DOMParserItem> _DomParsers = _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList();
 
             _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, aProductDefinition.Url, _ProductScraper, _ManualScrapers, _DomParsers);

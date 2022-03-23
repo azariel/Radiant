@@ -5,6 +5,7 @@
         // ********************************************************************
         //                            Properties
         // ********************************************************************
+        //public AutonomousDriversConfig AutonomousDriversConfig { get; set; }
         public string ExecutablePath { get; set; }
         public string LinuxCommand { get; set; }
         public int NbMsToWaitOnBrowserStart { get; set; } = 10000;

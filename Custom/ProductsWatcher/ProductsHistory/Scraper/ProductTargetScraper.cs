@@ -18,6 +18,7 @@ using Radiant.WebScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
 using Radiant.WebScraper.Parsers.DOM;
+using Radiant.WebScraper.Scrapers;
 using Radiant.WebScraper.Scrapers.Manual;
 using RadiantInputsManager;
 
@@ -522,7 +523,7 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public override void Evaluate(Browser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
+        public override void Evaluate(Browser aSupportedBrowser, string aUrl, bool aAllowManualOperations, List<IScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
             fDOMParserItems = aDOMParserItems?.OfType<ProductDOMParserItem>().ToList() ?? new List<ProductDOMParserItem>();
             fManualScraperItems = aManualScraperItems?.OfType<ManualScraperProductParser>().Where(w => aUrl.ToLowerInvariant().Contains(w.IfUrlContains.ToLowerInvariant())).ToList() ?? new List<ManualScraperProductParser>();

@@ -5,6 +5,7 @@ using Radiant.Common.Serialization;
 using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.Custom.ProductsHistory.Scraper;
 using Radiant.WebScraper;
+using Radiant.WebScraper.Scrapers;
 using Radiant.WebScraper.Scrapers.Conditions;
 using Radiant.WebScraper.Scrapers.Manual;
 using RadiantInputsManager;
@@ -79,7 +80,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
             ProductTargetScraper _ProductScraper = new ProductTargetScraper();
 
             // Assert that it doesn't crash
-            _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, "www.perdu.com", _ProductScraper, new List<ManualScraperItemParser> { _ItemParserWithCondition }, null);
+            _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, "www.perdu.com", _ProductScraper, new List<IScraperItemParser> { _ItemParserWithCondition }, null);
         }
     }
 }
