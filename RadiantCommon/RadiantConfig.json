@@ -58,6 +58,19 @@
             "TriggerEveryXSeconds": 10
           }
         ]
+      },
+      {
+        "$type": "RadiantReader.Tasks.UpdateAvailableBooksTask, RadiantReader",
+        "IsEnabled": false,
+        "UID": "63043528-6cd9-4c01-9ff1-03307f3b3176",
+        "Triggers": [
+          {
+            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+            "BlackOutEnd": "07:00:00",
+            "BlackOutStart": "06:00:00",
+            "TriggerEveryXSeconds": 5
+          }
+        ]
       }
     ]
   }

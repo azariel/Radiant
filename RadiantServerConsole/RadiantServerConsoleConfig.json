@@ -1,7 +1,8 @@
 {
     "$type": "Radiant.ServerConsole.Configuration.RadiantServerConsoleConfiguration, RadiantServerConsole",
-    "DependentLibraries": [
-        "ProductsHistory.dll",
-        "Radiant.Notifier.dll"
-    ]
+  "DependentLibraries": [
+    "ProductsHistory.dll",
+    "Radiant.Notifier.dll",
+    "RadiantReader.dll"
+  ]
 }
