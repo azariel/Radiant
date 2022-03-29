@@ -22,14 +22,6 @@ namespace RadiantReader.Tasks
             // Load all DataBase
             List<RadiantReaderHostModel> _HostBooks = StorageManager.LoadBooks(true);
 
-            //ManualScraper _ManualScraper = new();
-            //ProductTargetScraper _ProductScraper = new(ManualBaseTargetScraper.TargetScraperCoreOptions.Screenshot);
-            //ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
-            //List<IScraperItemParser> _ManualScrapers = _Config.ManualScraperSequenceItems.Select(s => (IScraperItemParser)s).ToList();
-            //List<DOMParserItem> _DomParsers = _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList();
-
-            //_ManualScraper.GetTargetValueFromUrl(Browser.Firefox, aProductDefinition.Url, _ProductScraper, _ManualScrapers, _DomParsers);
-
             SeleniumScraper _Scraper = new SeleniumScraper();
             SeleniumDOMTargetScraper _DOMTargetScraper = new SeleniumDOMTargetScraper();
 
