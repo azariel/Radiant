@@ -27,6 +27,7 @@
     <ProjectReference Include="..\..\..\RadiantCommon\RadiantCommon.csproj" />
     <ProjectReference Include="..\..\..\RadiantNotifier\RadiantNotifier.csproj" />
     <ProjectReference Include="..\..\..\RadiantWebScraper\RadiantWebScraper.csproj" />
+    <ProjectReference Include="..\..\..\WebScraper\RadiantWebScraper\RadiantWebScraper.csproj" />
     <ProjectReference Include="..\ProductsHistoryCommon\ProductsHistoryCommon.csproj" />
   </ItemGroup>
 
@@ -55,11 +56,11 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)\ProductsRemoteServiceKeys.json&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\ProductsRemoteServiceKeys.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\ProductsHistory.dll&quot;" />
+    <Exec Command="copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)\ProductsRemoteServiceKeys.json&quot; &quot;C:\Dev\RadiantCore\RadiantServerConsole\bin\Debug\ProductsRemoteServiceKeys.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;..\..\..\RadiantServerConsole\bin\Debug\ProductsHistory.dll&quot;" />
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="copy /Y &quot;C:\Dev\RadiantCore\RadiantWebScraper\bin\Debug\RadiantWebScrapersConfig.json&quot; &quot;C:\Dev\RadiantCore\Custom\ProductsWatcher\ProductsHistory\bin\Debug\RadiantWebScrapersConfig.json&quot;" />
+    <Exec Command="copy /Y &quot;..\..\..\WebScraper\RadiantWebScraper\bin\Debug\RadiantWebScrapersConfig.json&quot; &quot;.\bin\Debug\RadiantWebScrapersConfig.json&quot;" />
   </Target>
 
 </Project>
