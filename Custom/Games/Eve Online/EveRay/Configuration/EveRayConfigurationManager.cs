@@ -13,14 +13,14 @@ namespace EveRay.Configuration
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private static EveRayConfiguration fProductsHistoryConfiguration;
+        private static EveRayConfiguration fEveRayConfiguration;
 
         // ********************************************************************
         //                            Public
         // ********************************************************************
         public static EveRayConfiguration GetConfigFromMemory()
         {
-            return fProductsHistoryConfiguration ?? ReloadConfig();
+            return fEveRayConfiguration ?? ReloadConfig();
         }
 
         public static EveRayConfiguration ReloadConfig()
@@ -30,22 +30,22 @@ namespace EveRay.Configuration
                 SaveConfigInMemoryToDisk();
 
             string _ConfigFileContent = File.ReadAllText(EVE_RAY_CONFIG_FILE_NAME);
-            fProductsHistoryConfiguration = JsonCommonSerializer.DeserializeFromString<EveRayConfiguration>(_ConfigFileContent);
-            return fProductsHistoryConfiguration;
+            fEveRayConfiguration = JsonCommonSerializer.DeserializeFromString<EveRayConfiguration>(_ConfigFileContent);
+            return fEveRayConfiguration;
         }
 
         public static void SaveConfigInMemoryToDisk()
         {
-            if (fProductsHistoryConfiguration == null)
-                fProductsHistoryConfiguration = new EveRayConfiguration();
+            if (fEveRayConfiguration == null)
+                fEveRayConfiguration = new EveRayConfiguration();
 
-            string _SerializedConfig = JsonCommonSerializer.SerializeToString(fProductsHistoryConfiguration);
+            string _SerializedConfig = JsonCommonSerializer.SerializeToString(fEveRayConfiguration);
             File.WriteAllText(EVE_RAY_CONFIG_FILE_NAME, _SerializedConfig);
         }
 
         public static void SetConfigInMemory(EveRayConfiguration aProductsHistoryConfiguration)
         {
-            fProductsHistoryConfiguration = aProductsHistoryConfiguration;
+            fEveRayConfiguration = aProductsHistoryConfiguration;
         }
     }
 }

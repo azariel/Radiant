@@ -3,7 +3,7 @@ using Radiant.WebScraper.Scrapers.Conditions;
 
 namespace Radiant.WebScraper.Scrapers.Manual
 {
-    public class ManualScraperItemParser
+    public class ManualScraperItemParser : IScraperItemParser
     {
         // ********************************************************************
         //                            Properties

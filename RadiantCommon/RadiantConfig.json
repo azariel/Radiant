@@ -1,48 +1,77 @@
 {
-    "$type": "Radiant.Common.Configuration.RadiantConfig, Radiant.Common",
-    "Tasks": {
-        "$type": "Radiant.Common.Configuration.RadiantTasksConfig, Radiant.Common",
-        "Tasks": [
-            {
-                "$type": "Radiant.Custom.ProductsHistory.Tasks.ProductsMonitorTask, ProductsHistory",
-                "IsEnabled": true,
-                "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
-                "Triggers": [
-                    {
-                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "BlackOutTimeFrame": {
-                            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-                            "BlackOutEnd": "00:21:00",
-                            "BlackOutStart": "00:03:00"
-                        },
-                        "TriggerEveryXSeconds": 300
-                    }
-                ]
+  "$type": "Radiant.Common.Configuration.RadiantConfig, Radiant.Common",
+  "Tasks": {
+    "$type": "Radiant.Common.Configuration.RadiantTasksConfig, Radiant.Common",
+    "Tasks": [
+      {
+        "$type": "Radiant.Custom.ProductsHistory.Tasks.ProductsMonitorTask, ProductsHistory",
+        "IsEnabled": true,
+        "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
+        "Triggers": [
+          {
+            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+            "BlackOutTimeFrame": {
+              "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
+              "BlackOutEnd": "19:00:00",
+              "BlackOutStart": "08:00:00"
             },
-            {
-                "$type": "Radiant.Notifier.Tasks.NotificationsMonitorTask, Radiant.Notifier",
-                "IsEnabled": true,
-                "UID": "10c7195d-8a4d-4eed-9b04-8c8362928702",
-                "Triggers": [
-                    {
-                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "TriggerEveryXSeconds": 300,
-                        "UID": "f2dc3da0-6999-4e61-bf92-5e7e2c79c2af"
-                    }
-                ]
-            },
-            {
-                "$type": "Radiant.Custom.ProductsHistory.Tasks.UpdateRemoteProductsDatabase, ProductsHistory",
-                "IsEnabled": true,
-                "UID": "7d879255-c739-41b2-9e9a-a0836e82a8d4",
-                "Triggers": [
-                    {
-                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "BlackOutTimeFrame": null,
-                        "TriggerEveryXSeconds": 3600
-                    }
-                ]
-            }
+            "TriggerEveryXSeconds": 300
+          }
         ]
-    }
+      },
+      {
+        "$type": "Radiant.Notifier.Tasks.NotificationsMonitorTask, Radiant.Notifier",
+        "IsEnabled": true,
+        "UID": "10c7195d-8a4d-4eed-9b04-8c8362928702",
+        "Triggers": [
+          {
+            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+            "TriggerEveryXSeconds": 300,
+            "UID": "f2dc3da0-6999-4e61-bf92-5e7e2c79c2af"
+          }
+        ]
+      },
+      {
+        "$type": "Radiant.Custom.ProductsHistory.Tasks.UpdateRemoteProductsDatabase, ProductsHistory",
+        "IsEnabled": true,
+        "UID": "7d879255-c739-41b2-9e9a-a0836e82a8d4",
+        "Triggers": [
+          {
+            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+            "BlackOutTimeFrame": null,
+            "TriggerEveryXSeconds": 3600
+          }
+        ]
+      },
+      {
+        "$type": "Radiant.Common.Tasks.ShutdownComputerTask, Radiant.Common",
+        "IsEnabled": true,
+        "UID": "7fd1aa65-16e3-47ba-8ca9-3db957e228d2",
+        "Triggers": [
+          {
+            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+            "BlackOutTimeFrame": {
+              "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
+              "BlackOutEnd": "21:00:00",
+              "BlackOutStart": "00:00:00"
+            },
+            "TriggerEveryXSeconds": 10
+          }
+        ]
+      },
+      {
+        "$type": "RadiantReader.Tasks.UpdateAvailableBooksTask, RadiantReader",
+        "IsEnabled": false,
+        "UID": "63043528-6cd9-4c01-9ff1-03307f3b3176",
+        "Triggers": [
+          {
+            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+            "BlackOutEnd": "07:00:00",
+            "BlackOutStart": "06:00:00",
+            "TriggerEveryXSeconds": 5
+          }
+        ]
+      }
+    ]
+  }
 }

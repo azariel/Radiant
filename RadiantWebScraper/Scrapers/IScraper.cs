@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using Radiant.WebScraper.Business.Objects.TargetScraper;
+﻿using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers.Manual;
+using System.Collections.Generic;
 
 namespace Radiant.WebScraper.Scrapers
 {
     internal interface IScraper
     {
-        void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aParserItems);
+        void GetTargetValueFromUrl(Browser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<IScraperItemParser> aScraperItemsParser, List<DOMParserItem> aParserItems);
     }
 }

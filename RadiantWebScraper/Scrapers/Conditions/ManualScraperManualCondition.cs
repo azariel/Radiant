@@ -18,7 +18,7 @@ namespace Radiant.WebScraper.Scrapers.Conditions
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public bool Evaluate(SupportedBrowser? aBrowser)
+        public bool Evaluate(Browser? aBrowser)
         {
             if (this.ManualScraperSequenceItems == null || this.ManualScraperSequenceItems.Count <= 0)
             {

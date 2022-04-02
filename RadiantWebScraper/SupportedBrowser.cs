@@ -3,7 +3,7 @@
     /// <summary>
     /// Supported browsers
     /// </summary>
-    public enum SupportedBrowser
+    public enum Browser
     {
         Firefox,
         Chrome

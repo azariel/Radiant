@@ -53,7 +53,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
             });
         }
 
-        private void KillBrowserProcess(SupportedBrowser aBrowserToKill)
+        private void KillBrowserProcess(Browser aBrowserToKill)
         {
             Process[] _ProcessesToKill = ScraperProcessHelper.GetProcessesAssociatedWithBrowser(aBrowserToKill);
 
@@ -61,7 +61,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 _Process.Kill();
         }
 
-        private bool StartBrowser(SupportedBrowser aSupportedBrowser, string aDefaultUrl, bool aUseDefaultBrowserAsFallback)
+        private bool StartBrowser(Browser aSupportedBrowser, string aDefaultUrl, bool aUseDefaultBrowserAsFallback)
         {
             var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
 
@@ -116,7 +116,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public void GetTargetValueFromUrl(SupportedBrowser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<ManualScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
+        public void GetTargetValueFromUrl(Browser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<IScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
             Thread.Sleep(500);
 
@@ -138,6 +138,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                     LoggingManager.LogToFile("3A4B102B-E437-4C1B-90AA-EC1FCF3669B4", $"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
                     return;
                 }
+                
                 // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
                 var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
                 SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
@@ -150,7 +151,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Thread.Sleep(500);
 
                 // Evaluate the target and get the value
-                aTarget.Evaluate(aSupportedBrowser, aUrl, true, aManualScraperItems, aDOMParserItems);
+                aTarget.Evaluate(aSupportedBrowser, aUrl, true, aManualScraperItems?.OfType<ManualScraperItemParser>().Select(s=>(IScraperItemParser)s).ToList(), aDOMParserItems);
                 Thread.Sleep(500);
 
                 // "Closing" sequence
@@ -166,7 +167,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
             });
         }
 
-        private void CloseAllTabs(SupportedBrowser aSupportedBrowser, IScraperTarget aTarget)
+        private void CloseAllTabs(Browser aSupportedBrowser, IScraperTarget aTarget)
         {
             string _Url = "www.google.com";
             // Re-open browser
