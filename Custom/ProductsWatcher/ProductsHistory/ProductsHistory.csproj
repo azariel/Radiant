@@ -26,7 +26,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\RadiantCommon\RadiantCommon.csproj" />
     <ProjectReference Include="..\..\..\RadiantNotifier\RadiantNotifier.csproj" />
-    <ProjectReference Include="..\..\..\RadiantWebScraper\RadiantWebScraper.csproj" />
     <ProjectReference Include="..\..\..\WebScraper\RadiantWebScraper\RadiantWebScraper.csproj" />
     <ProjectReference Include="..\ProductsHistoryCommon\ProductsHistoryCommon.csproj" />
   </ItemGroup>

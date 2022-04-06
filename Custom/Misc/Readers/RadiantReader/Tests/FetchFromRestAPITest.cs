@@ -22,13 +22,11 @@ namespace RadiantReader.Tests
             HttpClient client = new HttpClient();
 
             string _DOM;
-            HttpResponseMessage _Response = client.GetAsync("127.0.0.1/AutomaticWebScraper").Result;
+            HttpResponseMessage _Response = client.GetAsync("https://127.0.0.1:6501/AutomaticWebScraper").Result;
             if (_Response.IsSuccessStatusCode)
             {
                 _DOM = _Response.Content.ReadAsStringAsync().Result;
             }
-
-
         }
     }
 }

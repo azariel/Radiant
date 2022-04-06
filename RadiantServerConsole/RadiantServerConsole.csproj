@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RadiantNotifier\RadiantNotifier.csproj" />
-    <ProjectReference Include="..\RadiantWebScraper\RadiantWebScraper.csproj" />
+    <ProjectReference Include="..\WebScraper\RadiantWebScraper\RadiantWebScraper.csproj" />
   </ItemGroup>
 
   <ItemGroup>
