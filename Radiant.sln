@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantWebScraperWebApi", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantWebScraper", "WebScraper\RadiantWebScraper\RadiantWebScraper.csproj", "{2DCEF6CE-81F4-4A59-AF6D-56B85CC1EE75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiantClientWebScraper", "WebScraper\RadiantClientWebScraper\RadiantClientWebScraper.csproj", "{5787A85D-9A4B-456C-B76F-40921FD36E4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{2DCEF6CE-81F4-4A59-AF6D-56B85CC1EE75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DCEF6CE-81F4-4A59-AF6D-56B85CC1EE75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DCEF6CE-81F4-4A59-AF6D-56B85CC1EE75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5787A85D-9A4B-456C-B76F-40921FD36E4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5787A85D-9A4B-456C-B76F-40921FD36E4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5787A85D-9A4B-456C-B76F-40921FD36E4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5787A85D-9A4B-456C-B76F-40921FD36E4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +129,7 @@ Global
 		{665C6D5E-32A5-491D-81A4-AB4C8ADB3527} = {81A142C2-04C5-434E-991A-A080648A3EB2}
 		{F01814AB-8145-4EE5-8E66-D59C84B946AF} = {E8E9B961-2F6A-4CA2-AA0A-4981F4AF8F71}
 		{2DCEF6CE-81F4-4A59-AF6D-56B85CC1EE75} = {E8E9B961-2F6A-4CA2-AA0A-4981F4AF8F71}
+		{5787A85D-9A4B-456C-B76F-40921FD36E4D} = {E8E9B961-2F6A-4CA2-AA0A-4981F4AF8F71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B1D993C-526C-4722-8B7F-57AFF81FC466}

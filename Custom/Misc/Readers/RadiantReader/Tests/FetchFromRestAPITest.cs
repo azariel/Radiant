@@ -1,4 +1,4 @@
-﻿using System.Net.Http;
+﻿using RadiantClientWebScraper;
 using Xunit;
 
 namespace RadiantReader.Tests
@@ -6,27 +6,12 @@ namespace RadiantReader.Tests
     public class FetchFromRestAPITest
     {
         [Fact]
-        public void TestMicroServiceGetDOMFromRestAPI() 
+        public void TestMicroServiceGetDOMFromRestAPI()
         {
-            //SeleniumScraper _SeleniumScraper = new SeleniumScraper();
+            string _DOM = AutomaticWebScraperClient.GetDOM("http://www.perdu.com");
 
-            //// Firefox
-            //var _DomScraper = new SeleniumDOMTargetScraper();
-            //_SeleniumScraper.GetTargetValueFromUrl(Browser.Firefox, "http://www.perdu.com", _DomScraper, null, null);
-
-            //Assert.NotNull(_DomScraper.DOM);
-            //Assert.NotEqual("", _DomScraper.DOM);
-
-            //Thread.Sleep(1000);
-
-            HttpClient client = new HttpClient();
-
-            string _DOM;
-            HttpResponseMessage _Response = client.GetAsync("https://127.0.0.1:6501/AutomaticWebScraper").Result;
-            if (_Response.IsSuccessStatusCode)
-            {
-                _DOM = _Response.Content.ReadAsStringAsync().Result;
-            }
+            Assert.NotNull(_DOM);
+            Assert.NotEmpty(_DOM);
         }
     }
 }

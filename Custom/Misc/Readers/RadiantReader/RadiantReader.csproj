@@ -11,6 +11,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\RadiantCommon\RadiantCommon.csproj" />
+    <ProjectReference Include="..\..\..\..\WebScraper\RadiantClientWebScraper\RadiantClientWebScraper.csproj">
+      <CopyLocal></CopyLocal>
+    </ProjectReference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

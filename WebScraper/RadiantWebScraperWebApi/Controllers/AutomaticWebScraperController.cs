@@ -13,16 +13,16 @@ namespace RadiantWebScraperWebApi.Controllers
         //                            Public
         // ********************************************************************
         [HttpGet(Name = "GetDOMByAutomaticWebScraper")]
-        public string GetDOM(string aUrl)
+        public string GetDOM(string Url)
         {
-            if(string.IsNullOrWhiteSpace(aUrl))
-                throw new Exception($"Argument {nameof(aUrl)} is required.");
+            if(string.IsNullOrWhiteSpace(Url))
+                throw new Exception($"Argument {nameof(Url)} is required.");
 
             // TODO: format aUrl, pad with "http://", etc.
 
             SeleniumScraper _SeleniumScraper = new SeleniumScraper();
             var _DomScraper = new SeleniumDOMTargetScraper();
-            _SeleniumScraper.GetTargetValueFromUrl(Browser.Firefox, aUrl, _DomScraper, aScraperItemsParser: null, aParserItems: null);
+            _SeleniumScraper.GetTargetValueFromUrl(Browser.Firefox, Url, _DomScraper, aScraperItemsParser: null, aParserItems: null);
 
             return _DomScraper.DOM;
         }
