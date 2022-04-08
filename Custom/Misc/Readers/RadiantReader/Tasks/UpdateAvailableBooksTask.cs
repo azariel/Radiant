@@ -3,6 +3,7 @@ using Radiant.Common.Tasks.Triggers;
 using RadiantClientWebScraper;
 using RadiantReader.DataBase;
 using RadiantReader.Managers;
+using RadiantReader.Utils;
 
 namespace RadiantReader.Tasks
 {
@@ -30,7 +31,9 @@ namespace RadiantReader.Tasks
         private void ParseBooksFromDOMLandingPage(string aDOM)
         {
             // TODO: by domain. ex: parse fanfiction, parse archiveOfOurOwn, etc etc
+            var _Books = DOMUtils.ParseBooksFromFanfictionDOM(aDOM);
 
+            StorageManager.AddOrRefreshBooksDefinition(_Books);
         }
 
         // ********************************************************************

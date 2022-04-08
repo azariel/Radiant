@@ -67,8 +67,8 @@
                     {
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
                         "BlackOutEnd": "23:00:00",
-                        "BlackOutStart": "22:00:00",
-                        "TriggerEveryXSeconds": 5
+                        "BlackOutStart": "06:00:00",
+                        "TriggerEveryXSeconds": 3600
                     }
                 ]
             }

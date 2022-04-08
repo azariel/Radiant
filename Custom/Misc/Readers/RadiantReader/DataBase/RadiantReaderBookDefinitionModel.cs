@@ -32,12 +32,21 @@ namespace RadiantReader.DataBase
         [Required]
         public bool RequireUpdate { get; set; }// Should update that fic when we can to fetch new chapters
 
+        [MaxLength(2048)]
+        public string Pairings { get; set; }
+
         public string SecondaryCharacters { get; set; }
 
         /// <summary>
         /// Without downloading all chapters and calculating everything, what does the basic info (summary) is giving us about this
         /// </summary>
         public int SoftNbWords { get; set; }
+
+        [MaxLength(8192)]
+        public string Summary { get; set; }
+
+        [MaxLength(512)]
+        public string Title { get; set; }
 
         [Required]
         public string Url { get; set; }

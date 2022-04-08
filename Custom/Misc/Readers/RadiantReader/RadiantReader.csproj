@@ -16,6 +16,21 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Tests\Resources\ResourceDom.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceDom.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Tests\Resources\ResourceDom.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceDom.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;..\..\..\..\RadiantServerConsole\bin\Debug\RadiantReader.dll&quot;" />
   </Target>

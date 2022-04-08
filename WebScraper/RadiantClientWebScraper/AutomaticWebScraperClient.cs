@@ -1,4 +1,5 @@
-﻿using Radiant.Common.HttpClients.RestClient;
+﻿using System.Web;
+using Radiant.Common.HttpClients.RestClient;
 
 namespace RadiantClientWebScraper
 {
@@ -15,7 +16,8 @@ namespace RadiantClientWebScraper
         public static string GetDOM(string aRelativeUrl)
         {
             var _Client = new HttpRestClient();
-            return _Client.Get($"{URL_PREFIX_WITH_URL_PARAM}{aRelativeUrl}");
+            string _EncodedUrlParam = HttpUtility.UrlEncode(aRelativeUrl);
+            return _Client.Get($"{URL_PREFIX_WITH_URL_PARAM}{_EncodedUrlParam}");
         }
     }
 }
