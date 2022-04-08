@@ -24,16 +24,16 @@ namespace RadiantReader.Tasks
             foreach (RadiantReaderHostModel _Host in _HostBooks)
             {
                 string _DOM = AutomaticWebScraperClient.GetDOM(_Host.HostLandingPage);
-                ParseBooksFromDOMLandingPage(_DOM);
+                ParseBooksFromDOMLandingPage(_Host, _DOM);
             }
         }
 
-        private void ParseBooksFromDOMLandingPage(string aDOM)
+        private void ParseBooksFromDOMLandingPage(RadiantReaderHostModel aHost, string aDOM)
         {
             // TODO: by domain. ex: parse fanfiction, parse archiveOfOurOwn, etc etc
-            var _Books = DOMUtils.ParseBooksFromFanfictionDOM(aDOM);
+            List<RadiantReaderBookDefinitionModel> _Books = DOMUtils.ParseBooksFromFanfictionDOM(aDOM);
 
-            StorageManager.AddOrRefreshBooksDefinition(_Books);
+            StorageManager.AddOrRefreshBooksDefinition(aHost, _Books);
         }
 
         // ********************************************************************

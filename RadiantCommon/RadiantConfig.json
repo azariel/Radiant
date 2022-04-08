@@ -5,23 +5,23 @@
         "Tasks": [
             {
                 "$type": "Radiant.Custom.ProductsHistory.Tasks.ProductsMonitorTask, ProductsHistory",
-                "IsEnabled": false,
+                "IsEnabled": true,
                 "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
                 "Triggers": [
                     {
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
                         "BlackOutTimeFrame": {
                             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-                            "BlackOutEnd": "19:00:00",
-                            "BlackOutStart": "18:00:00"
+                            "BlackOutEnd": "19:10:00",
+                            "BlackOutStart": "08:00:00"
                         },
-                        "TriggerEveryXSeconds": 30
+                        "TriggerEveryXSeconds": 60
                     }
                 ]
             },
             {
                 "$type": "Radiant.Notifier.Tasks.NotificationsMonitorTask, Radiant.Notifier",
-                "IsEnabled": false,
+                "IsEnabled": true,
                 "UID": "10c7195d-8a4d-4eed-9b04-8c8362928702",
                 "Triggers": [
                     {
@@ -45,7 +45,7 @@
             },
             {
                 "$type": "Radiant.Common.Tasks.ShutdownComputerTask, Radiant.Common",
-                "IsEnabled": false,
+                "IsEnabled": true,
                 "UID": "7fd1aa65-16e3-47ba-8ca9-3db957e228d2",
                 "Triggers": [
                     {
@@ -55,7 +55,7 @@
                             "BlackOutEnd": "21:00:00",
                             "BlackOutStart": "00:00:00"
                         },
-                        "TriggerEveryXSeconds": 10
+                        "TriggerEveryXSeconds": 600
                     }
                 ]
             },
@@ -66,9 +66,9 @@
                 "Triggers": [
                     {
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "BlackOutEnd": "23:00:00",
-                        "BlackOutStart": "06:00:00",
-                        "TriggerEveryXSeconds": 3600
+                        "BlackOutEnd": "19:00:00",
+                        "BlackOutStart": "08:00:00",
+                        "TriggerEveryXSeconds": 10127
                     }
                 ]
             }

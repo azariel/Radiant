@@ -143,6 +143,7 @@ namespace RadiantReader.Utils
         // ********************************************************************
         public static List<RadiantReaderBookDefinitionModel> ParseBooksFromFanfictionDOM(string aDOM)
         {
+            // TODO: ParseBooksFromFanfictionDOM should return it's own model and not RadiantReaderBookDefinitionModel
             List<FanfictionBookDOMDefinition> _DOMBookDefinitions = new();
 
             string[] _Lines = aDOM.Split(Environment.NewLine);
