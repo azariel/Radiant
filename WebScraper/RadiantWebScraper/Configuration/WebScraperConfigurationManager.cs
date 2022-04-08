@@ -28,7 +28,7 @@ namespace Radiant.WebScraper.Configuration
             // Create default config if doesn't exists
             if (!File.Exists(WEB_SCRAPER_CONFIG_FILE_NAME))
                 SaveConfigInMemoryToDisk();
-
+            
             string _ConfigFileContent = File.ReadAllText(WEB_SCRAPER_CONFIG_FILE_NAME);
             fWebScraperConfiguration = JsonCommonSerializer.DeserializeFromString<WebScrapersConfiguration>(_ConfigFileContent);
             return fWebScraperConfiguration;

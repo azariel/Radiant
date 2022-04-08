@@ -170,12 +170,14 @@ namespace Radiant.WebScraper.Scrapers.Manual
         private void CloseAllTabs(Browser aSupportedBrowser, IScraperTarget aTarget)
         {
             string _Url = "www.google.com";
+
             // Re-open browser
             if (!StartBrowser(aSupportedBrowser, _Url, false))
             {
                 LoggingManager.LogToFile("D5288A56-B37B-4F6C-B691-A2B738F92A1E", $"Couldn't start browser [{aSupportedBrowser}]. Aborting {nameof(GetTargetValueFromUrl)} from URL [{_Url}].");
                 return;
             }
+
             if (!BrowserHelper.WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG))
             {
                 LoggingManager.LogToFile("238B040E-7FC0-456D-ADCD-0EF3B6C2D98C", $"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
@@ -185,7 +187,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
             // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
             var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
             SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
-            Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? 30000);
+            Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? 15000);
 
             var _Stopwatch = new Stopwatch();
             _Stopwatch.Start();

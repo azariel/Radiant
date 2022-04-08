@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RadiantCommon\RadiantCommon.csproj" />
-    <ProjectReference Include="..\RadiantInputsManager\RadiantInputsManager.csproj" />
+    <ProjectReference Include="..\..\RadiantCommon\RadiantCommon.csproj" />
+    <ProjectReference Include="..\..\RadiantInputsManager\RadiantInputsManager.csproj" />
   </ItemGroup>
 
   <ItemGroup>

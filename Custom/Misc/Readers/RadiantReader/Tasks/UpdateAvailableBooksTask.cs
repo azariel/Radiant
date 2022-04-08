@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Radiant.Common.Tasks.Triggers;
-using Radiant.WebScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper.Automatic.Selenium;
-using Radiant.WebScraper.Scrapers.Automatic.Selenium;
+using RadiantClientWebScraper;
 using RadiantReader.DataBase;
 using RadiantReader.Managers;
+using RadiantReader.Utils;
 
 namespace RadiantReader.Tasks
 {
@@ -22,19 +21,19 @@ namespace RadiantReader.Tasks
             // Load all DataBase
             List<RadiantReaderHostModel> _HostBooks = StorageManager.LoadBooks(true);
 
-            SeleniumScraper _Scraper = new SeleniumScraper();
-            SeleniumDOMTargetScraper _DOMTargetScraper = new SeleniumDOMTargetScraper();
-
             foreach (RadiantReaderHostModel _Host in _HostBooks)
             {
-                _Scraper.GetTargetValueFromUrl(Browser.Firefox, _Host.HostLandingPage, _DOMTargetScraper, null, null);
-                ParseBooksFromDOMLandingPage(_DOMTargetScraper.DOM);
+                string _DOM = AutomaticWebScraperClient.GetDOM(_Host.HostLandingPage);
+                ParseBooksFromDOMLandingPage(_Host, _DOM);
             }
         }
 
-        private void ParseBooksFromDOMLandingPage(string aDOM)
+        private void ParseBooksFromDOMLandingPage(RadiantReaderHostModel aHost, string aDOM)
         {
             // TODO: by domain. ex: parse fanfiction, parse archiveOfOurOwn, etc etc
+            List<RadiantReaderBookDefinitionModel> _Books = DOMUtils.ParseBooksFromFanfictionDOM(aDOM);
+
+            StorageManager.AddOrRefreshBooksDefinition(aHost, _Books);
         }
 
         // ********************************************************************
