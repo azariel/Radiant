@@ -152,9 +152,23 @@ namespace RadiantReader.Utils
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static RadiantReaderBookChapter ParseBookChapterFromFanfictionDOM(string aDom)
+        public static RadiantReaderBookChapter ParseBookChapterFromFanfictionDOM(string aDom, int aChapterIndex, long aBookDefinitionId)
         {
             RadiantReaderBookChapter _Chapter = new();
+
+            Regex _ChapterContentRegex = new Regex("id=\"storytext\">(.+?)</div>");
+
+            var _MatchContent = _ChapterContentRegex.Match(aDom);
+            if (_MatchContent.Success)
+            {
+                LoggingManager.LogToFile("30a0e9ff-3ad0-40fc-be36-4f2cf2292cc0", $"Couldn't match fanfiction book content");
+                throw new Exception("203dd19b-d832-4d00-aa28-39fe05364a23_Couldn't match book content.");
+            }
+
+            _Chapter.ChapterContent = _MatchContent.Groups[0].Value;
+            _Chapter.BookDefinitionId = aBookDefinitionId;
+            _Chapter.ChapterNumber = aChapterIndex;
+            //_Chapter.ChapterWordsCount TODO
 
             return _Chapter;
         }
