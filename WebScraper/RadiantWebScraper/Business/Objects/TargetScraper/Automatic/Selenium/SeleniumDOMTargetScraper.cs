@@ -28,12 +28,13 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Automatic.Selenium
                     {
                         BrowserExecutableLocation = _ScrapersConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser)?.ExecutablePath
                     };
-                    _FirefoxOptions.AddArguments("--headless");
+                    //_FirefoxOptions.AddArguments("--headless");
+                    _FirefoxOptions.SetPreference("javascript.enabled", true);
                     _Driver = new FirefoxDriver(_FirefoxOptions) { Url = aUrl };
                     break;
                 case Browser.Chrome:
                     var _ChromeOptions = new ChromeOptions();
-                    _ChromeOptions.AddArguments("--headless");
+                    //_ChromeOptions.AddArguments("--headless");
                     _Driver = new ChromeDriver(_ChromeOptions) { Url = aUrl };
                     break;
                 default:

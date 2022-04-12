@@ -10,8 +10,8 @@ namespace RadiantReader.Tests
         {
             string _DOM = Resources.ResourceDom.Fanfiction_2022_04_08;
 
-            var _Books = DOMUtils.ParseBooksFromFanfictionDOM(_DOM);
-
+            var _Books = FanfictionDOMUtils.ParseBooksFromFanfictionDOM(_DOM);
+            Assert.Equal(25, _Books.Count);
         }
     }
 }
