@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using RadiantClientWebScraper;
 using RadiantReader.DataBase;
 using RadiantReader.Utils;
@@ -30,7 +31,7 @@ namespace RadiantReader.Parsers
                 _CurrentChapterURL = _CurrentChapterURL.Replace($"/{_ChapterIndex - 1}/", $"/{_ChapterIndex}/");
 
                 // Get DOM
-                string _DOM = ManualWebScraperClient.GetDOM(_CurrentChapterURL);
+                string _DOM = ManualWebScraperClient.GetDOMAsync(_CurrentChapterURL).Result;
 
                 var _NewChapter = FanfictionDOMUtils.ParseBookChapterFromFanfictionDOM(_DOM, _ChapterIndex, aBookDefinition.BookDefinitionId);
                 _ChaptersToAdd.Add(_NewChapter);

@@ -85,11 +85,9 @@ namespace RadiantReader.Utils
             if (_PairingRegexMatch.Success && _PairingRegexMatch.Groups.Count == 2)
             {
                 int _IndexOfFirstPairing = -1;
-                string _Pairings = $"[{_PairingRegexMatch.Groups[1].Value}]";
-                while (!string.IsNullOrWhiteSpace(_Pairings))
+                string _Pairings = "";
+                do
                 {
-                    _PairingRegexMatch = _PairingRegexMatch.NextMatch();
-
                     if (!_PairingRegexMatch.Success || _PairingRegexMatch.Groups.Count != 2)
                         break;
 
@@ -97,7 +95,9 @@ namespace RadiantReader.Utils
                         _IndexOfFirstPairing = aBookSummaryLine.IndexOf(_PairingRegexMatch.Groups[1].Value, StringComparison.InvariantCulture);
 
                     _Pairings += $"[{_PairingRegexMatch.Groups[1].Value}]";
-                }
+                    _PairingRegexMatch = _PairingRegexMatch.NextMatch();
+
+                } while (!string.IsNullOrWhiteSpace(_Pairings));
 
                 // If pairings was found in the summary text, but was before XUTime, it was in book summary. Very dependent on fanfiction format, but this whole class is.. : /
                 int _IndexOfXUTime = aBookSummaryLine.IndexOf("xutime=", StringComparison.InvariantCultureIgnoreCase);
@@ -156,20 +156,30 @@ namespace RadiantReader.Utils
         {
             RadiantReaderBookChapter _Chapter = new();
 
-            Regex _ChapterContentRegex = new Regex("id=\"storytext\">(.+?)</div>");
+            Regex _ChapterContentRegex = new Regex("id=\"storytext\">(.+?)</div>");// until next div
 
             var _MatchContent = _ChapterContentRegex.Match(aDom);
-            if (_MatchContent.Success)
+            if (!_MatchContent.Success)
             {
-                LoggingManager.LogToFile("30a0e9ff-3ad0-40fc-be36-4f2cf2292cc0", $"Couldn't match fanfiction book content");
-                throw new Exception("203dd19b-d832-4d00-aa28-39fe05364a23_Couldn't match book content.");
+                _ChapterContentRegex = new Regex("id=\"storytext\">(.+?)$", RegexOptions.Multiline);// Just until end of line
+
+                _MatchContent = _ChapterContentRegex.Match(aDom);
+                if (!_MatchContent.Success)
+                {
+                    LoggingManager.LogToFile("30a0e9ff-3ad0-40fc-be36-4f2cf2292cc0", $"Couldn't match fanfiction book content");
+                    throw new Exception("203dd19b-d832-4d00-aa28-39fe05364a23_Couldn't match book content.");
+                }
             }
 
-            _Chapter.ChapterContent = _MatchContent.Groups[0].Value;
+            _Chapter.ChapterContent = _MatchContent.Groups.Values.Last().Value;
             _Chapter.BookDefinitionId = aBookDefinitionId;
             _Chapter.ChapterNumber = aChapterIndex;
-            //_Chapter.ChapterWordsCount TODO
-
+            
+            _Chapter.ChapterWordsCount = _Chapter.ChapterContent.Split(" ").Length - 1 + 
+                                         _Chapter.ChapterContent.Split("'").Length - 1 + 
+                                         _Chapter.ChapterContent.Split("</p").Length - 1 +
+                                         1;// 0 based
+            
             return _Chapter;
         }
 

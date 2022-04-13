@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent;
 using Radiant.WebScraper.Business.Objects.TargetScraper;
@@ -25,7 +26,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         //                            Constants
         // ********************************************************************
-        private const int NB_MS_WAIT_FOR_INPUT_HANG = 60000;
+        private const int NB_MS_WAIT_FOR_INPUT_HANG = 30000;
 
         // ********************************************************************
         //                            Private
@@ -133,12 +134,14 @@ namespace Radiant.WebScraper.Scrapers.Manual
                     LoggingManager.LogToFile("311264B0-5EEC-41CA-9F67-1B085ECFB366", $"Couldn't start browser [{aSupportedBrowser}]. Aborting {nameof(GetTargetValueFromUrl)} from URL [{aUrl}].");
                     return;
                 }
-                if (!BrowserHelper.WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG))
-                {
-                    LoggingManager.LogToFile("3A4B102B-E437-4C1B-90AA-EC1FCF3669B4", $"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
-                    return;
-                }
-                
+
+                BrowserHelper.WaitForBrowserInputsReadyOrMax(500, aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG);
+                //if (!BrowserHelper.WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG))
+                //{
+                //    LoggingManager.LogToFile("3A4B102B-E437-4C1B-90AA-EC1FCF3669B4", $"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
+                //    return;
+                //}
+
                 // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
                 var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
                 SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
@@ -151,7 +154,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Thread.Sleep(500);
 
                 // Evaluate the target and get the value
-                aTarget.Evaluate(aSupportedBrowser, aUrl, true, aManualScraperItems?.OfType<ManualScraperItemParser>().Select(s=>(IScraperItemParser)s).ToList(), aDOMParserItems);
+                aTarget.Evaluate(aSupportedBrowser, aUrl, true, aManualScraperItems?.OfType<ManualScraperItemParser>().Select(s => (IScraperItemParser)s).ToList(), aDOMParserItems);
                 Thread.Sleep(500);
 
                 // "Closing" sequence
@@ -164,6 +167,15 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 Thread.Sleep(500);
 
                 // Note: actually, we already closed our tab.. so.. no, don't kill the browser..
+            });
+        }
+
+        public async Task<IScraperTarget> GetTargetValueFromUrlAsync(Browser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<IScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
+        {
+            return await Task.Run(() =>
+            {
+                GetTargetValueFromUrl(aSupportedBrowser, aUrl, aTarget, aManualScraperItems, aDOMParserItems);
+                return aTarget;
             });
         }
 
