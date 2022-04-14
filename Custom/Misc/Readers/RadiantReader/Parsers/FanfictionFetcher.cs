@@ -39,7 +39,7 @@ namespace RadiantReader.Parsers
                 _ChapterIndex++;
 
                 // Add a little sleep to avoid being tagged as a bot too easily
-                Thread.Sleep(new Random().Next());
+                Thread.Sleep(new Random().Next(5765,9457));
 
             } while (DOMIsValidChapter(_CurrentDOM));
 

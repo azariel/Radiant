@@ -14,23 +14,7 @@ namespace RadiantWebScraperWebApi.Controllers
         //                            Public
         // ********************************************************************
         [HttpGet]
-        [ActionName("GetDOM")]
-        public string GetDOM(string Url)
-        {
-            if (string.IsNullOrWhiteSpace(Url))
-                throw new Exception($"Argument {nameof(Url)} is required.");
-
-            // TODO: format aUrl, pad with "http://", etc.
-
-            ManualScraper _ManualScraper = new ManualScraper();
-            var _DomScraper = new ManualDOMTargetScraper();
-            _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, Url, _DomScraper, null, null);
-
-            return _DomScraper.DOM;
-        }
-
-        [HttpGet]
-        [ActionName("GetDOMAsync")]
+        [ActionName("DOM")]
         public async Task<string> GetDOMAsync(string Url)
         {
             // TODO: create an helper that'll do it for us
