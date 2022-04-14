@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Tasks.Triggers;
 using RadiantClientWebScraper;
 using RadiantReader.DataBase;
 using RadiantReader.Managers;
+using RadiantReader.Parsers;
 using RadiantReader.Utils;
 
 namespace RadiantReader.Tasks
@@ -19,7 +22,7 @@ namespace RadiantReader.Tasks
         private void FetchBooksOnLandingPage()
         {
             // Load all DataBase
-            List<RadiantReaderHostModel> _HostBooks = StorageManager.LoadBooks(true);
+            List<RadiantReaderHostModel> _HostBooks = StorageManager.LoadBooks(false);
 
             foreach (RadiantReaderHostModel _Host in _HostBooks)
             {
@@ -28,10 +31,26 @@ namespace RadiantReader.Tasks
             }
         }
 
+        private void FetchChaptersFromBookDefinitionsRequiringUpdate()
+        {
+            // Load all DataBase
+            using var _DataBaseContext = new RadiantReaderDbContext();
+            _DataBaseContext.Hosts.Load();
+            _DataBaseContext.BookDefinitions.Load();
+            _DataBaseContext.BookContent.Load();
+
+            RadiantReaderBookDefinitionModel[] _BookDefinitions = _DataBaseContext.BookDefinitions.Where(w => w.RequireUpdate).ToArray();
+            foreach (var _BookDefinition in _BookDefinitions)
+            {
+                FanfictionFetcher.FetchNewChaptersFromBookDefinition(_BookDefinition);
+                _DataBaseContext.SaveChanges();
+            }
+        }
+
         private void ParseBooksFromDOMLandingPage(RadiantReaderHostModel aHost, string aDOM)
         {
             // TODO: by domain. ex: parse fanfiction, parse archiveOfOurOwn, etc etc
-            List<RadiantReaderBookDefinitionModel> _Books = DOMUtils.ParseBooksFromFanfictionDOM(aDOM);
+            List<RadiantReaderBookDefinitionModel> _Books = FanfictionDOMUtils.ParseBooksFromFanfictionDOM(aDOM);
 
             StorageManager.AddOrRefreshBooksDefinition(aHost, _Books);
         }
@@ -41,7 +60,13 @@ namespace RadiantReader.Tasks
         // ********************************************************************
         protected override void TriggerNowImplementation()
         {
-            FetchBooksOnLandingPage();
+            // TODO: we should split this into 2 tasks... 1 to fetch new books and another one to update chapters
+
+            // Get newly updated books from monitored main pages such as fanfiction.net, AoO, etc
+            //FetchBooksOnLandingPage();
+
+            // Fetch new chapters from book definitions requiring an update
+            FetchChaptersFromBookDefinitionsRequiringUpdate();
         }
     }
 }

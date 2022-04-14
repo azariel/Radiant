@@ -7,7 +7,7 @@ using RadiantReader.DataBase;
 
 namespace RadiantReader.Utils
 {
-    public static class DOMUtils
+    public static class FanfictionDOMUtils
     {
         // ********************************************************************
         //                            Nested
@@ -23,29 +23,6 @@ namespace RadiantReader.Utils
         // ********************************************************************
         private const string REGEX_INFORMATION_BOOK_LINE = "(class=\"stitle\")";
         private const string REGEX_SUMMARY_BOOK_LINE = "(class=\"z-indent z-padtop\")";
-
-        // ********************************************************************
-        //                            Private
-        // ********************************************************************
-        private static List<RadiantReaderBookDefinitionModel> GenerateReaderBookDefinitionModelsFromFanfictionBookDOMDefinitions(List<FanfictionBookDOMDefinition> aDomBookDefinitions)
-        {
-            List<RadiantReaderBookDefinitionModel> _RadiantReaderBookDefinitionModels = new();
-            foreach (FanfictionBookDOMDefinition _BookDomDefinition in aDomBookDefinitions)
-            {
-                RadiantReaderBookDefinitionModel _RadiantReaderBookDefinitionModel = GenerateReaderBookDefinitionFromFanfictionSummaryLine(_BookDomDefinition.BookSummaryLine);
-
-                if (_RadiantReaderBookDefinitionModel == null)
-                    continue;
-
-                GetUrlAndTitleFromFanfictionInformationLine(_BookDomDefinition.BookInformationLine, out string _Url, out string _Title);
-                _RadiantReaderBookDefinitionModel.Url = _Url;
-                _RadiantReaderBookDefinitionModel.Title = _Title;
-
-                _RadiantReaderBookDefinitionModels.Add(_RadiantReaderBookDefinitionModel);
-            }
-
-            return _RadiantReaderBookDefinitionModels;
-        }
 
         private static RadiantReaderBookDefinitionModel GenerateReaderBookDefinitionFromFanfictionSummaryLine(string aBookSummaryLine)
         {
@@ -79,6 +56,7 @@ namespace RadiantReader.Utils
 
                     _RadiantReaderBookDefinitionModel.SoftNbWords = int.Parse(_Words);
                 }
+
                 //else if (_CurrentMatchValue.Contains("/"))
                 //    _RadiantReaderBookDefinitionModel.Genres = _CurrentMatchValue;
 
@@ -93,11 +71,12 @@ namespace RadiantReader.Utils
             Match _MainCharactersRegexMatch = Regex.Match(aBookSummaryLine, "</span> - (.+?)</div>");
             if (_MainCharactersRegexMatch.Success && _MainCharactersRegexMatch.Groups.Count == 2)
             {
-                string _SplittedValue = _MainCharactersRegexMatch.Groups[1].Value.Split("-").Last(); 
-                _SplittedValue = _SplittedValue.Split("]").Last(); 
+                string _SplittedValue = _MainCharactersRegexMatch.Groups[1].Value.Split("-").Last();
+                _SplittedValue = _SplittedValue.Split("]").Last().Trim();
 
-                if (!_SplittedValue.ToLowerInvariant().Contains("xutime="))
-                    _RadiantReaderBookDefinitionModel.MainCharacters = _SplittedValue.Trim();
+                string _LowerInvariantSplittedValue = _SplittedValue.ToLowerInvariant();
+                if (!string.IsNullOrWhiteSpace(_SplittedValue) && !_LowerInvariantSplittedValue.Contains("xutime=") && _LowerInvariantSplittedValue != "complete")
+                    _RadiantReaderBookDefinitionModel.MainCharacters = _SplittedValue;
             }
 
             // finally, the pairing
@@ -105,6 +84,7 @@ namespace RadiantReader.Utils
 
             if (_PairingRegexMatch.Success && _PairingRegexMatch.Groups.Count == 2)
             {
+                int _IndexOfFirstPairing = -1;
                 string _Pairings = $"[{_PairingRegexMatch.Groups[1].Value}]";
                 while (!string.IsNullOrWhiteSpace(_Pairings))
                 {
@@ -113,13 +93,44 @@ namespace RadiantReader.Utils
                     if (!_PairingRegexMatch.Success || _PairingRegexMatch.Groups.Count != 2)
                         break;
 
+                    if (_IndexOfFirstPairing < 0)
+                        _IndexOfFirstPairing = aBookSummaryLine.IndexOf(_PairingRegexMatch.Groups[1].Value, StringComparison.InvariantCulture);
+
                     _Pairings += $"[{_PairingRegexMatch.Groups[1].Value}]";
                 }
 
-                _RadiantReaderBookDefinitionModel.Pairings = _Pairings;
+                // If pairings was found in the summary text, but was before XUTime, it was in book summary. Very dependent on fanfiction format, but this whole class is.. : /
+                int _IndexOfXUTime = aBookSummaryLine.IndexOf("xutime=", StringComparison.InvariantCultureIgnoreCase);
+
+                // Note that if we don't find xutime or xutime AND pairings, the condition will return true and we'll keep the pairings as it is
+                if (_IndexOfFirstPairing < 0 || _IndexOfFirstPairing >= _IndexOfXUTime)
+                    _RadiantReaderBookDefinitionModel.Pairings = _Pairings;
             }
 
             return _RadiantReaderBookDefinitionModel;
+        }
+
+        // ********************************************************************
+        //                            Private
+        // ********************************************************************
+        private static List<RadiantReaderBookDefinitionModel> GenerateReaderBookDefinitionModelsFromFanfictionBookDOMDefinitions(List<FanfictionBookDOMDefinition> aDomBookDefinitions)
+        {
+            List<RadiantReaderBookDefinitionModel> _RadiantReaderBookDefinitionModels = new();
+            foreach (FanfictionBookDOMDefinition _BookDomDefinition in aDomBookDefinitions)
+            {
+                RadiantReaderBookDefinitionModel _RadiantReaderBookDefinitionModel = GenerateReaderBookDefinitionFromFanfictionSummaryLine(_BookDomDefinition.BookSummaryLine);
+
+                if (_RadiantReaderBookDefinitionModel == null)
+                    continue;
+
+                GetUrlAndTitleFromFanfictionInformationLine(_BookDomDefinition.BookInformationLine, out string _Url, out string _Title);
+                _RadiantReaderBookDefinitionModel.Url = _Url;
+                _RadiantReaderBookDefinitionModel.Title = _Title;
+
+                _RadiantReaderBookDefinitionModels.Add(_RadiantReaderBookDefinitionModel);
+            }
+
+            return _RadiantReaderBookDefinitionModels;
         }
 
         private static void GetUrlAndTitleFromFanfictionInformationLine(string aBookInformationLine, out string aUrl, out string aTitle)
@@ -141,6 +152,27 @@ namespace RadiantReader.Utils
         // ********************************************************************
         //                            Public
         // ********************************************************************
+        public static RadiantReaderBookChapter ParseBookChapterFromFanfictionDOM(string aDom, int aChapterIndex, long aBookDefinitionId)
+        {
+            RadiantReaderBookChapter _Chapter = new();
+
+            Regex _ChapterContentRegex = new Regex("id=\"storytext\">(.+?)</div>");
+
+            var _MatchContent = _ChapterContentRegex.Match(aDom);
+            if (_MatchContent.Success)
+            {
+                LoggingManager.LogToFile("30a0e9ff-3ad0-40fc-be36-4f2cf2292cc0", $"Couldn't match fanfiction book content");
+                throw new Exception("203dd19b-d832-4d00-aa28-39fe05364a23_Couldn't match book content.");
+            }
+
+            _Chapter.ChapterContent = _MatchContent.Groups[0].Value;
+            _Chapter.BookDefinitionId = aBookDefinitionId;
+            _Chapter.ChapterNumber = aChapterIndex;
+            //_Chapter.ChapterWordsCount TODO
+
+            return _Chapter;
+        }
+
         public static List<RadiantReaderBookDefinitionModel> ParseBooksFromFanfictionDOM(string aDOM)
         {
             // TODO: ParseBooksFromFanfictionDOM should return it's own model and not RadiantReaderBookDefinitionModel
