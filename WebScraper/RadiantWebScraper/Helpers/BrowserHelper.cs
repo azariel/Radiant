@@ -63,7 +63,10 @@ namespace Radiant.WebScraper.Helpers
 
                         // Wait for this instance of the browser to be responsive to user input
                         if (!_Process.WaitForInputIdle(35))
+                        {
+                            Thread.Sleep(50);
                             continue;
+                        }
 
                         return true;
                     }

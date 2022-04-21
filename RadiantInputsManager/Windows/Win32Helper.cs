@@ -72,7 +72,7 @@ namespace RadiantInputsManager.Windows
         {
             Keycode[] _ExtendedKeycodes =
             {
-                Keycode.XK_Control_L,
+                
                 Keycode.XK_Shift_L,
                 Keycode.XK_Right,
                 Keycode.XK_Left,

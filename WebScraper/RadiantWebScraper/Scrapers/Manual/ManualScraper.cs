@@ -37,7 +37,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         {
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
-                Delay = 290,
+                Delay = 300,
                 KeyStrokeCodes = new[]
                 {
                     Keycode.XK_Control_L,
@@ -119,7 +119,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         public void GetTargetValueFromUrl(Browser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<IScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
-            Thread.Sleep(500);
+            Thread.Sleep(2000);
 
             // First thing is to get to the webpage
             // For the duration of the function, we're taking exclusivity of inputs to avoid conflicts

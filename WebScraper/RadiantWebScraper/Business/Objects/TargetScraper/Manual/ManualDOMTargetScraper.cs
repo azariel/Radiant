@@ -47,7 +47,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
             // Put in clipboard
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
-                Delay = 260,
+                Delay = 460,
                 KeyStrokeCodes = new[]
                 {
                     Keycode.XK_Control_L,
@@ -142,6 +142,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
 
             if (aAllowManualOperations)
             {
+                WaitForBrowserInputsReadyOrMax(500);
                 ExtractDOM();
 
                 if (string.IsNullOrWhiteSpace(this.DOM))

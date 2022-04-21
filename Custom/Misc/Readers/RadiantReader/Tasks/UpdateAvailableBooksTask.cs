@@ -63,7 +63,7 @@ namespace RadiantReader.Tasks
             // TODO: we should split this into 2 tasks... 1 to fetch new books and another one to update chapters
 
             // Get newly updated books from monitored main pages such as fanfiction.net, AoO, etc
-            FetchBooksOnLandingPage();
+            //FetchBooksOnLandingPage();
 
             // Fetch new chapters from book definitions requiring an update
             FetchChaptersFromBookDefinitionsRequiringUpdate();

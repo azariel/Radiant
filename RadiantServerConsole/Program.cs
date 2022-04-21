@@ -6,6 +6,8 @@ using Radiant.Common.Configuration;
 using Radiant.Common.Tasks;
 using Radiant.Common.Utils;
 using Radiant.ServerConsole.Configuration;
+using RadiantInputsManager;
+using RadiantInputsManager.InputsParam;
 
 namespace Radiant.ServerConsole
 {
@@ -24,11 +26,18 @@ namespace Radiant.ServerConsole
             StartBackgroundProcesses();
             Console.WriteLine("-----Please choose and option-----");
             Console.WriteLine("0) Exit");
-                
-            //Console.WriteLine("1) Inputs Manager");
+
+            //InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            //{
+            //    Delay = 460,
+            //    KeyStrokeCodes = new[]
+            //    {
+            //        Keycode.XK_Control_L,
+            //        Keycode.XK_c
+            //    }
+            //});
 
             ConsoleKeyInfo _Key = Console.ReadKey();
-
             switch (_Key.Key)
             {
                 case ConsoleKey.D0 or ConsoleKey.NumPad0:
@@ -85,6 +94,7 @@ namespace Radiant.ServerConsole
 
                     //    break;
             }
+            
 
             Console.ReadKey();
         }

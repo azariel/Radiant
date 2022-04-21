@@ -50,7 +50,7 @@ namespace RadiantInputsManager.Windows
 
             Thread.Sleep(50);
 
-            _MsDelay = Math.Max(50, aKeyboardKeyStrokeActionInputParam.Delay / 10 ?? 0);
+            _MsDelay = Math.Max(100, aKeyboardKeyStrokeActionInputParam.Delay / 10 ?? 0);
 
             // Release all one by one, but quicker
             foreach (Keycode _KeyCode in aKeyboardKeyStrokeActionInputParam.KeyStrokeCodes.Reverse())

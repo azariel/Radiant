@@ -154,6 +154,12 @@ namespace RadiantReader.Utils
         // ********************************************************************
         public static RadiantReaderBookChapter ParseBookChapterFromFanfictionDOM(string aDom, int aChapterIndex, long aBookDefinitionId)
         {
+            if (string.IsNullOrWhiteSpace(aDom))
+            {
+                LoggingManager.LogToFile("48a2aa90-05b7-4b71-aed9-37fe850b16fa", "DOM was empty.");
+                throw new Exception("26c9069d-2f45-4ac3-b405-6a68b30821ba_DOM was empty.");
+            }
+
             RadiantReaderBookChapter _Chapter = new();
 
             Regex _ChapterContentRegex = new Regex("id=\"storytext\">(.+?)</div>");// until next div
@@ -166,7 +172,7 @@ namespace RadiantReader.Utils
                 _MatchContent = _ChapterContentRegex.Match(aDom);
                 if (!_MatchContent.Success)
                 {
-                    LoggingManager.LogToFile("30a0e9ff-3ad0-40fc-be36-4f2cf2292cc0", $"Couldn't match fanfiction book content");
+                    LoggingManager.LogToFile("30a0e9ff-3ad0-40fc-be36-4f2cf2292cc0", "Couldn't match fanfiction book content");
                     throw new Exception("203dd19b-d832-4d00-aa28-39fe05364a23_Couldn't match book content.");
                 }
             }
@@ -174,12 +180,12 @@ namespace RadiantReader.Utils
             _Chapter.ChapterContent = _MatchContent.Groups.Values.Last().Value;
             _Chapter.BookDefinitionId = aBookDefinitionId;
             _Chapter.ChapterNumber = aChapterIndex;
-            
-            _Chapter.ChapterWordsCount = _Chapter.ChapterContent.Split(" ").Length - 1 + 
-                                         _Chapter.ChapterContent.Split("'").Length - 1 + 
+
+            _Chapter.ChapterWordsCount = _Chapter.ChapterContent.Split(" ").Length - 1 +
+                                         _Chapter.ChapterContent.Split("'").Length - 1 +
                                          _Chapter.ChapterContent.Split("</p").Length - 1 +
                                          1;// 0 based
-            
+
             return _Chapter;
         }
 
