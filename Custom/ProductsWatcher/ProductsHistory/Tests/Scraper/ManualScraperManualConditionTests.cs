@@ -5,6 +5,7 @@ using Radiant.Common.Serialization;
 using Radiant.Custom.ProductsHistory.Parsers;
 using Radiant.Custom.ProductsHistory.Scraper;
 using Radiant.WebScraper;
+using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
 using Radiant.WebScraper.Scrapers;
 using Radiant.WebScraper.Scrapers.Conditions;
 using Radiant.WebScraper.Scrapers.Manual;
@@ -47,7 +48,8 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
                            Keycode.XK_c
                        }
                    }
-               }, new ManualScraperSequenceItemByClipboard()
+               },
+               new ManualScraperSequenceItemByClipboard()
                {
                    Operation = ManualScraperSequenceItemByClipboard.ClipboardOperation.Get
                }
@@ -72,7 +74,13 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
                     ValueStringComparison = StringComparison.InvariantCultureIgnoreCase
                 },
                 Target = ProductParserItemTarget.Price,
-                ValueParser = null
+                ValueParser = new ProductDOMParserItem
+                {
+                    RegexPattern = "(.*)",
+                    ParserItemTarget = ProductParserItemTarget.Title,
+                    RegexMatch = RegexItemResultMatch.Last,
+                    Target = RegexItemResultTarget.Group0Value
+                }
             };
 
             // We'll take a screenshot while we're at it for possible manual reference
@@ -80,6 +88,15 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
             ProductTargetScraper _ProductScraper = new ProductTargetScraper();
 
             // Assert that it doesn't crash
+            _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, "www.perdu.com", _ProductScraper, new List<IScraperItemParser> { _ItemParserWithCondition }, null);
+
+            _ItemParserWithCondition.ValueParser.ValueCondition = new StringValueCondition
+            {
+                Value = "panique",
+                InvariantCase = true,
+                Match = StringValueCondition.MatchCondition.DontMatch
+            };
+
             _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, "www.perdu.com", _ProductScraper, new List<IScraperItemParser> { _ItemParserWithCondition }, null);
         }
     }
