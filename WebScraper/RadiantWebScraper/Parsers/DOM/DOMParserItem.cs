@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Radiant.Common.Business;
+using Radiant.WebScraper.Scrapers.Conditions;
 
 namespace Radiant.WebScraper.Parsers.DOM
 {
@@ -15,15 +16,17 @@ namespace Radiant.WebScraper.Parsers.DOM
         /// </summary>
         public string IfUrlContains { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
+        public RegexItemResultMatch RegexMatch { get; set; } = RegexItemResultMatch.First;
+
         public string RegexPattern { get; set; }
         public DOMParserItem SubParserToExecuteOnTargetValue { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public RegexItemResultTarget Target { get; set; } = RegexItemResultTarget.Value;
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        public RegexItemResultMatch RegexMatch { get; set; } = RegexItemResultMatch.First;
-
         public string UID { get; set; } = Guid.NewGuid().ToString();
+
+        public StringValueCondition ValueCondition { get; set; }
     }
 }

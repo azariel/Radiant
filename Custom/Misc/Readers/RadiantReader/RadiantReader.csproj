@@ -10,6 +10,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\close_btn_1.png" />
+    <None Remove="Resources\close_btn_1_over.png" />
+    <None Remove="Resources\dashboard_1.png" />
+    <None Remove="Resources\download.png" />
+    <None Remove="Resources\download_1.png" />
+    <None Remove="Resources\logo.png" />
+    <None Remove="Resources\next_1.png" />
+    <None Remove="Resources\next_2.png" />
+    <None Remove="Resources\previous_1.png" />
+    <None Remove="Resources\reader_1.png" />
+    <None Remove="Resources\settings_1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\..\RadiantCommon\RadiantCommon.csproj" />
     <ProjectReference Include="..\..\..\..\WebScraper\RadiantClientWebScraper\RadiantClientWebScraper.csproj">
       <CopyLocal></CopyLocal>
@@ -17,6 +31,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\close_btn_1.png" />
+    <Resource Include="Resources\close_btn_1_over.png" />
+    <Resource Include="Resources\dashboard_1.png" />
+    <Resource Include="Resources\download_1.png" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\next_1.png" />
+    <Resource Include="Resources\previous_1.png" />
+    <Resource Include="Resources\reader_1.png" />
+    <Resource Include="Resources\settings_1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Icons.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
     <Compile Update="Tests\Resources\ResourceDom.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -25,6 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Icons.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Tests\Resources\ResourceDom.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourceDom.Designer.cs</LastGenOutput>

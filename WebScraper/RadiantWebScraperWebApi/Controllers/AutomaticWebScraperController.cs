@@ -12,7 +12,7 @@ namespace RadiantWebScraperWebApi.Controllers
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        [HttpGet(Name = "GetDOMByAutomaticWebScraper")]
+        [HttpGet]
         public string GetDOM(string Url)
         {
             if(string.IsNullOrWhiteSpace(Url))

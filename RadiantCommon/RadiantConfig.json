@@ -15,7 +15,7 @@
                             "BlackOutEnd": "19:10:00",
                             "BlackOutStart": "19:00:00"
                         },
-                        "TriggerEveryXSeconds": 10
+                        "TriggerEveryXSeconds": 30
                     }
                 ]
             },
@@ -68,7 +68,7 @@
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
                         "BlackOutEnd": "19:00:00",
                         "BlackOutStart": "19:00:00",
-                        "TriggerEveryXSeconds": 30
+                        "TriggerEveryXSeconds": 10
                     }
                 ]
             }

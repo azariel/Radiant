@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="RadiantReader.Views.HeaderUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RadiantReader.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Name="HeaderMainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <WrapPanel Orientation="Horizontal">
+            <Image Name="imgCloseApp" Width="24" Height="24" ToolTip="Close Application" Cursor="Hand" HorizontalAlignment="Left" MouseLeftButtonDown="ImgCloseApp_OnMouseLeftButtonDown">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Source" Value="/Resources/close_btn_1.png"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Source" Value="/Resources/close_btn_1_over.png"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image Name="imgSettings" Source="/Resources/settings_1.png" Margin="5,0" VerticalAlignment="Center" Width="18" Height="18" ToolTip="Settings" Cursor="Hand" HorizontalAlignment="Left" />
+            <Image Name="imgReader" Source="/Resources/reader_1.png" Margin="5,0" VerticalAlignment="Center" Width="18" Height="18" ToolTip="Open Reader" Cursor="Hand" HorizontalAlignment="Left" />
+            <Image Name="imgDashboard" Source="/Resources/dashboard_1.png" Margin="5,0" VerticalAlignment="Center" Width="18" Height="18" ToolTip="Open new Books" Cursor="Hand" HorizontalAlignment="Left" MouseLeftButtonDown="ImgDashboard_OnMouseLeftButtonDown" />
+            <Image Name="imgQueueFetch" Source="/Resources/download_1.png" Margin="5,0" VerticalAlignment="Center" Width="18" Height="18" ToolTip="Queue to fetch new chapters" Cursor="Hand" HorizontalAlignment="Left" />
+            <Image Name="imgPreviousChapter" Source="/Resources/previous_1.png" Margin="5,0" VerticalAlignment="Center" Width="18" Height="18" ToolTip="Previous Chapter" Cursor="Hand" HorizontalAlignment="Left" />
+            <Image Name="imgNextChapter" Source="/Resources/next_1.png" Margin="5,0" VerticalAlignment="Center" Width="18" Height="18" ToolTip="Next Chapter" Cursor="Hand" HorizontalAlignment="Left" />
+        </WrapPanel>
+        <WrapPanel Grid.Column="1" Orientation="Horizontal">
+            <Label Name="lblChapterIndex" Foreground="#666" FontSize="11">ch.3525</Label>
+            <Label Name="lblWordsCount" Foreground="#666" FontSize="11">2,914,988/6,987,414</Label>
+            <Label Name="lblWordsPerc" Foreground="#666" FontSize="11">(95%)</Label>
+        </WrapPanel>
+    </Grid>
+</UserControl>

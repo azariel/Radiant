@@ -14,8 +14,6 @@ namespace RadiantReader
         {
             aInlines = new List<Inline>();
 
-            List<Inline> _Inlines = new();
-
             if (!File.Exists(aFilePath))
             {
                 LoggingManager.LogToFile("ed197844-dd4f-4ea7-b815-33d9cc86c67b", $"Couldn't load file [{aFilePath}]. File was not found.");
@@ -28,13 +26,13 @@ namespace RadiantReader
             foreach (string _RawLine in _FileContentByRawLines)
             {
                 // Line could be splitted by other thing than \r\n, like <p></p> or </p> etc
-
+                _Lines.Add(_RawLine);// TEMP
             }
 
             foreach (string _Line in _Lines)
             {
                 // Convert that line to an Inline
-
+                aInlines.Add(new Run(_Line));// TEMP
             }
 
             return true;
