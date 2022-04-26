@@ -114,10 +114,14 @@ namespace RadiantReader
             LoadApplicationStateFromConfiguration();
         }
 
-        private void SetReaderContentModule(UIElement aObj)
+        private void SetReaderContentModule(UIElement aContent, HeaderOptions aHeaderOptions)
         {
+            // Show only header options we want
+            HeaderControl.RefreshOptions(aHeaderOptions);
+
+            // Override content
             GridContent.Children.Clear();
-            GridContent.Children.Add(aObj);
+            GridContent.Children.Add(aContent);
         }
     }
 }

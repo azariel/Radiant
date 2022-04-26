@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="RadiantReader.Views.ReaderContentUserControl"
+﻿<UserControl x:Class="RadiantReader.Views.NewBooks.NewBooksUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -86,8 +86,24 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <ScrollViewer>
-            <TextBlock Name="TextContentTextBlock" Padding="10" TextWrapping="Wrap" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "9*" />
+            <RowDefinition Height = "1*" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Name="NewBooksScrollViewer" Margin="0,-10,0,0">
+            <StackPanel Name="NewBooksMainGrid" Orientation="Vertical">
+            </StackPanel>
         </ScrollViewer>
+        <!--PAGINATION-->
+        <DockPanel Grid.Row="1" HorizontalAlignment="Center">
+            <Image Name="imgPreviousPage" Source="/Resources/previous_1.png" Height="18" Cursor="Hand" Margin="0,0,10,0" MouseLeftButtonDown="ImgPreviousPage_OnMouseLeftButtonDown"></Image>
+            <Image Name="imgNextPage" Source="/Resources/next_1.png" Height="18" HorizontalAlignment="Right" Margin="10,0,0,0" Cursor="Hand" MouseLeftButtonDown="ImgNextPage_OnMouseLeftButtonDown"></Image>
+        </DockPanel>
+        <Canvas Grid.Row="1">
+            <Label Name="lblPagination" Canvas.Right="20" Canvas.Bottom="1" FontWeight="Bold" />
+        </Canvas>
+        <Canvas Grid.Row="1">
+            <Label Name="lblTotalBooks" Canvas.Left="10" Canvas.Bottom="1" FontWeight="Bold" />
+        </Canvas>
     </Grid>
 </UserControl>

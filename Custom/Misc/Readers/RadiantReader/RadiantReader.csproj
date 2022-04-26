@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\blacklist_1.png" />
     <None Remove="Resources\close_btn_1.png" />
     <None Remove="Resources\close_btn_1_over.png" />
     <None Remove="Resources\dashboard_1.png" />
@@ -24,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\..\RadiantCommon\RadiantCommon.csproj" />
     <ProjectReference Include="..\..\..\..\WebScraper\RadiantClientWebScraper\RadiantClientWebScraper.csproj">
       <CopyLocal></CopyLocal>
@@ -31,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\blacklist_1.png" />
     <Resource Include="Resources\close_btn_1.png" />
     <Resource Include="Resources\close_btn_1_over.png" />
     <Resource Include="Resources\dashboard_1.png" />

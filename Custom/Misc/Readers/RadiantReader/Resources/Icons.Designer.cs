@@ -63,6 +63,16 @@ namespace RadiantReader.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap blacklist_1 {
+            get {
+                object obj = ResourceManager.GetObject("blacklist_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap close_btn_1 {
             get {
                 object obj = ResourceManager.GetObject("close_btn_1", resourceCulture);

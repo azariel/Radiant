@@ -61,6 +61,7 @@ namespace RadiantReader.Managers
             // TODO: ParseBooksFromFanfictionDOM should return it's own model and not RadiantReaderBookDefinitionModel
             aBookDefinitionToUpdate.MainCharacters = aUpdatedBookDefinition.MainCharacters;
             aBookDefinitionToUpdate.Rating = aUpdatedBookDefinition.Rating;
+            aBookDefinitionToUpdate.Blacklist = aUpdatedBookDefinition.Blacklist;
             aBookDefinitionToUpdate.SoftNbWords = aUpdatedBookDefinition.SoftNbWords;
             aBookDefinitionToUpdate.Summary = aUpdatedBookDefinition.Summary;
             aBookDefinitionToUpdate.Title = aUpdatedBookDefinition.Title;

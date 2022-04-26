@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Radiant.Common.Database.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Radiant.Common.Database.Sqlite;
 
 namespace RadiantReader.DataBase
 {
@@ -15,6 +15,9 @@ namespace RadiantReader.DataBase
         public long BookHostId { get; set; }
 
         public virtual List<RadiantReaderBookChapter> Chapters { get; set; } = new();
+
+        [Required]
+        public bool Blacklist { get; set; }// Book should be ghosted forever. User doesn't want to see it anymore
 
         [Required]
         [Key]
