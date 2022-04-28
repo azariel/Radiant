@@ -87,7 +87,7 @@
     </UserControl.Resources>
     <Grid>
         <ScrollViewer>
-            <TextBlock Name="TextContentTextBlock" Padding="10" TextWrapping="Wrap" />
+            <TextBlock Name="TextContentTextBlock" Tag="Draggable" Padding="10" TextWrapping="Wrap" />
         </ScrollViewer>
     </Grid>
 </UserControl>

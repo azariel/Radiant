@@ -19,13 +19,13 @@ namespace RadiantReader.Parsers
 
             int _ChapterIndex = aBookDefinition.Chapters.Count + 1;// Note that fanfiction.net chapter urls are 1 based
 
-            string _CurrentChapterUrl = $"http://www.fanfiction.net{aBookDefinition.Url}";
+            string _BaseChapterUrl = $"http://www.fanfiction.net{aBookDefinition.Url}";
 
             // Fetch chapters
             while (true)
             {
                 // Set chapter URL
-                _CurrentChapterUrl = _CurrentChapterUrl.Replace($"/{_ChapterIndex - 1}/", $"/{_ChapterIndex}/");
+                string _CurrentChapterUrl = _BaseChapterUrl.Replace($"/1/", $"/{_ChapterIndex}/");
 
                 // Get DOM
                 string _CurrentDOM = ManualWebScraperClient.GetDOMAsync(_CurrentChapterUrl).Result;

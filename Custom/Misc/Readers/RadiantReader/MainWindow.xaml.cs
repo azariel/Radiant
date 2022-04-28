@@ -55,7 +55,10 @@ namespace RadiantReader
         private void MainGridOnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
             var _OriginalType = aE.OriginalSource.GetType();
-            if (_OriginalType != typeof(TextBlock) && _OriginalType != typeof(Grid))
+            if (_OriginalType != typeof(TextBlock) && _OriginalType != typeof(Grid) && _OriginalType != typeof(ScrollViewer))
+                return;
+
+            if (_OriginalType == typeof(TextBlock) && ((TextBlock)aE.OriginalSource).Tag as string != "Draggable")
                 return;
 
             DragMove();

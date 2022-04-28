@@ -27,7 +27,6 @@ namespace RadiantReader.Views.NewBooks
         //                            Private
         // ********************************************************************
         private RadiantReaderBookDefinitionModel fBookDefinition;
-        public Action SetOverallControlStateAction { get; set; }
 
         private void ImgAddToDownload_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
@@ -47,7 +46,7 @@ namespace RadiantReader.Views.NewBooks
             SetControlState();
         }
 
-        private void ImgBlacklist_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE) 
+        private void ImgBlacklist_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
             using var _DataBaseContext = new RadiantReaderDbContext();
             _DataBaseContext.BookDefinitions.Load();
@@ -139,5 +138,10 @@ namespace RadiantReader.Views.NewBooks
                 SetControlState();
             }
         }
+
+        // ********************************************************************
+        //                            Delegates
+        // ********************************************************************
+        public Action SetOverallControlStateAction { get; set; }
     }
 }

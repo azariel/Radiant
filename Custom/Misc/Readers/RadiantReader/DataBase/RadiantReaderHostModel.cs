@@ -19,5 +19,9 @@ namespace RadiantReader.DataBase
 
         [Required]
         public string HostLandingPage { get; set; }// The page to fetch new fics
+
+        [Required]
+        [MaxLength(512)]
+        public string World { get; set; }// Ex: Naruto, Harry Potter, etc
     }
 }

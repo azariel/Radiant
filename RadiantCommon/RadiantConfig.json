@@ -5,7 +5,7 @@
         "Tasks": [
             {
                 "$type": "Radiant.Custom.ProductsHistory.Tasks.ProductsMonitorTask, ProductsHistory",
-                "IsEnabled": true,
+                "IsEnabled": false,
                 "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
                 "Triggers": [
                     {
@@ -61,7 +61,7 @@
             },
             {
                 "$type": "RadiantReader.Tasks.UpdateAvailableBooksTask, RadiantReader",
-                "IsEnabled": false,
+                "IsEnabled": true,
                 "UID": "63043528-6cd9-4c01-9ff1-03307f3b3176",
                 "Triggers": [
                     {

@@ -24,7 +24,49 @@ namespace RadiantReader.Views.NewBooks
             InitializeComponent();
 
             GenerateNewBooks(aNbElementsPerPage: fNbElementsPerPage);
+            FilterControl.SetOverallControlStateAction = SetOverallControlStateAction;
+            FilterControl.RefreshFilters = BuildFilters;
+
+            BuildFilters();
             SetControlState();
+        }
+
+        private void BuildFilters(bool aBuildWorlds = true, bool aBuildRatings = true, bool aBuildPairings = true)
+        {
+            using var _DataBaseContext = new RadiantReaderDbContext();
+            _DataBaseContext.Hosts.Load();
+            _DataBaseContext.BookDefinitions.Load();
+
+            // Worlds
+            if (aBuildWorlds)
+            {
+                string[] _Worlds = _DataBaseContext.Hosts.Select(s => s.World).Distinct().OrderBy(o => o).ToArray();
+                FilterControl.AvailableWorlds = _Worlds;
+            }
+
+            IQueryable<RadiantReaderBookDefinitionModel> _FilteredQuery = _DataBaseContext.BookDefinitions;
+
+            if (!string.IsNullOrWhiteSpace(FilterControl.SelectedWorld))
+                _FilteredQuery = _FilteredQuery.Where(w => w.Host.World == FilterControl.SelectedWorld);
+
+            // Ratings
+            if (aBuildRatings)
+            {
+                string[] _Ratings = _FilteredQuery.Select(s => s.Rating).Distinct().OrderBy(o => o).ToArray();
+                FilterControl.AvailableRatings = _Ratings;
+            }
+
+            if (!string.IsNullOrWhiteSpace(FilterControl.Rating))
+                _FilteredQuery = _FilteredQuery.Where(w => w.Rating == FilterControl.Rating);
+
+            // Pairings
+            if (aBuildPairings)
+            {
+                string[] _Pairings = _FilteredQuery.Select(s => s.Pairings).Distinct().OrderBy(o => o).ToArray();
+                FilterControl.AvailablePairings = _Pairings;
+            }
+
+            FilterControl.Refresh(aBuildWorlds, aBuildRatings, aBuildPairings);
         }
 
         // ********************************************************************
@@ -32,8 +74,8 @@ namespace RadiantReader.Views.NewBooks
         // ********************************************************************
         private int fCurrentPage;
         private int fMaxPage;
+        private readonly int fNbElementsPerPage = 10;
         private int fTotalBooks;
-        private int fNbElementsPerPage = 10;
 
         private void GenerateNewBooks(int aPageNumber = 0, int aNbElementsPerPage = 10, bool aResetScrollViewerToTop = true)
         {
@@ -41,13 +83,50 @@ namespace RadiantReader.Views.NewBooks
             _DataBaseContext.Hosts.Load();
             _DataBaseContext.BookDefinitions.Load();
 
-            fTotalBooks = _DataBaseContext.BookDefinitions.Count(w => !w.Blacklist);
+            NewBooksMainGrid.Children.Clear();
+            IQueryable<RadiantReaderBookDefinitionModel> _FilteredQuery = _DataBaseContext.BookDefinitions.Where(w => !w.Blacklist);
+
+            // Add filters
+            // Summary contains word (case insensitive)
+            if (!string.IsNullOrWhiteSpace(FilterControl.SummaryContainsWord))
+                _FilteredQuery = _FilteredQuery.Where(w => EF.Functions.Like(w.Summary, $"%{FilterControl.SummaryContainsWord}%"));
+
+            // Ratings
+            if (!string.IsNullOrWhiteSpace(FilterControl.Rating))
+                _FilteredQuery = _FilteredQuery.Where(w => w.Rating == FilterControl.Rating);
+
+            // Pairings
+            if (!string.IsNullOrWhiteSpace(FilterControl.Pairings))
+                _FilteredQuery = _FilteredQuery.Where(w => EF.Functions.Like(w.Pairings, $"%{FilterControl.Pairings}%"));
+
+            // World
+            if (!string.IsNullOrWhiteSpace(FilterControl.SelectedWorld))
+                _FilteredQuery = _FilteredQuery.Where(w => w.Host.World == FilterControl.SelectedWorld);
+
+            // OrderBy
+            switch (FilterControl.OrderBy)
+            {
+                case NewBooksFiltersHeader.NewBooksOrderBy.LastFetch:
+                    _FilteredQuery = _FilteredQuery.OrderByDescending(o => o.LastFetch);
+                    break;
+                case NewBooksFiltersHeader.NewBooksOrderBy.Words:
+                    _FilteredQuery = _FilteredQuery.OrderByDescending(o => o.SoftNbWords);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException($"Order [{FilterControl.OrderBy}] is not handled.");
+            }
+
+            fTotalBooks = _FilteredQuery.Count(w => !w.Blacklist);
             fMaxPage = fTotalBooks / aNbElementsPerPage;
 
             int _CurrentPage = Math.Min(aPageNumber, fMaxPage);
 
-            NewBooksMainGrid.Children.Clear();
-            List<RadiantReaderBookDefinitionModel> _BooksDefinitionCollection = _DataBaseContext.BookDefinitions.Where(w => !w.Blacklist).OrderByDescending(o => o.LastFetch).Skip(_CurrentPage * aNbElementsPerPage).Take(aNbElementsPerPage).ToList();
+            List<RadiantReaderBookDefinitionModel> _BooksDefinitionCollection = _FilteredQuery
+                //.OrderByDescending(o => o.LastFetch)
+                .Skip(_CurrentPage * aNbElementsPerPage)
+                .Take(aNbElementsPerPage)
+                .ToList();
+
             foreach (RadiantReaderBookDefinitionModel _BookDefinition in _BooksDefinitionCollection)
             {
                 var _NewBookElement = new NewBookElementUserControl { BookDefinition = _BookDefinition };
@@ -61,11 +140,6 @@ namespace RadiantReader.Views.NewBooks
             SetControlState();
         }
 
-        private void SetOverallControlStateAction()
-        {
-            GenerateNewBooks(fCurrentPage, fNbElementsPerPage, false);
-        }
-
         private void ImgNextPage_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
             ++fCurrentPage;
@@ -75,7 +149,7 @@ namespace RadiantReader.Views.NewBooks
 
         private void ImgPreviousPage_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
-            if (fCurrentPage > 1)
+            if (fCurrentPage > 0)
                 --fCurrentPage;
 
             GenerateNewBooks(fCurrentPage, fNbElementsPerPage);
@@ -102,6 +176,11 @@ namespace RadiantReader.Views.NewBooks
             lblTotalBooks.Content = $"{fTotalBooks:N0} Total";
             lblTotalBooks.Foreground = _ForeGroundColor;
             lblTotalBooks.FontSize = _Config.Settings.FontSize;
+        }
+
+        private void SetOverallControlStateAction()
+        {
+            GenerateNewBooks(fCurrentPage, fNbElementsPerPage, false);
         }
     }
 }
