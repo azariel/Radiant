@@ -71,10 +71,12 @@
       </Grid>
       <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width = "1*" />
-          <ColumnDefinition Width = "1*" />
+          <ColumnDefinition Width = "2*" />
+          <ColumnDefinition Width = "3*" />
+          <ColumnDefinition Width = "2*" />
         </Grid.ColumnDefinitions>
         <ComboBox Grid.Column="0" Name="cmbBoxWorld" SelectionChanged="CmbBoxWorld_OnSelectionChanged" Foreground="WhiteSmoke" FontWeight="Bold" Style="{StaticResource DarkComboBox}" />
+        <ComboBox Grid.Column="1" Name="cmbBoxShowLocalBooks" SelectionChanged="CmbBoxShowLocalBooks_OnSelectionChanged"  Foreground="WhiteSmoke" FontWeight="Bold" Style="{StaticResource DarkComboBox}" />
       </Grid>
     </StackPanel>
   </Grid>

@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using RadiantReader.Configuration;
 using RadiantReader.DataBase;
 
@@ -82,6 +83,7 @@ namespace RadiantReader.Views.NewBooks
             using var _DataBaseContext = new RadiantReaderDbContext();
             _DataBaseContext.Hosts.Load();
             _DataBaseContext.BookDefinitions.Load();
+            _DataBaseContext.BookContent.Load();
 
             NewBooksMainGrid.Children.Clear();
             IQueryable<RadiantReaderBookDefinitionModel> _FilteredQuery = _DataBaseContext.BookDefinitions.Where(w => !w.Blacklist);
@@ -102,6 +104,22 @@ namespace RadiantReader.Views.NewBooks
             // World
             if (!string.IsNullOrWhiteSpace(FilterControl.SelectedWorld))
                 _FilteredQuery = _FilteredQuery.Where(w => w.Host.World == FilterControl.SelectedWorld);
+
+            // LocalBookOption
+            switch (FilterControl.LocalBookOption)
+            {
+                case NewBooksFiltersHeader.ShowLocalBookOption.ShowAll:
+                    // No query change
+                    break;
+                case NewBooksFiltersHeader.ShowLocalBookOption.ShowOnlyLocal:
+                    _FilteredQuery = _FilteredQuery.Where(w => w.Chapters.Any());
+                    break;
+                case NewBooksFiltersHeader.ShowLocalBookOption.ShowOnlyNonLocal:
+                    _FilteredQuery = _FilteredQuery.Where(w => !w.Chapters.Any());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException($"LocalBookOption [{FilterControl.LocalBookOption}] is not handled.");
+            }
 
             // OrderBy
             switch (FilterControl.OrderBy)

@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.EntityFrameworkCore;
+using RadiantReader.Configuration;
+using RadiantReader.DataBase;
 using RadiantReader.Views.NewBooks;
 using RadiantReader.Views.Settings;
 
@@ -52,18 +56,43 @@ namespace RadiantReader.Views
             });
         }
 
+        private void ImgNextChapter_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
+        {
+            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            using var _DataBaseContext = new RadiantReaderDbContext();
+            _DataBaseContext.BookDefinitions.Load();
+            _DataBaseContext.BookContent.Load();
+
+            var _SelectedBook = _DataBaseContext.BookDefinitions.Single(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
+
+            if (_SelectedBook.Chapters.Count > _Config.State.SelectedBook.BookChapterIndex + 1)
+                _Config.State.SelectedBook.BookChapterIndex++;
+
+            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
+            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
+
+            OpenReaderContentModule();
+            SetControlState();
+        }
+
+        private void ImgPreviousChapter_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
+        {
+            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            if (_Config.State.SelectedBook.BookChapterIndex > 0)
+                _Config.State.SelectedBook.BookChapterIndex--;
+
+            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
+            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
+
+            OpenReaderContentModule();
+            SetControlState();
+        }
+
         private void ImgReader_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
-            // Open settings control
-            fSetReaderContentModule?.Invoke(new ReaderContentUserControl(), new HeaderOptions
-            {
-                CloseButtonAvailable = true,
-                SettingsButtonAvailable = true,
-                ShowDownloadAvailable = true,
-                ShowNewBooksAvailable = true,
-                ShowNextAvailable = true,
-                ShowPreviousAvailable = true
-            });
+            OpenReaderContentModule();
         }
 
         private void ImgSettings_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
@@ -76,6 +105,40 @@ namespace RadiantReader.Views
             });
         }
 
+        private void OpenReaderContentModule()
+        {
+            // Open reader content control
+            fSetReaderContentModule?.Invoke(new ReaderContentUserControl(), new HeaderOptions
+            {
+                CloseButtonAvailable = true,
+                SettingsButtonAvailable = true,
+                ShowDownloadAvailable = true,
+                ShowNewBooksAvailable = true,
+                ShowNextAvailable = true,
+                ShowPreviousAvailable = true
+            });
+
+            SetControlState();
+        }
+
+        private void SetChapterInfosUIRepresentation()
+        {
+            RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.ReloadConfig();
+            using var _DataBaseContext = new RadiantReaderDbContext();
+            _DataBaseContext.BookDefinitions.Load();
+            _DataBaseContext.BookContent.Load();
+
+            // Set chapter infos
+            lblChapterIndex.Content = $"chp.{_Config.State.SelectedBook.BookChapterIndex}";
+
+            var _SelectedBook = _DataBaseContext.BookDefinitions.Single(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
+
+            double _CurrentChaptersWords = _SelectedBook.Chapters.Where(w => w.ChapterNumber < _Config.State.SelectedBook.BookChapterIndex + 1).Aggregate(seed: 0, (count, val) => count + val.ChapterWordsCount);
+            double _TotalWords = _SelectedBook.Chapters.Aggregate(seed: 0, (count, val) => count + val.ChapterWordsCount);
+            lblWordsCount.Content = $"{_CurrentChaptersWords:N0}/{_TotalWords:N0}";
+            lblWordsPerc.Content = $"{Math.Round(_CurrentChaptersWords * 100 / _TotalWords, digits: 0)}%";
+        }
+
         private void SetControlState()
         {
             SetImageButtonVisibility(imgSettings, fSettingsButtonAvailable);
@@ -85,6 +148,8 @@ namespace RadiantReader.Views
             SetImageButtonVisibility(imgNextChapter, fShowNextAvailable);
             SetImageButtonVisibility(imgPreviousChapter, fShowPreviousAvailable);
             SetImageButtonVisibility(imgReader, fShowReaderAvailable);
+
+            SetChapterInfosUIRepresentation();
         }
 
         private void SetImageButtonVisibility(Image aImage, bool aVisible)

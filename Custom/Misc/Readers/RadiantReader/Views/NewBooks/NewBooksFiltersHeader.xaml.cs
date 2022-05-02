@@ -18,6 +18,13 @@ namespace RadiantReader.Views.NewBooks
             Words
         }
 
+        public enum ShowLocalBookOption
+        {
+            ShowAll,
+            ShowOnlyLocal,
+            ShowOnlyNonLocal
+        }
+
         // ********************************************************************
         //                            Constructors
         // ********************************************************************
@@ -29,6 +36,11 @@ namespace RadiantReader.Views.NewBooks
                 cmbBoxOrderBy.Items.Add(_EnumValue);
 
             cmbBoxOrderBy.SelectedIndex = 0;
+
+            foreach (ShowLocalBookOption _EnumValue in Enum.GetValues<ShowLocalBookOption>())
+                cmbBoxShowLocalBooks.Items.Add(_EnumValue);
+
+            cmbBoxShowLocalBooks.SelectedIndex = 0;
         }
 
         // ********************************************************************
@@ -52,8 +64,14 @@ namespace RadiantReader.Views.NewBooks
             this.Rating = cmbBoxRating.SelectedItem as string;
 
             // Refresh pairings filter options
-            this.RefreshFilters?.Invoke(false, false, true);
+            this.RefreshFilters?.Invoke(arg1: false, arg2: false, arg3: true);
 
+            this.SetOverallControlStateAction?.Invoke();
+        }
+
+        private void CmbBoxShowLocalBooks_OnSelectionChanged(object aSender, SelectionChangedEventArgs aE)
+        {
+            this.LocalBookOption = (ShowLocalBookOption)cmbBoxShowLocalBooks.SelectedItem;
             this.SetOverallControlStateAction?.Invoke();
         }
 
@@ -62,7 +80,7 @@ namespace RadiantReader.Views.NewBooks
             this.SelectedWorld = cmbBoxWorld.SelectedItem as string;
 
             // Refresh ratings filter options
-            this.RefreshFilters?.Invoke(false, true, true);
+            this.RefreshFilters?.Invoke(arg1: false, arg2: true, arg3: true);
 
             this.SetOverallControlStateAction?.Invoke();
         }
@@ -125,6 +143,8 @@ namespace RadiantReader.Views.NewBooks
         public string[] AvailableRatings { get; set; }
 
         public string[] AvailableWorlds { get; set; }
+
+        public ShowLocalBookOption LocalBookOption { get; set; } = ShowLocalBookOption.ShowAll;
 
         public NewBooksOrderBy OrderBy { get; set; } = NewBooksOrderBy.LastFetch;
 

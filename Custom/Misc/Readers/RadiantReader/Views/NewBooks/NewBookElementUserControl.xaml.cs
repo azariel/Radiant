@@ -7,6 +7,7 @@ using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using RadiantReader.Configuration;
 using RadiantReader.DataBase;
+using RadiantReader.Managers;
 
 namespace RadiantReader.Views.NewBooks
 {
@@ -62,6 +63,11 @@ namespace RadiantReader.Views.NewBooks
             fBookDefinition.Blacklist = true;
 
             this.SetOverallControlStateAction?.Invoke();
+        }
+
+        private void LblTitleOnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
+        {
+            StateManager.SetCurrentBook(fBookDefinition);
         }
 
         private void SetControlState()
@@ -124,6 +130,14 @@ namespace RadiantReader.Views.NewBooks
 
             // Download button
             imgAddToDownload.Visibility = fBookDefinition.RequireUpdate ? Visibility.Collapsed : Visibility.Visible;
+
+            // Set title to be selectable if book contains any chapters locally
+            if (fBookDefinition.Chapters.Any())
+            {
+                lblTitle.Cursor = Cursors.Hand;
+                lblTitle.Tag = null;
+                lblTitle.MouseLeftButtonDown += LblTitleOnMouseLeftButtonDown;
+            }
         }
 
         // ********************************************************************
