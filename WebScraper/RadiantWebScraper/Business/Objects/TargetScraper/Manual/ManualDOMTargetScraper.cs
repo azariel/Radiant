@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.WebScraper.Parsers.DOM;
 using Radiant.WebScraper.Scrapers;
@@ -24,6 +26,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
         // ********************************************************************
         private void CloseInspector()
         {
+            File.AppendAllText(@"C:\temp\test.txt", $"Close Inspector.{Environment.NewLine}");
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 120,
@@ -37,8 +40,10 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
 
         private void ExtractDOM()
         {
+            File.AppendAllText(@"C:\temp\test.txt", $"ExtractDOM start.{Environment.NewLine}");
             // Get DOM
             ShowAndFocusDOMInInspector();
+            File.AppendAllText(@"C:\temp\test.txt", $"ExtractDOM done.{Environment.NewLine}");
 
             // Clear clipboard
             ClipboardManager.SetClipboardValue("");
@@ -71,6 +76,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
 
         private void ShowAndFocusDOMInInspector()
         {
+            File.AppendAllText(@"C:\temp\test.txt", $"Focus DOM in Inspector.{Environment.NewLine}");
             // Note that it's the same in every supported browser (atm)
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
@@ -80,7 +86,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                     Keycode.XK_F12
                 }
             });
-            WaitForBrowserInputsReadyOrMax(15154);
+            WaitForBrowserInputsReadyOrMax(7154);
 
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {

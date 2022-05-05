@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Tasks.Triggers;
 using RadiantClientWebScraper;
@@ -40,10 +42,26 @@ namespace RadiantReader.Tasks
             _DataBaseContext.BookContent.Load();
 
             RadiantReaderBookDefinitionModel[] _BookDefinitions = _DataBaseContext.BookDefinitions.Where(w => w.RequireUpdate).ToArray();
-            foreach (var _BookDefinition in _BookDefinitions)
+            foreach (RadiantReaderBookDefinitionModel _BookDefinition in _BookDefinitions)
             {
-                FanfictionFetcher.FetchNewChaptersFromBookDefinition(_BookDefinition);
-                _DataBaseContext.SaveChanges();
+                int _NbChaptersBeforeFetch = _BookDefinition.Chapters.Count;
+                RadiantReaderBookChapter _NewChapter;
+                do
+                {
+                    _NewChapter = FanfictionFetcher.FetchNextChapterFromBookDefinition(_BookDefinition);
+
+                    if (_NewChapter == null)
+                        continue;
+
+                    _BookDefinition.Chapters.Add(_NewChapter);
+                    _DataBaseContext.SaveChanges();
+
+                    // Add a little sleep to avoid being tagged as a bot too easily
+                    Thread.Sleep(new Random().Next(5765, 9457));
+                } while (_NewChapter != null);
+
+                if (_BookDefinition.Chapters.Count > _NbChaptersBeforeFetch)
+                    _BookDefinition.RequireUpdate = false;
             }
         }
 
@@ -63,10 +81,10 @@ namespace RadiantReader.Tasks
             // TODO: we should split this into 2 tasks... 1 to fetch new books and another one to update chapters
 
             // Get newly updated books from monitored main pages such as fanfiction.net, AoO, etc
-            FetchBooksOnLandingPage();
+            //FetchBooksOnLandingPage();
 
             // Fetch new chapters from book definitions requiring an update
-            FetchChaptersFromBookDefinitionsRequiringUpdate();
+            //FetchChaptersFromBookDefinitionsRequiringUpdate();
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="RadiantReader.Views.NewBooks.NewBookElementUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="10,0,10,0">
+            <Grid Margin="0,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Name="lblTitle" FontWeight="Bold" FontSize="14" TextWrapping="WrapWithOverflow" Tag="Draggable" />
+                    <Image Name="imgAddToDownload" Height="18" Margin="5,0" Width="18" Source="/Resources/download_1.png" Cursor="Hand" MouseLeftButtonDown="ImgAddToDownload_OnMouseLeftButtonDown" />
+                </WrapPanel>
+                <Image Grid.Column="1" Name="imgBlacklist" Height="18" Width="18" HorizontalAlignment="Right" Source="/Resources/blacklist_1.png" Cursor="Hand" MouseLeftButtonDown="ImgBlacklist_OnMouseLeftButtonDown" />
+            </Grid>
+            <TextBlock Name="txtBlockSummary" FontWeight="DemiBold" FontSize="12" TextWrapping="WrapWithOverflow" Margin="5,2,5,0" Tag="Draggable" />
+            <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <WrapPanel.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="Margin" Value="0,-10,0,0"/>
+                    </Style>
+                </WrapPanel.Resources>
+                <Label Name="lblWords" />
+                <Label Name="lblRating" />
+                <Label Name="lblMainCharacters" />
+                <Label Name="lblPairings" />
+            </WrapPanel>
+            <Separator Name="SeparatorControl" Margin="0,5,0,0" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="RadiantReader.Views.Settings.SettingsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RadiantReader.Views.Settings"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Name="SettingsMainGrid">
+        <StackPanel Orientation="Vertical">
+            <Label Name="lblTitle" FontSize="18" FontWeight="Bold">Settings</Label>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Name="lblForeGroundColor">ForeGround Color:</Label>
+                <xctk:ColorPicker Name="ClrPckerForeGroundColor" SelectedColorChanged="ClrPcker_Background_OnSelectedColorChanged" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Name="lblFontSize">Font Size:</Label>
+                <TextBox Name="txtBoxFontSize" KeyUp="TxtBoxFontSize_OnKeyUp" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Name="lblTopMost">Top Most:</Label>
+                <CheckBox Name="chkTopMost" Checked="ChkTopMost_OnCheckChanged" Unchecked="ChkTopMost_OnCheckChanged" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

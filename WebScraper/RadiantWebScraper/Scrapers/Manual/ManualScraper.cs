@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -146,7 +147,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
                 SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
                 Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? 30000);
-
+                
                 Thread.Sleep(500);
 
                 // Fullscreen

@@ -146,7 +146,7 @@ namespace RadiantReader.Utils
             // Extract Title
             var _TitleRegexMatch = Regex.Match(aBookInformationLine, "\"66\">(.+?)<\\/a>");// That's a very weak regex... find a better way
             if (_TitleRegexMatch.Success && _TitleRegexMatch.Groups.Count == 2)
-                aTitle = _TitleRegexMatch.Groups[1].Value;
+                aTitle = BookStringUtils.FormatTitle(_TitleRegexMatch.Groups[1].Value);
         }
 
         // ********************************************************************
@@ -177,7 +177,7 @@ namespace RadiantReader.Utils
                 }
             }
 
-            _Chapter.ChapterContent = _MatchContent.Groups.Values.Last().Value;
+            _Chapter.ChapterContent = BookStringUtils.FormatSummary(_MatchContent.Groups.Values.Last().Value);
             _Chapter.BookDefinitionId = aBookDefinitionId;
             _Chapter.ChapterNumber = aChapterIndex;
 

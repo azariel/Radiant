@@ -50,12 +50,17 @@ namespace RadiantReader
             this.Height = _Config.State.Height;
             this.Left = _Config.State.Location.X;
             this.Top = _Config.State.Location.Y;
+
+            SetControlState();
         }
 
         private void MainGridOnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
             var _OriginalType = aE.OriginalSource.GetType();
-            if (_OriginalType != typeof(TextBlock) && _OriginalType != typeof(Grid))
+            if (_OriginalType != typeof(TextBlock) && _OriginalType != typeof(Grid) && _OriginalType != typeof(ScrollViewer) && aE.OriginalSource is not Inline)
+                return;
+
+            if (_OriginalType == typeof(TextBlock) && ((TextBlock)aE.OriginalSource).Tag as string != "Draggable")
                 return;
 
             DragMove();
@@ -74,9 +79,13 @@ namespace RadiantReader
                 _Config.State.Height = this.Height;
                 _Config.State.Location = new Point((int)this.Left, (int)this.Top);
 
+                foreach (IContentChild _ContentChild in GridContent.Children.OfType<IContentChild>())
+                    _ContentChild.UpdateInMemoryConfig();
+
                 RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
                 RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("34629a8a-9f5c-41ed-8111-b9c8e09cf611", "Couldn't save state configuration.", _Ex);
             }
@@ -85,9 +94,7 @@ namespace RadiantReader
         private void OnDrop(object aSender, DragEventArgs aDragEventArgs)
         {
             // Load file if format is handled by app
-            string[]? _Files = aDragEventArgs.Data.GetData(DataFormats.FileDrop) as string[];
-
-            if (_Files == null || !_Files.Any())
+            if (aDragEventArgs.Data.GetData(DataFormats.FileDrop) is not string[] _Files || !_Files.Any())
             {
                 MessageBox.Show("Selected file is invalid.");
                 return;
@@ -114,10 +121,21 @@ namespace RadiantReader
             LoadApplicationStateFromConfiguration();
         }
 
-        private void SetReaderContentModule(UIElement aObj)
+        private void SetControlState()
         {
+            this.Topmost = RadiantReaderConfigurationManager.ReloadConfig().Settings.TopMost;
+        }
+
+        private void SetReaderContentModule(UIElement aContent, HeaderOptions aHeaderOptions)
+        {
+            // Show only header options we want
+            HeaderControl.RefreshOptions(aHeaderOptions);
+
+            // Override content
             GridContent.Children.Clear();
-            GridContent.Children.Add(aObj);
+            GridContent.Children.Add(aContent);
+
+            SetControlState();
         }
     }
 }

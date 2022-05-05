@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Documents;
+using RadiantReader.Utils;
 
 namespace RadiantReader
 {
@@ -25,15 +26,13 @@ namespace RadiantReader
 
             foreach (string _RawLine in _FileContentByRawLines)
             {
-                // Line could be splitted by other thing than \r\n, like <p></p> or </p> etc
+                // Line could be split by other thing than \r\n, like <p></p> or </p> etc
                 _Lines.Add(_RawLine);// TEMP
             }
 
+            // Convert lines to Inlines
             foreach (string _Line in _Lines)
-            {
-                // Convert that line to an Inline
-                aInlines.Add(new Run(_Line));// TEMP
-            }
+                aInlines.AddRange(StringConvertUtils.GetInlinesFromString(_Line));
 
             return true;
         }

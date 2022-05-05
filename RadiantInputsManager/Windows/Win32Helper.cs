@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -112,6 +113,8 @@ namespace RadiantInputsManager.Windows
                 _FlagByAction = aKeyStrokeAction == KeyStrokeAction.Press ? KEYEVENTF_EXTENDEDKEY : KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP;
             else
                 _FlagByAction = aKeyStrokeAction == KeyStrokeAction.Press ? 0 : KEYEVENTF_KEYUP;
+
+            File.AppendAllText(@"C:\temp\test.txt", $"{DateTime.Now:HH:mm:ss.fff} - Key [{aKeyCode}] [{aKeyStrokeAction}].{Environment.NewLine}");
 
             keybd_event(_KeyCode, 0, _FlagByAction, (UIntPtr)0);
         }

@@ -21,12 +21,12 @@
             },
             {
                 "$type": "Radiant.Notifier.Tasks.NotificationsMonitorTask, Radiant.Notifier",
-                "IsEnabled": false,
+                "IsEnabled": true,
                 "UID": "10c7195d-8a4d-4eed-9b04-8c8362928702",
                 "Triggers": [
                     {
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "TriggerEveryXSeconds": 300,
+                        "TriggerEveryXSeconds": 10,
                         "UID": "f2dc3da0-6999-4e61-bf92-5e7e2c79c2af"
                     }
                 ]
