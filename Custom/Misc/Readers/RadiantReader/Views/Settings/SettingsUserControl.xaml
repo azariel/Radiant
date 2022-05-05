@@ -18,7 +18,12 @@
 
             <StackPanel Orientation="Horizontal">
                 <Label Name="lblFontSize">Font Size:</Label>
-                <TextBox Name="txtBoxFontSize" KeyUp="TxtBoxFontSize_OnKeyUp"></TextBox>
+                <TextBox Name="txtBoxFontSize" KeyUp="TxtBoxFontSize_OnKeyUp" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Name="lblTopMost">Top Most:</Label>
+                <CheckBox Name="chkTopMost" Checked="ChkTopMost_OnCheckChanged" Unchecked="ChkTopMost_OnCheckChanged" />
             </StackPanel>
         </StackPanel>
     </Grid>

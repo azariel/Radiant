@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using RadiantReader.Configuration;
 using RadiantReader.DataBase;
 
@@ -15,7 +14,7 @@ namespace RadiantReader.Views.NewBooks
     /// <summary>
     /// Interaction logic for NewBooksUserControl.xaml
     /// </summary>
-    public partial class NewBooksUserControl : UserControl
+    public partial class NewBooksUserControl : UserControl, IContentChild
     {
         // ********************************************************************
         //                            Constructors
@@ -31,6 +30,14 @@ namespace RadiantReader.Views.NewBooks
             BuildFilters();
             SetControlState();
         }
+
+        // ********************************************************************
+        //                            Private
+        // ********************************************************************
+        private int fCurrentPage;
+        private int fMaxPage;
+        private readonly int fNbElementsPerPage = 10;
+        private int fTotalBooks;
 
         private void BuildFilters(bool aBuildWorlds = true, bool aBuildRatings = true, bool aBuildPairings = true)
         {
@@ -70,20 +77,9 @@ namespace RadiantReader.Views.NewBooks
             FilterControl.Refresh(aBuildWorlds, aBuildRatings, aBuildPairings);
         }
 
-        // ********************************************************************
-        //                            Private
-        // ********************************************************************
-        private int fCurrentPage;
-        private int fMaxPage;
-        private readonly int fNbElementsPerPage = 10;
-        private int fTotalBooks;
-
         private void GenerateNewBooks(int aPageNumber = 0, int aNbElementsPerPage = 10, bool aResetScrollViewerToTop = true)
         {
             using var _DataBaseContext = new RadiantReaderDbContext();
-            _DataBaseContext.Hosts.Load();
-            _DataBaseContext.BookDefinitions.Load();
-            _DataBaseContext.BookContent.Load();
 
             NewBooksMainGrid.Children.Clear();
             IQueryable<RadiantReaderBookDefinitionModel> _FilteredQuery = _DataBaseContext.BookDefinitions.Where(w => !w.Blacklist);
@@ -140,6 +136,7 @@ namespace RadiantReader.Views.NewBooks
             int _CurrentPage = Math.Min(aPageNumber, fMaxPage);
 
             List<RadiantReaderBookDefinitionModel> _BooksDefinitionCollection = _FilteredQuery
+
                 //.OrderByDescending(o => o.LastFetch)
                 .Skip(_CurrentPage * aNbElementsPerPage)
                 .Take(aNbElementsPerPage)
@@ -200,5 +197,7 @@ namespace RadiantReader.Views.NewBooks
         {
             GenerateNewBooks(fCurrentPage, fNbElementsPerPage, false);
         }
+
+        public void UpdateInMemoryConfig() { }// Nothing to save
     }
 }

@@ -67,7 +67,10 @@ namespace RadiantReader.Views
             var _SelectedBook = _DataBaseContext.BookDefinitions.Single(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
 
             if (_SelectedBook.Chapters.Count > _Config.State.SelectedBook.BookChapterIndex + 1)
+            {
                 _Config.State.SelectedBook.BookChapterIndex++;
+                _Config.State.VerticalScrollbarOffset = 0;
+            }
 
             RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
             RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
@@ -81,7 +84,10 @@ namespace RadiantReader.Views
             var _Config = RadiantReaderConfigurationManager.ReloadConfig();
 
             if (_Config.State.SelectedBook.BookChapterIndex > 0)
+            {
                 _Config.State.SelectedBook.BookChapterIndex--;
+                _Config.State.VerticalScrollbarOffset = 0;
+            }
 
             RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
             RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
@@ -123,20 +129,33 @@ namespace RadiantReader.Views
 
         private void SetChapterInfosUIRepresentation()
         {
-            RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.ReloadConfig();
+            RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.GetConfigFromMemory();
             using var _DataBaseContext = new RadiantReaderDbContext();
             _DataBaseContext.BookDefinitions.Load();
             _DataBaseContext.BookContent.Load();
 
             // Set chapter infos
-            lblChapterIndex.Content = $"chp.{_Config.State.SelectedBook.BookChapterIndex}";
+
+            if (_Config.State.SelectedBook == null)
+                return;
+
+            lblChapterIndex.Content = $"chp.{_Config.State.SelectedBook.BookChapterIndex + 1}";
 
             var _SelectedBook = _DataBaseContext.BookDefinitions.Single(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
 
-            double _CurrentChaptersWords = _SelectedBook.Chapters.Where(w => w.ChapterNumber < _Config.State.SelectedBook.BookChapterIndex + 1).Aggregate(seed: 0, (count, val) => count + val.ChapterWordsCount);
+            double _CurrentChaptersWords = GetCurrentWordsRead(_SelectedBook);
             double _TotalWords = _SelectedBook.Chapters.Aggregate(seed: 0, (count, val) => count + val.ChapterWordsCount);
             lblWordsCount.Content = $"{_CurrentChaptersWords:N0}/{_TotalWords:N0}";
             lblWordsPerc.Content = $"{Math.Round(_CurrentChaptersWords * 100 / _TotalWords, digits: 0)}%";
+        }
+
+        private long GetCurrentWordsRead(RadiantReaderBookDefinitionModel aRadiantBook)
+        {
+            RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.GetConfigFromMemory();
+            long _NbWordsRead = aRadiantBook.Chapters.Where(w => w.ChapterNumber < _Config.State.SelectedBook.BookChapterIndex + 1).Aggregate(seed: 0, (count, val) => count + val.ChapterWordsCount);
+
+            // TODO Add an estimation of words read from scrollviewer vertical offset
+            return _NbWordsRead;
         }
 
         private void SetControlState()

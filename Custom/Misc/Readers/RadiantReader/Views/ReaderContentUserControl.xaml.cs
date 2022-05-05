@@ -14,7 +14,7 @@ namespace RadiantReader.Views
     /// <summary>
     /// Interaction logic for ReaderContentUserControl.xaml
     /// </summary>
-    public partial class ReaderContentUserControl : UserControl
+    public partial class ReaderContentUserControl : UserControl, IContentChild
     {
         // ********************************************************************
         //                            Constructors
@@ -38,11 +38,9 @@ namespace RadiantReader.Views
             if (_Config.State.SelectedBook == null)
                 return;
 
+            // TODO: Async load and show progress UI representation
             using var _DataBaseContext = new RadiantReaderDbContext();
-            _DataBaseContext.BookDefinitions.Load();
-            _DataBaseContext.BookContent.Load();
-
-            RadiantReaderBookDefinitionModel _SelectedBookDefinition = _DataBaseContext.BookDefinitions.Single(w => w.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
+            RadiantReaderBookDefinitionModel _SelectedBookDefinition = _DataBaseContext.BookDefinitions.Include(i => i.Chapters).Single(w => w.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
 
             if (_SelectedBookDefinition.Chapters.Count <= _Config.State.SelectedBook.BookChapterIndex)
             {
@@ -56,22 +54,30 @@ namespace RadiantReader.Views
 
             // Just add the title before the chapter content
             _Inlines.Insert(0, new LineBreak());
-            _Inlines.Insert(0, new Bold(new Run(_SelectedBookDefinition.Title)));
+            _Inlines.Insert(0, new Underline(new Bold(new Run(_SelectedBookDefinition.Title))));
 
             SetTextContent(_Inlines);
         }
 
         private void SetControlState()
         {
-            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+            var _Config = RadiantReaderConfigurationManager.GetConfigFromMemory();
 
             TextContentTextBlock.Foreground = new SolidColorBrush(_Config.Settings.ForeGroundColor);
             TextContentTextBlock.FontSize = _Config.Settings.FontSize;
+
+            ContentScrollViewer.ScrollToVerticalOffset(_Config.State.VerticalScrollbarOffset);
         }
 
         // ********************************************************************
         //                            Public
         // ********************************************************************
+        public void UpdateInMemoryConfig()
+        {
+            RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.GetConfigFromMemory();
+            _Config.State.VerticalScrollbarOffset = ContentScrollViewer.VerticalOffset;
+        }
+
         public void SetTextContent(List<Inline> aLineElements)
         {
             // Add line elements to textblock

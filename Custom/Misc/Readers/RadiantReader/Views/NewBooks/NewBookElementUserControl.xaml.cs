@@ -55,7 +55,10 @@ namespace RadiantReader.Views.NewBooks
             var _MatchingBooksDefinitionCollection = _DataBaseContext.BookDefinitions.Where(w => w.BookDefinitionId == fBookDefinition.BookDefinitionId);
 
             foreach (RadiantReaderBookDefinitionModel _MatchingBookDefinition in _MatchingBooksDefinitionCollection)
+            {
                 _MatchingBookDefinition.Blacklist = true;
+                _MatchingBookDefinition.RequireUpdate = false;
+            }
 
             _DataBaseContext.SaveChanges();
 

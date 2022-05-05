@@ -1,15 +1,15 @@
-﻿using RadiantReader.Configuration;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using RadiantReader.Configuration;
 
 namespace RadiantReader.Views.Settings
 {
     /// <summary>
     /// Interaction logic for SettingsUserControl.xaml
     /// </summary>
-    public partial class SettingsUserControl : UserControl
+    public partial class SettingsUserControl : UserControl, IContentChild
     {
         // ********************************************************************
         //                            Constructors
@@ -19,6 +19,29 @@ namespace RadiantReader.Views.Settings
             InitializeComponent();
 
             SetControlState();
+        }
+
+        private void ChkTopMost_OnCheckChanged(object aSender, RoutedEventArgs aE)
+        {
+            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            _Config.Settings.TopMost = chkTopMost.IsChecked ?? false;
+
+            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
+            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
+        }
+
+        private void ClrPcker_Background_OnSelectedColorChanged(object aSender, RoutedPropertyChangedEventArgs<Color?> aE)
+        {
+            if (!ClrPckerForeGroundColor.SelectedColor.HasValue)
+                return;
+
+            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            _Config.Settings.ForeGroundColor = ClrPckerForeGroundColor.SelectedColor.Value;
+
+            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
+            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
         }
 
         // ********************************************************************
@@ -33,19 +56,7 @@ namespace RadiantReader.Views.Settings
             lblForeGroundColor.Foreground = _ForeGroundColorBrush;
             ClrPckerForeGroundColor.SelectedColor = _Config.Settings.ForeGroundColor;
             txtBoxFontSize.Text = _Config.Settings.FontSize.ToString();
-        }
-
-        private void ClrPcker_Background_OnSelectedColorChanged(object aSender, RoutedPropertyChangedEventArgs<Color?> aE)
-        {
-            if (!ClrPckerForeGroundColor.SelectedColor.HasValue)
-                return;
-
-            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
-
-            _Config.Settings.ForeGroundColor = ClrPckerForeGroundColor.SelectedColor.Value;
-
-            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
-            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
+            chkTopMost.IsChecked = _Config.Settings.TopMost;
         }
 
         private void TxtBoxFontSize_OnKeyUp(object aSender, KeyEventArgs aE)
@@ -62,5 +73,7 @@ namespace RadiantReader.Views.Settings
             RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
             RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
         }
+
+        public void UpdateInMemoryConfig() { }// Nothing to save, we save on the fly each config
     }
 }
