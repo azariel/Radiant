@@ -108,10 +108,10 @@ namespace RadiantReader.Views.NewBooks
                     // No query change
                     break;
                 case NewBooksFiltersHeader.ShowLocalBookOption.ShowOnlyLocal:
-                    _FilteredQuery = _FilteredQuery.Where(w => w.Chapters.Any());
+                    _FilteredQuery = _FilteredQuery.Where(w => w.RequireUpdate || w.Chapters.Any());
                     break;
                 case NewBooksFiltersHeader.ShowLocalBookOption.ShowOnlyNonLocal:
-                    _FilteredQuery = _FilteredQuery.Where(w => !w.Chapters.Any());
+                    _FilteredQuery = _FilteredQuery.Where(w => !w.RequireUpdate && !w.Chapters.Any());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException($"LocalBookOption [{FilterControl.LocalBookOption}] is not handled.");
