@@ -5,6 +5,7 @@ using System.Threading;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Tasks.Triggers;
 using RadiantClientWebScraper;
+using RadiantReader.Business;
 using RadiantReader.DataBase;
 using RadiantReader.Managers;
 using RadiantReader.Parsers;
@@ -68,7 +69,8 @@ namespace RadiantReader.Tasks
         private void ParseBooksFromDOMLandingPage(RadiantReaderHostModel aHost, string aDOM)
         {
             // TODO: by domain. ex: parse fanfiction, parse archiveOfOurOwn, etc etc
-            List<RadiantReaderBookDefinitionModel> _Books = FanfictionDOMUtils.ParseBooksFromFanfictionDOM(aDOM);
+            BookProvider _BookProvider = BookProviderUtils.GetProviderFromUrl(aHost.HostLandingPage);
+            List<RadiantReaderBookDefinitionModel> _Books = BookBuilderManager.ParseBooksFromDOM(_BookProvider, aDOM);
 
             StorageManager.AddOrRefreshBooksDefinition(aHost, _Books);
         }
@@ -81,10 +83,10 @@ namespace RadiantReader.Tasks
             // TODO: we should split this into 2 tasks... 1 to fetch new books and another one to update chapters
 
             // Get newly updated books from monitored main pages such as fanfiction.net, AoO, etc
-            //FetchBooksOnLandingPage();
+            FetchBooksOnLandingPage();
 
             // Fetch new chapters from book definitions requiring an update
-            //FetchChaptersFromBookDefinitionsRequiringUpdate();
+            FetchChaptersFromBookDefinitionsRequiringUpdate();
         }
     }
 }
