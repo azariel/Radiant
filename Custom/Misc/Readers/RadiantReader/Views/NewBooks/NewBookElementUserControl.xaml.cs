@@ -44,7 +44,7 @@ namespace RadiantReader.Views.NewBooks
             // Reflect change locally as well
             fBookDefinition.RequireUpdate = true;
 
-            SetControlState();
+            this.SetOverallControlStateAction?.Invoke();
         }
 
         private void ImgBlacklist_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
