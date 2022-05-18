@@ -86,7 +86,7 @@ namespace RadiantReader.Tasks
             FetchBooksOnLandingPage();
 
             // Fetch new chapters from book definitions requiring an update
-            FetchChaptersFromBookDefinitionsRequiringUpdate();
+            //FetchChaptersFromBookDefinitionsRequiringUpdate();
         }
     }
 }

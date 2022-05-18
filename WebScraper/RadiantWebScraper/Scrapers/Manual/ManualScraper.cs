@@ -171,9 +171,9 @@ namespace Radiant.WebScraper.Scrapers.Manual
             });
         }
 
-        public async Task<IScraperTarget> GetTargetValueFromUrlAsync(Browser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<IScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
+        public async Task GetTargetValueFromUrlAsync(Browser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<IScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
-            return await Task.Run(() =>
+            await Task.Run(() =>
             {
                 GetTargetValueFromUrl(aSupportedBrowser, aUrl, aTarget, aManualScraperItems, aDOMParserItems);
                 return aTarget;
