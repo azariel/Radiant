@@ -61,6 +61,19 @@ namespace RadiantReader.Tests.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;html lang=&quot;en&quot;&gt;&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot;&gt;
+        ///    &lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;ie=edge&quot;&gt;
+        ///&lt;script src=&quot;https://js-agent.newrelic.com/nr-1216.min.js&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot;&gt;window.NREUM||(NREUM={});NREUM.info={&quot;beacon&quot;:&quot;bam-cell.nr-data.net&quot;,&quot;errorBeacon&quot;:&quot;bam-cell.nr-data.net&quot;,&quot;licenseKey&quot;:&quot;f2edcff25e&quot;,&quot;applicationID&quot;:&quot;190034&quot;,&quot;transactionName&quot;:&quot;dgwMEkpfWVsHERpFWUcIEUlRXlFSGg==&quot;,&quot;queueTime&quot;:0,&quot;applicationTime&quot;:168,&quot;agent&quot;:&quot;&quot;}&lt;/script&gt;
+        ///&lt;script type=&quot;text/javascript&quot;&gt;(wi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ArchiveOfOurOwn_2022_05_09 {
+            get {
+                return ResourceManager.GetString("ArchiveOfOurOwn_2022_05_09", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;html class=&quot;wf-loading wf-verdana-n4-loading&quot;&gt;&lt;head&gt;
         ///&lt;meta charset=&quot;utf-8&quot;&gt;
         ///&lt;meta name=&quot;ROBOTS&quot; content=&quot;NOARCHIVE&quot;&gt;

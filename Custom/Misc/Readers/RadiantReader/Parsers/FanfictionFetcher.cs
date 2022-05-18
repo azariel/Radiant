@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Radiant.Common.Diagnostics;
 using RadiantClientWebScraper;
 using RadiantReader.DataBase;
@@ -49,7 +48,7 @@ namespace RadiantReader.Parsers
             RadiantReaderBookChapter _NewChapter;
             try
             {
-                _NewChapter = FanfictionDOMUtils.ParseBookChapterFromFanfictionDOM(_CurrentDOM, _ChapterIndex, aBookDefinition.BookDefinitionId);
+                _NewChapter = FanfictionDOMUtils.ParseBookChapterFromDOM(_CurrentDOM, _ChapterIndex, aBookDefinition.BookDefinitionId);
             } catch (Exception _Ex)
             {
                 // Note: we don't crash. we log it

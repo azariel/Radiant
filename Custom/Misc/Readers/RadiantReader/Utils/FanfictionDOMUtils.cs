@@ -24,7 +24,7 @@ namespace RadiantReader.Utils
         private const string REGEX_INFORMATION_BOOK_LINE = "(class=\"stitle\")";
         private const string REGEX_SUMMARY_BOOK_LINE = "(class=\"z-indent z-padtop\")";
 
-        private static RadiantReaderBookDefinitionModel GenerateReaderBookDefinitionFromFanfictionSummaryLine(string aBookSummaryLine)
+        private static RadiantReaderBookDefinitionModel GenerateReaderBookDefinitionFromSummaryLine(string aBookSummaryLine)
         {
             RadiantReaderBookDefinitionModel _RadiantReaderBookDefinitionModel = new();
 
@@ -113,12 +113,12 @@ namespace RadiantReader.Utils
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private static List<RadiantReaderBookDefinitionModel> GenerateReaderBookDefinitionModelsFromFanfictionBookDOMDefinitions(List<FanfictionBookDOMDefinition> aDomBookDefinitions)
+        private static List<RadiantReaderBookDefinitionModel> GenerateReaderBookDefinitionModelsFromBookDOMDefinitions(List<FanfictionBookDOMDefinition> aDomBookDefinitions)
         {
             List<RadiantReaderBookDefinitionModel> _RadiantReaderBookDefinitionModels = new();
             foreach (FanfictionBookDOMDefinition _BookDomDefinition in aDomBookDefinitions)
             {
-                RadiantReaderBookDefinitionModel _RadiantReaderBookDefinitionModel = GenerateReaderBookDefinitionFromFanfictionSummaryLine(_BookDomDefinition.BookSummaryLine);
+                RadiantReaderBookDefinitionModel _RadiantReaderBookDefinitionModel = GenerateReaderBookDefinitionFromSummaryLine(_BookDomDefinition.BookSummaryLine);
 
                 if (_RadiantReaderBookDefinitionModel == null)
                     continue;
@@ -152,7 +152,7 @@ namespace RadiantReader.Utils
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static RadiantReaderBookChapter ParseBookChapterFromFanfictionDOM(string aDom, int aChapterIndex, long aBookDefinitionId)
+        public static RadiantReaderBookChapter ParseBookChapterFromDOM(string aDom, int aChapterIndex, long aBookDefinitionId)
         {
             if (string.IsNullOrWhiteSpace(aDom))
             {
@@ -189,7 +189,7 @@ namespace RadiantReader.Utils
             return _Chapter;
         }
 
-        public static List<RadiantReaderBookDefinitionModel> ParseBooksFromFanfictionDOM(string aDOM)
+        public static List<RadiantReaderBookDefinitionModel> ParseBooksFromDOM(string aDOM)
         {
             // TODO: ParseBooksFromFanfictionDOM should return it's own model and not RadiantReaderBookDefinitionModel
             List<FanfictionBookDOMDefinition> _DOMBookDefinitions = new();
@@ -224,7 +224,7 @@ namespace RadiantReader.Utils
                 });
             }
 
-            return GenerateReaderBookDefinitionModelsFromFanfictionBookDOMDefinitions(_DOMBookDefinitions);
+            return GenerateReaderBookDefinitionModelsFromBookDOMDefinitions(_DOMBookDefinitions);
         }
     }
 }
