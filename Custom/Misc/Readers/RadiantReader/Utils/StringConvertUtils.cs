@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows.Documents;
 using System.Xml;
 
@@ -29,7 +30,7 @@ namespace RadiantReader.Utils
             }, StringSplitOptions.RemoveEmptyEntries);
 
             List<Inline> _Inlines = new();
-            
+
             foreach (string _Line in _Lines)
             {
                 var _WrappedLine = $"<Body>{_Line}</Body>";
@@ -41,6 +42,24 @@ namespace RadiantReader.Utils
             }
 
             return _Inlines;
+        }
+
+        public static string GetStringFromInlines(List<Inline> aInlines)
+        {
+            var _StringBuilder = new StringBuilder();
+
+            foreach (Inline _Inline in aInlines)
+            {
+                if (_Inline is LineBreak)
+                {
+                    _StringBuilder.Append(Environment.NewLine);
+                    continue;
+                }
+
+                _StringBuilder.Append(_Inline);
+            }
+
+            return _StringBuilder.ToString();
         }
 
         private static List<Inline> ConvertStringToInline(XmlNode aNode)

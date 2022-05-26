@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using RadiantReader.Configuration;
 using RadiantReader.DataBase;
 using RadiantReader.Managers;
+using RadiantReader.Utils;
 
 namespace RadiantReader.Views.NewBooks
 {
@@ -106,7 +107,9 @@ namespace RadiantReader.Views.NewBooks
             SeparatorControl.Background = _ForeGroundColorBrighter;
 
             // Summary
-            txtBlockSummary.Text = fBookDefinition.Summary;
+            string _RawSummary = $"<p>{fBookDefinition.Summary}</p>";
+            string _Summary = StringConvertUtils.GetStringFromInlines(StringConvertUtils.GetInlinesFromString(_RawSummary));
+            txtBlockSummary.Text = _Summary;
             txtBlockSummary.Foreground = _ForeGroundColor;
             txtBlockSummary.FontSize = _Config.Settings.FontSize;
 
