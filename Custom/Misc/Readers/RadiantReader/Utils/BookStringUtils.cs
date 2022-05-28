@@ -9,7 +9,7 @@
         {
             string _OutputString = aRawTitle;
 
-            _OutputString = _OutputString.Replace("&amp;", "&");
+            _OutputString = _OutputString.Replace("&amp;", "&").Replace("&nbsp;", " ");
 
             return _OutputString;
         }
@@ -18,7 +18,7 @@
         {
             string _OutputString = aRawTitle;
 
-            _OutputString = _OutputString.Replace("&amp;", "&");
+            _OutputString = _OutputString.Replace("&amp;", "&").Replace("&nbsp;", " ");
 
             return _OutputString;
         }

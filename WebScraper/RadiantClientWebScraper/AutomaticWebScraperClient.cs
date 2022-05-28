@@ -1,5 +1,5 @@
-﻿using System.Web;
-using Radiant.Common.HttpClients.RestClient;
+﻿using Radiant.Common.HttpClients.RestClient;
+using System.Net;
 
 namespace RadiantClientWebScraper
 {
@@ -8,7 +8,7 @@ namespace RadiantClientWebScraper
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private const string URL_PREFIX_WITH_URL_PARAM = "https://localhost:6501/AutomaticWebScraper?Url=";// TODO: revisit this http vs https and port
+        private const string URL_PREFIX_WITH_URL_PARAM = "https://localhost:6501/api/AutomaticWebScraper/DOM/";// TODO: revisit this http vs https and port
 
         // ********************************************************************
         //                            Public
@@ -16,7 +16,7 @@ namespace RadiantClientWebScraper
         public static string GetDOM(string aRelativeUrl)
         {
             var _Client = new HttpRestClient();
-            string _EncodedUrlParam = HttpUtility.UrlEncode(aRelativeUrl);
+            string _EncodedUrlParam = WebUtility.UrlEncode(aRelativeUrl);
             return _Client.Get($"{URL_PREFIX_WITH_URL_PARAM}{_EncodedUrlParam}");
         }
     }

@@ -37,7 +37,7 @@ namespace RadiantReader.Managers
                 {
                     LoggingManager.LogToFile("85fd190a-6a21-430b-ab18-61c1f475e645", $"Found [{_MatchingBookDefinitions.Length}] book definitions matching url [{_BookToAddOrUpdate.Url}]. Updating all book definitions...");
                     foreach (var _BookDefinition in _MatchingBookDefinitions)
-                        UpdateBookDefinition(_BookDefinition, _BookToAddOrUpdate);
+                        UpdateBookDefinitionMetaData(_BookDefinition, _BookToAddOrUpdate);
 
                     _DataBaseContext.SaveChanges();
                 }
@@ -51,23 +51,23 @@ namespace RadiantReader.Managers
                     continue;
                 }
 
-                UpdateBookDefinition(_MatchingBookDefinitions.Single(), _BookToAddOrUpdate);
+                UpdateBookDefinitionMetaData(_MatchingBookDefinitions.Single(), _BookToAddOrUpdate);
                 _DataBaseContext.SaveChanges();
             }
         }
 
-        private static void UpdateBookDefinition(RadiantReaderBookDefinitionModel aBookDefinitionToUpdate, RadiantReaderBookDefinitionModel aUpdatedBookDefinition)
+        private static void UpdateBookDefinitionMetaData(RadiantReaderBookDefinitionModel aBookDefinitionToUpdate, RadiantReaderBookDefinitionModel aUpdatedBookDefinition)
         {
             // TODO: ParseBooksFromFanfictionDOM should return it's own model and not RadiantReaderBookDefinitionModel
             aBookDefinitionToUpdate.MainCharacters = aUpdatedBookDefinition.MainCharacters;
             aBookDefinitionToUpdate.Rating = aUpdatedBookDefinition.Rating;
-            aBookDefinitionToUpdate.Blacklist = aUpdatedBookDefinition.Blacklist;
+            //aBookDefinitionToUpdate.Blacklist = aUpdatedBookDefinition.Blacklist; Note: this isn't a metadata, it's a status
             aBookDefinitionToUpdate.SoftNbWords = aUpdatedBookDefinition.SoftNbWords;
             aBookDefinitionToUpdate.Summary = aUpdatedBookDefinition.Summary;
             aBookDefinitionToUpdate.Title = aUpdatedBookDefinition.Title;
             aBookDefinitionToUpdate.LastFetch = DateTime.Now;
             aBookDefinitionToUpdate.Pairings = aUpdatedBookDefinition.Pairings;
-            aBookDefinitionToUpdate.RequireUpdate = aUpdatedBookDefinition.RequireUpdate;
+            aBookDefinitionToUpdate.RequireUpdate = false;// Book was just updated
             aBookDefinitionToUpdate.SecondaryCharacters = aUpdatedBookDefinition.SecondaryCharacters;
         }
 

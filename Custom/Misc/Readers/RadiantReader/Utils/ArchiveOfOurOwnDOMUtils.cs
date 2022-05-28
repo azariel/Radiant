@@ -26,7 +26,7 @@ namespace RadiantReader.Utils
         // ********************************************************************
         private const string REGEX_RATING_BOOK_LINE = "<span.*rating\" title=\"(.*?)\"";
         private const string REGEX_NB_WORDS_BOOK_LINE = "<dd class=\"words\">(.*?)</dd>";
-        private const string REGEX_SUMMARY_BOOK_LINE = "<blockquote.*?summary.*?\">.*?<p>(.*)</p>.*?</blockquote>";
+        private const string REGEX_SUMMARY_BOOK_LINE = "<blockquote.*?summary.*?\">.*?(<p>.*</p>).*?</blockquote>";
         private const string REGEX_TITLE_AND_URL_BOOK_LINE = "(<a href=\"/works/.*)/a>";
         private const string REGEX_PAIRINGS_BOOK_LINE = "<a class=\"tag\" .*?>(.*?)<";
 
@@ -172,7 +172,7 @@ namespace RadiantReader.Utils
                 _DOMBookDefinitions.Add(new ArchiveOfOurOwnBookDOMDefinition
                 {
                     BookTitleAndUrl = _MatchTitleAndUrlLine.Groups.Values.Last().Value,
-                    BookSummaryLine = _MatchSummaryLine.Groups.Values.Last().Value,
+                    BookSummaryLine = BookStringUtils.FormatSummary(_MatchSummaryLine.Groups.Values.Last().Value),
                     BookNbWordsLine = _MatchSoftNbWordsLine.Groups.Values.Last().Value,
                     BookRatingLine = _MatchRatingLine.Groups.Values.Last().Value,
                     Pairings = _PairingElements,

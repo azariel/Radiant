@@ -1,36 +1,36 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Radiant.WebScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
 using Radiant.WebScraper.Scrapers.Manual;
+using System.Net;
 
 namespace RadiantWebScraperWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class ManualWebScraperController : ControllerBase
     {
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        [HttpGet]
+        [HttpGet("{Url}")]
         [ActionName("DOM")]
-        public async Task<string> GetDOMAsync(string Url)
+        public async Task<ActionResult<string>> GetDOMAsync(string Url)
         {
-            // TODO: create an helper that'll do it for us
             if (string.IsNullOrWhiteSpace(Url))
-                throw new Exception($"Argument {nameof(Url)} is required.");
+                return BadRequest($"Argument {nameof(Url)} is required.");
 
+            string _DecodedUrl = WebUtility.UrlDecode(Url);
             // TODO: format aUrl, pad with "http://", etc.
 
-            ManualScraper _ManualScraper = new ManualScraper();
-            var _DomScraper = new ManualDOMTargetScraper();
-            IScraperTarget? _Task = await _ManualScraper.GetTargetValueFromUrlAsync(Browser.Firefox, Url, _DomScraper, null, null);
+            var _ManualScraper = new ManualScraper();
+            var _DomTargetScraper = new ManualDOMTargetScraper();
+            await _ManualScraper.GetTargetValueFromUrlAsync(Browser.Firefox, _DecodedUrl, _DomTargetScraper, null, null);
 
-            if (_Task is ManualDOMTargetScraper _ReturningManualDOMTargetScraper)
-                return _ReturningManualDOMTargetScraper.DOM;
+            if (!string.IsNullOrWhiteSpace(_DomTargetScraper.DOM))
+                return new ActionResult<string>(_DomTargetScraper.DOM);
 
-            return null;
+            return StatusCode((int)HttpStatusCode.InternalServerError, "DOM couldn't be fetched. Unhandled error.");
         }
     }
 }

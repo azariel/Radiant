@@ -136,7 +136,6 @@ namespace RadiantReader.Views.NewBooks
             int _CurrentPage = Math.Min(aPageNumber, fMaxPage);
 
             List<RadiantReaderBookDefinitionModel> _BooksDefinitionCollection = _FilteredQuery
-
                 //.OrderByDescending(o => o.LastFetch)
                 .Skip(_CurrentPage * aNbElementsPerPage)
                 .Take(aNbElementsPerPage)
