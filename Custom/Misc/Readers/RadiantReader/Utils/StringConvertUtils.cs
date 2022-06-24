@@ -24,22 +24,14 @@ namespace RadiantReader.Utils
         // ********************************************************************
         public static List<Inline> GetInlinesFromString(string aChapterContent)
         {
-            string[] _Lines = aChapterContent.Split(new[]
-            {
-                Environment.NewLine,
-            }, StringSplitOptions.RemoveEmptyEntries);
-
             List<Inline> _Inlines = new();
 
-            foreach (string _Line in _Lines)
-            {
-                var _WrappedLine = $"<Body>{_Line}</Body>";
-                var _XmlDocument = new XmlDocument();
-                _XmlDocument.LoadXml(_WrappedLine);
+            var _WrappedLine = $"<Body>{aChapterContent}</Body>";
+            var _XmlDocument = new XmlDocument();
+            _XmlDocument.LoadXml(_WrappedLine);
 
-                _Inlines.AddRange(ConvertStringToInline(_XmlDocument));
-                _Inlines.Add(new LineBreak());
-            }
+            _Inlines.AddRange(ConvertStringToInline(_XmlDocument));
+            _Inlines.Add(new LineBreak());
 
             return _Inlines;
         }
@@ -48,15 +40,22 @@ namespace RadiantReader.Utils
         {
             var _StringBuilder = new StringBuilder();
 
+            Type _LastInlineType = null;
             foreach (Inline _Inline in aInlines)
             {
-                if (_Inline is LineBreak)
+                if (_Inline is LineBreak && _LastInlineType != typeof(LineBreak))
                 {
-                    _StringBuilder.Append(Environment.NewLine);
+                    if (_StringBuilder.Length > 0)// We want to avoid spacing up anything before start of text values
+                        _StringBuilder.Append(Environment.NewLine);
+
+                    _LastInlineType = _Inline.GetType();
                     continue;
                 }
 
-                _StringBuilder.Append(_Inline);
+                if (_Inline is Run _InlineRun)
+                    _StringBuilder.Append(_InlineRun.Text);
+
+                _LastInlineType = _Inline.GetType();
             }
 
             return _StringBuilder.ToString();
@@ -104,12 +103,10 @@ namespace RadiantReader.Utils
                             default:
                                 throw new ArgumentOutOfRangeException($"Unhandled element [{_ElementName}].");
                         }
-                    }
-                    else
+                    } else
                         _Inlines.Add(_ChildInline);
                 }
-            }
-            else
+            } else
             {
                 if (Enum.TryParse(aNode.Name.ToLowerInvariant(), out HtmlElementName _Element))
                 {
@@ -129,8 +126,7 @@ namespace RadiantReader.Utils
                         default:
                             throw new ArgumentOutOfRangeException($"Unhandled element [{_Element}].");
                     }
-                }
-                else
+                } else
                     _Inlines.Add(new Run(aNode.InnerText));
             }
 
