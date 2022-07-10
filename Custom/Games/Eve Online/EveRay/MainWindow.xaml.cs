@@ -57,12 +57,15 @@ namespace EveRay
 
             // Show zones if required
             foreach (ZoneWatcher _ZoneWatcher in _Config.ZonesWatcher.Where(w => w.AlwaysShowZone))
-                ShowZoneAction(_ZoneWatcher.Zone.OnCurrentScreenShowLocation, _ZoneWatcher.Zone.Size, Color.FromArgb(255, 24, 115, 204), 1, null);
+                ShowZoneAction(new Point(_ZoneWatcher.Zone.OnCurrentScreenShowLocation.X-1, _ZoneWatcher.Zone.OnCurrentScreenShowLocation.Y-1), new Size(_ZoneWatcher.Zone.Size.Width+4, _ZoneWatcher.Zone.Size.Height+4), Color.FromArgb(255, 24, 115, 204), 1, null);
+
+            // Delay process here to let the player set up ; )
+            Thread.Sleep(1000);
 
             while (true)
             {
                 ZoneEvaluator.EvaluateZones(_Config.ZonesWatcher.Where(w => w.Enabled).ToList(), ShowZoneAction);
-                Thread.Sleep(3000);
+                Thread.Sleep(5000);
             }
         }
 

@@ -86,49 +86,21 @@
         },
         {
             "$type": "EveRay.Zones.ZoneWatcher, EveRay",
-            "AlwaysShowZone": true,
-            "Enabled": true,
+            "AlwaysShowZone": false,
+            "Enabled": false,
             "SaveImageOnDisk": true,
             "TriggerAction": {
                 "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
-                "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\red.wav"
+                "SoundFilePath": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveRay\\deps\\Carrier.wav"
             },
             "WatchItems": [
                 {
                     "$type": "EveRay.Watch.WatchItemColors, EveRay",
-                    "Colors": [ 
-                        // RED
-                        "Red",
-                        "255,150,7,8",
-                        "255,148,6,7",
-                        "255,148,5,6",
-                        "255,189,0,0",
-                        "255,98,2,3",
-                        "255,151,8,8",
-                        // ORANGE
-                        "255,198,74,7",
-                        "255,197,75,9",
-                        "255,196,73,7",
-                        "255,195,71,5",
-						"255,194,70,4",
-						"255,188,70,7",
-                        "255,199,75,9",
-                        "255,189,72,10",
-                        "255,190,73,11",
-                        "255,200,83,22",
-                        // LIMITED ENGAGEMENT
-                        "255,0,153,138",
-                        "255,1,138,125",
-                        // YELLOW
-                        "Yellow",
-                        "255,205,158,50",
-                        "255,239,170,53",
-                        "255,197,141,7",
-                        "255,215,153,48",
-                        // GRAY
-                        "255,141,141,141",
-                        "255,139,139,140"
-                     ],
+                    "Colors": [
+                        // NPC center darker icon color
+                        "255,114,14,15",
+                        "255,111,18,21"
+                    ],
                     "ColorTreshold": 60,
                     "MsToShowZoneOnDetection": 1500,
                     "StrokeColor": "#FF8B0000",
@@ -137,9 +109,81 @@
             ],
             "Zone": {
                 "$type": "EveRay.Zones.EveRayZone, EveRay",
-                "Location": "-500, 500",
-                "OnCurrentScreenShowLocation": "580, 500",
-                "Size": "250, 250"
+                "Location": "500, 500",
+                "OnCurrentScreenShowLocation": "500, 500",
+                "Size": "64, 256"
+            }
+        },
+        {
+            "$type": "EveRay.Zones.ZoneWatcher, EveRay",
+            "AlwaysShowZone": true,
+            "Enabled": true,
+            "SaveImageOnDisk": false,
+            "TriggerAction": {
+                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
+                "SoundFilePath": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveRay\\deps\\red.wav"
+            },
+            "WatchItems": [
+                {
+                    "$type": "EveRay.Watch.WatchItemColors, EveRay",
+                    "Colors": [
+                        // RED
+                        "Red",
+                        "255,150,7,8",
+                        "255,148,6,7",
+                        "255,148,5,6",
+                        "255,189,0,0",
+                        "255,98,2,3",
+                        "255,151,8,8",
+                        "255,129,2,2",
+
+                        // ORANGE
+                        "255,198,74,7",
+                        "255,197,75,9",
+                        "255,196,73,7",
+                        "255,195,71,5",
+                        "255,194,70,4",
+                        "255,188,70,7",
+                        "255,199,75,9",
+                        "255,189,72,10",
+                        "255,190,73,11",
+                        "255,200,83,22",
+                        "255,192,75,12",
+                        "255,188,71,8",
+                        "255,194,71,4",
+                        "255,189,73,10",
+                        "255,184,75,16",
+                        "255,255,89,0",
+
+                        // LIMITED ENGAGEMENT greenish
+                        "255,0,153,138",
+                        "255,1,138,125",
+
+                        // YELLOW
+                        "Yellow",
+                        "255,205,158,50",
+                        "255,239,170,53",
+                        "255,197,141,7",
+                        "255,215,153,48",
+                        "255,248,90,6",
+                        "255,248,176,6",
+
+                        // GRAY
+                        "255,141,141,141",
+                        "255,139,139,140",
+                        "255,178,176,173"
+                    ],
+                    "ColorTreshold": 60,
+                    "MsToShowZoneOnDetection": 1500,
+                    "StrokeColor": "#FF8B0000",
+                    "WatchItemNbPixelsToTrigger": 2
+                }
+            ],
+            "Zone": {
+                "$type": "EveRay.Zones.EveRayZone, EveRay",
+                "Location": "500, 500",
+                "OnCurrentScreenShowLocation": "500, 500",
+                "Size": "8, 222"
             }
         }
     ]

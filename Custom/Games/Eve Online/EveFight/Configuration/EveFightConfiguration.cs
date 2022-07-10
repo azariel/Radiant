@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using EveFight.Models;
 
 namespace EveFight.Configuration
 {
@@ -18,6 +20,7 @@ namespace EveFight.Configuration
         public TankInfo TankInfo { get; set; }
         public ThreatColorByDps ThreatColorByDps { get; set; } = new();
         public ThreatDetermination ThreatDetermination { get; set; }
+        public List<ShipDefinition> ShipDefinitions { get; set; } = new();
 
         public Point UILocation { get; set; }
 
@@ -29,5 +32,10 @@ namespace EveFight.Configuration
         public Size UISize { get; set; }
 
         public bool UseThreatColorByDPS { get; set; } = true;
+
+        /// <summary>
+        /// cycle, in ms, of dps cycle. Values older than that won't be considered. Ex: consider dps of ships for last 30000 ms.
+        /// </summary>
+        public int DpsCycleMs { get; set; } = 30000;
     }
 }

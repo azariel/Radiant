@@ -47,12 +47,12 @@ namespace EveRay.Zones
 
                             break;
                         case WatchItemColor _WatchItemColor:
-                            if (_ZoneWatcher.Zone.ContainsColor(_WatchItemColor.Color, _WatchItemColor.ColorTreshold, _WatchItemColor.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk, out Point? _HitPointLocationOfColor))
+                            if (_ZoneWatcher.Zone.ContainsColor(WatchItemColors.WatchItemDetectionType.WhiteList, _WatchItemColor.Color, _WatchItemColor.ColorTreshold, _WatchItemColor.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk, out Point? _HitPointLocationOfColor))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
 
                                 if (_HitPointLocationOfColor.HasValue)
-                                    aShowZoneAction?.Invoke(_HitPointLocationOfColor.Value, _ZoneWatcher.Zone.Size, _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
+                                    aShowZoneAction?.Invoke(new Point(_HitPointLocationOfColor.Value.X-5, _HitPointLocationOfColor.Value.Y-5), new Size(10,10), _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
 
                                 Thread.Sleep(1000);
                                 _Triggered = true;
@@ -60,12 +60,12 @@ namespace EveRay.Zones
 
                             break;
                         case WatchItemColors _WatchItemColors:
-                            if (_ZoneWatcher.Zone.ContainsColors(_WatchItemColors.Colors, _WatchItemColors.ColorTreshold, _WatchItemColors.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk, out Point? _HitPointLocationOfColors))
+                            if (_ZoneWatcher.Zone.ContainsColors(_WatchItemColors.DetectionType, _WatchItemColors.Colors, _WatchItemColors.ColorTreshold, _WatchItemColors.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk, out Point? _HitPointLocationOfColors))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
 
                                 if (_HitPointLocationOfColors.HasValue)
-                                    aShowZoneAction?.Invoke(_HitPointLocationOfColors.Value, _ZoneWatcher.Zone.Size, _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
+                                    aShowZoneAction?.Invoke(new Point(_HitPointLocationOfColors.Value.X-5, _HitPointLocationOfColors.Value.Y), new Size(15,15), _ZoneWatcherWatchItem.StrokeColor, 2, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
 
                                 Thread.Sleep(1000);
                             }

@@ -6,9 +6,9 @@
     "PlayerNameMaxDigits": 500,
     "TankInfo": {
         "$type": "EveFight.Configuration.TankInfo, EveFight",
-        "TotalDPSOrange": 1000,
-        "TotalDPSRed": 1300,
-        "TotalDPSYellow": 500
+        "TotalDPSOrange": 40,
+        "TotalDPSRed": 44,
+        "TotalDPSYellow": 35
     },
     "ThreatColorByDps": {
         "$type": "EveFight.Configuration.ThreatColorByDps, EveFight",
@@ -20,33 +20,5537 @@
             },
             {
                 "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
-                "Treshold": 100,
+                "Treshold": 25,
                 "Color": "#96AFAF00"
             },
             {
                 "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
-                "Treshold": 350,
+                "Treshold": 35,
                 "Color": "#96C87D00"
             },
             {
                 "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
-                "Treshold": 700,
+                "Treshold": 40,
                 "Color": "#96AF0000"
             },
             {
                 "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
-                "Treshold": 1000,
+                "Treshold": 43,
                 "Color": "#96FF0000"
             }
         ]
     },
     "ThreatDetermination": {
         "$type": "EveFight.Configuration.ThreatDetermination, EveFight",
-        "PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumber": 1,
+        "PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumberAndTankIsGreen": 2,
         "PrioritizeLogiShipsIfDpsBelowThisNumber": 1000
     },
     "UILocation": "1040, 482",
     "UILocked": false,
     "UISize": "311, 199",
-    "UseThreatColorByDPS": true
+    "UseThreatColorByDPS": true,
+    "DpsCycleMs": 22000,
+    "ShipDefinitions": [
+        // Player Ships
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Abaddon",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,// The abaddon is an armor tank ship
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Absolution",
+            "ThreatType": "COMMAND",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 87
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 62,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Adrestia",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Aeon",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Algos",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Anathema",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 2,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 60
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 30
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Anshar",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 30,
+                    "Kinetic": 55,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 43,
+                    "Kinetic": 51,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Apocalypse",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Apostle",
+            "ThreatType": "LOGI",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Arazu",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 50,
+                    "Kinetic": 77,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 59,
+                    "Kinetic": 75,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Arbitrator",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Archon",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Ares",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 50,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 3,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 45,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Ark",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 47,
+                    "Explosion": 62
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 34,
+                    "Explosion": 40
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Armageddon",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Ashimmu",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Astarte",
+            "ThreatType": "COMMAND",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Atron",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 3,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Augoror",
+            "ThreatType": "LOGI",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Augoror Navy Issue",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Avatar",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 3,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Badger",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Bantam",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 5,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Basilisk",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Bellicose",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 3,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Bestower",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 2,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Bhaalgorn",
+            "ThreatType": "DPS",// NEUT... TODO: add new threat type: NEUT
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Blackbird",
+            "ThreatType": "ECM",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 3,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Breacher",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 4,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Broadsword",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 5,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Brutix",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1.5,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Brutix Navy Issue",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 2,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Burst",
+            "ThreatType": "LOGI",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 2,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Bustard",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Buzzard",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1.2,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 30,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 55,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Caldari Navy Hookbill",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Cambion",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Caracal",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Catalyst",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Celestis",
+            "ThreatType": "ECM",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Celestis",
+            "ThreatType": "ECM",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Cerberus",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Chameleon",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 55,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 72,
+                    "Kinetic": 43,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Charon",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Cheetah",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1.2,
+                "ShieldResistProfile": {
+                    "EM": 10,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 70,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Chimera",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Chremoas",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 50,
+                    "Thermal": 40,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 80,
+                    "Thermal": 51,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Claw",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 10,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 2,
+                "ArmorResistProfile": {
+                    "EM": 70,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Claymore",
+            "ThreatType": "COMMAND",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Coercer",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 2,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Condor",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 6,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Corax",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Cormorant",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Covetor",
+            "ThreatType": "MINING",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 5,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Crane",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Crow",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 30,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 55,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Crucifier",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1.5,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Cruor",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 6,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Crusader",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 60
+                },
+                "ArmorResistsModifier": 3,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 30
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Curse",
+            "ThreatType": "ECM",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 62,
+                    "Explosion": 81
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 53,
+                    "Explosion": 70
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Cyclone",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Cynabal",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Damnation",
+            "ThreatType": "COMMAND",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 87
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 62,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Daredevil",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Deimos",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Devoter",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 87
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 62,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Dominix",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Dragoon",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Drake",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Dramiel",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Eagle",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Echelon",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Echo",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Enyo",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Eos",
+            "ThreatType": "COMMAND",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Erebus",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Eris",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 40,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 51,
+                    "Kinetic": 67,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Executioner",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Exequror Navy Issue",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Exequror",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Falcon",
+            "ThreatType": "ECM",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 70,
+                    "Kinetic": 62,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 79,
+                    "Kinetic": 53,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Federation Navy Comet",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Fenrir",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Ferox",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Flycatcher",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 55,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 72,
+                    "Kinetic": 43,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Freki",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Garmur",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Gila",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Golem",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 40,
+                    "Kinetic": 47,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 58,
+                    "Kinetic": 34,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Griffin",
+            "ThreatType": "ECM",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Guardian",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 87
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 62,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Harbinger",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Harpy",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hawk",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hel",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Helios",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 50,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 45,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hematos",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Heretic",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 55,
+                    "Explosion": 75
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 43,
+                    "Explosion": 60
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Heron",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hoarder",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hound",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 25,
+                    "Thermal": 30,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 70,
+                    "Thermal": 43,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Huginn",
+            "ThreatType": "ECM",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 62,
+                    "Thermal": 50,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 85,
+                    "Thermal": 59,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hulk",
+            "ThreatType": "MINING",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hurricane",
+            "ThreatType": "COMMAND",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hyena",
+            "ThreatType": "ECM",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 50,
+                    "Thermal": 40,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 80,
+                    "Thermal": 51,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hyperion",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Ibis",
+            "ThreatType": "ECM",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Imicus",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Immolator",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Impairor",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Imperial Navy Slicer",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Impel",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 87
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 62,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Incursus",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Inquisitor",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Ishkur",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Ishtar",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Jaguar",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Keres",
+            "ThreatType": "ECM",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 40,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 51,
+                    "Kinetic": 67,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Kestrel",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Kitsune",
+            "ThreatType": "ECM",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 55,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 72,
+                    "Kinetic": 43,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Kronos",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 30,
+                    "Kinetic": 55,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 43,
+                    "Kinetic": 51,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Lachesis",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 50,
+                    "Kinetic": 77,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 59,
+                    "Kinetic": 75,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Legion",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 55,
+                    "Explosion": 75
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 44,
+                    "Explosion": 60
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Leviathan",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Loki",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 50,
+                    "Thermal": 40,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 80,
+                    "Thermal": 51,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Machariel",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Mackinaw",
+            "ThreatType": "MINING",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Maelstrom",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Magnate",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Malediction",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 60
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 30
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Maller",
+            "ThreatType": "TANK",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Malice",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 88
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 63,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Mammoth",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Manticore",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 40,
+                    "Kinetic": 47,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 58,
+                    "Kinetic": 34,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Mastodon",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Maulus",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Megathron",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Merlin",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Mimir",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Moa",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Moros",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Muninn",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Myrmidon",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Naga",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Naglfar",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Navitas",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Nemesis",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 30,
+                    "Kinetic": 55,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 43,
+                    "Kinetic": 51,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Nidhoggur",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Nighthawk",
+            "ThreatType": "COMMAND",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Nightmare",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Noctis",
+            "ThreatType": "MINING",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Nomad",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 25,
+                    "Thermal": 30,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 70,
+                    "Thermal": 43,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Nyx",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Obelisk",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Occator",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Omen",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Oneiros",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Onyx",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Oracle",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Orca",
+            "ThreatType": "MINING",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Osprey",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Osprey Navy Issue",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Paladin",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 47,
+                    "Explosion": 62
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 34,
+                    "Explosion": 40
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Panther",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 36,
+                    "Thermal": 37,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 75,
+                    "Thermal": 49,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Panther",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 36,
+                    "Thermal": 37,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 75,
+                    "Thermal": 49,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Phantasm",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Phobos",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Phoenix",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Pilgrim",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 62,
+                    "Explosion": 81
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 53,
+                    "Explosion": 70
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Primae",
+            "ThreatType": "MINING",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Probe",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Procurer",
+            "ThreatType": "MINING",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Prophecy",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Prorator",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 87
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 62,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Proteus",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 40,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 51,
+                    "Kinetic": 67,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Providence",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Prowler",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Punisher",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Purifier",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 47,
+                    "Explosion": 62
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 34,
+                    "Explosion": 40
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Ragnarok",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Rapier",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 62,
+                    "Thermal": 50,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 85,
+                    "Thermal": 59,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Raptor",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 30,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 55,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Rattlesnake",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Raven",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Reaper",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Redeemer",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 53,
+                    "Explosion": 68
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 41,
+                    "Explosion": 49
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Republic Fleet Firetail",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Retribution",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 88
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 63,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Retriever",
+            "ThreatType": "MINING",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Revelation",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Revenant",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Rhea",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 40,
+                    "Kinetic": 47,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 58,
+                    "Kinetic": 34,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Rifter",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Rokh",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Rokh",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Rook",
+            "ThreatType": "ECM",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 70,
+                    "Kinetic": 62,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 79,
+                    "Kinetic": 53,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Rorqual",
+            "ThreatType": "MINING",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Rupture",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Sabre",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 50,
+                    "Thermal": 40,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 80,
+                    "Thermal": 51,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Sacrilege",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 87
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 62,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Scimitar",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Scorpion",
+            "ThreatType": "ECM",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Scythe",
+            "ThreatType": "LOGI",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Scythe Fleet Issue",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Sentinel",
+            "ThreatType": "ECM",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 55,
+                    "Explosion": 75
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 44,
+                    "Explosion": 60
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Sigil",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Sin",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 35,
+                    "Kinetic": 64,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 47,
+                    "Kinetic": 60,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Skiff",
+            "ThreatType": "MINING",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Slasher",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Sleipnir",
+            "ThreatType": "COMMAND",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Stabber",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Stiletto",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 10,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 70,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Succubus",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Taipan",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Talos",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Talos",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Talwar",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Taranis",
+            "ThreatType": "TACKLE",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 50,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 45,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Tayra",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Tempest",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Tengu",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 55,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 72,
+                    "Kinetic": 43,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Thanatos",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Thorax",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Thrasher",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Tormentor",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Tornado",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Tristan",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Typhoon",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Utu",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vagabond",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vargur",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 25,
+                    "Thermal": 30,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 70,
+                    "Thermal": 43,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Velator",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vengeance",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 88
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 63,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Venture",
+            "ThreatType": "MINING",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vexor",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Viator",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 85,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 83,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vigil",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vigilant",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vindicator",
+            "ThreatType": "DPS",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Violator",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vulture",
+            "ThreatType": "COMMAND",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 80,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 86,
+                    "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Whiptail",
+            "ThreatType": "TACKLE",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 30,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 55,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Widow",
+            "ThreatType": "ECM",
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 50,
+                    "Kinetic": 51,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 67,
+                    "Kinetic": 39,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Wolf",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 75,
+                    "Thermal": 60,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 67,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Worm",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Wreathe",
+            "ThreatType": "FREIGHTER",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Wyvern",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Zealot",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 87
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 62,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Zealot",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 70,
+                    "Explosion": 87
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 62,
+                    "Explosion": 80
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Zephyr",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        }
+    ]
 }

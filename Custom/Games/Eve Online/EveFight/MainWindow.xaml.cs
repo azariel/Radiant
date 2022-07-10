@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -7,6 +9,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using EveFight.Configuration;
 using EveFight.Managers;
+using EveFight.Models;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 
@@ -124,8 +127,18 @@ namespace EveFight
                     ShowRedBorderIfRequired(_TotalDPS);
                 });
 
-                // TODO: go as far a 3 sec in non-combat situation and as low as 0.5 sec in combat
-                Thread.Sleep(1000);
+                int _SleepMs = 5000;// ships were not attacking us for a relatively long time
+                if (ShipsManager.ShipList.Count > 0)
+                {
+                    _SleepMs = 1000;// Ships were attacking us not too long ago
+
+                    var _LastUpdateInMs = (DateTime.Now - ShipsManager.ShipList.Max(m => m.LastUpdate)).TotalMilliseconds;
+
+                    if (_LastUpdateInMs < 3000)
+                        _SleepMs = 500;
+                }
+                
+                Thread.Sleep(_SleepMs);
             }
         }
 
