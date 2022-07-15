@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using EveRay.Watch;
 
 namespace EveRay.Zones
@@ -94,12 +95,21 @@ namespace EveRay.Zones
             if (_NbPixelsMatchingWatchItem >= aWatchItemNbPixelsToTrigger)
             {
                 if (aSaveImageOnDisk)
+                {
+                    CreateTempFolderIfDoesntExists();
                     fBitmap.Save($"C:\\Temp\\COLOR_{Guid.NewGuid()}.png");
+                }
 
                 return true;
             }
 
             return false;
+        }
+
+        private void CreateTempFolderIfDoesntExists()
+        {
+            if (!Directory.Exists("C:\\Temp"))
+                Directory.CreateDirectory("C:\\Temp");
         }
 
         private void SaveImageIfFirstCheckForManualValidation()
@@ -108,6 +118,7 @@ namespace EveRay.Zones
                 return;
 
             fIsFirstCheck = false;
+            CreateTempFolderIfDoesntExists();
             fBitmap.Save($"C:\\Temp\\FOR_VALIDATION_{Guid.NewGuid()}.png");
         }
 
@@ -175,6 +186,7 @@ namespace EveRay.Zones
             {
                 if (aSaveImageOnDisk)
                 {
+                    CreateTempFolderIfDoesntExists();
                     fBitmap.Save($"C:\\Temp\\NOISE_{Guid.NewGuid()}_A.png");
                     _LastBitmap.Save($"C:\\Temp\\NOISE_{Guid.NewGuid()}_B.png");
                 }

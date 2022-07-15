@@ -29,6 +29,9 @@ namespace EveFight.Configuration
         /// </summary>
         public bool UILocked { get; set; }
 
+        // Transparent (and click thought) background
+        public bool Transparent { get; set; }
+
         public Size UISize { get; set; }
 
         public bool UseThreatColorByDPS { get; set; } = true;

@@ -63,7 +63,7 @@ namespace EveFight.Models
             double _DamageOverThisPeriod = fTimedDamages.Sum(s => s.Damage);
 
             if (_ElapsedSeconds < 1)
-                return (int)_DamageOverThisPeriod;
+                return 0;// (int)_DamageOverThisPeriod;
 
             if (_ElapsedSeconds > 10 && (_MaxTime - _MaxRegisteredTime).TotalMilliseconds < 3000)
                 _ElapsedSeconds = (_MaxRegisteredTime - _MinTime).TotalMilliseconds / 1000;

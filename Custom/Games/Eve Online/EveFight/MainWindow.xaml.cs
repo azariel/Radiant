@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -9,7 +8,6 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using EveFight.Configuration;
 using EveFight.Managers;
-using EveFight.Models;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 
@@ -47,14 +45,19 @@ namespace EveFight
         {
             EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
 
+            if (_Config.Transparent)
+            {
+                MainGrid.Background = _Config.UILocked ? new SolidColorBrush(Colors.Transparent) : 
+                                                         new SolidColorBrush(Color.FromArgb(1,0,0,0));
+            }
+
             // Handle UI Interactivty
             if (!_Config.UILocked)
             {
                 MainGrid.MouseDown -= MainGrid_OnMouseDown;
                 MainGrid.MouseDown += MainGrid_OnMouseDown;
                 this.ResizeMode = ResizeMode.CanResizeWithGrip;
-            }
-            else
+            } else
             {
                 this.IsHitTestVisible = false;
                 MainGrid.IsHitTestVisible = false;
@@ -137,7 +140,7 @@ namespace EveFight
                     if (_LastUpdateInMs < 3000)
                         _SleepMs = 500;
                 }
-                
+
                 Thread.Sleep(_SleepMs);
             }
         }

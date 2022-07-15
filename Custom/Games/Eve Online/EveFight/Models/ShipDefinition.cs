@@ -10,6 +10,7 @@ namespace EveFight.Models
         // ********************************************************************
         public string ShipType { get; set; }
         public ThreatType ThreatType { get; set; }
+        public int SignatureRadius { get; set; }
         public List<Weakness> Weaknesses { get; set; }
         public DamageProfileWeakness DamageProfileWeakness { get; set; }
     }
