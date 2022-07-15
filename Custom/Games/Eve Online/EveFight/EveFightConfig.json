@@ -6,9 +6,9 @@
     "PlayerNameMaxDigits": 500,
     "TankInfo": {
         "$type": "EveFight.Configuration.TankInfo, EveFight",
-        "TotalDPSYellow": 60,
-        "TotalDPSOrange": 90,
-        "TotalDPSRed": 120
+        "TotalDPSYellow": 30,
+        "TotalDPSOrange": 45,
+        "TotalDPSRed": 55
     },
     "ThreatColorByDps": {
         "$type": "EveFight.Configuration.ThreatColorByDps, EveFight",
@@ -45,7 +45,7 @@
         "PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumberAndTankIsGreen": 2,
         "PrioritizeLogiShipsIfDpsBelowThisNumber": 1000
     },
-    "UILocation": "1643, 138",
+    "UILocation": "1643, 675",
     "UILocked": true,
     "Transparent": false,
     "UISize": "310, 399",
@@ -4036,6 +4036,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Merlin",
             "ThreatType": "DPS",
+            "SignatureRadius": 39,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -4056,8 +4057,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Miasmos",
+            "ThreatType": "FREIGHTER",
+            "SignatureRadius": 205,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Mimir",
             "ThreatType": "DPS",
+            "SignatureRadius": 130,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4078,8 +4103,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Minokawa",
+            "ThreatType": "LOGI",
+            "SignatureRadius": 10,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 15,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Moa",
             "ThreatType": "DPS",
+            "SignatureRadius": 135,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4100,8 +4149,77 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Molok",
+            "ThreatType": "DPS",
+            "SignatureRadius": 24000,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 15,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Monitor",
+            "ThreatType": "DPS",
+            "SignatureRadius": 40,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 90,
+                    "Thermal": 90,
+                    "Kinetic": 90,
+                    "Explosion": 90
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 90,
+                    "Thermal": 90,
+                    "Kinetic": 90,
+                    "Explosion": 90
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Moracha",
+            "ThreatType": "DPS",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 15,
+                "ShieldResistProfile": {
+                    "EM": 50,
+                    "Thermal": 40,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 80,
+                    "Thermal": 51,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Moros",
             "ThreatType": "DPS",
+            "SignatureRadius": 11300,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4124,9 +4242,10 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Muninn",
             "ThreatType": "DPS",
+            "SignatureRadius": 125,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
-                "ShieldResistsModifier": 5,
+                "ShieldResistsModifier": 1,
                 "ShieldResistProfile": {
                     "EM": 75,
                     "Thermal": 60,
@@ -4146,6 +4265,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Myrmidon",
             "ThreatType": "DPS",
+            "SignatureRadius": 305,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4168,6 +4288,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Naga",
             "ThreatType": "DPS",
+            "SignatureRadius": 215,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -4190,6 +4311,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Naglfar",
             "ThreatType": "DPS",
+            "SignatureRadius": 11000,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4212,6 +4334,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Navitas",
             "ThreatType": "LOGI",
+            "SignatureRadius": 36,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4234,6 +4357,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Nemesis",
             "ThreatType": "DPS",
+            "SignatureRadius": 42,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -4254,8 +4378,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Nereus",
+            "ThreatType": "FREIGHTER",
+            "SignatureRadius": 185,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Nergal",
             "ThreatType": "DPS",
+            "SignatureRadius": 36,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4276,8 +4424,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Nestor",
+            "ThreatType": "DPS",
+            "SignatureRadius": 420,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 15,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Nidhoggur",
             "ThreatType": "DPS",
+            "SignatureRadius": 9865,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4300,6 +4472,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Nighthawk",
             "ThreatType": "COMMAND",
+            "SignatureRadius": 265,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4321,6 +4494,7 @@
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Nightmare",
+            "SignatureRadius": 370,
             "ThreatType": "DPS",
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
@@ -4342,8 +4516,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Ninazu",
+            "SignatureRadius": 10,
+            "ThreatType": "LOGI",
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 15,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Noctis",
             "ThreatType": "MINING",
+            "SignatureRadius": 250,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1.5,
@@ -4366,6 +4564,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Nomad",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 2700,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4388,6 +4587,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Nyx",
             "ThreatType": "DPS",
+            "SignatureRadius": 19000,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4410,6 +4610,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Obelisk",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 3605,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4432,6 +4633,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Occator",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 165,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4454,6 +4656,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Omen",
             "ThreatType": "DPS",
+            "SignatureRadius": 115,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4474,8 +4677,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Omen Navy Issue",
+            "ThreatType": "DPS",
+            "SignatureRadius": 100,
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 15,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 20
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Oneiros",
             "ThreatType": "LOGI",
+            "SignatureRadius": 70,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4498,6 +4725,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Onyx",
             "ThreatType": "DPS",
+            "SignatureRadius": 150,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4520,6 +4748,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Oracle",
             "ThreatType": "DPS",
+            "SignatureRadius": 210,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4542,6 +4771,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Orca",
             "ThreatType": "MINING",
+            "SignatureRadius": 1000,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4562,8 +4792,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Orthrus",
+            "ThreatType": "DPS",
+            "SignatureRadius": 135,
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 15,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Osprey",
             "ThreatType": "LOGI",
+            "SignatureRadius": 95,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4586,6 +4840,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Osprey Navy Issue",
             "ThreatType": "DPS",
+            "SignatureRadius": 115,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4606,8 +4861,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Pacifier",
+            "ThreatType": "DPS",
+            "SignatureRadius": 30,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 33,
+                    "Thermal": 33,
+                    "Kinetic": 33,
+                    "Explosion": 33
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 33,
+                    "Thermal": 33,
+                    "Kinetic": 33,
+                    "Explosion": 33
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Paladin",
             "ThreatType": "DPS",
+            "SignatureRadius": 420,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4630,6 +4909,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Panther",
             "ThreatType": "DPS",
+            "SignatureRadius": 288,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4652,6 +4932,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Phantasm",
             "ThreatType": "DPS",
+            "SignatureRadius": 120,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4674,6 +4955,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Phobos",
             "ThreatType": "DPS",
+            "SignatureRadius": 160,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4696,6 +4978,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Phoenix",
             "ThreatType": "DPS",
+            "SignatureRadius": 11200,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4718,6 +5001,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Pilgrim",
             "ThreatType": "DPS",
+            "SignatureRadius": 150,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4740,6 +5024,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Pontifex",
             "ThreatType": "DPS",
+            "SignatureRadius": 64,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4762,6 +5047,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Porpoise",
             "ThreatType": "MINING",
+            "SignatureRadius": 300,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -4784,6 +5070,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Praxis",
             "ThreatType": "DPS",
+            "SignatureRadius": 465,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 2,
@@ -4806,6 +5093,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Primae",
             "ThreatType": "MINING",
+            "SignatureRadius": 150,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4828,6 +5116,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Probe",
             "ThreatType": "DPS",
+            "SignatureRadius": 38,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1.5,
@@ -4850,6 +5139,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Procurer",
             "ThreatType": "MINING",
+            "SignatureRadius": 200,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 5,
@@ -4872,6 +5162,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Prophecy",
             "ThreatType": "DPS",
+            "SignatureRadius": 270,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4894,6 +5185,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Prorator",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 110,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -4916,6 +5208,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Proteus",
             "ThreatType": "DPS",
+            "SignatureRadius": 190,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4938,6 +5231,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Providence",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 3515,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -4960,6 +5254,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Prowler",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 105,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -4982,6 +5277,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Punisher",
             "ThreatType": "DPS",
+            "SignatureRadius": 37,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5004,6 +5300,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Purifier",
             "ThreatType": "DPS",
+            "SignatureRadius": 40,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5026,6 +5323,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Ragnarok",
             "ThreatType": "DPS",
+            "SignatureRadius": 22430,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5048,6 +5346,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Rapier",
             "ThreatType": "DPS",
+            "SignatureRadius": 125,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5070,6 +5369,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Raptor",
             "ThreatType": "TACKLE",
+            "SignatureRadius": 34,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5092,6 +5392,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Rattlesnake",
             "ThreatType": "DPS",
+            "SignatureRadius": 450,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -5114,6 +5415,30 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Raven",
             "ThreatType": "DPS",
+            "SignatureRadius": 410,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 15,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Raven Navy Issue",
+            "ThreatType": "DPS",
+            "SignatureRadius": 410,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -5136,6 +5461,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Reaper",
             "ThreatType": "DPS",
+            "SignatureRadius": 48,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5158,6 +5484,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Redeemer",
             "ThreatType": "DPS",
+            "SignatureRadius": 333,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5180,6 +5507,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Republic Fleet Firetail",
             "ThreatType": "DPS",
+            "SignatureRadius": 35,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5202,6 +5530,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Retribution",
             "ThreatType": "DPS",
+            "SignatureRadius": 35,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5224,6 +5553,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Retriever",
             "ThreatType": "MINING",
+            "SignatureRadius": 200,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5246,6 +5576,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Revelation",
             "ThreatType": "DPS",
+            "SignatureRadius": 11100,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5268,6 +5599,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Revenant",
             "ThreatType": "DPS",
+            "SignatureRadius": 18870,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -5290,6 +5622,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Rhea",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 2930,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5312,6 +5645,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Rifter",
             "ThreatType": "DPS",
+            "SignatureRadius": 35,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5334,6 +5668,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Rodiva",
             "ThreatType": "DPS",
+            "SignatureRadius": 100,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5356,6 +5691,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Rokh",
             "ThreatType": "DPS",
+            "SignatureRadius": 500,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -5378,6 +5714,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Rook",
             "ThreatType": "ECM",
+            "SignatureRadius": 170,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 5,
@@ -5400,6 +5737,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Rorqual",
             "ThreatType": "MINING",
+            "SignatureRadius": 11500,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -5422,6 +5760,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Rupture",
             "ThreatType": "DPS",
+            "SignatureRadius": 125,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5444,6 +5783,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Sabre",
             "ThreatType": "TACKLE",
+            "SignatureRadius": 70,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5466,6 +5806,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Sacrilege",
             "ThreatType": "DPS",
+            "SignatureRadius": 135,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5486,8 +5827,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Scalpel",
+            "ThreatType": "LOGI",
+            "SignatureRadius": 33,
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 50,
+                    "Thermal": 40,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 80,
+                    "Thermal": 51,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Scimitar",
             "ThreatType": "LOGI",
+            "SignatureRadius": 65,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5510,6 +5875,30 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Scorpion",
             "ThreatType": "ECM",
+            "SignatureRadius": 480,
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Scorpion Navy Issue",
+            "ThreatType": "ECM",
+            "SignatureRadius": 465,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5532,6 +5921,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Scythe",
             "ThreatType": "LOGI",
+            "SignatureRadius": 75,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5554,6 +5944,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Scythe Fleet Issue",
             "ThreatType": "DPS",
+            "SignatureRadius": 90,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5576,6 +5967,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Sentinel",
             "ThreatType": "ECM",
+            "SignatureRadius": 41,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5597,6 +5989,7 @@
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Sigil",
+            "SignatureRadius": 175,
             "ThreatType": "FREIGHTER",
             "Weaknesses": null,
             "DamageProfileWeakness": {
@@ -5620,6 +6013,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Sin",
             "ThreatType": "DPS",
+            "SignatureRadius": 378,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5642,6 +6036,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Skiff",
             "ThreatType": "MINING",
+            "SignatureRadius": 200,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5662,8 +6057,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Skybreaker",
+            "ThreatType": "DPS",
+            "SignatureRadius": 37,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 15,
+                "ShieldResistProfile": {
+                    "EM": 20,
+                    "Thermal": 20,
+                    "Kinetic": 50,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Slasher",
             "ThreatType": "TACKLE",
+            "SignatureRadius": 30,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5686,6 +6105,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Sleipnir",
             "ThreatType": "COMMAND",
+            "SignatureRadius": 240,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -5708,6 +6128,30 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Stabber",
             "ThreatType": "DPS",
+            "SignatureRadius": 100,
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 15,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Stabber Fleet Issue",
+            "ThreatType": "DPS",
+            "SignatureRadius": 100,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -5730,6 +6174,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Stiletto",
             "ThreatType": "TACKLE",
+            "SignatureRadius": 31,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5750,8 +6195,78 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Stork",
+            "ThreatType": "COMMAND",
+            "SignatureRadius": 69,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 15,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 60,
+                    "Kinetic": 55,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 75,
+                    "Kinetic": 43,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Stormbringer",
+            "ThreatType": "DPS",
+            "SignatureRadius": 130,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 15,
+                "ShieldResistProfile": {
+                    "EM": 20,
+                    "Thermal": 20,
+                    "Kinetic": 50,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 40,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Stratios",
+            "ThreatType": "DPS", //DroneBoat
+            "SignatureRadius": 150,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Succubus",
             "ThreatType": "DPS",
+            "SignatureRadius": 33,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5772,8 +6287,55 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Sunesis",
+            "ThreatType": "DPS",
+            "SignatureRadius": 65,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 27,
+                    "Thermal": 27,
+                    "Kinetic": 27,
+                    "Explosion": 27
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 32,
+                    "Thermal": 32,
+                    "Kinetic": 32,
+                    "Explosion": 32
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Svipul",
+            "ThreatType": "DPS",
+            "SignatureRadius": 60,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 50,
+                    "Thermal": 40,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 80,
+                    "Thermal": 51,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Taipan",
             "ThreatType": "DPS",
+            "SignatureRadius": 50,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5796,6 +6358,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Talos",
             "ThreatType": "DPS",
+            "SignatureRadius": 220,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5818,6 +6381,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Talwar",
             "ThreatType": "DPS",
+            "SignatureRadius": 60,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5840,6 +6404,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Taranis",
             "ThreatType": "TACKLE",
+            "SignatureRadius": 36,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5862,6 +6427,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Tayra",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 230,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5884,6 +6450,30 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Tempest",
             "ThreatType": "DPS",
+            "SignatureRadius": 360,
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Tempest Fleet Issue",
+            "ThreatType": "DPS",
+            "SignatureRadius": 360,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5906,6 +6496,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Tengu",
             "ThreatType": "DPS",
+            "SignatureRadius": 180,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -5928,6 +6519,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Thanatos",
             "ThreatType": "DPS",
+            "SignatureRadius": 9960,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5948,8 +6540,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Thalia",
+            "ThreatType": "LOGI",
+            "SignatureRadius": 36,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 40,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 51,
+                    "Kinetic": 67,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Thorax",
             "ThreatType": "DPS",
+            "SignatureRadius": 120,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -5970,8 +6586,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Thunderchild",
+            "ThreatType": "DPS",
+            "SignatureRadius": 485,
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 15,
+                "ShieldResistProfile": {
+                    "EM": 20,
+                    "Thermal": 20,
+                    "Kinetic": 50,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 45,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Thrasher",
             "ThreatType": "DPS",
+            "SignatureRadius": 56,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -5994,6 +6634,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Tormentor",
             "ThreatType": "DPS",
+            "SignatureRadius": 35,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6016,6 +6657,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Tornado",
             "ThreatType": "DPS",
+            "SignatureRadius": 195,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6038,6 +6680,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Tristan",
             "ThreatType": "DPS",
+            "SignatureRadius": 41,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6060,6 +6703,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Typhoon",
             "ThreatType": "DPS",
+            "SignatureRadius": 330,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6069,7 +6713,30 @@
                     "Kinetic": 40,
                     "Explosion": 50
                 },
-                "ArmorResistsModifier": 15,
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Typhoon Fleet Issue",
+            "ThreatType": "DPS",
+            "SignatureRadius": 330,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
                 "ArmorResistProfile": {
                     "EM": 60,
                     "Thermal": 35,
@@ -6082,6 +6749,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Utu",
             "ThreatType": "DPS",
+            "SignatureRadius": 39,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6104,6 +6772,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Vagabond",
             "ThreatType": "DPS",
+            "SignatureRadius": 115,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -6124,8 +6793,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vanquisher",
+            "ThreatType": "DPS",
+            "SignatureRadius": 24800,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Vargur",
             "ThreatType": "DPS",
+            "SignatureRadius": 360,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -6148,6 +6841,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Vedmak",
             "ThreatType": "DPS",
+            "SignatureRadius": 110,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6170,6 +6864,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Velator",
             "ThreatType": "DPS",
+            "SignatureRadius": 54,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6190,8 +6885,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vehement",
+            "ThreatType": "DPS",
+            "SignatureRadius": 12000,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Vengeance",
             "ThreatType": "DPS",
+            "SignatureRadius": 37,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6214,6 +6933,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Venture",
             "ThreatType": "MINING",
+            "SignatureRadius": 40,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -6236,6 +6956,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Vexor",
             "ThreatType": "DPS",
+            "SignatureRadius": 145,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6256,8 +6977,32 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vexor Navy Issue",
+            "ThreatType": "DPS",
+            "SignatureRadius": 130,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 35,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Viator",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 120,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -6280,6 +7025,30 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Vigil",
             "ThreatType": "DPS",
+            "SignatureRadius": 34,
+            "Weaknesses": [ "Drones" ],
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 10,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 40,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 60,
+                    "Thermal": 35,
+                    "Kinetic": 25,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Vigil Fleet Issue",
+            "ThreatType": "DPS",
+            "SignatureRadius": 34,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -6302,6 +7071,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Vigilant",
             "ThreatType": "DPS",
+            "SignatureRadius": 130,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6324,6 +7094,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Vindicator",
             "ThreatType": "DPS",
+            "SignatureRadius": 400,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6346,6 +7117,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Violator",
             "ThreatType": "DPS",
+            "SignatureRadius": 52,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6368,6 +7140,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Vulture",
             "ThreatType": "COMMAND",
+            "SignatureRadius": 285,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -6390,6 +7163,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Whiptail",
             "ThreatType": "TACKLE",
+            "SignatureRadius": 35,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -6412,6 +7186,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Widow",
             "ThreatType": "ECM",
+            "SignatureRadius": 405,
             "Weaknesses": [ "Drones" ],
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -6434,6 +7209,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Wolf",
             "ThreatType": "DPS",
+            "SignatureRadius": 33,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6456,6 +7232,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Worm",
             "ThreatType": "DPS",
+            "SignatureRadius": 40,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 10,
@@ -6478,6 +7255,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Wreathe",
             "ThreatType": "FREIGHTER",
+            "SignatureRadius": 155,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -6500,6 +7278,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Wyvern",
             "ThreatType": "DPS",
+            "SignatureRadius": 19470,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 15,
@@ -6522,6 +7301,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Zarmazd",
             "ThreatType": "LOGI",
+            "SignatureRadius": 70,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6544,6 +7324,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Zealot",
             "ThreatType": "DPS",
+            "SignatureRadius": 125,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6566,6 +7347,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Zephyr",
             "ThreatType": "DPS",
+            "SignatureRadius": 25,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
@@ -6588,6 +7370,7 @@
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Zirnitra",
             "ThreatType": "DPS",
+            "SignatureRadius": 10000,
             "Weaknesses": null,
             "DamageProfileWeakness": {
                 "ShieldResistsModifier": 1,
