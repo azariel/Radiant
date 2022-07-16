@@ -45,9 +45,9 @@
         "PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumberAndTankIsGreen": 2,
         "PrioritizeLogiShipsIfDpsBelowThisNumber": 1000
     },
-    "UILocation": "1643, 675",
+    "UILocation": "1643, 140",
     "UILocked": true,
-    "Transparent": false,
+    "Transparent": true,
     "UISize": "310, 399",
     "UseThreatColorByDPS": true,
     "DpsCycleMs": 22000,
@@ -792,7 +792,7 @@
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Bhaalgorn",
-            "ThreatType": "DPS", // NEUT... TODO: add new threat type: NEUT
+            "ThreatType": "NEUT",
             "SignatureRadius": 400,
             "Weaknesses": null,
             "DamageProfileWeakness": {
@@ -5000,7 +5000,7 @@
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Pilgrim",
-            "ThreatType": "DPS",
+            "ThreatType": "NEUT",
             "SignatureRadius": 150,
             "Weaknesses": null,
             "DamageProfileWeakness": {

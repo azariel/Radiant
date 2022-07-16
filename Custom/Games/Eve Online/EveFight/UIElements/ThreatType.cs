@@ -9,6 +9,7 @@ public enum ThreatType
     LOGI,
     TACKLE,
     DPS,
+    NEUT,
     COMMAND,
     FREIGHTER,
     MINING,

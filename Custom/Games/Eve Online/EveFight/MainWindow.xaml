@@ -14,10 +14,25 @@
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="24" MinHeight="24" />
+                <RowDefinition Height="Auto" MinHeight="24" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <uiElements:HeaderStatsUC x:Name="StatsUc" />
-            <ListBox Name="ShipsListBox" Padding="0" Grid.Row="1" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
+            <Expander Grid.Row="1" HorizontalContentAlignment="Stretch" Expanded="Expander_OnExpanded">
+                <!--<Expander.Header>
+                    <BulletDecorator>
+                        <BulletDecorator.Bullet>
+                            <Image Width="24" Source="Resources/EM.png"/>
+                        </BulletDecorator.Bullet>
+                    </BulletDecorator>
+                </Expander.Header>-->
+                <Expander.Content>
+                    <Grid>
+                        <uiElements:ShipWeaknessViewer x:Name="ShipsWeaknessViewer" />
+                    </Grid>
+                </Expander.Content>
+            </Expander>
+            <ListBox Name="ShipsListBox" Padding="0" Grid.Row="2" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
         </Grid>
     </Border>
 </Window>

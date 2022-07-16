@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Content Include="EvefightIcon.ico" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
     <Resource Include="Resources\EM.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

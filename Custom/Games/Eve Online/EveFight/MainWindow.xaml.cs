@@ -47,8 +47,8 @@ namespace EveFight
 
             if (_Config.Transparent)
             {
-                MainGrid.Background = _Config.UILocked ? new SolidColorBrush(Colors.Transparent) : 
-                                                         new SolidColorBrush(Color.FromArgb(1,0,0,0));
+                MainGrid.Background = _Config.UILocked ? new SolidColorBrush(Colors.Transparent) :
+                                                         new SolidColorBrush(Color.FromArgb(1, 0, 0, 0));
             }
 
             // Handle UI Interactivty
@@ -59,8 +59,10 @@ namespace EveFight
                 this.ResizeMode = ResizeMode.CanResizeWithGrip;
             } else
             {
-                this.IsHitTestVisible = false;
-                MainGrid.IsHitTestVisible = false;
+                //this.IsHitTestVisible = false;
+                //MainGrid.IsHitTestVisible = false;
+                StatsUc.IsHitTestVisible = false;
+                ShipsListBox.IsHitTestVisible = false;
             }
 
             // Load UI position and size
@@ -149,6 +151,11 @@ namespace EveFight
         {
             var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
             SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
+        }
+
+        private void Expander_OnExpanded(object aSender, RoutedEventArgs aE)
+        {
+            ShipsWeaknessViewer.Refresh();
         }
     }
 }
