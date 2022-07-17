@@ -62,11 +62,11 @@ namespace EveFight.UIElements
 
 
             ShipDefinition? _ShipDefinition = GetShipDefinitionFromShipName(_ShipName);
-            lblThreatType.Content = _ShipDefinition.ThreatType;
 
             if (_ShipDefinition == null)
                 return;// just ignore
 
+            lblThreatType.Content = _ShipDefinition.ThreatType;
             ShipsComboBox.Text = "";// clear input
             ShipWeaknessUIHelper.RefreshShieldResistsIcons(ResistShieldStackPanel, _ShipDefinition, 24);
             ShipWeaknessUIHelper.RefreshArmorResistsIcons(ResistArmorStackPanel, _ShipDefinition, 24);

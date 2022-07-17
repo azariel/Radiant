@@ -45,7 +45,7 @@
         "PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumberAndTankIsGreen": 2,
         "PrioritizeLogiShipsIfDpsBelowThisNumber": 1000
     },
-    "UILocation": "1643, 140",
+    "UILocation": "1643, 200",
     "UILocked": true,
     "Transparent": true,
     "UISize": "310, 399",
