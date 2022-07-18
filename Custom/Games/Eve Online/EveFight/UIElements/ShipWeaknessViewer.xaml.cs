@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using EveFight.Configuration;
 using EveFight.Models;
 
@@ -34,7 +35,7 @@ namespace EveFight.UIElements
             if (textbox != null)
             {
                 var parent = (Border)textbox.Parent;
-                parent.Background = new SolidColorBrush(Color.FromArgb(255,60,60,60));
+                parent.Background = new SolidColorBrush(Color.FromArgb(255, 60, 60, 60));
             }
         }
 
@@ -119,14 +120,12 @@ namespace EveFight.UIElements
 
         public void Refresh()
         {
-            ShipsComboBox.Focus();
-            ShipsComboBox.Text = "";
-
-            //ShipsComboBox.Focus();
-            //while (!ShipsComboBox.IsFocused)
-            //    ShipsComboBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-
-            //ShipsComboBox.IsDropDownOpen = true;
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Input,
+                new Action(() =>
+                {
+                    ShipsComboBox.Focus();// Set Logical Focus
+                    Keyboard.Focus(ShipsComboBox);// Set Keyboard Focus
+                }));
         }
     }
 }

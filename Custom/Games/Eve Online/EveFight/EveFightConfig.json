@@ -1481,6 +1481,29 @@
         },
         {
             "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Confessor",
+            "ThreatType": "DPS",
+            "SignatureRadius": 65,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 20,
+                    "Kinetic": 55,
+                    "Explosion": 75
+                },
+                "ArmorResistsModifier": 10,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 35,
+                    "Kinetic": 43,
+                    "Explosion": 60
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
             "ShipType": "Corax",
             "ThreatType": "DPS",
             "SignatureRadius": 69,
@@ -2763,6 +2786,29 @@
                     "EM": 50,
                     "Thermal": 86,
                     "Kinetic": 62,
+                    "Explosion": 10
+                }
+            }
+        },
+        {
+            "$type": "EveFight.Models.ShipDefinition, EveFight",
+            "ShipType": "Hecate",
+            "ThreatType": "DPS",
+            "SignatureRadius": 70,
+            "Weaknesses": null,
+            "DamageProfileWeakness": {
+                "ShieldResistsModifier": 1,
+                "ShieldResistProfile": {
+                    "EM": 0,
+                    "Thermal": 40,
+                    "Kinetic": 70,
+                    "Explosion": 50
+                },
+                "ArmorResistsModifier": 1,
+                "ArmorResistProfile": {
+                    "EM": 50,
+                    "Thermal": 51,
+                    "Kinetic": 67,
                     "Explosion": 10
                 }
             }
