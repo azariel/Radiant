@@ -71,6 +71,8 @@ namespace EveFight.UIElements
             ShipsComboBox.Text = "";// clear input
             ShipWeaknessUIHelper.RefreshShieldResistsIcons(ResistShieldStackPanel, _ShipDefinition, 24);
             ShipWeaknessUIHelper.RefreshArmorResistsIcons(ResistArmorStackPanel, _ShipDefinition, 24);
+            ShipWeaknessUIHelper.RefreshRawShieldResistsIcons(StackPanelRawResistsShield, _ShipDefinition, 12);
+            ShipWeaknessUIHelper.RefreshRawArmorResistsIcons(StackPanelRawResistsArmor, _ShipDefinition, 12);
 
             DamageWeakness _DamageWeakness = ShipWeaknessUIHelper.GetBestDamageProfileToDealToShip(_ShipDefinition);
 
