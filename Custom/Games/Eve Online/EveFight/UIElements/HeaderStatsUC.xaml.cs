@@ -16,7 +16,7 @@ namespace EveFight.UIElements
 
         private void SetControlState()
         {
-            EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
+            EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
 
             LblDPSTank.Content = $"{this.TotalDPSInbound}";
             LblUserDPSTank.Content = this.TotalDPSOutbound;

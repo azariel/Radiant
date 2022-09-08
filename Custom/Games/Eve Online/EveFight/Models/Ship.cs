@@ -24,7 +24,7 @@ namespace EveFight.Models
 
         private void RefreshShipDefinition()
         {
-            EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
+            EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
 
             if (!string.IsNullOrWhiteSpace(this.ShipName))
             {
@@ -44,7 +44,7 @@ namespace EveFight.Models
             });
 
             // Cleanup old data
-            fTimedDamages.RemoveAll(r => (_Now - r.Time).TotalMilliseconds >= EveFightConfigurationManager.ReloadConfig().DpsCycleMs);
+            fTimedDamages.RemoveAll(r => (_Now - r.Time).TotalMilliseconds >= EveFightConfigurationManager.GetConfigFromMemory().DpsCycleMs);
 
             this.LastUpdate = _Now;
         }

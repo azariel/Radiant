@@ -122,7 +122,7 @@ namespace EveFight.Managers
 
         public static void UpdateShipListItems(bool aCompactUI, ListBox aShipsListBox)
         {
-            EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
+            EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
 
             IOrderedEnumerable<Ship> _OrderedShips;
             if (ShipList.Count(c => c.ThreatType == ThreatType.TACKLE) < _Config.ThreatDetermination.PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumberAndTankIsGreen && GetTotalDPS() < _Config.TankInfo.TotalDPSYellow)
@@ -160,7 +160,7 @@ namespace EveFight.Managers
         public static void UpdateShips()
         {
             // Update from disk
-            EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
+            EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
             string[] _EveLogFileLines = GetEveFileLogInfo(out FileSystemInfo? _EveLogFile);
 
             if (_EveLogFile == null)
@@ -222,7 +222,7 @@ namespace EveFight.Managers
 
         private static string[] GetEveFileLogInfo(out FileSystemInfo? aEveLogFile)
         {
-            EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
+            EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
 
             // Fetch all logs file names
             if (!Directory.Exists(_Config.LogsDirectoryPath))
