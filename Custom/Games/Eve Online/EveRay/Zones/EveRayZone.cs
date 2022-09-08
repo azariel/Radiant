@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using EveRay.Watch;
 
 namespace EveRay.Zones
 {
@@ -14,15 +16,15 @@ namespace EveRay.Zones
         private Size fSize = new(1, 1);
         private bool fIsFirstCheck = true;
 
-        public bool ContainsColor(Color aColor, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
+        public bool ContainsColor(WatchItemColors.WatchItemDetectionType aWatchItemDetectionType, Color aColor, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
         {
-            return ContainsColors(new List<Color> { aColor }, aTreshold, aWatchItemNbPixelsToTrigger, aSaveImageOnDisk, out aHitPointLocation);
+            return ContainsColors(aWatchItemDetectionType, new List<Color> { aColor }, aTreshold, aWatchItemNbPixelsToTrigger, aSaveImageOnDisk, out aHitPointLocation);
         }
 
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public unsafe bool ContainsColors(List<Color> aColors, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
+        public unsafe bool ContainsColors(WatchItemColors.WatchItemDetectionType aWatchItemDetectionType, List<Color> aColors, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
         {
             aHitPointLocation = null;
 
@@ -30,7 +32,7 @@ namespace EveRay.Zones
             using Graphics bitmapGraphics = Graphics.FromImage(fBitmap);
 
             // Take a screenshot
-            bitmapGraphics.CopyFromScreen(this.Location.X - 7, this.Location.Y - 7, 0, 0, fBitmap.Size);
+            bitmapGraphics.CopyFromScreen(this.Location.X - 6, this.Location.Y - 6, 0, 0, fBitmap.Size);
 
             BitmapData _BitmapData = fBitmap.LockBits(new Rectangle(0, 0, fBitmap.Width, fBitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
             int _NbPixelsMatchingWatchItem = 0;
@@ -49,12 +51,6 @@ namespace EveRay.Zones
                         float r = *pRow++;
                         pRow++;// skip alpha
 
-                        //if (aColors.Any(a => Math.Abs(a.R-r) < aTreshold && Math.Abs(a.G-g) < aTreshold && Math.Abs(a.B-b) < aTreshold))
-                        //    return true;
-
-                        //if (r + g + b > 605)
-                        //    return true;
-
                         float _Tolerance = 0.10f;// 10 % diff max
                         foreach (Color _Color in aColors)
                         {
@@ -65,24 +61,19 @@ namespace EveRay.Zones
 
                             float _CurrentRatioRedToGreen = r / (_Green > 0 ? _Green : r);
                             float _RatioRedToGreen = _Color.R / (_GreenColor > 0 ? _GreenColor : _Color.R);
-
-                            if (Math.Abs(_RatioRedToGreen - _CurrentRatioRedToGreen) > _Tolerance)
-                                continue;
-
                             float _CurrentRatioRedToBlue = r / (_Blue > 0 ? _Blue : r);
                             float _RatioRedToBlue = _Color.R / (_BlueColor > 0 ? _BlueColor : _Color.R);
-
-                            if (Math.Abs(_RatioRedToBlue - _CurrentRatioRedToBlue) > _Tolerance)
-                                continue;
-
                             float _CurrentRatioGreenToBlue = g / (_Blue > 0 ? _Blue : g);
                             float _RatioGreenToBlue = _Color.G / (_BlueColor > 0 ? _BlueColor : _Color.G);
 
-                            if (Math.Abs(_RatioGreenToBlue - _CurrentRatioGreenToBlue) > _Tolerance)
-                                continue;
-
-                            if (Math.Abs(_Color.R - r) + Math.Abs(_Color.G - g) + Math.Abs(_Color.B - b) > aTreshold)
-                                continue;
+                            if (Math.Abs(_RatioRedToGreen - _CurrentRatioRedToGreen) > _Tolerance ||
+                                Math.Abs(_RatioRedToBlue - _CurrentRatioRedToBlue) > _Tolerance ||
+                                Math.Abs(_RatioGreenToBlue - _CurrentRatioGreenToBlue) > _Tolerance ||
+                                Math.Abs(_Color.R - r) + Math.Abs(_Color.G - g) + Math.Abs(_Color.B - b) > aTreshold)
+                            {
+                                if (aWatchItemDetectionType == WatchItemColors.WatchItemDetectionType.WhiteList)
+                                    continue;
+                            }
 
                             ++_NbPixelsMatchingWatchItem;
 
@@ -104,12 +95,21 @@ namespace EveRay.Zones
             if (_NbPixelsMatchingWatchItem >= aWatchItemNbPixelsToTrigger)
             {
                 if (aSaveImageOnDisk)
+                {
+                    CreateTempFolderIfDoesntExists();
                     fBitmap.Save($"C:\\Temp\\COLOR_{Guid.NewGuid()}.png");
+                }
 
                 return true;
             }
 
             return false;
+        }
+
+        private void CreateTempFolderIfDoesntExists()
+        {
+            if (!Directory.Exists("C:\\Temp"))
+                Directory.CreateDirectory("C:\\Temp");
         }
 
         private void SaveImageIfFirstCheckForManualValidation()
@@ -118,6 +118,7 @@ namespace EveRay.Zones
                 return;
 
             fIsFirstCheck = false;
+            CreateTempFolderIfDoesntExists();
             fBitmap.Save($"C:\\Temp\\FOR_VALIDATION_{Guid.NewGuid()}.png");
         }
 
@@ -185,6 +186,7 @@ namespace EveRay.Zones
             {
                 if (aSaveImageOnDisk)
                 {
+                    CreateTempFolderIfDoesntExists();
                     fBitmap.Save($"C:\\Temp\\NOISE_{Guid.NewGuid()}_A.png");
                     _LastBitmap.Save($"C:\\Temp\\NOISE_{Guid.NewGuid()}_B.png");
                 }

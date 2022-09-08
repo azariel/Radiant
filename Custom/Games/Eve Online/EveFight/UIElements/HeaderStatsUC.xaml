@@ -9,11 +9,11 @@
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
             <Label Name="LblDPSTank" Foreground="White" FontWeight="Bold" FontSize="10" />
-            <Label Name="lblDPSConst" Foreground="White" FontWeight="Bold" FontSize="10" Margin="-5,0,0,0">dps</Label>
+            <Label Name="lblDPSConst" Foreground="White" FontWeight="Bold" FontSize="10" Margin="-5,0,0,0">dps in</Label>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Name="LblUserDPSTank" Foreground="DarkCyan" FontWeight="Bold" FontSize="10" />
-            <Label Name="lblUserDPSConst" Foreground="White" FontWeight="Bold" FontSize="10" Margin="-5,0,0,0">dps</Label>
+            <Label Name="lblUserDPSConst" Foreground="White" FontWeight="Bold" FontSize="10" Margin="-5,0,0,0">dps out</Label>
         </StackPanel>
     </Grid>
 </UserControl>

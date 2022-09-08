@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -44,17 +45,24 @@ namespace EveFight
         {
             EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
 
+            if (_Config.Transparent)
+            {
+                MainGrid.Background = _Config.UILocked ? new SolidColorBrush(Colors.Transparent) :
+                                                         new SolidColorBrush(Color.FromArgb(1, 0, 0, 0));
+            }
+
             // Handle UI Interactivty
             if (!_Config.UILocked)
             {
                 MainGrid.MouseDown -= MainGrid_OnMouseDown;
                 MainGrid.MouseDown += MainGrid_OnMouseDown;
                 this.ResizeMode = ResizeMode.CanResizeWithGrip;
-            }
-            else
+            } else
             {
-                this.IsHitTestVisible = false;
-                MainGrid.IsHitTestVisible = false;
+                //this.IsHitTestVisible = false;
+                //MainGrid.IsHitTestVisible = false;
+                StatsUc.IsHitTestVisible = false;
+                ShipsListBox.IsHitTestVisible = false;
             }
 
             // Load UI position and size
@@ -124,8 +132,18 @@ namespace EveFight
                     ShowRedBorderIfRequired(_TotalDPS);
                 });
 
-                // TODO: go as far a 3 sec in non-combat situation and as low as 0.5 sec in combat
-                Thread.Sleep(1000);
+                int _SleepMs = 5000;// ships were not attacking us for a relatively long time
+                if (ShipsManager.ShipList.Count > 0)
+                {
+                    _SleepMs = 1000;// Ships were attacking us not too long ago
+
+                    var _LastUpdateInMs = (DateTime.Now - ShipsManager.ShipList.Max(m => m.LastUpdate)).TotalMilliseconds;
+
+                    if (_LastUpdateInMs < 3000)
+                        _SleepMs = 500;
+                }
+
+                Thread.Sleep(_SleepMs);
             }
         }
 
@@ -133,6 +151,11 @@ namespace EveFight
         {
             var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
             SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
+        }
+
+        private void Expander_OnExpanded(object aSender, RoutedEventArgs aE)
+        {
+            ShipsWeaknessViewer.Refresh();
         }
     }
 }

@@ -5,7 +5,32 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>EvefightIcon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\EM.png" />
+    <None Remove="Resources\Explosion.png" />
+    <None Remove="Resources\Kinetic.png" />
+    <None Remove="Resources\Thermal.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="EvefightIcon.ico" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
+    <Resource Include="Resources\EM.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Explosion.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Kinetic.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Thermal.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\RadiantCommon\RadiantCommon.csproj" />

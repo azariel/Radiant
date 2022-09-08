@@ -6,18 +6,33 @@
         xmlns:local="clr-namespace:EveFight"
         xmlns:uiElements="clr-namespace:EveFight.UIElements"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="400" WindowStyle="None" Topmost="True" WindowStartupLocation="CenterScreen" WindowState="Normal" Background="Transparent" AllowsTransparency="True" IsHitTestVisible="True" Loaded="MainWindow_OnLoaded">
+        Title="MainWindow" Height="400" Width="400" WindowStyle="None" Topmost="True" WindowStartupLocation="CenterScreen" WindowState="Normal" Background="Transparent" AllowsTransparency="True" Loaded="MainWindow_OnLoaded">
     <Border Name="MainBorder" BorderBrush="Transparent" BorderThickness="2">
-        <Grid Name="MainGrid" IsHitTestVisible="True">
+        <Grid Name="MainGrid">
             <Grid.Background>
                 <SolidColorBrush Color="Black" Opacity="0.25"/>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="24" MinHeight="24" />
+                <RowDefinition Height="Auto" MinHeight="24" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <uiElements:HeaderStatsUC x:Name="StatsUc" />
-            <ListBox Name="ShipsListBox" Padding="0" Grid.Row="1" BorderThickness="0" IsHitTestVisible="False" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
+            <Expander Grid.Row="1" HorizontalContentAlignment="Stretch" Expanded="Expander_OnExpanded">
+                <!--<Expander.Header>
+                    <BulletDecorator>
+                        <BulletDecorator.Bullet>
+                            <Image Width="24" Source="Resources/EM.png"/>
+                        </BulletDecorator.Bullet>
+                    </BulletDecorator>
+                </Expander.Header>-->
+                <Expander.Content>
+                    <Grid>
+                        <uiElements:ShipWeaknessViewer x:Name="ShipsWeaknessViewer" />
+                    </Grid>
+                </Expander.Content>
+            </Expander>
+            <ListBox Name="ShipsListBox" Padding="0" Grid.Row="2" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" />
         </Grid>
     </Border>
 </Window>

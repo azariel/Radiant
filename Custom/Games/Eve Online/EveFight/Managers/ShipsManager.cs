@@ -25,7 +25,7 @@ namespace EveFight.Managers
                 fNbLinesToSkip = _Lines.Length;
         }
 
-        private static void ProcessNewDPSUpdateLine(string aEveLogLine)
+        private static void ProcessNewDPSUpdateLine(string aEveLogLine, bool aIsTackle)
         {
             string[] _SplittedLineOnBold = aEveLogLine.Split("</b>");
 
@@ -102,6 +102,7 @@ namespace EveFight.Managers
             {
                 string _LowerInvariantLine = _EveLogLine.ToLowerInvariant();
                 Match _ShipIsScrambler = Regex.Match(_LowerInvariantLine, _SimpleRegexWarpScramble);
+                bool _IsTackle = false;
 
                 if (_ShipIsScrambler.Success)
                 {
@@ -113,7 +114,7 @@ namespace EveFight.Managers
 
                 // DPS log line
                 // -------------------------------
-                ProcessNewDPSUpdateLine(_EveLogLine);
+                ProcessNewDPSUpdateLine(_EveLogLine, _IsTackle);
             }
         }
 
@@ -124,7 +125,7 @@ namespace EveFight.Managers
             EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
 
             IOrderedEnumerable<Ship> _OrderedShips;
-            if (ShipList.Count(c => c.ThreatType == ThreatType.TACKLE) < _Config.ThreatDetermination.PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumber)
+            if (ShipList.Count(c => c.ThreatType == ThreatType.TACKLE) < _Config.ThreatDetermination.PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumberAndTankIsGreen && GetTotalDPS() < _Config.TankInfo.TotalDPSYellow)
             {
                 if (ShipList.Sum(s => s.DPS) < _Config.ThreatDetermination.PrioritizeLogiShipsIfDpsBelowThisNumber)
                     _OrderedShips = ShipList.OrderByDescending(o => o.ThreatType == ThreatType.TACKLE).ThenBy(t => t.ThreatType).ThenByDescending(t => t.DPS);
@@ -139,7 +140,7 @@ namespace EveFight.Managers
             }
 
             aShipsListBox.Items.Clear();
-            foreach (var _OrderedShip in _OrderedShips)
+            foreach (Ship _OrderedShip in _OrderedShips)
             {
                 ListItemShip _ListItem = new()
                 {
@@ -189,8 +190,8 @@ namespace EveFight.Managers
             foreach (Ship _Ship in ShipList)
                 _Ship.UpdateDPS();
 
-            // Remove old attackers that aren't on grid anymore
-            ShipList.RemoveAll(a => (DateTime.Now - a.LastUpdate).TotalSeconds > 30);
+            // Remove old attackers that aren't active anymore
+            ShipList.RemoveAll(a => (DateTime.Now - a.LastUpdate).TotalMilliseconds > _Config.DpsCycleMs);
 
             // Next loop, skip the lines we just did
             fNbLinesToSkip = _NbTotalLines;
