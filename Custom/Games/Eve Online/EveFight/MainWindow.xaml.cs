@@ -43,7 +43,7 @@ namespace EveFight
 
         private void LoadUI()
         {
-            EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
+            EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
 
             if (_Config.Transparent)
             {
@@ -100,7 +100,7 @@ namespace EveFight
 
         private void ShowRedBorderIfRequired(int aTotalDps)
         {
-            EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
+            EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
 
             if (aTotalDps > _Config.TankInfo.TotalDPSRed)
             {
@@ -115,7 +115,7 @@ namespace EveFight
 
         private void Start()
         {
-            EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
+            EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
 
             while (true)
             {

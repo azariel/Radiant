@@ -23,7 +23,7 @@ namespace EveFight.UIElements
             InitializeComponent();
 
             // bind ship list to control
-            fConfig = EveFightConfigurationManager.ReloadConfig();
+            fConfig = EveFightConfigurationManager.GetConfigFromMemory();
             ShipsComboBox.ItemsSource = fConfig.ShipDefinitions.Select(s => s.ShipType);
 
             Loaded += OnLoaded;
@@ -55,12 +55,20 @@ namespace EveFight.UIElements
         private void ShipsComboBox_OnKeyUp(object aSender, KeyEventArgs aE)
         {
             if (aE.Key != Key.Enter)
+            {
+                if (aE.Key == Key.Down)
+                {
+                    ShipsComboBox.IsDropDownOpen = true;
+                }
+
                 return;
+            }
+
+            ShipsComboBox.IsDropDownOpen = false;
 
             // Show ship weaknesses
             string _ShipName = ShipsComboBox.SelectedValue as string;
             lblShipName.Content = $"{_ShipName}";
-
 
             ShipDefinition? _ShipDefinition = GetShipDefinitionFromShipName(_ShipName);
 
@@ -128,6 +136,21 @@ namespace EveFight.UIElements
                     ShipsComboBox.Focus();// Set Logical Focus
                     Keyboard.Focus(ShipsComboBox);// Set Keyboard Focus
                 }));
+        }
+
+        private void ShipsComboBox_PreviewKeyDown(object sender, KeyEventArgs aE)
+        {
+            // Ignore tab
+            if (aE.Key == Key.Tab)
+            {
+                var textbox = (TextBox)ShipsComboBox.Template.FindName("PART_EditableTextBox", ShipsComboBox);
+
+                if (textbox != null)
+                {
+                    textbox.CaretIndex = textbox.Text.Length;
+                    aE.Handled = true;
+                }
+            }
         }
     }
 }

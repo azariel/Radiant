@@ -18,7 +18,7 @@ namespace EveFight.UIElements
         {
             InitializeComponent();
 
-            EveFightConfiguration _Config = EveFightConfigurationManager.ReloadConfig();
+            EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
             fPlayerNameMaxDigits = _Config.PlayerNameMaxDigits;
             fUseThreatColorByDPS = _Config.UseThreatColorByDPS;
             fThreatColorByDPSModel = _Config.ThreatColorByDps;
@@ -48,7 +48,7 @@ namespace EveFight.UIElements
             }
 
             // If ship is hasn't hit us for half the cycle time, gray it out
-            if ((DateTime.Now - this.Ship.LastUpdate).TotalMilliseconds > EveFightConfigurationManager.ReloadConfig().DpsCycleMs / 2)
+            if ((DateTime.Now - this.Ship.LastUpdate).TotalMilliseconds > EveFightConfigurationManager.GetConfigFromMemory().DpsCycleMs / 2)
                 _ColorBrush = new SolidColorBrush(Color.FromArgb(a: 50, _ColorBrush.Color.R, _ColorBrush.Color.G, _ColorBrush.Color.B));
 
             return _ColorBrush;

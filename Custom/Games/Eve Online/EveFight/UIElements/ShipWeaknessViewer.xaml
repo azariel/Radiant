@@ -3,13 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EveFight.UIElements"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel Orientation="Vertical">
 
-            <ComboBox Name="ShipsComboBox" Background="CadetBlue" IsTextSearchEnabled="True" Focusable="True" IsTextSearchCaseSensitive="False" IsEditable="True" KeyUp="ShipsComboBox_OnKeyUp" TabIndex="1" Style="{DynamicResource ComboBoxStyle1}" Foreground="AliceBlue">
+            <ComboBox Name="ShipsComboBox" Background="CadetBlue" IsTextSearchEnabled="True" Focusable="True" IsTextSearchCaseSensitive="False" IsEditable="True" MaxDropDownHeight="40" PreviewKeyDown="ShipsComboBox_PreviewKeyDown" KeyUp="ShipsComboBox_OnKeyUp" TabIndex="1" Style="{DynamicResource ComboBoxStyle1}" Foreground="AliceBlue">
                 <ComboBox.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#999" />
                 </ComboBox.Resources>
