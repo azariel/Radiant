@@ -1,0 +1,13 @@
+{
+    "$type": "EveChatMonitorer.Configuration.EveChatMonitorerConfiguration, EveChatMonitorer",
+    "LogsDirectoryPath": "C:\\Users\\Azariel-PC\\Documents\\EVE\\logs\\Chatlogs",
+    "ForcePlayerNameInLogs": "Seyrdis",
+    "RefreshChatsEveryXMs": 5000,
+    "KeywordTriggerNotificationCollection": [
+        {
+            "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
+            "Keyword": "www",
+            "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
+        }
+    ]
+}
