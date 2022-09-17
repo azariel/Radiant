@@ -3,6 +3,7 @@
 using System.Diagnostics;
 using System.Media;
 using System.Text;
+using System.Text.RegularExpressions;
 using EveChatMonitorer.Configuration;
 
 Dictionary<string, int> SkipNbFilesByFilePath = new();
@@ -16,12 +17,11 @@ void EvaluateFile(FileInfo aFileInfo, EveChatMonitorerConfiguration aConfig)
     string[] _FileLines;
     Stopwatch _Stopwatch = new Stopwatch();
     _Stopwatch.Start();
-    int _NbLinesTotal = 0;
+    int _NbLinesTotal;
     while (true)
     {
         try
         {
-            //_FileLines = File.ReadAllLines(aFileInfo.FullName).Skip(_NbLinesToSkip).ToArray();
             using var fs = new FileStream(aFileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using var sr = new StreamReader(fs, Encoding.UTF8);
             var _Text = sr.ReadToEnd();
@@ -41,7 +41,7 @@ void EvaluateFile(FileInfo aFileInfo, EveChatMonitorerConfiguration aConfig)
 
     foreach (var _KeyWorkdNotification in aConfig.KeywordTriggerNotificationCollection)
     {
-        if (_FileLines.Any(a => a.Contains(_KeyWorkdNotification.Keyword, StringComparison.InvariantCultureIgnoreCase)))
+        if (_FileLines.Any(a => Regex.Match(a, _KeyWorkdNotification.Keyword).Success))
             ExecuteTrigger(_KeyWorkdNotification.NotificationWavFileToPlayOnTrigger);
     }
 
@@ -83,7 +83,8 @@ while (true)
 {
     // Check chat logs
     var _AllFiles = _DirInfo.GetFiles();
-    var _FilesToRefresh = _AllFiles.Where(w => w.LastWriteTime > _StartNow.Date);
+    Regex _FileNameRegex = new Regex(_Config.KeyLogFileName);
+    var _FilesToRefresh = _AllFiles.Where(w => _FileNameRegex.Match(w.Name).Success && w.LastWriteTime > _StartNow.Date);
     foreach (FileInfo _FileInfo in _FilesToRefresh)
         EvaluateFile(_FileInfo, _Config);
 
