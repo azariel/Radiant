@@ -80,6 +80,8 @@ namespace RadiantReader.Views.NewBooks
         private void GenerateNewBooks(int aPageNumber = 0, int aNbElementsPerPage = 10, bool aResetScrollViewerToTop = true)
         {
             using var _DataBaseContext = new RadiantReaderDbContext();
+            _DataBaseContext.BookDefinitions.Load();
+            _DataBaseContext.BookContent.Load();
 
             NewBooksMainGrid.Children.Clear();
             IQueryable<RadiantReaderBookDefinitionModel> _FilteredQuery = _DataBaseContext.BookDefinitions.Where(w => !w.Blacklist);

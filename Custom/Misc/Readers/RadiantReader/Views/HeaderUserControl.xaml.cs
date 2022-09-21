@@ -60,6 +60,9 @@ namespace RadiantReader.Views
         {
             var _Config = RadiantReaderConfigurationManager.ReloadConfig();
 
+            if (_Config.State.SelectedBook == null)
+                return;
+
             using var _DataBaseContext = new RadiantReaderDbContext();
             _DataBaseContext.BookDefinitions.Load();
             _DataBaseContext.BookContent.Load();
@@ -82,6 +85,9 @@ namespace RadiantReader.Views
         private void ImgPreviousChapter_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
             var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            if (_Config.State.SelectedBook == null)
+                return;
 
             if (_Config.State.SelectedBook.BookChapterIndex > 0)
             {

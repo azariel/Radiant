@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Documents;
 using System.Xml;
 
@@ -20,13 +21,30 @@ namespace RadiantReader.Utils
         }
 
         // ********************************************************************
+        //                            Private
+        // ********************************************************************
+        private static Regex HrFinderRegex = new Regex("<hr.*>");
+
+        // ********************************************************************
         //                            Public
         // ********************************************************************
         public static List<Inline> GetInlinesFromString(string aChapterContent)
         {
             List<Inline> _Inlines = new();
+            string _ChapterContent = aChapterContent
+                                     .Replace("<br>", "<br />")
+                                     .Replace("<hr>", "<hr />")
+                                     .Replace("&", "and")
+                                     .Replace("nbsp;", " ");
 
-            var _WrappedLine = $"<Body>{aChapterContent}</Body>";
+            // Replace tags by regex
+            // ex: <hr size="1" noshade=""> should become <hr />
+            foreach (var _RegexMatch in HrFinderRegex.Matches(_ChapterContent))
+            {
+                
+            }
+
+            var _WrappedLine = $"<Body>{_ChapterContent}</Body>";
             var _XmlDocument = new XmlDocument();
             _XmlDocument.LoadXml(_WrappedLine);
 
