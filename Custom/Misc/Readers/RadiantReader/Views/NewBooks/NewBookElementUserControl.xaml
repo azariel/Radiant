@@ -9,14 +9,16 @@
         <StackPanel Orientation="Vertical" Margin="10,0,10,0">
             <Grid Margin="0,5,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="9*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <WrapPanel Orientation="Horizontal">
                     <TextBlock Name="lblTitle" FontWeight="Bold" FontSize="14" TextWrapping="WrapWithOverflow" Tag="Draggable" />
                     <Image Name="imgAddToDownload" Height="18" Margin="5,0" Width="18" Source="/Resources/download_1.png" Cursor="Hand" MouseLeftButtonDown="ImgAddToDownload_OnMouseLeftButtonDown" />
                 </WrapPanel>
-                <Image Grid.Column="1" Name="imgBlacklist" Height="18" Width="18" HorizontalAlignment="Right" Source="/Resources/blacklist_1.png" Cursor="Hand" MouseLeftButtonDown="ImgBlacklist_OnMouseLeftButtonDown" />
+                <Image Grid.Column="1" Name="imgOpen" Height="18" Width="18" Margin="0,5" HorizontalAlignment="Right" Source="/Resources/logo.png" Cursor="Hand" ToolTip="Open Novel" MouseLeftButtonDown="ImgOpen_OnMouseLeftButtonDown" />
+                <Image Grid.Column="2" Name="imgBlacklist" Height="18" Width="18" HorizontalAlignment="Right" Source="/Resources/blacklist_1.png" Cursor="Hand" ToolTip="Delete Novel" MouseLeftButtonDown="ImgBlacklist_OnMouseLeftButtonDown" />
             </Grid>
             <TextBlock Name="txtBlockSummary" FontWeight="DemiBold" FontSize="12" TextWrapping="WrapWithOverflow" Margin="5,2,5,0" Tag="Draggable" />
             <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">

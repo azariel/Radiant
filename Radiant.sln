@@ -43,7 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantWebScraper", "WebScr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantClientWebScraper", "WebScraper\RadiantClientWebScraper\RadiantClientWebScraper.csproj", "{5787A85D-9A4B-456C-B76F-40921FD36E4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiantBookCleaner", "Custom\Misc\Readers\RadiantBookCleaner\RadiantBookCleaner.csproj", "{4A726F73-9E9C-436A-9FD1-8EE99CB62DF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantBookCleaner", "Custom\Misc\Readers\RadiantBookCleaner\RadiantBookCleaner.csproj", "{4A726F73-9E9C-436A-9FD1-8EE99CB62DF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveChatMonitorer", "Custom\Games\Eve Online\EveChatMonitorer\EveChatMonitorer.csproj", "{352266CD-CE53-44C6-8FD5-56277611A439}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,10 @@ Global
 		{4A726F73-9E9C-436A-9FD1-8EE99CB62DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A726F73-9E9C-436A-9FD1-8EE99CB62DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A726F73-9E9C-436A-9FD1-8EE99CB62DF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{352266CD-CE53-44C6-8FD5-56277611A439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{352266CD-CE53-44C6-8FD5-56277611A439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{352266CD-CE53-44C6-8FD5-56277611A439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{352266CD-CE53-44C6-8FD5-56277611A439}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +133,7 @@ Global
 		{2DCEF6CE-81F4-4A59-AF6D-56B85CC1EE75} = {E8E9B961-2F6A-4CA2-AA0A-4981F4AF8F71}
 		{5787A85D-9A4B-456C-B76F-40921FD36E4D} = {E8E9B961-2F6A-4CA2-AA0A-4981F4AF8F71}
 		{4A726F73-9E9C-436A-9FD1-8EE99CB62DF4} = {81A142C2-04C5-434E-991A-A080648A3EB2}
+		{352266CD-CE53-44C6-8FD5-56277611A439} = {583E5F62-453D-4574-A865-C17767F30D2E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B1D993C-526C-4722-8B7F-57AFF81FC466}

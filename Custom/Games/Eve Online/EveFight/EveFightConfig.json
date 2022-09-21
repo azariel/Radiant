@@ -6,9 +6,9 @@
     "PlayerNameMaxDigits": 500,
     "TankInfo": {
         "$type": "EveFight.Configuration.TankInfo, EveFight",
-        "TotalDPSYellow": 30,
-        "TotalDPSOrange": 45,
-        "TotalDPSRed": 55
+        "TotalDPSYellow": 80,
+        "TotalDPSOrange": 130,
+        "TotalDPSRed": 160
     },
     "ThreatColorByDps": {
         "$type": "EveFight.Configuration.ThreatColorByDps, EveFight",
@@ -20,22 +20,22 @@
             },
             {
                 "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
-                "Treshold": 25,
+                "Treshold": 50,
                 "Color": "#96AFAF00"
             },
             {
                 "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
-                "Treshold": 35,
+                "Treshold": 70,
                 "Color": "#96C87D00"
             },
             {
                 "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
-                "Treshold": 40,
+                "Treshold": 80,
                 "Color": "#96AF0000"
             },
             {
                 "$type": "EveFight.Configuration.ThreatColorDps, EveFight",
-                "Treshold": 43,
+                "Treshold": 100,
                 "Color": "#96FF0000"
             }
         ]

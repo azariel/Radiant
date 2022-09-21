@@ -1,0 +1,44 @@
+{
+    "$type": "EveChatMonitorer.Configuration.EveChatMonitorerConfiguration, EveChatMonitorer",
+    "LogsDirectoryPath": "C:\\Users\\Azariel-PC\\Documents\\EVE\\logs\\Chatlogs",
+    "ForcePlayerNameInLogs": "Seyrdis",
+    "RefreshChatsEveryXMs": 5000,
+    "KeyLogFileName": "(Fleet|Bean-Intel)",
+    "KeywordTriggerNotificationCollection": [
+        {
+            "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
+            "Keyword": "www(?!\\.)",
+            "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
+        },
+        {
+            "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
+            "Keyword": "ww(?!\\.)",
+            "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
+        },
+        {
+            "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
+            "Keyword": "xxx(?!\\.)",
+            "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
+        },
+        {
+            "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
+            "Keyword": "xx(?!\\.)",
+            "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
+        },
+        {
+            "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
+            "Keyword": "^x",
+            "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
+        },
+        {
+            "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
+            "Keyword": "Seyrdis",
+            "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
+        },
+        {
+            "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
+            "Keyword": "Venelas",
+            "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
+        }
+    ]
+}

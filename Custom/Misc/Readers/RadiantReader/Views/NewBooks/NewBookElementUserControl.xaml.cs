@@ -53,6 +53,9 @@ namespace RadiantReader.Views.NewBooks
             using var _DataBaseContext = new RadiantReaderDbContext();
             _DataBaseContext.BookDefinitions.Load();
 
+            if (fBookDefinition.Chapters.Count > 0 && MessageBox.Show("Novel has fetched chapters locally. Are you sure you want to delete it ?", "Delete Novel", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                return;
+
             var _MatchingBooksDefinitionCollection = _DataBaseContext.BookDefinitions.Where(w => w.BookDefinitionId == fBookDefinition.BookDefinitionId);
 
             foreach (RadiantReaderBookDefinitionModel _MatchingBookDefinition in _MatchingBooksDefinitionCollection)
@@ -67,6 +70,11 @@ namespace RadiantReader.Views.NewBooks
             fBookDefinition.Blacklist = true;
 
             this.SetOverallControlStateAction?.Invoke();
+        }
+
+        private void ImgOpen_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE) 
+        {
+            StateManager.SetCurrentBook(fBookDefinition);
         }
 
         private void LblTitleOnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
@@ -85,9 +93,9 @@ namespace RadiantReader.Views.NewBooks
             var _ForeGroundColorBrighter = new SolidColorBrush(new Color
             {
                 A = _Config.Settings.ForeGroundColor.A,
-                R = (byte)(_Config.Settings.ForeGroundColor.R * 1.2f),
-                G = (byte)(_Config.Settings.ForeGroundColor.G * 1.2f),
-                B = (byte)(_Config.Settings.ForeGroundColor.B * 1.2f)
+                R = (byte)Math.Min(_Config.Settings.ForeGroundColor.R * 1.2f, 255),
+                G = (byte)Math.Min(_Config.Settings.ForeGroundColor.G * 1.2f, 255),
+                B = (byte)Math.Min(_Config.Settings.ForeGroundColor.B * 1.2f, 255)
             });
 
             var _ForeGroundColorDarker = new SolidColorBrush(new Color
@@ -97,6 +105,9 @@ namespace RadiantReader.Views.NewBooks
                 G = (byte)(_Config.Settings.ForeGroundColor.G * 0.8f),
                 B = (byte)(_Config.Settings.ForeGroundColor.B * 0.8f)
             });
+
+            // BtnOpen
+            imgOpen.Visibility = fBookDefinition.Chapters.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
             // Title
             lblTitle.Text = fBookDefinition.Title;
