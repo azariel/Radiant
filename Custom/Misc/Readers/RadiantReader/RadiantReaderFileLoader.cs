@@ -27,6 +27,9 @@ namespace RadiantReader
             foreach (string _RawLine in _FileContentByRawLines)
             {
                 // Line could be split by other thing than \r\n, like <p></p> or </p> etc
+                if (_RawLine.StartsWith("<?xml", System.StringComparison.InvariantCultureIgnoreCase))
+                    continue;
+
                 _Lines.Add(_RawLine);// TEMP
             }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -106,10 +107,24 @@ namespace RadiantReader
                 return;
             }
 
-            if (!RadiantReaderFileLoader.LoadFile(_Files.Single(), out List<Inline> _LineElements))
+            List<Inline> _LineElements;
+            try
             {
-                // File couldn't be load. LoadFile should handle a nice log, we'll just handle the user UI part
-                MessageBox.Show($"File [{_Files.Single()}] couldn't be load. See logs for more infos.");
+                if (!RadiantReaderFileLoader.LoadFile(_Files.Single(), out _LineElements))
+                {
+                    // File couldn't be load. LoadFile should handle a nice log, we'll just handle the user UI part
+                    MessageBox.Show($"File [{_Files.Single()}] couldn't be loaded. See logs for more infos.");
+                    return;
+                }
+            }
+            catch (Exception _Exception)
+            {
+                MessageBox.Show($"File [{_Files.Single()}] couldn't be loaded. [{_Exception.Message}] [{_Exception.StackTrace}].");
+                if (MessageBox.Show($"Would you like to load raw text instead ?", "Raw Load", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    fReaderContentUserControl.SetTextContent(File.ReadAllText(_Files.Single()));
+                }
+
                 return;
             }
 
@@ -123,7 +138,7 @@ namespace RadiantReader
 
         private void SetControlState()
         {
-            this.Topmost = RadiantReaderConfigurationManager.ReloadConfig().Settings.TopMost;
+            this.Topmost = RadiantReaderConfigurationManager.GetConfigFromMemory().Settings.TopMost;
         }
 
         private void SetReaderContentModule(UIElement aContent, HeaderOptions aHeaderOptions)
