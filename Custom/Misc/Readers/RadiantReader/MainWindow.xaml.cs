@@ -129,6 +129,9 @@ namespace RadiantReader
             }
 
             fReaderContentUserControl.SetTextContent(_LineElements);
+
+            // set scrollbar to start
+            fReaderContentUserControl.ContentScrollViewer.ScrollToTop();
         }
 
         private void OnLoaded(object aSender, RoutedEventArgs aE)

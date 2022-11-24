@@ -1,8 +1,8 @@
 ﻿using Radiant.Common.Diagnostics;
+using RadiantReader.Utils;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Documents;
-using RadiantReader.Utils;
 
 namespace RadiantReader
 {
@@ -33,9 +33,12 @@ namespace RadiantReader
                 _Lines.Add(_RawLine);// TEMP
             }
 
+            string _MergedContent = string.Join("", _Lines);
+            aInlines.AddRange(StringConvertUtils.GetInlinesFromString(_MergedContent));
+
             // Convert lines to Inlines
-            foreach (string _Line in _Lines)
-                aInlines.AddRange(StringConvertUtils.GetInlinesFromString(_Line));
+            //foreach (string _Line in _Lines)
+            //    aInlines.AddRange(StringConvertUtils.GetInlinesFromString(_Line));
 
             return true;
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Radiant.Common.Diagnostics;
@@ -114,6 +115,38 @@ namespace RadiantReader.Utils
 
         //    return _Chapter;
         //}
+
+        public static RadiantReaderBookChapter ParseBookChapterFromDOM(string aDom, int aChapterIndex, long aBookDefinitionId)
+        {
+            if (string.IsNullOrWhiteSpace(aDom))
+            {
+                LoggingManager.LogToFile("20c0c24d-8f7b-434a-bec3-fe999e639ad0", "DOM was empty.");
+                throw new Exception("da5e2d7d-c69d-4be0-8d47-24280a3dc75a_DOM was empty.");
+            }
+
+            RadiantReaderBookChapter _Chapter = new();
+
+            string _DomSingleLine = aDom.Replace("\r\n", "");
+            Regex _ChapterContentRegex = new Regex("<!--main content-->.*</h3>(.*)</div>  <!--/main-->");
+
+            var _MatchContent = _ChapterContentRegex.Match(_DomSingleLine);
+            if (!_MatchContent.Success)
+            {
+                LoggingManager.LogToFile("93b7fae2-a168-471c-85d5-d294f7e10c06", "Couldn't match ArchiveOfOurOwn book content");
+                    throw new Exception("97214613-e5a4-405e-b696-ea0675a39b04_Couldn't match book content.");
+            }
+
+            _Chapter.ChapterContent = BookStringUtils.FormatSummary(_MatchContent.Groups.Values.Last().Value).Trim();
+            _Chapter.BookDefinitionId = aBookDefinitionId;
+            _Chapter.ChapterNumber = aChapterIndex;
+
+            _Chapter.ChapterWordsCount = _Chapter.ChapterContent.Split(" ").Length - 1 +
+                                         _Chapter.ChapterContent.Split("'").Length - 1 +
+                                         _Chapter.ChapterContent.Split("</p").Length - 1 +
+                                         1;// 0 based
+
+            return _Chapter;
+        }
 
         public static List<RadiantReaderBookDefinitionModel> ParseBooksFromDOM(string aDOM)
         {

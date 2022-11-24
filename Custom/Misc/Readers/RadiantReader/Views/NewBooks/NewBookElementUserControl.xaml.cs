@@ -155,13 +155,6 @@ namespace RadiantReader.Views.NewBooks
                 lblTitle.Tag = null;
                 lblTitle.MouseLeftButtonDown += LblTitleOnMouseLeftButtonDown;
             }
-
-            // Temp: If Aoo, don't offer to download. We're not handling that type of download right now.. TODO: remove this when feature is available
-            if (fBookDefinition.Url.Contains("/works/", StringComparison.InvariantCultureIgnoreCase))
-            {
-                imgAddToDownload.IsEnabled = false;
-                imgAddToDownload.Visibility = Visibility.Collapsed;
-            }
         }
 
         // ********************************************************************
