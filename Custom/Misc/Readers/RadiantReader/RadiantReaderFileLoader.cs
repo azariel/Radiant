@@ -1,8 +1,8 @@
 ﻿using Radiant.Common.Diagnostics;
+using RadiantReader.Utils;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Documents;
-using RadiantReader.Utils;
 
 namespace RadiantReader
 {
@@ -27,12 +27,18 @@ namespace RadiantReader
             foreach (string _RawLine in _FileContentByRawLines)
             {
                 // Line could be split by other thing than \r\n, like <p></p> or </p> etc
+                if (_RawLine.StartsWith("<?xml", System.StringComparison.InvariantCultureIgnoreCase))
+                    continue;
+
                 _Lines.Add(_RawLine);// TEMP
             }
 
+            string _MergedContent = string.Join("", _Lines);
+            aInlines.AddRange(StringConvertUtils.GetInlinesFromString(_MergedContent));
+
             // Convert lines to Inlines
-            foreach (string _Line in _Lines)
-                aInlines.AddRange(StringConvertUtils.GetInlinesFromString(_Line));
+            //foreach (string _Line in _Lines)
+            //    aInlines.AddRange(StringConvertUtils.GetInlinesFromString(_Line));
 
             return true;
         }

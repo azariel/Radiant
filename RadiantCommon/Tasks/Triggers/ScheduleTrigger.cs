@@ -37,10 +37,20 @@ namespace Radiant.Common.Tasks.Triggers
             double _BlackOutEndNbSeconds = this.BlackOutTimeFrame.BlackOutEnd.TotalSeconds;
             double _NowTotalSeconds = aNow.TimeOfDay.TotalSeconds;
 
+            // ex: 00h00 to 23h59
             if (_BlackOutStartNbSeconds < _BlackOutEndNbSeconds)
             {
-                // ex: 00h00 to 23h59
+                // If we are in the blackout scheduled zone
                 return _BlackOutStartNbSeconds < _NowTotalSeconds && _BlackOutEndNbSeconds > _NowTotalSeconds;
+            }
+            else if (_BlackOutEndNbSeconds < _BlackOutStartNbSeconds)// ex: 16h00 to 04h00
+            {
+                return _BlackOutStartNbSeconds < _NowTotalSeconds || _BlackOutEndNbSeconds > _NowTotalSeconds;
+            }
+            else
+            {
+                // If Start and End are equal, we are in a perpetual blackout
+                return true;
             }
 
             // temporary

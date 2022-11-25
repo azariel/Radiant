@@ -49,7 +49,7 @@ namespace RadiantReader.Tasks
                 RadiantReaderBookChapter _NewChapter;
                 do
                 {
-                    _NewChapter = FanfictionFetcher.FetchNextChapterFromBookDefinition(_BookDefinition);
+                    _NewChapter = BookFetcher.FetchNextChapterFromBookDefinition(_BookDefinition);
 
                     if (_NewChapter == null)
                         continue;
@@ -83,10 +83,18 @@ namespace RadiantReader.Tasks
             // TODO: we should split this into 2 tasks... 1 to fetch new books and another one to update chapters
 
             // Get newly updated books from monitored main pages such as fanfiction.net, AoO, etc
-            FetchBooksOnLandingPage();
+            if (HandleNewBooks)
+                FetchBooksOnLandingPage();
 
             // Fetch new chapters from book definitions requiring an update
-            //FetchChaptersFromBookDefinitionsRequiringUpdate();
+            if (HandleNewChapters)
+                FetchChaptersFromBookDefinitionsRequiringUpdate();
         }
+
+        // ********************************************************************
+        //                            Properties
+        // ********************************************************************
+        public bool HandleNewBooks { get; set; }
+        public bool HandleNewChapters { get; set; }
     }
 }

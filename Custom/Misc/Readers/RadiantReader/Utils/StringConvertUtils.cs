@@ -39,12 +39,12 @@ namespace RadiantReader.Utils
 
             // Replace tags by regex
             // ex: <hr size="1" noshade=""> should become <hr />
-            foreach (var _RegexMatch in HrFinderRegex.Matches(_ChapterContent))
-            {
+            //foreach (var _RegexMatch in HrFinderRegex.Matches(_ChapterContent))
+            //{
                 
-            }
+            //}
 
-            var _WrappedLine = $"<Body>{_ChapterContent}</Body>";
+            var _WrappedLine = $"<RadiantReader>{_ChapterContent}</RadiantReader>";
             var _XmlDocument = new XmlDocument();
             _XmlDocument.LoadXml(_WrappedLine);
 
@@ -86,6 +86,13 @@ namespace RadiantReader.Utils
             for (int i = 0; i < aNode.ChildNodes.Count; i++)
             {
                 var _CurrentChildNode = aNode.ChildNodes[i];
+
+                // Ignore head content
+                if (_CurrentChildNode.Name.ToLowerInvariant() == "head")
+                {
+                    continue;
+                }
+
                 _ChildInlines.AddRange(ConvertStringToInline(_CurrentChildNode));
             }
 

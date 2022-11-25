@@ -78,6 +78,13 @@ namespace RadiantReader.Views
             _Config.State.VerticalScrollbarOffset = ContentScrollViewer.VerticalOffset;
         }
 
+        public void SetTextContent(string aRawText)
+        {
+            // Add line elements to textblock
+            TextContentTextBlock.Inlines.Clear();
+            TextContentTextBlock.Text = aRawText;
+        }
+
         public void SetTextContent(List<Inline> aLineElements)
         {
             // Add line elements to textblock

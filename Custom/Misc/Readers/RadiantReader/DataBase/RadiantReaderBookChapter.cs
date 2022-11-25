@@ -22,10 +22,14 @@ namespace RadiantReader.DataBase
         [Required]
         public int ChapterNumber { get; set; }
 
+        public string ChapterPartialUrl { get; set; }
+
         [Required]
         public int ChapterWordsCount { get; set; }
 
         [ForeignKey("BookDefinitionId")]
         public virtual RadiantReaderBookDefinitionModel Definition { get; set; }
+
+        public string NextChapterPartialUrl { get; set; }
     }
 }
