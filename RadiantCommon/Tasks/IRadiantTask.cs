@@ -14,6 +14,8 @@ namespace Radiant.Common.Tasks
         //                            Properties
         // ********************************************************************
         public bool IsEnabled { get; set; }
+        public TaskState State { get; set; }
+        public object TaskLockObject { get; set; }
         public string UID { get; set; }
     }
 }

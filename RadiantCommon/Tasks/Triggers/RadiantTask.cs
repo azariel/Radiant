@@ -41,9 +41,15 @@ namespace Radiant.Common.Tasks.Triggers
                         return;
                     }
                 }
-            } finally
+            }
+            finally
             {
                 fIsWorking = false;
+
+                lock (TaskLockObject)
+                {
+                    State = TaskState.Idle;
+                }
             }
         }
 
@@ -64,8 +70,9 @@ namespace Radiant.Common.Tasks.Triggers
         [XmlIgnore]
         [JsonIgnore]
         public DateTime LastDateTimeTriggered { get; set; }
-
+        public TaskState State { get; set; }
         public List<ITrigger> Triggers { get; set; }
         public string UID { get; set; } = Guid.NewGuid().ToString("D");
+        public object TaskLockObject { get; set; } = new object();
     }
 }

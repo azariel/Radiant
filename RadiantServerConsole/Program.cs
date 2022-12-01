@@ -94,7 +94,7 @@ namespace Radiant.ServerConsole
 
                     //    break;
             }
-            
+
 
             Console.ReadKey();
         }
@@ -128,8 +128,18 @@ namespace Radiant.ServerConsole
             while (true)
             {
                 // Evaluate each tasks async to avoid blocking evaluation of other tasks
-                foreach (IRadiantTask _RadiantTask in _RadiantConfig.Tasks.Tasks.Where(w => w.IsEnabled))
-                    Task.Run(() => _RadiantTask.EvaluateTriggers());
+                foreach (IRadiantTask _RadiantTask in _RadiantConfig.Tasks.Tasks.Where(w => w.IsEnabled && w.State == TaskState.Idle))
+                {
+                    lock (_RadiantTask.TaskLockObject)
+                    {
+                        _RadiantTask.State = TaskState.InProgress;
+                    }
+
+                    Task.Run(() =>
+                    {
+                        _RadiantTask.EvaluateTriggers();
+                    });
+                }
 
                 Thread.Sleep(CORE_LOOP_MS);
             }

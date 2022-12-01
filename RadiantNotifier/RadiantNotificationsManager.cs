@@ -63,9 +63,16 @@ namespace Radiant.Notifier
             {
                 case RadiantNotificationModel.RadiantNotificationType.Email:
                     return SendMailNotification(aRadiantNotificationModel);
+                case RadiantNotificationModel.RadiantNotificationType.SystemTrayPopup:
+                    return SendSystemTrayPopupNotification(aRadiantNotificationModel);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private static bool SendSystemTrayPopupNotification(RadiantNotificationModel aRadiantNotificationModel)
+        {
+            throw new NotImplementedException("System tray popup notifications are unhandled at this moment.");
         }
 
         // ********************************************************************
@@ -107,7 +114,8 @@ namespace Radiant.Notifier
                     {
                         _DbContext.SaveChanges();
                         return;
-                    } catch (Exception)
+                    }
+                    catch (Exception)
                     {
                         Thread.Sleep(millisecondsTimeout: 100);
                     }

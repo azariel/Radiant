@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Radiant.Common.Diagnostics;
 using RadiantReader.Configuration;
+using RadiantReader.Managers;
 using RadiantReader.Views;
 using Point = System.Drawing.Point;
 
@@ -132,6 +133,9 @@ namespace RadiantReader
 
             // set scrollbar to start
             fReaderContentUserControl.ContentScrollViewer.ScrollToTop();
+
+            // save config
+            StateManager.SetCurrentBook(_Files.Single());
         }
 
         private void OnLoaded(object aSender, RoutedEventArgs aE)
