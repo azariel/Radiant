@@ -20,5 +20,19 @@ namespace RadiantReader.Managers
             RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
             RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
         }
+
+        public static void SetCurrentBook(string aBookFilePath)
+        {
+            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            _Config.State.SelectedBook ??= new SelectedBookState();
+
+            _Config.State.SelectedBook.BookDefinitionId = 0;
+            _Config.State.SelectedBook.BookChapterIndex = 0;
+            _Config.State.SelectedBook.AlternativeBookPathOnDisk = aBookFilePath;
+
+            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
+            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
+        }
     }
 }

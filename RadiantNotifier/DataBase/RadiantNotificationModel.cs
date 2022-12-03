@@ -14,7 +14,8 @@ namespace Radiant.Notifier.DataBase
         // ********************************************************************
         public enum RadiantNotificationType
         {
-            Email
+            Email,
+            SystemTrayPopup
         }
 
         // ********************************************************************

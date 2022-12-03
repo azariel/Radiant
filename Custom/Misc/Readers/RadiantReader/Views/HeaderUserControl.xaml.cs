@@ -145,10 +145,15 @@ namespace RadiantReader.Views
             if (_Config.State.SelectedBook == null)
                 return;
 
+            var _SelectedBook = _DataBaseContext.BookDefinitions.SingleOrDefault(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
+
+            if (_SelectedBook == null)
+            {
+                // Don't throw, if the user may had loaded a book from disk instead of inStorage
+                return;
+            }
+
             lblChapterIndex.Content = $"chp.{_Config.State.SelectedBook.BookChapterIndex + 1}";
-
-            var _SelectedBook = _DataBaseContext.BookDefinitions.Single(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
-
             double _CurrentChaptersWords = GetCurrentWordsRead(_SelectedBook);
             double _TotalWords = _SelectedBook.Chapters.Aggregate(seed: 0, (count, val) => count + val.ChapterWordsCount);
             lblWordsCount.Content = $"{_CurrentChaptersWords:N0}/{_TotalWords:N0}";

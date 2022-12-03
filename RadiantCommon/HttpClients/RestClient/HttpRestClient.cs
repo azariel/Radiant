@@ -27,6 +27,9 @@ namespace Radiant.Common.HttpClients.RestClient
 
                 if (_Response.IsSuccessStatusCode)
                     return _Response.Content.ReadAsStringAsync().Result;
+
+                LoggingManager.LogToFile("43b47bd1-9976-4d13-ad57-a51304529c24", $"WebScraper Api returned an error code [{_Response.StatusCode}]. Content = [{_Response.Content}]");
+                throw new Exception($"WebScraper Api returned an error code [{_Response.StatusCode}].");
             }
             catch (AggregateException _AggregateException) when (_AggregateException.InnerExceptions.Any(a => a.GetType() == typeof(HttpRequestException)))
             {

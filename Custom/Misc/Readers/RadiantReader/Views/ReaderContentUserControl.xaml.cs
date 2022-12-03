@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -33,23 +35,41 @@ namespace RadiantReader.Views
         // ********************************************************************
         private void LoadBookContentFromConfig()
         {
-            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+            RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.ReloadConfig();
 
             if (_Config.State.SelectedBook == null)
                 return;
 
             // TODO: Async load and show progress UI representation
-            using var _DataBaseContext = new RadiantReaderDbContext();
-            RadiantReaderBookDefinitionModel _SelectedBookDefinition = _DataBaseContext.BookDefinitions.Include(i => i.Chapters).Single(w => w.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
 
-            if (_SelectedBookDefinition.Chapters.Count <= _Config.State.SelectedBook.BookChapterIndex)
+            if (string.IsNullOrWhiteSpace(_Config.State.SelectedBook.AlternativeBookPathOnDisk) || !System.IO.File.Exists(_Config.State.SelectedBook.AlternativeBookPathOnDisk))
+            {
+                SetChapterContentFromStorage(_Config);
+            }
+            else
+            {
+                SetChapterContentFromOnDiskFile(_Config);
+            }
+        }
+
+        private void SetChapterContentFromStorage(RadiantReaderConfiguration aConfig)
+        {
+            using var _DataBaseContext = new RadiantReaderDbContext();
+            RadiantReaderBookDefinitionModel _SelectedBookDefinition = _DataBaseContext.BookDefinitions.Include(i => i.Chapters).SingleOrDefault(w => w.BookDefinitionId == aConfig.State.SelectedBook.BookDefinitionId);
+
+            if (_SelectedBookDefinition == null)
+                return;
+
+            if (_SelectedBookDefinition.Chapters.Count <= aConfig.State.SelectedBook.BookChapterIndex)
             {
                 // Don't crash, but log it
-                LoggingManager.LogToFile("5b929e2e-be6f-4137-a016-8fae49f0d399", $"Chapter [{_Config.State.SelectedBook.BookChapterIndex}] to open is greater than total chapters [{_SelectedBookDefinition.Chapters.Count}] available for book id [{_Config.State.SelectedBook.BookDefinitionId}].");
+                LoggingManager.LogToFile("5b929e2e-be6f-4137-a016-8fae49f0d399", $"Chapter [{aConfig.State.SelectedBook.BookChapterIndex}] to open is greater than total chapters [{_SelectedBookDefinition.Chapters.Count}] available for book id [{aConfig.State.SelectedBook.BookDefinitionId}].");
                 return;
             }
 
-            string _ChapterContent = _SelectedBookDefinition.Chapters[_Config.State.SelectedBook.BookChapterIndex].ChapterContent;
+            string _ChapterContent = _SelectedBookDefinition.Chapters[aConfig.State.SelectedBook.BookChapterIndex].ChapterContent;
+
+
             List<Inline> _Inlines = StringConvertUtils.GetInlinesFromString(_ChapterContent);
 
             // Just add the title before the chapter content
@@ -57,6 +77,32 @@ namespace RadiantReader.Views
             _Inlines.Insert(0, new Underline(new Bold(new Run(_SelectedBookDefinition.Title))));
 
             SetTextContent(_Inlines);
+        }
+
+        private void SetChapterContentFromOnDiskFile(RadiantReaderConfiguration aConfig)
+        {
+            List<Inline> _LineElements;
+            try
+            {
+                if (!RadiantReaderFileLoader.LoadFile(aConfig.State.SelectedBook.AlternativeBookPathOnDisk, out _LineElements))
+                {
+                    // File couldn't be load. LoadFile should handle a nice log, we'll just handle the user UI part
+                    MessageBox.Show($"File [{aConfig.State.SelectedBook.AlternativeBookPathOnDisk}] couldn't be loaded. See logs for more infos.");
+                    return;
+                }
+            }
+            catch (Exception _Exception)
+            {
+                MessageBox.Show($"File [{aConfig.State.SelectedBook.AlternativeBookPathOnDisk}] couldn't be loaded. [{_Exception.Message}] [{_Exception.StackTrace}].");
+                if (MessageBox.Show($"Would you like to load raw text instead ?", "Raw Load", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    SetTextContent(System.IO.File.ReadAllText(aConfig.State.SelectedBook.AlternativeBookPathOnDisk));
+                }
+
+                return;
+            }
+
+            SetTextContent(_LineElements);
         }
 
         private void SetControlState()
