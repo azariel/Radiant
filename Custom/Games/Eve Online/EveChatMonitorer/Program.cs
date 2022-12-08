@@ -26,7 +26,7 @@ void EvaluateFile(FileInfo aFileInfo, EveChatMonitorerConfiguration aConfig)
             using var sr = new StreamReader(fs, Encoding.UTF8);
             var _Text = sr.ReadToEnd();
             var _AllFileLines = _Text.Split(Environment.NewLine);//.Skip(_NbLinesToSkip).ToArray();
-            _NbLinesTotal = _AllFileLines.Length - 1;
+            _NbLinesTotal = _AllFileLines.Length;
             _FileLines = _AllFileLines.Skip(_NbLinesToSkip).ToArray();
 
             break;
