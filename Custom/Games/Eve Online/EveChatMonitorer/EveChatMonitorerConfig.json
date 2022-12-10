@@ -7,22 +7,22 @@
     "KeywordTriggerNotificationCollection": [
         {
             "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
-            "Keyword": "www(?!\.)",
+            "Keyword": "www(?!\\.)",
             "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
         },
         {
             "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
-            "Keyword": "ww(?!\.)",
+            "Keyword": "ww(?!\\.)",
             "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
         },
         {
             "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
-            "Keyword": "xxx(?!\.)",
+            "Keyword": "xxx(?!\\.)",
             "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
         },
         {
             "$type": "EveChatMonitorer.Models.KeywordTriggerNotification, EveChatMonitorer",
-            "Keyword": "xx(?!\.)",
+            "Keyword": "xx(?!\\.)",
             "NotificationWavFileToPlayOnTrigger": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveChatMonitorer\\deps\\W.wav"
         },
         {
