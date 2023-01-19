@@ -76,7 +76,9 @@ namespace EveFight.UIElements
                 return;// just ignore
 
             lblThreatType.Content = _ShipDefinition.ThreatType;
+            lblShipSignatureRadius.Content = _ShipDefinition.SignatureRadius;
             ShipsComboBox.Text = "";// clear input
+
             ShipWeaknessUIHelper.RefreshShieldResistsIcons(ResistShieldStackPanel, _ShipDefinition, 24);
             ShipWeaknessUIHelper.RefreshArmorResistsIcons(ResistArmorStackPanel, _ShipDefinition, 24);
             ShipWeaknessUIHelper.RefreshRawShieldResistsIcons(StackPanelRawResistsShield, _ShipDefinition, 12);
