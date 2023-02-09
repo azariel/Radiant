@@ -173,7 +173,9 @@ namespace RadiantReader.Views
         {
             SetImageButtonVisibility(imgSettings, fSettingsButtonAvailable);
             SetImageButtonVisibility(imgCloseApp, fCloseButtonAvailable);
-            SetImageButtonVisibility(imgQueueFetch, fShowDownloadAvailable);
+
+            // TODO: that option will set all local books to be refreshed instead of having to manually set them all one by one.
+            //SetImageButtonVisibility(imgQueueFetch, fShowDownloadAvailable);
             SetImageButtonVisibility(imgDashboard, fShowNewBooksAvailable);
             SetImageButtonVisibility(imgNextChapter, fShowNextAvailable);
             SetImageButtonVisibility(imgPreviousChapter, fShowPreviousAvailable);

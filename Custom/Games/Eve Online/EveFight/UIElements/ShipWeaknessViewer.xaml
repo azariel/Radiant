@@ -30,7 +30,10 @@
                     <StackPanel Orientation="Horizontal" Name="ResistShieldStackPanel" HorizontalAlignment="Left" />
                 </Border>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Label Name="lblShipName" Foreground="AliceBlue" FontSize="8" />
+                    <StackPanel Orientation="Vertical">
+                        <Label Name="lblShipName" Foreground="AliceBlue" FontSize="8" />
+                        <Label Name="lblShipSignatureRadius" Foreground="AliceBlue" FontSize="8" Margin="0,-10,0,0" />
+                    </StackPanel>
                     <Image Name="BestDamageWeaknessLeftImage" Height="24" />
                     <Label Name="lblThreatType" Foreground="AliceBlue" />
                 </StackPanel>

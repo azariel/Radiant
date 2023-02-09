@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Radiant.Common.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Documents;
 using System.Xml;
 
@@ -35,23 +37,38 @@ namespace RadiantReader.Utils
                                      .Replace("<br>", "<br />")
                                      .Replace("<hr>", "<hr />")
                                      .Replace("&", "and")
+                                     .Replace("<center>", "<center />")
                                      .Replace("nbsp;", " ");
+
+            Regex _Regex = new Regex("<hr.*>");
+            _ChapterContent = _Regex.Replace(_ChapterContent, "");
 
             // Replace tags by regex
             // ex: <hr size="1" noshade=""> should become <hr />
             //foreach (var _RegexMatch in HrFinderRegex.Matches(_ChapterContent))
             //{
-                
+
             //}
 
-            var _WrappedLine = $"<RadiantReader>{_ChapterContent}</RadiantReader>";
-            var _XmlDocument = new XmlDocument();
-            _XmlDocument.LoadXml(_WrappedLine);
+            try
+            {
+                var _WrappedLine = $"<RadiantReader>{_ChapterContent}</RadiantReader>";
+                var _XmlDocument = new XmlDocument();
+                _XmlDocument.LoadXml(_WrappedLine);
 
-            _Inlines.AddRange(ConvertStringToInline(_XmlDocument));
-            _Inlines.Add(new LineBreak());
+                _Inlines.AddRange(ConvertStringToInline(_XmlDocument));
+                _Inlines.Add(new LineBreak());
 
-            return _Inlines;
+                return _Inlines;
+            }
+            catch (Exception _Exception)
+            {
+                LoggingManager.LogToFile("e4234d71-d663-4eda-9448-58deab1cb3ac", $"Couldn't convert string to XML object. Full Text [{_ChapterContent}].", _Exception);
+                return new List<Inline>()
+                {
+                    new Run("[Couldn't load XML object. Check logs for more infos.]")
+                };
+            }
         }
 
         public static string GetStringFromInlines(List<Inline> aInlines)
@@ -128,10 +145,12 @@ namespace RadiantReader.Utils
                             default:
                                 throw new ArgumentOutOfRangeException($"Unhandled element [{_ElementName}].");
                         }
-                    } else
+                    }
+                    else
                         _Inlines.Add(_ChildInline);
                 }
-            } else
+            }
+            else
             {
                 if (Enum.TryParse(aNode.Name.ToLowerInvariant(), out HtmlElementName _Element))
                 {
@@ -151,7 +170,8 @@ namespace RadiantReader.Utils
                         default:
                             throw new ArgumentOutOfRangeException($"Unhandled element [{_Element}].");
                     }
-                } else
+                }
+                else
                     _Inlines.Add(new Run(aNode.InnerText));
             }
 
