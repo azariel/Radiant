@@ -38,6 +38,7 @@ namespace RadiantReader.Utils
                                      .Replace("<hr>", "<hr />")
                                      .Replace("&", "and")
                                      .Replace("<center>", "<center />")
+                                     .Replace("amp;", "")
                                      .Replace("nbsp;", " ");
 
             Regex _Regex = new Regex("<hr.*>");
