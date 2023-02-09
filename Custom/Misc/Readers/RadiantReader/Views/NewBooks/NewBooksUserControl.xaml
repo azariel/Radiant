@@ -91,7 +91,7 @@
             <RowDefinition Height = "9*" />
             <RowDefinition Height = "1*" />
         </Grid.RowDefinitions>
-        <ScrollViewer Name="NewBooksScrollViewer" Margin="0,-10,0,0">
+        <ScrollViewer Name="NewBooksScrollViewer">
             <StackPanel Orientation="Vertical">
                 <newBooks:NewBooksFiltersHeader x:Name="FilterControl" Margin="0,5,0,0" />
                 <StackPanel Name="NewBooksMainGrid" Orientation="Vertical" />

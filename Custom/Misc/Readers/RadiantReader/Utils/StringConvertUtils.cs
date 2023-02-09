@@ -35,6 +35,7 @@ namespace RadiantReader.Utils
                                      .Replace("<br>", "<br />")
                                      .Replace("<hr>", "<hr />")
                                      .Replace("&", "and")
+                                     .Replace("amp;", "")
                                      .Replace("nbsp;", " ");
 
             // Replace tags by regex
