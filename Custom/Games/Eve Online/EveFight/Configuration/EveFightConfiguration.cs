@@ -9,18 +9,29 @@ namespace EveFight.Configuration
         // ********************************************************************
         //                            Properties
         // ********************************************************************
+        /// <summary>
+        /// The compactUI was made to allow more targets to show on the UI in less space
+        /// </summary>
         public bool CompactUI { get; set; }
+
+        public int CompactUIContainerHeight { get; set; }
+
+        /// <summary>
+        /// GameLogs directory
+        /// </summary>
         public string LogsDirectoryPath { get; set; }
 
         /// <summary>
-        /// If user is running multiple instances, he can decide which account to track by player name in log
+        /// If user is running multiple instances, he can decide which account to track by specifying a player name in log
         /// </summary>
-        public string ForcePlayerNameInLogs { get; set; }
-        public int PlayerNameMaxDigits { get; set; }
+        public string TrackPlayerNameInLogs { get; set; }
+        public ReplayLogInfo ReplaySpecificLogForDebug {get;set;}
+        public int PlayerNameMaxDigitsOnUI { get; set; }
         public TankInfo TankInfo { get; set; }
         public ThreatColorByDps ThreatColorByDps { get; set; } = new();
         public ThreatDetermination ThreatDetermination { get; set; }
         public List<ShipDefinition> ShipDefinitions { get; set; } = new();
+        public List<WeaponDefinition> WeaponDefinitions { get; set; } = new();
 
         public Point UILocation { get; set; }
 

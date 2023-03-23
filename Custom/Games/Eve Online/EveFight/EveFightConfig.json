@@ -1,9 +1,10 @@
 {
   "$type": "EveFight.Configuration.EveFightConfiguration, EveFight",
   "CompactUI": false,
+  "CompactUIContainerHeight": 40,
   "LogsDirectoryPath": "C:\\Users\\Azariel-PC\\Documents\\EVE\\logs\\Gamelogs",
-  "ForcePlayerNameInLogs": "Seyrdis",
-  "PlayerNameMaxDigits": 500,
+  "TrackPlayerNameInLogs": "Seyrdis",
+  "PlayerNameMaxDigitsOnUI": 500,
   "TankInfo": {
     "$type": "EveFight.Configuration.TankInfo, EveFight",
     "TotalDPSYellow": 80,
@@ -42,7 +43,7 @@
   },
   "ThreatDetermination": {
     "$type": "EveFight.Configuration.ThreatDetermination, EveFight",
-    "PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumberAndTankIsGreen": 2,
+    "PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumberAndTankIsGreen": 1000,
     "PrioritizeLogiShipsIfDpsBelowThisNumber": 1000
   },
   "UILocation": "1643, 200",
@@ -51,6 +52,18 @@
   "UISize": "310, 399",
   "UseThreatColorByDPS": true,
   "DpsCycleMs": 22000,
+  "ReplaySpecificLogForDebug": {
+    "Enabled": false,
+    "LogFilePath": "C:\\Dev\\Radiant\\TESTS\\20230319_113644_93878737.txt"
+  },
+  "WeaponDefinitions": [
+    // TODO
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Warrior II",
+      "DefaultRange": null
+    }
+  ],
   "ShipDefinitions": [
     // Player Ships
     {

@@ -7,8 +7,10 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Controls;
 using EveFight.Configuration;
+using EveFight.Helpers;
 using EveFight.Models;
 using EveFight.UIElements;
+using Radiant.Common.Diagnostics;
 
 namespace EveFight.Managers
 {
@@ -16,6 +18,7 @@ namespace EveFight.Managers
     {
         // Nb lines already processed from logs
         private static int fNbLinesToSkip;
+        private static DateTime fReplayStart = DateTime.Now;
 
         static ShipsManager()
         {
@@ -41,6 +44,15 @@ namespace EveFight.Managers
             string _DMG = _SplittedLineOnDMG.Last().Trim();
             if (!int.TryParse(_DMG, out int _Damage))
                 throw new Exception($"Incorrect damage value parsing from Eve logs. [{_DMG}] is not an int.");
+
+            // Weapon Type
+            var _WeaponTypeMatch = Regex.Match(aEveLogLine, "- (.*) -", RegexOptions.IgnoreCase);
+
+            if(!_WeaponTypeMatch.Success)
+                throw new Exception($"Could not find weapon type in line [{aEveLogLine}].");
+
+            string _WeaponType = _WeaponTypeMatch.Groups.Values.Last().Value;
+            var _WeaponDefinition = WeaponTypeHelper.GetWeaponDefinitionFromRawStr(_WeaponType);
 
             // Attacker Name
             string[] _SplittedLineOnAttackerName = _SplittedLineOnBold[1].Split("<b>");
@@ -82,13 +94,20 @@ namespace EveFight.Managers
                     PlayerName = _AttackerName,
                     LastUpdate = DateTime.Now,
                     ShipName = _AttackerShipName,
-                    ThreatType = ThreatType.DPS// TODO
+                    ThreatType = ThreatType.DPS,// TODO
+                    WeaponsDefinition = new List<WeaponDefinition>()
                 };
+
+                if(_WeaponDefinition != null)
+                    _NewAttacker.WeaponsDefinition.Add( _WeaponDefinition );
 
                 _NewAttacker.AddNewDamageOutput(_Damage);
                 ShipList.Add(_NewAttacker);
                 return;
             }
+
+            if(!_Ship.WeaponsDefinition.Contains(_WeaponDefinition) && _WeaponDefinition != null)
+                _Ship.WeaponsDefinition.Add(_WeaponDefinition);
 
             _Ship.AddNewDamageOutput(_Damage);
         }
@@ -131,7 +150,8 @@ namespace EveFight.Managers
                     _OrderedShips = ShipList.OrderByDescending(o => o.ThreatType == ThreatType.TACKLE).ThenBy(t => t.ThreatType).ThenByDescending(t => t.DPS);
                 else
                     _OrderedShips = ShipList.OrderByDescending(o => o.ThreatType == ThreatType.TACKLE).ThenByDescending(t => t.DPS);
-            } else
+            }
+            else
             {
                 if (ShipList.Sum(s => s.DPS) < _Config.ThreatDetermination.PrioritizeLogiShipsIfDpsBelowThisNumber)
                     _OrderedShips = ShipList.OrderByDescending(o => o.ThreatType == ThreatType.LOGI).ThenByDescending(t => t.DPS);
@@ -164,7 +184,7 @@ namespace EveFight.Managers
             string[] _EveLogFileLines = GetEveFileLogInfo(out FileSystemInfo? _EveLogFile);
 
             if (_EveLogFile == null)
-                throw new Exception($"Log File for player [{_Config.ForcePlayerNameInLogs}] was not found.");
+                throw new Exception($"Log File for player [{_Config.TrackPlayerNameInLogs}] was not found.");
 
             int _NbTotalLines = _EveLogFileLines.Length;
             if (_EveLogFileLines.Length < fNbLinesToSkip)
@@ -199,7 +219,7 @@ namespace EveFight.Managers
 
         private static void ProcessUpdateUserLines(string[] aEveLogFileLines)
         {
-            foreach (string _EveLogLine in aEveLogFileLines) 
+            foreach (string _EveLogLine in aEveLogFileLines)
             {
                 string[] _SplittedLineOnBold = _EveLogLine.Split("</b>");
 
@@ -224,6 +244,11 @@ namespace EveFight.Managers
         {
             EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
 
+            if (_Config.ReplaySpecificLogForDebug.Enabled)
+            {
+                return GetEveFileLogInfoForReplayDebug(_Config, out aEveLogFile);
+            }
+
             // Fetch all logs file names
             if (!Directory.Exists(_Config.LogsDirectoryPath))
                 throw new Exception($"Directory [{_Config.LogsDirectoryPath}] is invalid.");
@@ -236,34 +261,38 @@ namespace EveFight.Managers
             string[] _Lines = null;
             foreach (FileSystemInfo _Logfile in _EveLogFiles)
             {
-                if (!string.IsNullOrWhiteSpace(_Config.ForcePlayerNameInLogs))
+                // Check if logFile is for specified player
+                // Note that Eve will lock this file when writing
+                Stopwatch _Stopwatch = new Stopwatch();
+                string[] _AllLines;
+                while (true)
                 {
-                    string _PlayerName = _Config.ForcePlayerNameInLogs.ToLowerInvariant();
-
-                    // Check if logFile is for specified player
-                    // Note that Eve will lock this file when writing
-                    Stopwatch _Stopwatch = new Stopwatch();
-                    string[] _AllLines;
-                    while (true)
+                    try
                     {
-                        try
-                        {
-                            _AllLines = File.ReadAllLines(_Logfile.FullName);
-                            break;
-                        } catch (Exception _Ex)
-                        {
-                            if (_Stopwatch.ElapsedMilliseconds > 10000)
-                                throw new Exception("Eve FileLog was inaccessible for 10 seconds. Aborting. " + _Ex.Message);
-
-                            Thread.Sleep(millisecondsTimeout: 50);
-                        }
+                        _AllLines = File.ReadAllLines(_Logfile.FullName);
+                        break;
                     }
+                    catch (Exception _Ex)
+                    {
+                        if (_Stopwatch.ElapsedMilliseconds > 10000)
+                            throw new Exception("Eve FileLog was inaccessible for 10 seconds. Aborting. " + _Ex.Message);
 
-                    _Lines = _AllLines.ToArray();
+                        Thread.Sleep(millisecondsTimeout: 50);
+                    }
+                }
+
+                _Lines = _AllLines.ToArray();
+
+                if (!string.IsNullOrWhiteSpace(_Config.TrackPlayerNameInLogs))
+                {
+                    string _PlayerName = _Config.TrackPlayerNameInLogs.ToLowerInvariant();
 
                     string[] _HeaderLines = _AllLines.Take(100).ToArray();
                     if (_HeaderLines.All(a => !a.ToLowerInvariant().Contains($"listener: {_PlayerName}")))
+                    {
+                        _Lines = null;
                         continue;
+                    }
                 }
 
                 aEveLogFile = _Logfile;
@@ -271,6 +300,96 @@ namespace EveFight.Managers
             }
 
             return _Lines ?? Array.Empty<string>();
+        }
+
+        private static string[] GetEveFileLogInfoForReplayDebug(EveFightConfiguration _Config, out FileSystemInfo? aEveLogFile)
+        {
+            LoggingManager.LogToFile("05C2ABCE-BA1B-49A5-BDF1-2D677E177D15", $"Tracking player [{_Config.TrackPlayerNameInLogs}] in Replay log [{_Config.ReplaySpecificLogForDebug.LogFilePath}].");
+
+            // Fetch all logs file names
+            if (!File.Exists(_Config.ReplaySpecificLogForDebug.LogFilePath))
+                throw new Exception($"Replay log file [{_Config.ReplaySpecificLogForDebug.LogFilePath}] was not found.");
+
+            aEveLogFile = null;
+
+            var _Logfile = new FileInfo(_Config.ReplaySpecificLogForDebug.LogFilePath);
+
+            string[] _Lines = null;
+
+            // Check if logFile is for specified player
+            // Note that Eve will lock this file when writing
+            Stopwatch _Stopwatch = new Stopwatch();
+            string[] _AllLines;
+            while (true)
+            {
+                try
+                {
+                    _AllLines = File.ReadAllLines(_Logfile.FullName);
+                    break;
+                }
+                catch (Exception _Ex)
+                {
+                    if (_Stopwatch.ElapsedMilliseconds > 10000)
+                        throw new Exception("Eve FileLog was inaccessible for 10 seconds. Aborting. " + _Ex.Message);
+
+                    Thread.Sleep(millisecondsTimeout: 50);
+                }
+            }
+
+            _Lines = _AllLines.ToArray();
+            if (!string.IsNullOrWhiteSpace(_Config.TrackPlayerNameInLogs))
+            {
+                string _PlayerName = _Config.TrackPlayerNameInLogs.ToLowerInvariant();
+
+                _Lines = _AllLines.ToArray();
+
+                string[] _HeaderLines = _AllLines.Take(100).ToArray();
+                if (_HeaderLines.All(a => !a.ToLowerInvariant().Contains($"listener: {_PlayerName}")))
+                    return null;
+            }
+
+            aEveLogFile = _Logfile;
+
+            // Filter the lines returned to simulate a replay
+            // Time elapsed since the start of the replay
+            TimeSpan _TimeElapsedSinceStartOfReplay = DateTime.Now - fReplayStart;
+            DateTime? _FirstReplayLineDateTime = null;
+            List<string> _LinesToKeepForReplay = new();
+            foreach (string _Line in _Lines) 
+            {
+                DateTime? _LineDateTime = GetDateTimeFromLogLine(_Line);
+
+                if (_LineDateTime == null)
+                    continue;// Skip line (most probably a header line or info line)
+
+                if (_LineDateTime != null && _FirstReplayLineDateTime == null)
+                    _FirstReplayLineDateTime = _LineDateTime;
+
+                TimeSpan _TimeElapsedFromFirstRelayLineToCurrentLine = _LineDateTime.Value - _FirstReplayLineDateTime.Value;
+
+                if (_TimeElapsedFromFirstRelayLineToCurrentLine >= _TimeElapsedSinceStartOfReplay)
+                    _LinesToKeepForReplay.Add(_Line);
+            }
+
+            return _LinesToKeepForReplay.ToArray() ?? Array.Empty<string>();
+        }
+
+        public static DateTime? GetDateTimeFromLogLine(string aRawLogLine)
+        {
+            if (string.IsNullOrWhiteSpace(aRawLogLine))
+                return null;
+
+            var _Regex = Regex.Match(aRawLogLine, "\\[ (.*) \\]");
+
+            if (!_Regex.Success)
+                return null;
+
+            string _DateStr = _Regex.Groups.Values.Last().Value;
+
+            if (!DateTime.TryParse(_DateStr, out DateTime _DateTime))
+                return null;
+
+            return _DateTime;
         }
 
         public static List<Ship> ShipList { get; } = new();
