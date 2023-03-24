@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using EveFight.Models;
 
-namespace EveFight
+namespace EveFight.Helpers
 {
     internal static class ShipWeaknessUIHelper
     {
@@ -81,7 +81,8 @@ namespace EveFight
                             BorderThickness = new Thickness(uniformLength: 3)
                         };
                         aShieldStackPanel.Children.Add(_Border);
-                    } else
+                    }
+                    else
                         aShieldStackPanel.Children.Add(_Image);
 
                     ++_LimitIteration;
@@ -106,7 +107,8 @@ namespace EveFight
                             BorderThickness = new Thickness(uniformLength: 3)
                         };
                         aShieldStackPanel.Children.Add(_Border);
-                    } else
+                    }
+                    else
                         aShieldStackPanel.Children.Add(_Image);
 
                     ++_LimitIteration;
@@ -131,7 +133,8 @@ namespace EveFight
                             BorderThickness = new Thickness(uniformLength: 3)
                         };
                         aShieldStackPanel.Children.Add(_Border);
-                    } else
+                    }
+                    else
                         aShieldStackPanel.Children.Add(_Image);
                     ++_LimitIteration;
                 }
@@ -155,7 +158,8 @@ namespace EveFight
                             BorderThickness = new Thickness(uniformLength: 3)
                         };
                         aShieldStackPanel.Children.Add(_Border);
-                    } else
+                    }
+                    else
                         aShieldStackPanel.Children.Add(_Image);
                     ++_LimitIteration;
                 }
@@ -206,7 +210,8 @@ namespace EveFight
                             BorderThickness = new Thickness(uniformLength: 3)
                         };
                         aArmorStackPanel.Children.Add(_Border);
-                    } else
+                    }
+                    else
                         aArmorStackPanel.Children.Add(_Image);
                     ++_LimitIteration;
                 }
@@ -230,7 +235,8 @@ namespace EveFight
                             BorderThickness = new Thickness(uniformLength: 3)
                         };
                         aArmorStackPanel.Children.Add(_Border);
-                    } else
+                    }
+                    else
                         aArmorStackPanel.Children.Add(_Image);
                     ++_LimitIteration;
                 }
@@ -254,7 +260,8 @@ namespace EveFight
                             BorderThickness = new Thickness(uniformLength: 3)
                         };
                         aArmorStackPanel.Children.Add(_Border);
-                    } else
+                    }
+                    else
                         aArmorStackPanel.Children.Add(_Image);
                     ++_LimitIteration;
                 }
@@ -278,7 +285,8 @@ namespace EveFight
                             BorderThickness = new Thickness(uniformLength: 3)
                         };
                         aArmorStackPanel.Children.Add(_Border);
-                    } else
+                    }
+                    else
                         aArmorStackPanel.Children.Add(_Image);
                     ++_LimitIteration;
                 }
@@ -297,7 +305,7 @@ namespace EveFight
                 Content = aResistValue,
                 Foreground = new SolidColorBrush(Colors.AliceBlue),
                 FontSize = 8,
-                Margin = new Thickness(-5,0,0,0)
+                Margin = new Thickness(-5, 0, 0, 0)
             };
 
             aStackPanelRawResistsArmor.Children.Add(_ResistsValueLabel);

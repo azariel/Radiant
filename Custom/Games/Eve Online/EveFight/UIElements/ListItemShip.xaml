@@ -20,7 +20,8 @@
         <Label Grid.Column="1" Name="LblDPS" Foreground="White" FontWeight="ExtraBold" HorizontalContentAlignment="Right">???? dps</Label>
         <StackPanel Grid.Column="2" Orientation="Horizontal" Name="ResistShieldStackPanel" HorizontalAlignment="Right" />
 
-        <Label Name="LblShipName" Foreground="White" FontWeight="ExtraBold" HorizontalContentAlignment="Left">???</Label>
+        <Label Grid.Row="1" Name="LblShipName" Foreground="White" FontWeight="ExtraBold" HorizontalContentAlignment="Left">???</Label>
+        <Label Grid.Column="2" Grid.Row="1" Name="LblWeaponDefaultRange" Foreground="White" FontWeight="Bold" HorizontalContentAlignment="Left">???</Label> 
         <Label Grid.Column="1" Grid.Row="1" Name="LblThreatType" Foreground="White" FontWeight="ExtraBold" HorizontalContentAlignment="Right" Margin="0,-6,0,0">???</Label>
         <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal" Name="ResistArmorStackPanel" HorizontalAlignment="Right" Margin="0,-2,0,0" />
     </Grid>

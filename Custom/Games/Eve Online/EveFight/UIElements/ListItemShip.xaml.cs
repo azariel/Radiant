@@ -1,11 +1,11 @@
-﻿using System;
+﻿using EveFight.Configuration;
+using EveFight.Helpers;
+using EveFight.Models;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using EveFight.Configuration;
-using EveFight.Models;
 
 namespace EveFight.UIElements
 {
@@ -19,16 +19,25 @@ namespace EveFight.UIElements
             InitializeComponent();
 
             EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
-            fPlayerNameMaxDigits = _Config.PlayerNameMaxDigits;
+            fPlayerNameMaxDigits = _Config.PlayerNameMaxDigitsOnUI;
             fUseThreatColorByDPS = _Config.UseThreatColorByDPS;
             fThreatColorByDPSModel = _Config.ThreatColorByDps;
+
+            if (_Config.CompactUI)
+            {
+                this.Height = Math.Max(Math.Min(_Config.CompactUIContainerHeight, 70), 30);
+                fIconSize = 16;
+
+                if (_Config.CompactUIContainerHeight < 40)
+                    fIconSize = 14;
+            }
         }
 
         private readonly int fPlayerNameMaxDigits;
         private Ship fShip;
         private readonly ThreatColorByDps fThreatColorByDPSModel;
-
         private readonly bool fUseThreatColorByDPS;
+        private int fIconSize = 18;
 
         private Brush GetBackgroundColorFromDPS()
         {
@@ -102,9 +111,14 @@ namespace EveFight.UIElements
             LblDPS.Content = $"{this.Ship.DPS} dps";
             LblPlayerName.Content = this.Ship.PlayerName[..Math.Min(fPlayerNameMaxDigits, this.Ship.PlayerName.Length)];
             LblShipName.Content = this.Ship.ShipName;
-            
-            ShipWeaknessUIHelper.RefreshShieldResistsIcons(ResistArmorStackPanel, this.Ship.Definition, 18);
-            ShipWeaknessUIHelper.RefreshArmorResistsIcons(ResistArmorStackPanel, this.Ship.Definition, 18);
+
+            if (this.Ship.WeaponsDefinition == null || this.Ship.WeaponsDefinition.Count <= 0 || this.Ship.WeaponsDefinition.Count(w => w.DefaultRange != null) <= 0)
+                LblWeaponDefaultRange.Content = string.Empty;
+            else
+                LblWeaponDefaultRange.Content = this.Ship.WeaponsDefinition.Where(w => w.DefaultRange != null).First().DefaultRange + " km";
+
+            ShipWeaknessUIHelper.RefreshShieldResistsIcons(ResistShieldStackPanel, this.Ship.Definition, fIconSize);
+            ShipWeaknessUIHelper.RefreshArmorResistsIcons(ResistArmorStackPanel, this.Ship.Definition, fIconSize);
         }
 
         public Ship Ship

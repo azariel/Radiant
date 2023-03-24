@@ -106,5 +106,7 @@ namespace EveFight.Models
         public ThreatLevel ThreatLevel { get; set; }
 
         public ThreatType ThreatType { get; set; }
+
+        public List<WeaponDefinition> WeaponsDefinition { get; set; }
     }
 }
