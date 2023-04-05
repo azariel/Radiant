@@ -25,8 +25,12 @@ void EvaluateFile(FileInfo aFileInfo, EveChatMonitorerConfiguration aConfig)
             using var fs = new FileStream(aFileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using var sr = new StreamReader(fs, Encoding.UTF8);
             var _Text = sr.ReadToEnd();
-            var _AllFileLines = _Text.Split(Environment.NewLine);//.Skip(_NbLinesToSkip).ToArray();
-            _NbLinesTotal = _AllFileLines.Length;
+            var _AllFileLines = _Text.Split(Environment.NewLine).ToList();//.Skip(_NbLinesToSkip).ToArray();
+
+            if (_AllFileLines.Last().Equals(""))
+                _AllFileLines.RemoveAt(_AllFileLines.Count - 1);
+
+            _NbLinesTotal = _AllFileLines.Count;
             _FileLines = _AllFileLines.Skip(_NbLinesToSkip).ToArray();
 
             break;
@@ -39,10 +43,13 @@ void EvaluateFile(FileInfo aFileInfo, EveChatMonitorerConfiguration aConfig)
         }
     }
 
-    foreach (var _KeyWorkdNotification in aConfig.KeywordTriggerNotificationCollection)
+    if (_FileLines.Any())
     {
-        if (_FileLines.Any(a => Regex.Match(a, _KeyWorkdNotification.Keyword).Success))
-            ExecuteTrigger(_KeyWorkdNotification.NotificationWavFileToPlayOnTrigger);
+        foreach (var _KeyWorkdNotification in aConfig.KeywordTriggerNotificationCollection)
+        {
+            if (_FileLines.Any(a => Regex.Match(a, _KeyWorkdNotification.Keyword).Success))
+                ExecuteTrigger(_KeyWorkdNotification.NotificationWavFileToPlayOnTrigger);
+        }
     }
 
     _NbLinesToSkip = _NbLinesTotal;
