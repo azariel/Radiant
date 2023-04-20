@@ -7,6 +7,6 @@
         // ********************************************************************
         public string WeaponType { get; set; }
         //public AmmunitionDefinition {get;set;}//TODO
-        public float? DefaultRange { get; set; }
+        public WeaponRangeStyle DefaultRange { get; set; }
     }
 }
