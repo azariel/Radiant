@@ -15,6 +15,7 @@ namespace RadiantClientWebScraper
         // ********************************************************************
         public static string GetDOM(string aRelativeUrl)
         {
+            // TODO: async vs sync calls
             var _Client = new HttpRestClient();
             string _EncodedUrlParam = WebUtility.UrlEncode(aRelativeUrl);
             return _Client.Get($"{URL_PREFIX_WITH_URL_PARAM}{_EncodedUrlParam}");

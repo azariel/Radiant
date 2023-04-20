@@ -21,7 +21,7 @@
       },
       {
         "$type": "Radiant.Notifier.Tasks.NotificationsMonitorTask, Radiant.Notifier",
-        "IsEnabled": true,
+        "IsEnabled": false,
         "UID": "10c7195d-8a4d-4eed-9b04-8c8362928702",
         "Triggers": [
           {

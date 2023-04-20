@@ -13,7 +13,7 @@ namespace EveFight.Helpers
             EveFightConfiguration _Config = EveFightConfigurationManager.GetConfigFromMemory();
 
             // Note: when we'll handle amminition types, this will change
-            WeaponDefinition _WeaponDefinition = _Config.WeaponDefinitions.Where(w => aRawWeaponType.Contains(w.WeaponType, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+            WeaponDefinition _WeaponDefinition = _Config.WeaponDefinitions.FirstOrDefault(w => aRawWeaponType.Contains(w.WeaponType, StringComparison.InvariantCultureIgnoreCase));
 
             if (_WeaponDefinition == null)
             {
