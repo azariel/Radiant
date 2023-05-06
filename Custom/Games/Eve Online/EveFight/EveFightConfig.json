@@ -9,7 +9,7 @@
     "$type": "EveFight.Configuration.TankInfo, EveFight",
     "TotalDPSYellow": 80,
     "TotalDPSOrange": 130,
-    "TotalDPSRed": 160
+    "TotalDPSRed": 200
   },
   "ThreatColorByDps": {
     "$type": "EveFight.Configuration.ThreatColorByDps, EveFight",
