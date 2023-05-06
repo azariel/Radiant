@@ -60,8 +60,83 @@
     // TODO
     {
       "$type": "EveFight.Models.WeaponDefinition, EveFight",
-      "WeaponType": "Warrior II",
-      "DefaultRange": null
+      "WeaponType": "Bomb Launcher",
+      "DefaultRange": "Range"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Beam Laser",
+      "DefaultRange": "Range"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Pulse Laser",
+      "DefaultRange": "Close"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Blaster",
+      "DefaultRange": "Close"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Railgun",
+      "DefaultRange": "Range"
+    }
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Railgun",
+      "DefaultRange": "Range"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Cruise Missile",
+      "DefaultRange": "Range"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Heavy Assault Missile",
+      "DefaultRange": "Close"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Rapid Heavy Missile",
+      "DefaultRange": "Close"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Heavy Missile",
+      "DefaultRange": "Range"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Light Missile",
+      "DefaultRange": "Range"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Rapid Light Missile",
+      "DefaultRange": "Close"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Rapid Torpedo Missile",
+      "DefaultRange": "Close"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Torpedo Missile",
+      "DefaultRange": "Range"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Artillery",
+      "DefaultRange": "Range"
+    },
+    {
+      "$type": "EveFight.Models.WeaponDefinition, EveFight",
+      "WeaponType": "Autocannons",
+      "DefaultRange": "Close"
     }
   ],
   "ShipDefinitions": [
