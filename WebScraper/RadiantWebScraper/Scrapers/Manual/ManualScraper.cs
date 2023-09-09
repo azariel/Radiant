@@ -27,7 +27,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         //                            Constants
         // ********************************************************************
-        private const int NB_MS_WAIT_FOR_INPUT_HANG = 10000;// TODO: set this as configurable since on a high tier system, 10 sec is a lot. On a Rpie, not so much
+        private const int NB_MS_WAIT_FOR_INPUT_HANG = 5000;// TODO: set this as configurable since on a high tier system, 10 sec is a lot. On a Rpie, not so much
 
         // ********************************************************************
         //                            Private
