@@ -35,7 +35,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                     Keycode.XK_F12
                 }
             });
-            WaitForBrowserInputsReadyOrMax(2303);
+            WaitForBrowserInputsReadyOrMax(1303);
         }
 
         private void ExtractDOM()
@@ -47,7 +47,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
 
             // Clear clipboard
             ClipboardManager.SetClipboardValue("");
-            WaitForBrowserInputsReadyOrMax(451);
+            WaitForBrowserInputsReadyOrMax(251);
 
             // Put in clipboard
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
@@ -60,15 +60,15 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                 }
             });
 
-            WaitForBrowserInputsReadyOrMax(3026);
+            WaitForBrowserInputsReadyOrMax(1526);
 
             // Copy clipboard value to var
             this.DOM = ClipboardManager.GetClipboardValue();
-            WaitForBrowserInputsReadyOrMax(821);
+            WaitForBrowserInputsReadyOrMax(421);
 
             // Clear clipboard
             ClipboardManager.SetClipboardValue("");
-            WaitForBrowserInputsReadyOrMax(387);
+            WaitForBrowserInputsReadyOrMax(147);
 
             // Close the inspector window
             CloseInspector();
@@ -86,7 +86,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                     Keycode.XK_F12
                 }
             });
-            WaitForBrowserInputsReadyOrMax(7154);
+            WaitForBrowserInputsReadyOrMax(3154);
 
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
@@ -96,7 +96,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                     Keycode.XK_TAB
                 }
             });
-            WaitForBrowserInputsReadyOrMax(526);
+            WaitForBrowserInputsReadyOrMax(266);
 
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
@@ -106,7 +106,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                     Keycode.XK_TAB
                 }
             });
-            WaitForBrowserInputsReadyOrMax(326);
+            WaitForBrowserInputsReadyOrMax(186);
 
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
@@ -116,7 +116,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                     Keycode.XK_TAB
                 }
             });
-            WaitForBrowserInputsReadyOrMax(376);
+            WaitForBrowserInputsReadyOrMax(156);
 
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
@@ -126,7 +126,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                     Keycode.XK_TAB
                 }
             });
-            WaitForBrowserInputsReadyOrMax(399);
+            WaitForBrowserInputsReadyOrMax(201);
 
             InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
@@ -136,7 +136,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                     Keycode.XK_TAB
                 }
             });
-            WaitForBrowserInputsReadyOrMax(926);
+            WaitForBrowserInputsReadyOrMax(526);
         }
 
         // ********************************************************************
@@ -148,7 +148,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
 
             if (aAllowManualOperations)
             {
-                WaitForBrowserInputsReadyOrMax(500);
+                WaitForBrowserInputsReadyOrMax(250);
                 ExtractDOM();
 
                 if (string.IsNullOrWhiteSpace(this.DOM))
@@ -164,7 +164,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                             Keycode.XK_Escape
                         }
                     });
-                    WaitForBrowserInputsReadyOrMax(352);
+                    WaitForBrowserInputsReadyOrMax(172);
 
                     CloseInspector();
 
