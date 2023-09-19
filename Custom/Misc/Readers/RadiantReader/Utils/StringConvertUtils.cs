@@ -25,7 +25,7 @@ namespace RadiantReader.Utils
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private static Regex HrFinderRegex = new Regex("<hr.*>");
+        private static Regex HrFinderRegex = new Regex("<hr.*?>");
 
         // ********************************************************************
         //                            Public
@@ -41,8 +41,7 @@ namespace RadiantReader.Utils
                                      .Replace("amp;", "")
                                      .Replace("nbsp;", " ");
 
-            Regex _Regex = new Regex("<hr.*>");
-            _ChapterContent = _Regex.Replace(_ChapterContent, "");
+            _ChapterContent = HrFinderRegex.Replace(_ChapterContent, "");
 
             // Replace tags by regex
             // ex: <hr size="1" noshade=""> should become <hr />

@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Radiant.Common.Diagnostics;
+using RadiantReader.Configuration;
+using RadiantReader.DataBase;
+using RadiantReader.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
-using Microsoft.EntityFrameworkCore;
-using Radiant.Common.Diagnostics;
-using RadiantReader.Configuration;
-using RadiantReader.DataBase;
-using RadiantReader.Utils;
 
 namespace RadiantReader.Views
 {
@@ -137,6 +137,12 @@ namespace RadiantReader.Views
             TextContentTextBlock.Inlines.Clear();
             TextContentTextBlock.Text = "";// Start by emptying it just to be sure we don't forget anything
             TextContentTextBlock.Inlines.AddRange(aLineElements);
+        }
+
+        public void Reload()
+        {
+            LoadBookContentFromConfig();
+            SetControlState();
         }
     }
 }
