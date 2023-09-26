@@ -29,7 +29,7 @@ namespace RadiantReader.Tasks
 
             foreach (RadiantReaderHostModel _Host in _HostBooks)
             {
-                string _DOM = AutomaticWebScraperClient.GetDOM(_Host.HostLandingPage);
+                string _DOM = AutomaticWebScraperClient.GetDOMAsync(_Host.HostLandingPage).Result;
                 ParseBooksFromDOMLandingPage(_Host, _DOM);
             }
         }
@@ -49,7 +49,7 @@ namespace RadiantReader.Tasks
                 RadiantReaderBookChapter _NewChapter;
                 do
                 {
-                    _NewChapter = BookFetcher.FetchNextChapterFromBookDefinition(_BookDefinition);
+                    _NewChapter = BookFetcher.FetchNextChapterFromBookDefinition(_BookDefinition, out fShouldStop);
 
                     if (_NewChapter == null)
                         continue;
@@ -57,8 +57,11 @@ namespace RadiantReader.Tasks
                     _BookDefinition.Chapters.Add(_NewChapter);
                     _DataBaseContext.SaveChanges();
 
+                    if (fShouldStop)
+                        break;
+
                     // Add a little sleep to avoid being tagged as a bot too easily
-                    Thread.Sleep(new Random().Next(5765, 9457));
+                    Thread.Sleep(new Random().Next(5765, 9457));// TODO: config
                 } while (_NewChapter != null);
 
                 if (_BookDefinition.Chapters.Count > _NbChaptersBeforeFetch)

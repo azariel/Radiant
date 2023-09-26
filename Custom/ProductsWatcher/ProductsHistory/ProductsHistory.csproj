@@ -55,7 +55,8 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;..\..\..\RadiantServerConsole\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)\ProductsRemoteServiceKeys.json&quot; &quot;..\..\..\RadiantServerConsole\bin\Debug\ProductsRemoteServiceKeys.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;..\..\..\RadiantServerConsole\bin\Debug\ProductsHistory.dll&quot;" />
+	  <Exec Command="copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;..\..\..\RadiantServerConsole\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)\ProductsRemoteServiceKeys.json&quot; &quot;..\..\..\RadiantServerConsole\bin\Debug\ProductsRemoteServiceKeys.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;..\..\..\RadiantServerConsole\bin\Debug\ProductsHistory.dll&quot;" />
+	  <Exec Command="copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;..\..\..\RadiantWindowsServer\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)\ProductsRemoteServiceKeys.json&quot; &quot;..\..\..\RadiantWindowsServer\bin\Debug\ProductsRemoteServiceKeys.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;..\..\..\RadiantWindowsServer\bin\Debug\ProductsHistory.dll&quot;" />
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

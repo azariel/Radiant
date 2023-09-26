@@ -1,4 +1,5 @@
-﻿using Radiant.Common.Tasks.Triggers;
+﻿using System;
+using Radiant.Common.Tasks.Triggers;
 
 namespace Radiant.Common.Tasks
 {
@@ -7,8 +8,8 @@ namespace Radiant.Common.Tasks
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        void EvaluateTriggers();
-        void ForceTriggerNow();
+        void EvaluateTriggers(Action onTriggered);
+        void ForceTriggerNow(Action onTriggered);
 
         // ********************************************************************
         //                            Properties

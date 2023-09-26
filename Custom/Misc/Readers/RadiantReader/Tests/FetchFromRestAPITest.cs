@@ -8,7 +8,7 @@ namespace RadiantReader.Tests
         [Fact]
         public void TestMicroServiceGetDOMFromRestAPI()
         {
-            string _DOM = AutomaticWebScraperClient.GetDOM("http://www.perdu.com");
+            string _DOM = AutomaticWebScraperClient.GetDOMAsync("http://www.perdu.com").Result;
 
             Assert.NotNull(_DOM);
             Assert.NotEmpty(_DOM);

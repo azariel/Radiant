@@ -12,18 +12,24 @@ namespace Radiant.Common.Tasks.Triggers
         // ********************************************************************
         /// <summary>
         /// A working task is a task that is currently evaluating or triggering
-        /// </summary>
+        ///// </summary>
         private bool fIsWorking;
 
         // ********************************************************************
         //                            Protected
         // ********************************************************************
+        /// <summary>
+        /// Should the task try to cleanly stop.
+        /// IE: The task executed a satisfying loop or is running for so long that it should re-evaluate its trigger.
+        /// </summary>
+        protected bool fShouldStop;
+
         protected abstract void TriggerNowImplementation();
 
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public void EvaluateTriggers()
+        public void EvaluateTriggers(Action onTriggered)
         {
             if (!this.IsEnabled || fIsWorking)
                 return;
@@ -31,13 +37,13 @@ namespace Radiant.Common.Tasks.Triggers
             fIsWorking = true;
             try
             {
-                foreach (ITrigger _Trigger in this.Triggers)
+                foreach (IRadiantTrigger _Trigger in this.Triggers)
                 {
                     bool _TriggerNow = _Trigger.Evaluate();
 
                     if (_TriggerNow)
                     {
-                        ForceTriggerNow();
+                        ForceTriggerNow(onTriggered);
                         return;
                     }
                 }
@@ -53,11 +59,12 @@ namespace Radiant.Common.Tasks.Triggers
             }
         }
 
-        public void ForceTriggerNow()
+        public void ForceTriggerNow(Action onTriggered)
         {
             if (!this.IsEnabled)
                 return;
 
+            onTriggered?.Invoke();
             TriggerNowImplementation();
             this.LastDateTimeTriggered = DateTime.Now;
         }
@@ -71,7 +78,7 @@ namespace Radiant.Common.Tasks.Triggers
         [JsonIgnore]
         public DateTime LastDateTimeTriggered { get; set; }
         public TaskState State { get; set; }
-        public List<ITrigger> Triggers { get; set; }
+        public List<IRadiantTrigger> Triggers { get; set; }
         public string UID { get; set; } = Guid.NewGuid().ToString("D");
         public object TaskLockObject { get; set; } = new object();
     }

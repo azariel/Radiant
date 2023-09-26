@@ -1,0 +1,8 @@
+{
+  "$type": "Radiant.WindowsServer.Configuration.RadiantWindowsServerConfiguration, RadiantWindowsServer",
+  "DependentLibraries": [
+    "ProductsHistory.dll",
+    "Radiant.Notifier.dll",
+    "RadiantReader.dll"
+  ]
+}

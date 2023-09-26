@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
@@ -12,16 +8,22 @@ using Radiant.Custom.ProductsHistoryCommon.DataBase;
 using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
 using Radiant.Notifier.DataBase;
 using Radiant.WebScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
 using Radiant.WebScraper.Parsers.DOM;
 using Radiant.WebScraper.Scrapers;
 using Radiant.WebScraper.Scrapers.Manual;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace Radiant.Custom.ProductsHistory.Tasks
 {
     public class ProductsMonitorTask : RadiantTask
     {
+        // ********************************************************************
+        //                            Private
+        // ********************************************************************
         private RadiantServerProductHistoryModel CreateProductHistoryFromProductTargetScraper(ProductTargetScraper aProductScraper, RadiantServerProductDefinitionModel aProduct, string aProductTitle)
         {
             // Note that is the product is out of stock, we consider the fetched information to be wrong. No point in having an awesome price on a product that isn't available
@@ -85,9 +87,6 @@ namespace Radiant.Custom.ProductsHistory.Tasks
             _NotificationDbContext.SaveChanges();
         }
 
-        // ********************************************************************
-        //                            Private
-        // ********************************************************************
         private void EvaluateNotifications(RadiantServerProductDefinitionModel aProductDefinition, RadiantServerProductHistoryModel aNewProductHistory)
         {
             // No notification if it's the first fetch for this product
@@ -159,11 +158,6 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                 return;
 
             DateTime _Now = DateTime.Now;
-            //if (aProductDefinition.ProductHistoryCollection == null || aProductDefinition.ProductHistoryCollection.Count <= 0)
-            //{
-            //    FetchNewProductHistory(aProductDefinition, _Now);
-            //    return;
-            //}
 
             // If product was never fetch, set the next fetch time to right now
             if (!aProductDefinition.NextFetchProductHistory.HasValue)
@@ -175,13 +169,14 @@ namespace Radiant.Custom.ProductsHistory.Tasks
 
         private void FetchNewProductHistory(RadiantServerProductDefinitionModel aProductDefinition, DateTime aNow)
         {
+            ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             ManualScraper _ManualScraper = new();
             ProductTargetScraper _ProductScraper = new(ManualBaseTargetScraper.TargetScraperCoreOptions.Screenshot);
-            ProductsHistoryConfiguration _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             List<IScraperItemParser> _ManualScrapers = _Config.ManualScraperSequenceItems.Select(s => (IScraperItemParser)s).ToList();
             List<DOMParserItem> _DomParsers = _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList();
 
             _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, aProductDefinition.Url, _ProductScraper, _ManualScrapers, _DomParsers);
+            fShouldStop = true;// Using the manual scraper takes a long time, we want to avoid processing too many products to avoid going outside a blackout timezone/inactivity trigger incoherence
 
             RadiantServerProductHistoryModel? _MostRecentProductHistory = aProductDefinition.ProductHistoryCollection.FirstOrDefault(f => f.InsertDateTime == aProductDefinition.ProductHistoryCollection.Max(m => m.InsertDateTime));
 
@@ -244,30 +239,13 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                     EvaluateProductDefinition(_ProductDefinition);
                     _DataBaseContext.SaveChanges();
 
+                    if (fShouldStop)
+                        return;
+
                     // Mandatory wait between each products (bot tagging)
                     Thread.Sleep(5000);
                 }
             }
-
-            _DataBaseContext.SaveChanges();
         }
-
-        //public void Register()
-        //{
-        //    RadiantConfig _test = new();
-        //    _test.Tasks.Tasks.Add(new ProductsMonitorTask
-        //    {
-        //        Triggers = new List<ITrigger>
-        //        {
-        //            new ScheduleTrigger
-        //            {
-        //                TriggerEverySeconds = 10,
-        //            }
-        //        },
-        //        IsEnabled = true
-        //    });
-        //    CommonConfigurationManager.SetConfigInMemory(_test);
-        //    CommonConfigurationManager.SaveConfigInMemoryToDisk();
-        //}
     }
 }

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>Radiant.WindowsServer</RootNamespace>
+		<Authors>Azariel</Authors>
+		<Version>1.0.0.0</Version>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\RadiantCommon\RadiantCommon.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="RadiantWindowsServerConfig.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	  <Exec Command="copy /Y &quot;..\RadiantNotifier\bin\Debug\Radiant.Notifier.dll&quot; &quot;$(TargetDir)Radiant.Notifier.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\Misc\Readers\RadiantReader\bin\Debug\RadiantReader.dll&quot; &quot;$(TargetDir)RadiantReader.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistoryCommon\bin\Debug\ProductsHistoryCommon.dll&quot; &quot;$(TargetDir)ProductsHistoryCommon.dll&quot;&#xD;&#xA;copy /Y &quot;..\WebScraper\RadiantWebScraper\bin\Debug\RadiantWebScraper.dll&quot; &quot;$(TargetDir)RadiantWebScraper.dll&quot;" />
+	</Target>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="copy /Y &quot;$(ProjectDir)..\WebScraper\RadiantWebScraper\bin\Debug\geckodriver.exe&quot; &quot;$(TargetDir)geckodriver.exe&quot;&#xD;&#xA;copy /Y &quot;..\RadiantCommon\bin\Debug\RadiantConfig.json&quot; &quot;$(TargetDir)RadiantConfig.json&quot;" />
+	</Target>
+
+</Project>

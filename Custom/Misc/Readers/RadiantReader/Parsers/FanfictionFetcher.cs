@@ -26,8 +26,11 @@ namespace RadiantReader.Parsers
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static RadiantReaderBookChapter FetchNextChapterFromBookDefinition(RadiantReaderBookDefinitionModel aBookDefinition)
+        public static RadiantReaderBookChapter FetchNextChapterFromBookDefinition(
+            RadiantReaderBookDefinitionModel aBookDefinition, out bool shouldStop)
         {
+            shouldStop = false;
+
             if (aBookDefinition == null)
                 return null;
 
@@ -41,6 +44,7 @@ namespace RadiantReader.Parsers
 
             // Get DOM
             string _CurrentDOM = ManualWebScraperClient.GetDOMAsync(_CurrentChapterUrl).Result;
+            shouldStop = true;
 
             if (!DOMIsValidChapter(_CurrentDOM))
                 return null;

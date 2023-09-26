@@ -3,19 +3,22 @@
   "Tasks": {
     "$type": "Radiant.Common.Configuration.RadiantTasksConfig, Radiant.Common",
     "Tasks": [
+      // Update products if user is inactive between 17h-17h55
       {
         "$type": "Radiant.Custom.ProductsHistory.Tasks.ProductsMonitorTask, ProductsHistory",
-        "IsEnabled": false,
+        "IsEnabled": true,
         "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
         "Triggers": [
           {
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "7:30:00",
-              "BlackOutStart": "17:15:00"
+              "BlackOutEnd": "01:00:00",
+              "BlackOutStart": "17:55:00"
             },
-            "TriggerEveryXSeconds": 60
+            "TriggerEveryXSeconds": 0,
+            "InactivityTriggerEnabled": true,
+            "MinimumInactivityTimeSpan": "00:00:15"
           }
         ]
       },
@@ -43,6 +46,7 @@
           }
         ]
       },
+      // Shutdown computer at 19h05, only if inactive for at least 15 min
       {
         "$type": "Radiant.Common.Tasks.ShutdownComputerTask, Radiant.Common",
         "IsEnabled": false,
@@ -52,16 +56,19 @@
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "21:00:00",
-              "BlackOutStart": "00:00:00"
+              "BlackOutEnd": "19:05:00",
+              "BlackOutStart": "19:15:00"
             },
-            "TriggerEveryXSeconds": 600
+            "TriggerEveryXSeconds": 600,
+            "InactivityTriggerEnabled": true,
+            "MinimumInactivityTimeSpan": "00:15:00"
           }
         ]
       },
+      // Update in background the newly available books
       {
         "$type": "RadiantReader.Tasks.UpdateAvailableBooksTask, RadiantReader",
-        "IsEnabled": true,
+        "IsEnabled": false,
         "UID": "63043528-6cd9-4c01-9ff1-03307f3b3176",
         "HandleNewBooks": true,
         "HandleNewChapters": false,
@@ -72,9 +79,10 @@
           }
         ]
       },
+      // Update every chapters either in background or foreground depending on the website
       {
         "$type": "RadiantReader.Tasks.UpdateAvailableBooksTask, RadiantReader",
-        "IsEnabled": true,
+        "IsEnabled": false,
         "UID": "32585567-003c-4c92-b95b-0ee58591bae0",
         "HandleNewBooks": false,
         "HandleNewChapters": true,
@@ -84,9 +92,11 @@
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
               "BlackOutEnd": "18:00:00",
-              "BlackOutStart": "07:00:00"
+              "BlackOutStart": "19:00:00"
             },
-            "TriggerEveryXSeconds": 3600
+            "TriggerEveryXSeconds": 0,
+            "InactivityTriggerEnabled": true,
+            "MinimumInactivityTimeSpan": "00:15:00"
           }
         ]
       }

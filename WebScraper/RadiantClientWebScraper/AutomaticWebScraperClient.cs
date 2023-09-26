@@ -13,12 +13,12 @@ namespace RadiantClientWebScraper
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static string GetDOM(string aRelativeUrl)
+        public static async Task<string> GetDOMAsync(string aRelativeUrl)
         {
             // TODO: async vs sync calls
             var _Client = new HttpRestClient();
             string _EncodedUrlParam = WebUtility.UrlEncode(aRelativeUrl);
-            return _Client.Get($"{URL_PREFIX_WITH_URL_PARAM}{_EncodedUrlParam}");
+            return await _Client.GetAsync($"{URL_PREFIX_WITH_URL_PARAM}{_EncodedUrlParam}", 600000);// 10 min timeout as we're in a manual fetch
         }
     }
 }

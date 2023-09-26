@@ -58,4 +58,8 @@
     </None>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(TargetDir)\RadiantConfig.json&quot; &quot;..\RadiantServerConsole\bin\Debug\RadiantConfig.json&quot;" />
+  </Target>
+
 </Project>

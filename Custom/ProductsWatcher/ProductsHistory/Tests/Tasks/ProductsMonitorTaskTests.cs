@@ -101,7 +101,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
             {
                 IsEnabled = true
             };
-            _Task.ForceTriggerNow();
+            _Task.ForceTriggerNow(null);
 
             _DataBaseContext.ProductsHistory.Load();
             _DataBaseContext.ProductDefinitions.Load();
@@ -121,7 +121,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Tasks
             _DataBaseContext.SaveChanges();
 
             // Trig again to create a notification
-            _Task.ForceTriggerNow();
+            _Task.ForceTriggerNow(null);
 
             // Check that notification was created
             using (NotificationsDbContext _DbContext = new())

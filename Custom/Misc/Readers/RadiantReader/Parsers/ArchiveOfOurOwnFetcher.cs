@@ -28,8 +28,10 @@ namespace RadiantReader.Parsers
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static RadiantReaderBookChapter FetchNextChapterFromBookDefinition(RadiantReaderBookDefinitionModel aBookDefinition)
+        public static RadiantReaderBookChapter FetchNextChapterFromBookDefinition(RadiantReaderBookDefinitionModel aBookDefinition, out bool shouldStop)
         {
+            shouldStop = false;
+
             if (aBookDefinition == null)
                 return null;
 
@@ -53,7 +55,7 @@ namespace RadiantReader.Parsers
                 if (_MostRecentChapter.NextChapterPartialUrl == null)
                 {
                     // Fetch this chapter DOM, find the next chapter URL, update that chapter and then continue
-                    string _MostRecentChapterDOM = AutomaticWebScraperClient.GetDOM(_CurrentChapterUrl);
+                    string _MostRecentChapterDOM = AutomaticWebScraperClient.GetDOMAsync(_CurrentChapterUrl).Result;
                     _MostRecentChapter.NextChapterPartialUrl = GetNextchapterRelativeUrlFromDom(_MostRecentChapterDOM);
                 }
 
@@ -61,7 +63,7 @@ namespace RadiantReader.Parsers
             }
 
             // Get DOM
-            string _CurrentDOM = AutomaticWebScraperClient.GetDOM(_CurrentChapterUrl);
+            string _CurrentDOM = AutomaticWebScraperClient.GetDOMAsync(_CurrentChapterUrl).Result;
 
             if (!DOMIsValidChapter(_CurrentDOM))
                 return null;

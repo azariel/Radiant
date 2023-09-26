@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>Radiant.WindowsServer</RootNamespace>
+		<Authors>Azariel</Authors>
+		<Version>1.0.0.0</Version>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\RadiantCommon\RadiantCommon.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="RadiantWindowsServerConfig.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="" />
+		<Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;..\..\..\RadiantWindowsServer\bin\Debug\Radiant.Notifier.dll&quot;" />
+	</Target>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	  <Exec Command="copy /Y &quot;..\..\RadiantNotifier\bin\Debug\Radiant.Notifier.dll&quot; &quot;$(TargetDir)Radiant.Notifier.dll&quot;" />
+	</Target>
+
+</Project>

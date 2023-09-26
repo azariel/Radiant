@@ -2,7 +2,7 @@
     "$type": "Radiant.Notifier.Configuration.RadiantNotificationConfig, Radiant.Notifier",
     "EmailServer": {
         "$type": "Radiant.Notifier.Notifications.Email.Mailkit.EmailServerConfiguration, Radiant.Notifier",
-        "SmtpPassword": "synaer153624",
+        "SmtpPassword": "RadiantSMTPtest@account%5842",
         "SmtpPort": 587,
         "SmtpServer": "smtp.gmail.com",
         "SmtpUsername": "frost.qc2@gmail.com"

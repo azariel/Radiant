@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-
-namespace Radiant.Common.Tasks.Triggers
+﻿namespace Radiant.WindowsServer.Configuration
 {
-    public interface ITriggerDependent
+    public class RadiantWindowsServerConfiguration
     {
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        List<IRadiantTrigger> Triggers { get; set; }
+        public string[] DependentLibraries { get; set; } =
+        {
+            "ProductsHistory.dll"
+        };
     }
 }
