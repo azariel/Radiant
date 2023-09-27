@@ -1,0 +1,4 @@
+Resources/Icons/radiant.ico filter=lfs diff=lfs merge=lfs -text
+Resources/Logos/Radiant1.png filter=lfs diff=lfs merge=lfs -text
+Resources/Logos/Radiant2.png filter=lfs diff=lfs merge=lfs -text
+Resources/Source/radiant.png filter=lfs diff=lfs merge=lfs -text

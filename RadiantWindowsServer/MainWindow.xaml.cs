@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Hardcodet.Wpf.TaskbarNotification;
 using Radiant.Common.Configuration;
@@ -100,7 +101,7 @@ namespace Radiant.WindowsServer
                 string _Filename = "radiant.log";
                 if (!System.IO.File.Exists(_Filename))
                 {
-                    MessageBox.Show("logs file doesn't exists.");
+                    MessageBox.Show("logs file doesn't exists.", "File not found", MessageBoxButtons.OK);
                     return;
                 }
 

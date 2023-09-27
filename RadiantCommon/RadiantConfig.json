@@ -6,7 +6,7 @@
       // Update products if user is inactive between 17h-17h55
       {
         "$type": "Radiant.Custom.ProductsHistory.Tasks.ProductsMonitorTask, ProductsHistory",
-        "IsEnabled": true,
+        "IsEnabled": false,
         "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
         "Triggers": [
           {

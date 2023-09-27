@@ -10,6 +10,7 @@
         <tb:TaskbarIcon x:Name="SystemTrayNotificationIcon"
                         Visibility="Visible"
                         ToolTipText="Radiant"
+                        IconSource="/Resources/radiant.ico"
                         MenuActivation="RightClick"
                         PopupActivation="DoubleClick"
         >
