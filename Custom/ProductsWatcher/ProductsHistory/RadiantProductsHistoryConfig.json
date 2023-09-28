@@ -193,7 +193,7 @@
               "ValueToType": "Deal Price"
             },
             "InputType": "Keyboard",
-            "WaitMsOnEnd": 1525
+            "WaitMsOnEnd": 425
           },
           {
             "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -205,7 +205,7 @@
               ]
             },
             "InputType": "Keyboard",
-            "WaitMsOnEnd": 500
+            "WaitMsOnEnd": 300
           },
           {
             "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -218,13 +218,13 @@
               ]
             },
             "InputType": "Keyboard",
-            "WaitMsOnEnd": 650
+            "WaitMsOnEnd": 450
           },
           {
             "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
             "Operation": "Get",
             "Value": null,
-            "WaitMsOnEnd": 500
+            "WaitMsOnEnd": 300
           }
         ],
         "RegexPatternToApplyOnValue": "(.*)",
@@ -265,7 +265,7 @@
             "ValueToType": "Deal Price:"
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1525
+          "WaitMsOnEnd": 825
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -277,7 +277,7 @@
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 625
+          "WaitMsOnEnd": 525
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -322,13 +322,13 @@
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1714
+          "WaitMsOnEnd": 1114
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
-          "WaitMsOnEnd": 1314
+          "WaitMsOnEnd": 714
         }
       ]
     },
@@ -360,7 +360,7 @@
               "ValueToType": "Deal of the Day:"
             },
             "InputType": "Keyboard",
-            "WaitMsOnEnd": 1379
+            "WaitMsOnEnd": 979
           },
           {
             "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -432,7 +432,7 @@
             "ValueToType": "Deal of the Day:"
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1576
+          "WaitMsOnEnd": 1076
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -489,13 +489,13 @@
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1689
+          "WaitMsOnEnd": 889
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
-          "WaitMsOnEnd": 1278
+          "WaitMsOnEnd": 978
         }
       ]
     },
@@ -527,7 +527,7 @@
               "ValueToType": "price:"
             },
             "InputType": "Keyboard",
-            "WaitMsOnEnd": 1525
+            "WaitMsOnEnd": 725
           },
           {
             "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -600,7 +600,7 @@
             "ValueToType": "price:"
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1525
+          "WaitMsOnEnd": 725
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -683,13 +683,13 @@
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1714
+          "WaitMsOnEnd": 814
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
-          "WaitMsOnEnd": 1314
+          "WaitMsOnEnd": 614
         }
       ]
     },
@@ -728,7 +728,7 @@
             "ValueToType": "$"
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1436
+          "WaitMsOnEnd": 636
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -785,13 +785,13 @@
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1801
+          "WaitMsOnEnd": 601
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
-          "WaitMsOnEnd": 1254
+          "WaitMsOnEnd": 454
         }
       ]
     },
@@ -823,7 +823,7 @@
               "ValueToType": "Ratings"
             },
             "InputType": "Keyboard",
-            "WaitMsOnEnd": 1525
+            "WaitMsOnEnd": 625
           },
           {
             "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -907,7 +907,7 @@
             "ValueToType": "Ratings"
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1436
+          "WaitMsOnEnd": 636
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -1003,13 +1003,13 @@
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1801
+          "WaitMsOnEnd": 1101
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
-          "WaitMsOnEnd": 1254
+          "WaitMsOnEnd": 454
         }
       ]
     },
@@ -1041,7 +1041,7 @@
               "ValueToType": "Sold and shipped"
             },
             "InputType": "Keyboard",
-            "WaitMsOnEnd": 1525
+            "WaitMsOnEnd": 725
           },
           {
             "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -1186,13 +1186,13 @@
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1801
+          "WaitMsOnEnd": 801
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
-          "WaitMsOnEnd": 1254
+          "WaitMsOnEnd": 454
         }
       ]
     },
@@ -1224,7 +1224,7 @@
               "ValueToType": "Sold by:"
             },
             "InputType": "Keyboard",
-            "WaitMsOnEnd": 1525
+            "WaitMsOnEnd": 625
           },
           {
             "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -1382,13 +1382,13 @@
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1801
+          "WaitMsOnEnd": 801
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
-          "WaitMsOnEnd": 1254
+          "WaitMsOnEnd": 554
         }
       ]
     },
@@ -1427,7 +1427,7 @@
             "ValueToType": "$"
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1536
+          "WaitMsOnEnd": 736
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
@@ -1484,13 +1484,13 @@
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 1801
+          "WaitMsOnEnd": 801
         },
         {
           "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
-          "WaitMsOnEnd": 1254
+          "WaitMsOnEnd": 454
         }
       ]
     }

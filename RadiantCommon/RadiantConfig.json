@@ -3,25 +3,29 @@
   "Tasks": {
     "$type": "Radiant.Common.Configuration.RadiantTasksConfig, Radiant.Common",
     "Tasks": [
-      // Update products if user is inactive between 17h-17h55
+      // Update products price history in foreground
       {
         "$type": "Radiant.Custom.ProductsHistory.Tasks.ProductsMonitorTask, ProductsHistory",
         "IsEnabled": false,
+        "IsForegroundExclusive": true,
         "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
         "Triggers": [
           {
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "01:00:00",
-              "BlackOutStart": "17:55:00"
+              "BlackOutEnd": "17:00:00",
+              "BlackOutStart": "18:30:00"
             },
-            "TriggerEveryXSeconds": 0,
-            "InactivityTriggerEnabled": true,
-            "MinimumInactivityTimeSpan": "00:00:15"
+            // avoid running when a VM is running
+            "ProcessesNameNotRunningCollection": [
+              "vmmem"
+            ],
+            "TriggerEveryXSeconds": 1
           }
         ]
       },
+      // Send notifications to users
       {
         "$type": "Radiant.Notifier.Tasks.NotificationsMonitorTask, Radiant.Notifier",
         "IsEnabled": false,
@@ -34,6 +38,7 @@
           }
         ]
       },
+      // TODO: Rethink + Refactor this task..
       {
         "$type": "Radiant.Custom.ProductsHistory.Tasks.UpdateRemoteProductsDatabase, ProductsHistory",
         "IsEnabled": false,
@@ -46,7 +51,7 @@
           }
         ]
       },
-      // Shutdown computer at 19h05, only if inactive for at least 15 min
+      // Shutdown computer at 19h15, only if inactive for at least 15 min
       {
         "$type": "Radiant.Common.Tasks.ShutdownComputerTask, Radiant.Common",
         "IsEnabled": false,
@@ -56,10 +61,10 @@
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "19:05:00",
-              "BlackOutStart": "19:15:00"
+              "BlackOutEnd": "19:10:00",
+              "BlackOutStart": "19:30:00"
             },
-            "TriggerEveryXSeconds": 600,
+            "TriggerEveryXSeconds": 300,
             "InactivityTriggerEnabled": true,
             "MinimumInactivityTimeSpan": "00:15:00"
           }
@@ -83,6 +88,7 @@
       {
         "$type": "RadiantReader.Tasks.UpdateAvailableBooksTask, RadiantReader",
         "IsEnabled": false,
+        "IsForegroundExclusive": true,
         "UID": "32585567-003c-4c92-b95b-0ee58591bae0",
         "HandleNewBooks": false,
         "HandleNewChapters": true,
@@ -94,9 +100,11 @@
               "BlackOutEnd": "18:00:00",
               "BlackOutStart": "19:00:00"
             },
-            "TriggerEveryXSeconds": 0,
-            "InactivityTriggerEnabled": true,
-            "MinimumInactivityTimeSpan": "00:15:00"
+            // avoid running when a VM is running
+            "ProcessesNameNotRunningCollection": [
+              "vmmem"
+            ],
+            "TriggerEveryXSeconds": 1
           }
         ]
       }

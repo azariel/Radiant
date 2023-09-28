@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Radiant.Common.Tasks.Triggers
+namespace Radiant.Common.Tasks.Triggers.Base
 {
     /// <summary>
     /// Trigger around the user (computer) inactivity.
@@ -28,13 +28,13 @@ namespace Radiant.Common.Tasks.Triggers
                 return false;
 
             var _CurrentInactivityTimeSpan = TimeSpan.FromMilliseconds(Environment.TickCount - _Info.dwTime);
-            return (_CurrentInactivityTimeSpan > userInactivityTimespan);
+            return _CurrentInactivityTimeSpan > userInactivityTimespan;
         }
 
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public bool Evaluate()
+        public virtual bool Evaluate()
         {
             if (!InactivityTriggerEnabled)
                 return true;

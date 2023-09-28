@@ -1,18 +1,15 @@
-﻿using System;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using Radiant.Common.Configuration;
+using Radiant.Common.Tasks;
+using Radiant.Common.Utils;
+using Radiant.WindowsServer.Configuration;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using Hardcodet.Wpf.TaskbarNotification;
-using Radiant.Common.Configuration;
-using Radiant.Common.Tasks;
-using Radiant.Common.Utils;
-using Radiant.WindowsServer.Configuration;
-using static System.Net.Mime.MediaTypeNames;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Radiant.WindowsServer
@@ -36,6 +33,8 @@ namespace Radiant.WindowsServer
         // ********************************************************************
         //                            Private
         // ********************************************************************
+        private static readonly object Lock = new();
+
         /// <summary>
         /// Start all background processes and threads relative to Radiant
         /// </summary>
@@ -45,6 +44,7 @@ namespace Radiant.WindowsServer
             {
                 IsBackground = true
             };
+
             _TaskRunnerThread.Start();
         }
 
@@ -67,21 +67,47 @@ namespace Radiant.WindowsServer
                 // Evaluate each tasks async to avoid blocking evaluation of other tasks
                 foreach (IRadiantTask _RadiantTask in _RadiantConfig.Tasks.Tasks.Where(w => w.IsEnabled && w.State == TaskState.Idle))
                 {
-                    lock (_RadiantTask.TaskLockObject)
-                    {
-                        _RadiantTask.State = TaskState.InProgress;
-                    }
+                    // If there's a running foreground task, ignore all tasks requiring foreground exclusivity
 
-                    Task.Run(() =>
+                    lock (Lock)
                     {
-                        _RadiantTask.EvaluateTriggers(() =>
+                        lock (_RadiantTask.TaskLockObject)
                         {
                             if (_RadiantTask.State == TaskState.InProgress)
+                                continue;
+
+                            _RadiantTask.State = TaskState.InTriggerEvaluation;
+                        }
+                    }
+
+                    // Copy reference for our new Task
+                    IRadiantTask _CurrentRadiantTask = _RadiantTask;
+                    Task.Run(() =>
+                    {
+                        _CurrentRadiantTask.EvaluateTriggers(() =>
                             {
-                                ShowBalloon("Task Started", $"Task [{_RadiantTask.GetType().Name}] started.",
-                                    BalloonIcon.Info);
-                            }
-                        });
+                                lock (Lock)
+                                {
+                                    IRadiantTask _TaskFromLiveList = _RadiantConfig.Tasks.Tasks.Single(s => s.UID == _CurrentRadiantTask.UID);
+                                    lock (_TaskFromLiveList.TaskLockObject)
+                                    {
+                                        if (_TaskFromLiveList.State != TaskState.InTriggerEvaluation)
+                                            return false;
+
+                                        if (_RadiantConfig.Tasks.Tasks.Any(a =>
+                                                a.IsEnabled &&
+                                                a.State == TaskState.InProgress &&
+                                                a.IsForegroundExclusive))
+                                        {
+                                            return false;
+                                        }
+
+                                        _TaskFromLiveList.State = TaskState.InProgress;
+                                        return true;
+                                    }
+                                }
+                            },
+                            () => ShowBalloon("Task Started", $"Task [{_RadiantTask.GetType().Name}] started.", BalloonIcon.Info));
                     });
                 }
 
@@ -105,27 +131,29 @@ namespace Radiant.WindowsServer
                     return;
                 }
 
-                Process _OpenFileProcess = new();
-                _OpenFileProcess.StartInfo = new()
+                Process _OpenFileProcess = new()
                 {
-                    UseShellExecute = true,
-                    FileName = _Filename
+                    StartInfo = new()
+                    {
+                        UseShellExecute = true,
+                        FileName = _Filename
+                    }
                 };
                 _OpenFileProcess.Start();
             }
-            catch (Exception ex)
+            catch (Exception _Ex)
             {
-                MessageBox.Show($"Couldn't open logs file. Message = [{ex.Message}].");
+                MessageBox.Show($"Couldn't open logs file. Message = [{_Ex.Message}].");
             }
 
         }
 
-        private void ShowBalloon(string title, string text, BalloonIcon ballonIcon)
+        private void ShowBalloon(string title, string text, BalloonIcon balloonIcon)
         {
             this.Dispatcher.Invoke(() =>
             {
                 //show balloon with built-in icon
-                SystemTrayNotificationIcon.ShowBalloonTip(title, text, ballonIcon);
+                SystemTrayNotificationIcon.ShowBalloonTip(title, text, balloonIcon);
             });
         }
     }

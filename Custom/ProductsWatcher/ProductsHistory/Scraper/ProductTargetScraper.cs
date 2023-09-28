@@ -246,7 +246,10 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             ProductDOMParserItem[] _DiscountParsers = fDOMParserItems.Where(w => w.ParserItemTarget == aProductParserItemTarget).ToArray();
 
-            LoggingManager.LogToFile("58B2F76D-30F5-4FDF-BE48-752A1DBFB779", $"Trying to fetch {aProductParserItemTarget} of [{fUrl}] using [{_DiscountParsers.Length}] DOM parsers / {fDOMParserItems.Count} for this domain.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+            if (_DiscountParsers.Length <= 0)
+                return;
+
+            LoggingManager.LogToFile("58B2F76D-30F5-4FDF-BE48-752A1DBFB779", $"Trying to fetch {aProductParserItemTarget} of [{fUrl}] using [{_DiscountParsers.Length}] DOM parsers for this domain.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
             double? _DiscountValue = DOMProductInformationParser.ParseDouble(fUrl, this.DOM, _DiscountParsers);
 
@@ -444,6 +447,9 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             ProductDOMParserItem[] _ShippingCostParsers = fDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.ShippingCost).ToArray();
 
+            if (_ShippingCostParsers.Length <= 0)
+                return;
+
             LoggingManager.LogToFile("B56BFC7A-0E62-4B85-87A9-7C5F007D0B35", $"Trying to fetch shipping cost of [{fUrl}] using [{_ShippingCostParsers.Length}] DOM parsers / {fDOMParserItems.Count} for this domain.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
             double? _ShippingCost = DOMProductInformationParser.ParseDouble(fUrl, this.DOM, _ShippingCostParsers);
@@ -533,7 +539,7 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
             // Refine DOM Parsers with the information we got from parents
             fDOMParserItems = fDOMParserItems.Where(w => fUrl.Contains(w.IfUrlContains, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-            WaitForBrowserInputsReadyOrMax(500);
+            WaitForBrowserInputsReadyOrMax(1000);
 
             // Fetch product information
             FetchProductInformation();

@@ -19,6 +19,8 @@ namespace Radiant.ServerConsole
         // ********************************************************************
         //                            Private
         // ********************************************************************
+        private static readonly object Lock = new();
+
         private static void Main(string[] args)
         {
             StartBackgroundProcesses();
@@ -46,6 +48,7 @@ namespace Radiant.ServerConsole
             {
                 IsBackground = true
             };
+
             _TaskRunnerThread.Start();
         }
 
@@ -68,14 +71,46 @@ namespace Radiant.ServerConsole
                 // Evaluate each tasks async to avoid blocking evaluation of other tasks
                 foreach (IRadiantTask _RadiantTask in _RadiantConfig.Tasks.Tasks.Where(w => w.IsEnabled && w.State == TaskState.Idle))
                 {
-                    lock (_RadiantTask.TaskLockObject)
+                    // If there's a running foreground task, ignore all tasks requiring foreground exclusivity
+
+                    lock (Lock)
                     {
-                        _RadiantTask.State = TaskState.InProgress;
+                        lock (_RadiantTask.TaskLockObject)
+                        {
+                            if (_RadiantTask.State == TaskState.InProgress)
+                                continue;
+
+                            _RadiantTask.State = TaskState.InTriggerEvaluation;
+                        }
                     }
 
+                    // Copy reference for our new Task
+                    IRadiantTask _CurrentRadiantTask = _RadiantTask;
                     Task.Run(() =>
                     {
-                        _RadiantTask.EvaluateTriggers(null);
+                        _CurrentRadiantTask.EvaluateTriggers(() =>
+                        {
+                            lock (Lock)
+                            {
+                                IRadiantTask _TaskFromLiveList = _RadiantConfig.Tasks.Tasks.Single(s => s.UID == _CurrentRadiantTask.UID);
+                                lock (_TaskFromLiveList.TaskLockObject)
+                                {
+                                    if (_TaskFromLiveList.State != TaskState.InTriggerEvaluation)
+                                        return false;
+
+                                    if (_RadiantConfig.Tasks.Tasks.Any(a =>
+                                            a.IsEnabled &&
+                                            a.State == TaskState.InProgress &&
+                                            a.IsForegroundExclusive))
+                                    {
+                                        return false;
+                                    }
+
+                                    _TaskFromLiveList.State = TaskState.InProgress;
+                                    return true;
+                                }
+                            }
+                        }, null);
                     });
                 }
 

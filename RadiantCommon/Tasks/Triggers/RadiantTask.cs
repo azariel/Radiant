@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
 
 namespace Radiant.Common.Tasks.Triggers
 {
@@ -29,7 +29,7 @@ namespace Radiant.Common.Tasks.Triggers
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public void EvaluateTriggers(Action onTriggered)
+        public void EvaluateTriggers(IRadiantTask.ValidationBeforeTriggerDelegate onValidateBeforeTrigger, Action onTriggered)
         {
             if (!this.IsEnabled || fIsWorking)
                 return;
@@ -43,7 +43,7 @@ namespace Radiant.Common.Tasks.Triggers
 
                     if (_TriggerNow)
                     {
-                        ForceTriggerNow(onTriggered);
+                        ForceTriggerNow(onValidateBeforeTrigger, onTriggered);
                         return;
                     }
                 }
@@ -59,9 +59,13 @@ namespace Radiant.Common.Tasks.Triggers
             }
         }
 
-        public void ForceTriggerNow(Action onTriggered)
+        public void ForceTriggerNow(IRadiantTask.ValidationBeforeTriggerDelegate onValidateBeforeTrigger, Action onTriggered)
         {
             if (!this.IsEnabled)
+                return;
+
+            // If the delegate is null, ignore it
+            if (onValidateBeforeTrigger != null && !onValidateBeforeTrigger.Invoke())
                 return;
 
             onTriggered?.Invoke();
@@ -73,11 +77,13 @@ namespace Radiant.Common.Tasks.Triggers
         //                            Properties
         // ********************************************************************
         public bool IsEnabled { get; set; }
+        public bool IsForegroundExclusive { get; set; }
 
         [XmlIgnore]
         [JsonIgnore]
         public DateTime LastDateTimeTriggered { get; set; }
-        public TaskState State { get; set; }
+
+        public TaskState State { get; set; } = TaskState.Idle;
         public List<IRadiantTrigger> Triggers { get; set; }
         public string UID { get; set; } = Guid.NewGuid().ToString("D");
         public object TaskLockObject { get; set; } = new object();

@@ -1,11 +1,12 @@
 ﻿using System;
+using Radiant.Common.Tasks.Triggers.Base;
 
 namespace Radiant.Common.Tasks.Triggers
 {
     /// <summary>
     /// Trigger around a specific time schedule.
     /// </summary>
-    public class ScheduleTrigger : InactivityTrigger, IRadiantTrigger
+    public class ScheduleTrigger : ProcessesNotRunningTrigger, IRadiantTrigger
     {
         // ********************************************************************
         //                            Nested
