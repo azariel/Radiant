@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using ProductsHistoryClient.Configuration.State;
-using ProductsHistoryClient.Products.Database;
 using Radiant.Common.Diagnostics;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Configuration.State;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Products.Database;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 
-namespace ProductsHistoryClient.Products
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Products
 {
     public static class ProductsManager
     {

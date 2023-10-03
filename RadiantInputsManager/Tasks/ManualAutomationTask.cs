@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Radiant.Common.Tasks.Triggers;
-using RadiantInputsManager.InputsParam;
+using Radiant.InputsManager.InputsParam;
 
-namespace RadiantInputsManager.Tasks
+namespace Radiant.InputsManager.Tasks
 {
     public class ManualAutomationTask : RadiantTask
     {

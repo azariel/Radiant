@@ -1,8 +1,8 @@
-﻿using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers;
 
-namespace Radiant.WebScraper.Business.Objects.TargetScraper
+namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper
 {
     public interface IScraperTarget
     {

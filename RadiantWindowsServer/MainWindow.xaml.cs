@@ -1,18 +1,18 @@
-﻿using Hardcodet.Wpf.TaskbarNotification;
-using Radiant.Common.Configuration;
-using Radiant.Common.Tasks;
-using Radiant.Common.Utils;
-using Radiant.WindowsServer.Configuration;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using Hardcodet.Wpf.TaskbarNotification;
+using Radiant.Common.Configuration;
+using Radiant.Common.Tasks;
+using Radiant.Common.Utils;
+using Radiant.Servers.RadiantWindowsServer.Configuration;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace Radiant.WindowsServer
+namespace Radiant.Servers.RadiantWindowsServer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

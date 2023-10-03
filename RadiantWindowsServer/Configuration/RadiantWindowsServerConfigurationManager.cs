@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Radiant.Common.Serialization;
 
-namespace Radiant.WindowsServer.Configuration
+namespace Radiant.Servers.RadiantWindowsServer.Configuration
 {
     public static class RadiantWindowsServerConfigurationManager
     {

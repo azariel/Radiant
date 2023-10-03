@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using EveRay.Zones;
+using Radiant.Custom.Games.EveOnline.EveRay.Zones;
 
-namespace EveRay.Configuration
+namespace Radiant.Custom.Games.EveOnline.EveRay.Configuration
 {
     public class EveRayConfiguration
     {

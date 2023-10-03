@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="copy /Y &quot;$(ProjectDir)..\RadiantWebScraper\bin\Debug\geckodriver.exe&quot; &quot;$(TargetDir)geckodriver.exe&quot;&#xD;&#xA;" />
+		<Exec Command="copy /Y &quot;$(ProjectDir)..\RadiantWebScraper\bin\Debug\geckodriver.exe&quot; &quot;$(TargetDir)geckodriver.exe&quot;&#xD;&#xA;copy /Y &quot;$(ProjectDir)..\RadiantWebScraper\bin\Debug\RadiantWebScrapersConfig.json&quot; &quot;$(ProjectDir)..\RadiantWebScraperWebApi\RadiantWebScrapersConfig.json&quot;&#xD;&#xA;" />
 	</Target>
 
 </Project>

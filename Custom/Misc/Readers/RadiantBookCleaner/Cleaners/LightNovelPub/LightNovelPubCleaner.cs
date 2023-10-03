@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace RadiantBookCleaner.Cleaners.LightNovelPub
+namespace Radiant.Custom.Readers.RadiantBookCleaner.Cleaners.LightNovelPub
 {
     public class LightNovelPubCleaner : ICleaner
     {

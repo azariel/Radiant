@@ -1,4 +1,4 @@
-﻿namespace Radiant.WebScraper.Scrapers.Manual
+﻿namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 {
     public class ManualScraperSequenceItem
     {

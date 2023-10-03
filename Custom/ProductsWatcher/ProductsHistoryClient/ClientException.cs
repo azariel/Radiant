@@ -2,7 +2,7 @@
 using System.Windows;
 using Radiant.Common.Diagnostics;
 
-namespace ProductsHistoryClient
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient
 {
     public static class ClientException
     {

@@ -39,8 +39,9 @@ namespace Radiant.Common.Tasks.Triggers.Base
             if (!_TriggerState)
                 return false;
 
+            // If nothing was configured, return true to skip
             if (ProcessesNameNotRunningCollection == null || ProcessesNameNotRunningCollection.Count <= 0)
-                return false;
+                return true;
 
             // Trigger only if processes are NOT currently running
             return AreProcessesNotRunning();

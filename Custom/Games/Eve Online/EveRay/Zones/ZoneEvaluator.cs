@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
-using EveRay.TriggerActions;
-using EveRay.Watch;
+using Radiant.Custom.Games.EveOnline.EveRay.TriggerActions;
+using Radiant.Custom.Games.EveOnline.EveRay.Watch;
 using Color = System.Windows.Media.Color;
 
-namespace EveRay.Zones
+namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
 {
     public static class ZoneEvaluator
     {

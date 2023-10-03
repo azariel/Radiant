@@ -1,18 +1,18 @@
 {
-    "$type": "EveRay.Configuration.EveRayConfiguration, EveRay",
+    "$type": "EveRay.Configuration.EveRayConfiguration, Radiant.Custom.Games.EveOnline.EveRay",
     "ZonesWatcher": [
         {
-            "$type": "EveRay.Zones.ZoneWatcher, EveRay",
+            "$type": "EveRay.Zones.ZoneWatcher, Radiant.Custom.Games.EveOnline.EveRay",
             "AlwaysShowZone": false,
             "Enabled": false,
             "SaveImageOnDisk": false,
             "TriggerAction": {
-                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
+                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, Radiant.Custom.Games.EveOnline.EveRay",
                 "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\NewRatDetected.wav"
             },
             "WatchItems": [
                 {
-                    "$type": "EveRay.Watch.WatchItemColors, EveRay",
+                    "$type": "EveRay.Watch.WatchItemColors, Radiant.Custom.Games.EveOnline.EveRay",
                     "Colors": [ "Red", "255,200,25,25", "255,225,35,35", "255,200,0,0", "255,210,25,25", "255,215,30,30", "255,205,20,20", "255,215,105,25", "255,160,20,20", "255,125,25,25", "255,130,25,25", "255,180,30,30" ],
                     "ColorTreshold": 50,
                     "MsToShowZoneOnDetection": 1500,
@@ -21,23 +21,23 @@
                 }
             ],
             "Zone": {
-                "$type": "EveRay.Zones.EveRayZone, EveRay",
+                "$type": "EveRay.Zones.EveRayZone, Radiant.Custom.Games.EveOnline.EveRay",
                 "Location": "2092, 175",
                 "Size": "10, 665"
             }
         },
         {
-            "$type": "EveRay.Zones.ZoneWatcher, EveRay",
+            "$type": "EveRay.Zones.ZoneWatcher, Radiant.Custom.Games.EveOnline.EveRay",
             "AlwaysShowZone": false,
             "Enabled": false,
             "SaveImageOnDisk": false,
             "TriggerAction": {
-                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
+                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, Radiant.Custom.Games.EveOnline.EveRay",
                 "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\PlayerOnGrid.wav"
             },
             "WatchItems": [
                 {
-                    "$type": "EveRay.Watch.WatchItemColors, EveRay",
+                    "$type": "EveRay.Watch.WatchItemColors, Radiant.Custom.Games.EveOnline.EveRay",
                     "Colors": [
                         // Gray
                         "255,100,100,100",
@@ -55,23 +55,23 @@
                 }
             ],
             "Zone": {
-                "$type": "EveRay.Zones.EveRayZone, EveRay",
+                "$type": "EveRay.Zones.EveRayZone, Radiant.Custom.Games.EveOnline.EveRay",
                 "Location": "2088, 173",
                 "Size": "2, 667"
             }
         },
         {
-            "$type": "EveRay.Zones.ZoneWatcher, EveRay",
+            "$type": "EveRay.Zones.ZoneWatcher, Radiant.Custom.Games.EveOnline.EveRay",
             "AlwaysShowZone": false,
             "Enabled": false,
             "SaveImageOnDisk": false,
             "TriggerAction": {
-                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
+                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, Radiant.Custom.Games.EveOnline.EveRay",
                 "SoundFilePath": "C:\\Dev\\RadiantCore\\EveRay\\deps\\LocalPlayerChangeDetected.wav"
             },
             "WatchItems": [
                 {
-                    "$type": "EveRay.Watch.WatchItemBitmapNoise, EveRay",
+                    "$type": "EveRay.Watch.WatchItemBitmapNoise, Radiant.Custom.Games.EveOnline.EveRay",
                     "NoiseTreshold": 220,
                     "MsToShowZoneOnDetection": 1500,
                     "StrokeColor": "#FF8B0000",
@@ -79,23 +79,23 @@
                 }
             ],
             "Zone": {
-                "$type": "EveRay.Zones.EveRayZone, EveRay",
+                "$type": "EveRay.Zones.EveRayZone, Radiant.Custom.Games.EveOnline.EveRay",
                 "Location": "2482, 1141",
                 "Size": "80, 48"
             }
         },
         {
-            "$type": "EveRay.Zones.ZoneWatcher, EveRay",
+            "$type": "EveRay.Zones.ZoneWatcher, Radiant.Custom.Games.EveOnline.EveRay",
             "AlwaysShowZone": false,
             "Enabled": false,
             "SaveImageOnDisk": true,
             "TriggerAction": {
-                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
+                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, Radiant.Custom.Games.EveOnline.EveRay",
                 "SoundFilePath": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveRay\\deps\\Carrier.wav"
             },
             "WatchItems": [
                 {
-                    "$type": "EveRay.Watch.WatchItemColors, EveRay",
+                    "$type": "EveRay.Watch.WatchItemColors, Radiant.Custom.Games.EveOnline.EveRay",
                     "Colors": [
                         // NPC center darker icon color
                         "255,114,14,15",
@@ -108,24 +108,24 @@
                 }
             ],
             "Zone": {
-                "$type": "EveRay.Zones.EveRayZone, EveRay",
+                "$type": "EveRay.Zones.EveRayZone, Radiant.Custom.Games.EveOnline.EveRay",
                 "Location": "500, 500",
                 "OnCurrentScreenShowLocation": "500, 500",
                 "Size": "64, 256"
             }
         },
         {
-            "$type": "EveRay.Zones.ZoneWatcher, EveRay",
+            "$type": "EveRay.Zones.ZoneWatcher, Radiant.Custom.Games.EveOnline.EveRay",
             "AlwaysShowZone": true,
             "Enabled": true,
             "SaveImageOnDisk": false,
             "TriggerAction": {
-                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, EveRay",
+                "$type": "EveRay.TriggerActions.SoundAlertTriggerAction, Radiant.Custom.Games.EveOnline.EveRay",
                 "SoundFilePath": "C:\\Dev\\RadiantCore\\Custom\\Games\\Eve Online\\EveRay\\deps\\red.wav"
             },
             "WatchItems": [
                 {
-                    "$type": "EveRay.Watch.WatchItemColors, EveRay",
+                    "$type": "EveRay.Watch.WatchItemColors, Radiant.Custom.Games.EveOnline.EveRay",
                     "Colors": [
                         // RED
                         "Red",
@@ -180,7 +180,7 @@
                 }
             ],
             "Zone": {
-                "$type": "EveRay.Zones.EveRayZone, EveRay",
+                "$type": "EveRay.Zones.EveRayZone, Radiant.Custom.Games.EveOnline.EveRay",
                 "Location": "500, 500",
                 "OnCurrentScreenShowLocation": "500, 500",
                 "Size": "8, 222"

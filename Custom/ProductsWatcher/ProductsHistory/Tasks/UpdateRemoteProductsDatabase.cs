@@ -2,10 +2,10 @@
 using Radiant.Common.API.GoogleDrive;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
-using Radiant.Custom.ProductsHistory.Configuration;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 
-namespace Radiant.Custom.ProductsHistory.Tasks
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
 {
     public class UpdateRemoteProductsDatabase : RadiantTask
     {
@@ -23,6 +23,7 @@ namespace Radiant.Custom.ProductsHistory.Tasks
                 return;
             }
 
+            // Create Client Database from Server database, removing any sensible infos while retaining useful data
             ProductsHistoryStorageMigrationManager.OverrideLocalClientDatabaseWithServerDatabase();
 
             string _ClientDatabaseFileName = new ClientProductsDbContext().GetDataBaseFileName();

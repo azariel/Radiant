@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Radiant.Custom.ProductsHistory.Configuration;
-using Radiant.Custom.ProductsHistory.Parsers;
-using Radiant.Custom.ProductsHistory.Resources;
-using Radiant.Custom.ProductsHistory.Scraper;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Resources;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper;
 using Xunit;
 
-namespace Radiant.Custom.ProductsHistory.Tests.Parsers
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tests.Parsers
 {
     public class DOMInformationParserTests
     {

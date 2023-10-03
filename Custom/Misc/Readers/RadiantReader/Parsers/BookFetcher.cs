@@ -1,9 +1,9 @@
-﻿using RadiantReader.Business;
-using RadiantReader.DataBase;
-using RadiantReader.Utils;
-using System;
+﻿using System;
+using Radiant.Custom.Readers.RadiantReader.Business;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Utils;
 
-namespace RadiantReader.Parsers
+namespace Radiant.Custom.Readers.RadiantReader.Parsers
 {
     internal class BookFetcher
     {

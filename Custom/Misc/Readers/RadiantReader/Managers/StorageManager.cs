@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
-using RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
 
-namespace RadiantReader.Managers
+namespace Radiant.Custom.Readers.RadiantReader.Managers
 {
     public static class StorageManager
     {

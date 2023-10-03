@@ -1,4 +1,4 @@
-﻿namespace Radiant.WindowsServer.Configuration
+﻿namespace Radiant.Servers.RadiantWindowsServer.Configuration
 {
     public class RadiantWindowsServerConfiguration
     {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Radiant.Common.Diagnostics;
-using RadiantClientWebScraper;
-using RadiantReader.DataBase;
-using RadiantReader.Utils;
 using System.Text.RegularExpressions;
+using Radiant.Common.Diagnostics;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Utils;
+using Radiant.WebScraper.RadiantClientWebScraper;
 
-namespace RadiantReader.Parsers
+namespace Radiant.Custom.Readers.RadiantReader.Parsers
 {
     internal static class ArchiveOfOurOwnFetcher
     {

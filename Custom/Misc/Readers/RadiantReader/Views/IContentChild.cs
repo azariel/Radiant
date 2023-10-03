@@ -1,4 +1,4 @@
-﻿namespace RadiantReader.Views
+﻿namespace Radiant.Custom.Readers.RadiantReader.Views
 {
     internal interface IContentChild
     {

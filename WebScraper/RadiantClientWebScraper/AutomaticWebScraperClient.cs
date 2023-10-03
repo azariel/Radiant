@@ -1,7 +1,7 @@
-﻿using Radiant.Common.HttpClients.RestClient;
-using System.Net;
+﻿using System.Net;
+using Radiant.Common.HttpClients.RestClient;
 
-namespace RadiantClientWebScraper
+namespace Radiant.WebScraper.RadiantClientWebScraper
 {
     public static class AutomaticWebScraperClient
     {
@@ -18,7 +18,7 @@ namespace RadiantClientWebScraper
             // TODO: async vs sync calls
             var _Client = new HttpRestClient();
             string _EncodedUrlParam = WebUtility.UrlEncode(aRelativeUrl);
-            return await _Client.GetAsync($"{URL_PREFIX_WITH_URL_PARAM}{_EncodedUrlParam}", 600000);// 10 min timeout as we're in a manual fetch
+            return await _Client.GetAsync($"{URL_PREFIX_WITH_URL_PARAM}{_EncodedUrlParam}", 120000);// 2 min
         }
     }
 }

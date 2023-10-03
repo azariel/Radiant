@@ -1,10 +1,10 @@
-﻿using EveFight.Configuration;
-using EveFight.Models;
-using Radiant.Common.Diagnostics;
-using System;
+﻿using System;
 using System.Linq;
+using Radiant.Common.Diagnostics;
+using Radiant.Custom.Games.EveOnline.EveFight.Configuration;
+using Radiant.Custom.Games.EveOnline.EveFight.Models;
 
-namespace EveFight.Helpers
+namespace Radiant.Custom.Games.EveOnline.EveFight.Helpers
 {
     public static class WeaponTypeHelper
     {

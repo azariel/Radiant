@@ -5,8 +5,8 @@
     "Tasks": [
       // Update products price history in foreground
       {
-        "$type": "Radiant.Custom.ProductsHistory.Tasks.ProductsMonitorTask, ProductsHistory",
-        "IsEnabled": false,
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.ProductsMonitorTask, Radiant.Custom.ProductsWatcher.ProductsHistory",
+        "IsEnabled": true,
         "IsForegroundExclusive": true,
         "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
         "Triggers": [
@@ -14,7 +14,7 @@
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "17:00:00",
+              "BlackOutEnd": "01:00:00",
               "BlackOutStart": "18:30:00"
             },
             // avoid running when a VM is running
@@ -40,7 +40,7 @@
       },
       // TODO: Rethink + Refactor this task..
       {
-        "$type": "Radiant.Custom.ProductsHistory.Tasks.UpdateRemoteProductsDatabase, ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.UpdateRemoteProductsDatabase, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "IsEnabled": false,
         "UID": "7d879255-c739-41b2-9e9a-a0836e82a8d4",
         "Triggers": [
@@ -62,17 +62,17 @@
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
               "BlackOutEnd": "19:10:00",
-              "BlackOutStart": "19:30:00"
+              "BlackOutStart": "19:20:00"
             },
             "TriggerEveryXSeconds": 300,
             "InactivityTriggerEnabled": true,
-            "MinimumInactivityTimeSpan": "00:15:00"
+            "MinimumInactivityTimeSpan": "00:10:00"
           }
         ]
       },
       // Update in background the newly available books
       {
-        "$type": "RadiantReader.Tasks.UpdateAvailableBooksTask, RadiantReader",
+        "$type": "Radiant.Custom.Readers.RadiantReader.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReader",
         "IsEnabled": false,
         "UID": "63043528-6cd9-4c01-9ff1-03307f3b3176",
         "HandleNewBooks": true,
@@ -86,7 +86,7 @@
       },
       // Update every chapters either in background or foreground depending on the website
       {
-        "$type": "RadiantReader.Tasks.UpdateAvailableBooksTask, RadiantReader",
+        "$type": "Radiant.Custom.Readers.RadiantReader.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReader",
         "IsEnabled": false,
         "IsForegroundExclusive": true,
         "UID": "32585567-003c-4c92-b95b-0ee58591bae0",

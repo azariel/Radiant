@@ -1,4 +1,4 @@
-﻿namespace EveRay.Watch
+﻿namespace Radiant.Custom.Games.EveOnline.EveRay.Watch
 {
     internal interface IWatchItemByBitmap : IWatchItem 
     {

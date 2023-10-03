@@ -1,13 +1,13 @@
-﻿using Radiant.Common.Configuration;
-using Radiant.Common.Tasks;
-using Radiant.Common.Utils;
-using Radiant.ServerConsole.Configuration;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Radiant.Common.Configuration;
+using Radiant.Common.Tasks;
+using Radiant.Common.Utils;
+using Radiant.Servers.RadiantServerConsole.Configuration;
 
-namespace Radiant.ServerConsole
+namespace Radiant.Servers.RadiantServerConsole
 {
     internal class Program
     {

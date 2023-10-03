@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Radiant.Common.Database.Sqlite;
 
-namespace RadiantReader.DataBase
+namespace Radiant.Custom.Readers.RadiantReader.DataBase
 {
     [Table("BookHosts")]
     public class RadiantReaderHostModel : RadiantSqliteBaseTable

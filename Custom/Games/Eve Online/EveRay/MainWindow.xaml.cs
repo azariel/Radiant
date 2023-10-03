@@ -7,14 +7,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
-using EveRay.Configuration;
-using EveRay.Zones;
+using Radiant.Custom.Games.EveOnline.EveRay.Configuration;
+using Radiant.Custom.Games.EveOnline.EveRay.Zones;
 using Color = System.Windows.Media.Color;
 using Point = System.Drawing.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
 using Size = System.Drawing.Size;
 
-namespace EveRay
+namespace Radiant.Custom.Games.EveOnline.EveRay
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

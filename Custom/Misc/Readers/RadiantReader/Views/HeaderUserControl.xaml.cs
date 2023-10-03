@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
-using RadiantReader.Configuration;
-using RadiantReader.DataBase;
-using RadiantReader.Utils;
-using RadiantReader.Views.NewBooks;
-using RadiantReader.Views.Settings;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReader.Views.NewBooks;
+using Radiant.Custom.Readers.RadiantReader.Views.Settings;
 
-namespace RadiantReader.Views
+namespace Radiant.Custom.Readers.RadiantReader.Views
 {
     /// <summary>
     /// Interaction logic for HeaderUserControl.xaml

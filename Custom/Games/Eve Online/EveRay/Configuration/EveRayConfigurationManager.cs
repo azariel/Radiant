@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Radiant.Common.Serialization;
 
-namespace EveRay.Configuration
+namespace Radiant.Custom.Games.EveOnline.EveRay.Configuration
 {
     public static class EveRayConfigurationManager
     {

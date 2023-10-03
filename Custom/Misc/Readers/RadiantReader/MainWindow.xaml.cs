@@ -8,12 +8,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Radiant.Common.Diagnostics;
-using RadiantReader.Configuration;
-using RadiantReader.Managers;
-using RadiantReader.Views;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReader.Managers;
+using Radiant.Custom.Readers.RadiantReader.Views;
 using Point = System.Drawing.Point;
 
-namespace RadiantReader
+namespace Radiant.Custom.Readers.RadiantReader
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

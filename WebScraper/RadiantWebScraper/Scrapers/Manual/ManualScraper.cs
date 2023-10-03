@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent;
-using Radiant.WebScraper.Business.Objects.TargetScraper;
-using Radiant.WebScraper.Configuration;
-using Radiant.WebScraper.Helpers;
-using Radiant.WebScraper.Parsers.DOM;
-using RadiantInputsManager;
-using RadiantInputsManager.InputsParam;
+using Radiant.InputsManager;
+using Radiant.InputsManager.InputsParam;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper;
+using Radiant.WebScraper.RadiantWebScraper.Configuration;
+using Radiant.WebScraper.RadiantWebScraper.Helpers;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
 
-namespace Radiant.WebScraper.Scrapers.Manual
+namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 {
     /// <summary>
     /// Manual scraper is a very little special tool. It reproduce user inputs to physically go to the website and scrap
@@ -36,7 +35,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
         private void CloseCurrentTab()
         {
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 300,
                 KeyStrokeCodes = new[]
@@ -49,7 +48,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
         private void ExecuteFullScreenF11()
         {
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 KeyStrokeCodes = new[] { Keycode.XK_F11 }
             });
@@ -120,11 +119,11 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         public void GetTargetValueFromUrl(Browser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<IScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             // First thing is to get to the webpage
             // For the duration of the function, we're taking exclusivity of inputs to avoid conflicts
-            InputsManager.ExecuteInputsWithExclusivity(() =>
+            InputsManager.InputsManager.ExecuteInputsWithExclusivity(() =>
             {
                 // Close all tabs to avoid "browser ready" state issue
                 CloseAllTabs(aSupportedBrowser, aTarget);

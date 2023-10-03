@@ -1,10 +1,10 @@
-﻿using RadiantReader.Configuration;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
 
-namespace RadiantReader.Utils
+namespace Radiant.Custom.Readers.RadiantReader.Utils
 {
     public static class AlternativeBookContentHelper
     {

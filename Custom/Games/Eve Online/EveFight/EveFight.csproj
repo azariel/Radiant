@@ -1,44 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>EvefightIcon.ico</ApplicationIcon>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>EvefightIcon.ico</ApplicationIcon>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<AssemblyName>Radiant.Custom.Games.EveOnline.EveFight</AssemblyName>
+		<RootNamespace>Radiant.Custom.Games.EveOnline.EveFight</RootNamespace>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Resources\EM.png" />
-    <None Remove="Resources\Explosion.png" />
-    <None Remove="Resources\Kinetic.png" />
-    <None Remove="Resources\Thermal.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Resources\EM.png" />
+		<None Remove="Resources\Explosion.png" />
+		<None Remove="Resources\Kinetic.png" />
+		<None Remove="Resources\Thermal.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="EvefightIcon.ico" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
-    <Resource Include="Resources\EM.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Explosion.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Kinetic.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Thermal.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="EvefightIcon.ico" />
+		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.1" />
+		<Resource Include="Resources\EM.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Explosion.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Kinetic.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Thermal.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\RadiantCommon\RadiantCommon.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\RadiantCommon\RadiantCommon.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="EveFightConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="EveFightConfig.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

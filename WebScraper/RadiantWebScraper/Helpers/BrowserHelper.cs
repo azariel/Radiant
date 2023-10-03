@@ -4,7 +4,7 @@ using System.Threading;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent;
 
-namespace Radiant.WebScraper.Helpers
+namespace Radiant.WebScraper.RadiantWebScraper.Helpers
 {
     public static class BrowserHelper
     {

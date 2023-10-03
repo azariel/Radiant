@@ -1,4 +1,4 @@
-﻿namespace RadiantInputsManager.InputsParam
+﻿namespace Radiant.InputsManager.InputsParam
 {
     internal interface IKeyboardKeyStrokeActionInputParam : IKeyboardInputParam
     {

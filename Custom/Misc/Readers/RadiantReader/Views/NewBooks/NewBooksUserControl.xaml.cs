@@ -6,10 +6,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
-using RadiantReader.Configuration;
-using RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
 
-namespace RadiantReader.Views.NewBooks
+namespace Radiant.Custom.Readers.RadiantReader.Views.NewBooks
 {
     /// <summary>
     /// Interaction logic for NewBooksUserControl.xaml

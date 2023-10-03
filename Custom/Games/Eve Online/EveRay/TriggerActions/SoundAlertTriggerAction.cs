@@ -1,7 +1,7 @@
 ﻿using System.Media;
 using File = System.IO.File;
 
-namespace EveRay.TriggerActions
+namespace Radiant.Custom.Games.EveOnline.EveRay.TriggerActions
 {
     public class SoundAlertTriggerAction : ITriggerAction
     {

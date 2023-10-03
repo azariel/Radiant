@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Radiant.Common.Diagnostics;
-using RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
 
-namespace RadiantReader.Utils
+namespace Radiant.Custom.Readers.RadiantReader.Utils
 {
     public static class FanfictionDOMUtils
     {

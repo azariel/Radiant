@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 
-namespace Radiant.WebScraper.Helpers
+namespace Radiant.WebScraper.RadiantWebScraper.Helpers
 {
     public static class ScraperProcessHelper
     {

@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using Radiant.Common.Business;
-using Radiant.Common.Serialization;
-using Radiant.Custom.ProductsHistory.Parsers;
-using Radiant.Custom.ProductsHistory.Scraper;
-using Radiant.WebScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
-using Radiant.WebScraper.Scrapers;
-using Radiant.WebScraper.Scrapers.Conditions;
-using Radiant.WebScraper.Scrapers.Manual;
-using RadiantInputsManager;
-using RadiantInputsManager.InputsParam;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper;
+using Radiant.InputsManager;
+using Radiant.InputsManager.InputsParam;
+using Radiant.WebScraper.RadiantWebScraper;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual;
 using Xunit;
 
-namespace Radiant.Custom.ProductsHistory.Tests.Scraper
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tests.Scraper
 {
     public class ManualScraperManualConditionTests
     {
@@ -25,7 +23,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
            {
                new ManualScraperSequenceItemByInput
                {
-                   InputType = InputsManager.InputType.Keyboard,
+                   InputType = InputsManager.InputsManager.InputType.Keyboard,
                    InputParam = new KeyboardKeyStrokeActionInputParam
                    {
                        Delay = 50,
@@ -38,7 +36,7 @@ namespace Radiant.Custom.ProductsHistory.Tests.Scraper
                },
                new ManualScraperSequenceItemByInput
                {
-                   InputType = InputsManager.InputType.Keyboard,
+                   InputType = InputsManager.InputsManager.InputType.Keyboard,
                    InputParam = new KeyboardKeyStrokeActionInputParam
                    {
                        Delay = 50,

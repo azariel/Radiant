@@ -1,7 +1,6 @@
-﻿<Application x:Class="EveFight.App"
+﻿<Application x:Class="Radiant.Custom.Games.EveOnline.EveFight.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:EveFight"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

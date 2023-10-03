@@ -1,7 +1,7 @@
 {
-  "$type": "ProductsHistoryClient.Configuration.ProductsHistoryClientConfiguration, ProductsHistoryClient",
+  "$type": "ProductsHistoryClient.Configuration.ProductsHistoryClientConfiguration, Radiant.Custom.ProductsWatcher.ProductsHistoryClient",
   "GoogleDriveAPIConfig": {
-    "$type": "Radiant.Custom.ProductsHistoryCommon.Configuration.GoogleDriveAPIConfig, ProductsHistoryCommon",
+    "$type": "Radiant.Custom.ProductsHistoryCommon.Configuration.GoogleDriveAPIConfig, Radiant.Custom.ProductsWatcher.ProductsHistoryCommon",
     "DatabaseFileId": "15JSxCpWr_GMe3l-WZE2Mebk-Eeoh9pIL",
     "VersionFileId": "10I5f_wj-7w7NM7MbW5x9Noqo-PDzqUJO"
   }

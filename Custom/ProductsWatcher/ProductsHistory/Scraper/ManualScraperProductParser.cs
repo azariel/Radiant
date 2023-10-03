@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Radiant.Custom.ProductsHistory.Parsers;
-using Radiant.WebScraper.Scrapers.Manual;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual;
 
-namespace Radiant.Custom.ProductsHistory.Scraper
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
 {
     public class ManualScraperProductParser : ManualScraperItemParser
     {

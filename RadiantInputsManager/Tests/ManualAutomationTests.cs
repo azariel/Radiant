@@ -1,9 +1,8 @@
 ﻿using System.Drawing;
 using System.Threading;
-using RadiantInputsManager;
 using Xunit;
 
-namespace Radiant.WebScraper.Tests.Scrapers.Manual
+namespace Radiant.InputsManager.Tests
 {
     public class ManualAutomationTests
     {
@@ -20,7 +19,7 @@ namespace Radiant.WebScraper.Tests.Scrapers.Manual
         [Fact]
         public void TestExtendedKeys1()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
 
             // Assert that it doesn't throw
             ManualAutomation.KeyboardExecute(new[]
@@ -39,7 +38,8 @@ namespace Radiant.WebScraper.Tests.Scrapers.Manual
         [Fact]
         public void TestExtendedKeys2()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
+
             // Assert that it doesn't throw
             ManualAutomation.KeyboardExecute(new[]
             {

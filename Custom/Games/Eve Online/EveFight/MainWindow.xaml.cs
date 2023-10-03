@@ -6,12 +6,12 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using EveFight.Configuration;
-using EveFight.Managers;
+using Radiant.Custom.Games.EveOnline.EveFight.Configuration;
+using Radiant.Custom.Games.EveOnline.EveFight.Managers;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 
-namespace EveFight
+namespace Radiant.Custom.Games.EveOnline.EveFight
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

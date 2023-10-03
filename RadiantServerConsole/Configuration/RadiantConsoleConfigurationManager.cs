@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Radiant.Common.Serialization;
 
-namespace Radiant.ServerConsole.Configuration
+namespace Radiant.Servers.RadiantServerConsole.Configuration
 {
     public static class RadiantConsoleConfigurationManager
     {

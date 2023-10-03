@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using EveFight.Models;
+using Radiant.Custom.Games.EveOnline.EveFight.Models;
 
-namespace EveFight.Configuration
+namespace Radiant.Custom.Games.EveOnline.EveFight.Configuration
 {
     public class EveFightConfiguration
     {

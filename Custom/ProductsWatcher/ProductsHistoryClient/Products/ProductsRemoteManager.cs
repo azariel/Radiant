@@ -1,11 +1,11 @@
 ﻿using System;
 using Google.Apis.Drive.v3.Data;
-using ProductsHistoryClient.Configuration;
-using ProductsHistoryClient.Configuration.State;
 using Radiant.Common.API.GoogleDrive;
 using Radiant.Common.Diagnostics;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Configuration;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Configuration.State;
 
-namespace ProductsHistoryClient.Products
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Products
 {
     public static class ProductsRemoteManager
     {

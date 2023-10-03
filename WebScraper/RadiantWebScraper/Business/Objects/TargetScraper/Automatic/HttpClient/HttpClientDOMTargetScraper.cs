@@ -1,10 +1,10 @@
-﻿using Radiant.Common.Diagnostics;
-using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
+using Radiant.Common.Diagnostics;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers;
 
-namespace Radiant.WebScraper.Business.Objects.TargetScraper.Automatic.HttpClient
+namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Automatic.HttpClient
 {
     public class HttpClientDOMTargetScraper : IScraperTarget
     {

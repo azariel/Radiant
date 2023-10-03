@@ -1,4 +1,4 @@
-﻿namespace Radiant.Custom.ProductsHistory.Scraper
+﻿namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
 {
     /// <summary>
     /// Information about a fetched product.

@@ -1,7 +1,7 @@
-﻿using Radiant.Common.Serialization;
-using System.IO;
+﻿using System.IO;
+using Radiant.Common.Serialization;
 
-namespace EveFight.Configuration
+namespace Radiant.Custom.Games.EveOnline.EveFight.Configuration
 {
     public static class EveFightConfigurationManager
     {

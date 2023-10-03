@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Radiant.Common.Serialization;
 
-namespace Radiant.Custom.ProductsHistory.Configuration
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration
 {
     public static class ProductsHistoryConfigurationManager
     {

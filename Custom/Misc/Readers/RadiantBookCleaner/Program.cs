@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using RadiantBookCleaner.Cleaners.LightNovelPub;
+
+using Radiant.Custom.Readers.RadiantBookCleaner.Cleaners.LightNovelPub;
 
 Console.WriteLine("Source depot:");
 Console.WriteLine("[1]: lightnovelpub.com");

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
-using ProductsHistoryClient.Products;
-using ProductsHistoryClient.View.Products;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Products;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryClient.View.Products;
 
-namespace ProductsHistoryClient
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

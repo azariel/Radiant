@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using Radiant.Common.OSDependent.Clipboard;
-using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers;
-using RadiantInputsManager;
-using RadiantInputsManager.InputsParam;
+using Radiant.InputsManager;
+using Radiant.InputsManager.InputsParam;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers;
 
-namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
+namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual
 {
     /// <summary>
     /// Define how to get DOM from scraper
@@ -27,7 +27,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
         private void CloseInspector()
         {
             File.AppendAllText(@"C:\temp\test.txt", $"Close Inspector.{Environment.NewLine}");
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 120,
                 KeyStrokeCodes = new[]
@@ -50,7 +50,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
             WaitForBrowserInputsReadyOrMax(251);
 
             // Put in clipboard
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 460,
                 KeyStrokeCodes = new[]
@@ -78,7 +78,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
         {
             File.AppendAllText(@"C:\temp\test.txt", $"Focus DOM in Inspector.{Environment.NewLine}");
             // Note that it's the same in every supported browser (atm)
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 120,
                 KeyStrokeCodes = new[]
@@ -88,7 +88,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
             });
             WaitForBrowserInputsReadyOrMax(3154);
 
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 120,
                 KeyStrokeCodes = new[]
@@ -98,7 +98,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
             });
             WaitForBrowserInputsReadyOrMax(266);
 
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 180,
                 KeyStrokeCodes = new[]
@@ -108,7 +108,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
             });
             WaitForBrowserInputsReadyOrMax(186);
 
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 220,
                 KeyStrokeCodes = new[]
@@ -118,7 +118,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
             });
             WaitForBrowserInputsReadyOrMax(156);
 
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 160,
                 KeyStrokeCodes = new[]
@@ -128,7 +128,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
             });
             WaitForBrowserInputsReadyOrMax(201);
 
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 320,
                 KeyStrokeCodes = new[]
@@ -156,7 +156,7 @@ namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
                     ShowAndFocusDOMInInspector();
 
                     // Try to close split console
-                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+                    InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
                     {
                         Delay = 320,
                         KeyStrokeCodes = new[]

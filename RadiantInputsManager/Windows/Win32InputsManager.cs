@@ -2,11 +2,11 @@
 using System.Drawing;
 using System.Linq;
 using System.Threading;
-using RadiantInputsManager.ExecutionResults;
-using RadiantInputsManager.InputsParam;
-using RadiantInputsManager.Linux.xdotool;
+using Radiant.InputsManager.ExecutionResults;
+using Radiant.InputsManager.InputsParam;
+using Radiant.InputsManager.Linux.xdotool;
 
-namespace RadiantInputsManager.Windows
+namespace Radiant.InputsManager.Windows
 {
     public static class Win32InputsManager
     {

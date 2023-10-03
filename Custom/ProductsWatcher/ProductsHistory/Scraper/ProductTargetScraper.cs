@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Business;
@@ -11,18 +10,17 @@ using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.Common.Serialization;
 using Radiant.Common.Utils;
-using Radiant.Custom.ProductsHistory.Parsers;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 using Radiant.Notifier.DataBase;
-using Radiant.WebScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
-using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers;
-using Radiant.WebScraper.Scrapers.Manual;
-using RadiantInputsManager;
+using Radiant.WebScraper.RadiantWebScraper;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual;
 
-namespace Radiant.Custom.ProductsHistory.Scraper
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
 {
     public class ProductTargetScraper : ManualDOMTargetScraper, IScraperTarget
     {
@@ -176,12 +174,13 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             if (fAllowManualOperations)
             {
-                LoggingManager.LogToFile("2781E8CF-F080-4B51-A831-7EDC06560E43", $"Manual steps to fetch price of product [{fUrl}] failed.");
-
                 // We consider this an error only if we had at least 1 config available
                 ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price).ToArray();
                 if (_AvailableProductParser.Any())
+                {
+                    LoggingManager.LogToFile("2781E8CF-F080-4B51-A831-7EDC06560E43", $"Manual steps to fetch price of product [{fUrl}] failed.");
                     this.OneOrMoreStepFailedAndRequiredAFallback = true;
+                }
             }
 
             // If it doesn't work, fallback to find the price in the DOM
@@ -206,12 +205,13 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
             if (fAllowManualOperations)
             {
-                LoggingManager.LogToFile("4C0E794F-3F15-4D56-83F0-9084ED439CC8", $"Manual steps to fetch shipping cost of product [{fUrl}] failed.");
-
                 // We consider this an error only if we had at least 1 config available
                 ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.ShippingCost).ToArray();
                 if (_AvailableProductParser.Any())
+                {
+                    LoggingManager.LogToFile("4C0E794F-3F15-4D56-83F0-9084ED439CC8", "Shipping cost was not found. Manual parser failed to find the shipping cost.");
                     this.OneOrMoreStepFailedAndRequiredAFallback = true;
+                }
             }
 
             // If it doesn't work, fallback to find the price in the DOM
@@ -400,7 +400,7 @@ namespace Radiant.Custom.ProductsHistory.Scraper
 
                         break;
                     case ManualScraperSequenceItemByInput _ManualScraperSequenceItemByInput:
-                        InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(_ManualScraperSequenceItemByInput.InputType, _ManualScraperSequenceItemByInput.InputParam);
+                        InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(_ManualScraperSequenceItemByInput.InputType, _ManualScraperSequenceItemByInput.InputParam);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(_ManualScraperSequenceItem));

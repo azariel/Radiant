@@ -1,8 +1,8 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media;
-using EveFight.Configuration;
+using Radiant.Custom.Games.EveOnline.EveFight.Configuration;
 
-namespace EveFight.UIElements
+namespace Radiant.Custom.Games.EveOnline.EveFight.UIElements
 {
     /// <summary>
     /// Interaction logic for HeaderStatsUC.xaml

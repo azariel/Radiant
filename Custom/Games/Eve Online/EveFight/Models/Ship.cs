@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EveFight.Configuration;
-using EveFight.UIElements;
+using Radiant.Custom.Games.EveOnline.EveFight.Configuration;
+using Radiant.Custom.Games.EveOnline.EveFight.UIElements;
 
-namespace EveFight.Models
+namespace Radiant.Custom.Games.EveOnline.EveFight.Models
 {
     public class Ship
     {

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using RadiantReader.Business;
-using RadiantReader.DataBase;
-using RadiantReader.Managers;
-using RadiantReader.Tests.Resources;
+using Radiant.Custom.Readers.RadiantReader.Business;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Managers;
+using Radiant.Custom.Readers.RadiantReader.Tests.Resources;
 using Xunit;
 
-namespace RadiantReader.Tests
+namespace Radiant.Custom.Readers.RadiantReader.Tests
 {
     public class RadiantReaderDOMParserTest
     {

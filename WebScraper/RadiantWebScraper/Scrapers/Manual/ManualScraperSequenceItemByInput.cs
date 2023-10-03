@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using RadiantInputsManager;
-using RadiantInputsManager.InputsParam;
+using Radiant.InputsManager.InputsParam;
 
-namespace Radiant.WebScraper.Scrapers.Manual
+namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 {
     public class ManualScraperSequenceItemByInput : ManualScraperSequenceItem
     {
@@ -13,6 +12,6 @@ namespace Radiant.WebScraper.Scrapers.Manual
         public IInputParam InputParam { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public InputsManager.InputType InputType { get; set; } = InputsManager.InputType.Keyboard;
+        public InputsManager.InputsManager.InputType InputType { get; set; } = InputsManager.InputsManager.InputType.Keyboard;
     }
 }

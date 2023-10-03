@@ -5,12 +5,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
-using RadiantReader.Configuration;
-using RadiantReader.DataBase;
-using RadiantReader.Managers;
-using RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Managers;
+using Radiant.Custom.Readers.RadiantReader.Utils;
 
-namespace RadiantReader.Views.NewBooks
+namespace Radiant.Custom.Readers.RadiantReader.Views.NewBooks
 {
     /// <summary>
     /// Interaction logic for NewBookElement.xaml

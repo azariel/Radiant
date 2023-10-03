@@ -59,8 +59,10 @@ namespace Radiant.Notifier.Notifications.Email
                         }
 
                         // Build new Body with concat of old body + attachments
-                        var _MultiParts = new Multipart("mixed");
-                        _MultiParts.Add(_Message.Body);
+                        var _MultiParts = new Multipart("mixed")
+                        {
+                            _Message.Body
+                        };
 
                         foreach (MimePart _AttachmentMimePart in _AttachmentsMimeParts)
                             _MultiParts.Add(_AttachmentMimePart);
@@ -75,13 +77,14 @@ namespace Radiant.Notifier.Notifications.Email
                     {
                         _Client.Authenticate(_Configuration.EmailServer.SmtpUsername, _Configuration.EmailServer.SmtpPassword);
                         _Client.Send(_Message);
-                    } finally
+                    }
+                    finally
                     {
                         _Client.Disconnect(true);
                     }
-                }
 
-                return true;
+                    return true;
+                }
             } catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("36A9E2F2-5650-4689-ABB2-58B905FFB7E3", $"Couldn't send email to [{string.Join(",", _MailRequest.ToAddresses)}].", _Ex);

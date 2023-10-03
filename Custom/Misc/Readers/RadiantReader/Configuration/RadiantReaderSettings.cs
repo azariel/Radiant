@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace RadiantReader.Configuration
+namespace Radiant.Custom.Readers.RadiantReader.Configuration
 {
     /// <summary>
     /// Model representing the configuration related to settings

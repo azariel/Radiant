@@ -1,4 +1,4 @@
-﻿namespace EveFight.Configuration
+﻿namespace Radiant.Custom.Games.EveOnline.EveFight.Configuration
 {
     /// <summary>
     /// Contains information on how to replay a specific log for debug purpose or to test the configuration.

@@ -1,4 +1,4 @@
-﻿namespace Radiant.Custom.ProductsHistory.Parsers
+﻿namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers
 {
     public enum ProductParserItemTarget
     {

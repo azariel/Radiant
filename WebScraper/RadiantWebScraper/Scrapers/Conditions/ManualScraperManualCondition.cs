@@ -7,11 +7,10 @@ using Newtonsoft.Json.Converters;
 using Radiant.Common.Business;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent.Clipboard;
-using Radiant.WebScraper.Helpers;
-using Radiant.WebScraper.Scrapers.Manual;
-using RadiantInputsManager;
+using Radiant.WebScraper.RadiantWebScraper.Helpers;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual;
 
-namespace Radiant.WebScraper.Scrapers.Conditions
+namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions
 {
     public class ManualScraperManualCondition : IScraperCondition
     {
@@ -104,7 +103,7 @@ namespace Radiant.WebScraper.Scrapers.Conditions
 
                             break;
                         case ManualScraperSequenceItemByInput _ManualScraperSequenceItemByInput:
-                            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(_ManualScraperSequenceItemByInput.InputType, _ManualScraperSequenceItemByInput.InputParam);
+                            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(_ManualScraperSequenceItemByInput.InputType, _ManualScraperSequenceItemByInput.InputParam);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException(nameof(_ManualScraperSequenceItem));

@@ -1,17 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Radiant.Common.Diagnostics;
-using RadiantReader.Configuration;
-using RadiantReader.DataBase;
-using RadiantReader.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using Microsoft.EntityFrameworkCore;
+using Radiant.Common.Diagnostics;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Utils;
 
-namespace RadiantReader.Views
+namespace Radiant.Custom.Readers.RadiantReader.Views
 {
     /// <summary>
     /// Interaction logic for ReaderContentUserControl.xaml

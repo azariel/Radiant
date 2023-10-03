@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Controls;
-using EveFight.Configuration;
-using EveFight.Helpers;
-using EveFight.Models;
-using EveFight.UIElements;
 using Radiant.Common.Diagnostics;
+using Radiant.Custom.Games.EveOnline.EveFight.Configuration;
+using Radiant.Custom.Games.EveOnline.EveFight.Helpers;
+using Radiant.Custom.Games.EveOnline.EveFight.Models;
+using Radiant.Custom.Games.EveOnline.EveFight.UIElements;
 
-namespace EveFight.Managers
+namespace Radiant.Custom.Games.EveOnline.EveFight.Managers
 {
     internal static class ShipsManager
     {

@@ -1,8 +1,8 @@
-﻿using Radiant.WebScraper.Business.Objects.TargetScraper.Automatic.HttpClient;
-using Radiant.WebScraper.Scrapers.Automatic.HTTPClient;
+﻿using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Automatic.HttpClient;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Automatic.HTTPClient;
 using Xunit;
 
-namespace Radiant.WebScraper.Tests.Scrapers.HTTPWebRequest
+namespace Radiant.WebScraper.RadiantWebScraper.Tests.Scrapers.HTTPWebRequest
 {
     public class HTTPWebRequestScraperTests
     {

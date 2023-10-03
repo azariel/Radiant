@@ -1,4 +1,4 @@
-﻿namespace RadiantInputsManager.ExecutionResults
+﻿namespace Radiant.InputsManager.ExecutionResults
 {
     internal interface IInputKeyboardExecutionResult : IInputExecutionResult { }
 }

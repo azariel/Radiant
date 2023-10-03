@@ -9,9 +9,9 @@ using LiveCharts.Configurations;
 using LiveCharts.Wpf;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.Common.Utils;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 
-namespace ProductsHistoryClient.View.Products
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.View.Products
 {
     /// <summary>
     /// Interaction logic for UcProductDetail.xaml

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using Radiant.Common.Diagnostics;
-using RadiantInputsManager.ExecutionResults;
-using RadiantInputsManager.InputsParam;
-using RadiantInputsManager.Linux.xdotool;
+using Radiant.InputsManager.ExecutionResults;
+using Radiant.InputsManager.InputsParam;
+using Radiant.InputsManager.Linux.xdotool;
 
-namespace RadiantInputsManager
+namespace Radiant.InputsManager
 {
     public static class ManualAutomation
     {

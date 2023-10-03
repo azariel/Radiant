@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Sqlite;
-using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase.Subscriptions;
 
-namespace Radiant.Custom.ProductsHistoryCommon.DataBase
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase
 {
     /// <summary>
     /// This DbContext is to be used ONLY in server side. It may contains sensible information

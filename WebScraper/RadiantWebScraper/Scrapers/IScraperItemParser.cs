@@ -1,4 +1,4 @@
-﻿namespace Radiant.WebScraper.Scrapers
+﻿namespace Radiant.WebScraper.RadiantWebScraper.Scrapers
 {
     public interface IScraperItemParser
     {

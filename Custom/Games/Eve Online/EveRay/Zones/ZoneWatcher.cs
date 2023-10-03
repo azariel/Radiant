@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using EveRay.TriggerActions;
-using EveRay.Watch;
+using Radiant.Custom.Games.EveOnline.EveRay.TriggerActions;
+using Radiant.Custom.Games.EveOnline.EveRay.Watch;
 
-namespace EveRay.Zones
+namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
 {
     public class ZoneWatcher
     {

@@ -1,23 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Radiant.Common.Database.Common;
-using Radiant.Common.Diagnostics;
-using Radiant.Common.Tasks.Triggers;
-using Radiant.Custom.ProductsHistory.Configuration;
-using Radiant.Custom.ProductsHistory.Scraper;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
-using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
-using Radiant.Notifier.DataBase;
-using Radiant.WebScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
-using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers;
-using Radiant.WebScraper.Scrapers.Manual;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Microsoft.EntityFrameworkCore;
+using Radiant.Common.Database.Common;
+using Radiant.Common.Diagnostics;
+using Radiant.Common.Tasks.Triggers;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase.Subscriptions;
+using Radiant.Notifier.DataBase;
+using Radiant.WebScraper.RadiantWebScraper;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual;
 
-namespace Radiant.Custom.ProductsHistory.Tasks
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
 {
     public class ProductsMonitorTask : RadiantTask
     {
@@ -226,7 +226,6 @@ namespace Radiant.Custom.ProductsHistory.Tasks
         protected override void TriggerNowImplementation()
         {
             // TODO: to implement fetch the next product to update and update it if the time is right
-            Thread.Sleep(1000);
             using var _DataBaseContext = new ServerProductsDbContext();
             _DataBaseContext.Products.Load();
             _DataBaseContext.ProductDefinitions.Load();

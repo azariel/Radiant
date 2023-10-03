@@ -4,14 +4,14 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Tests;
-using Radiant.Custom.ProductsHistory.Tasks;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
-using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase.Subscriptions;
 using Radiant.Notifier;
 using Radiant.Notifier.DataBase;
 using Xunit;
 
-namespace Radiant.Custom.ProductsHistory.Tests.Tasks
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tests.Tasks
 {
     public class ProductsMonitorTaskTests
     {

@@ -1,15 +1,14 @@
 ﻿using System.Linq;
-using Radiant.Custom.ProductsHistory.Configuration;
-using Radiant.Custom.ProductsHistory.Scraper;
-using Radiant.WebScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
-using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers;
-using Radiant.WebScraper.Scrapers.Manual;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper;
+using Radiant.WebScraper.RadiantWebScraper;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual;
 using Xunit;
 
-namespace Radiant.Custom.ProductsHistory.Tests.Scraper
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tests.Scraper
 {
     public class ProductScraperTests
     {

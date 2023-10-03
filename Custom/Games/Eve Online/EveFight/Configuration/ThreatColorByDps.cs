@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
 
-namespace EveFight.Configuration;
+namespace Radiant.Custom.Games.EveOnline.EveFight.Configuration;
 
 public class ThreatColorByDps
 {

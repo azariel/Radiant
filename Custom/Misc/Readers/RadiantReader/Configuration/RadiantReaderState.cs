@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace RadiantReader.Configuration
+namespace Radiant.Custom.Readers.RadiantReader.Configuration
 {
     public class RadiantReaderState
     {

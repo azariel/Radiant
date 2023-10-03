@@ -1,33 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Radiant.ServerConsole</RootNamespace>
-    <Authors>Azariel</Authors>
-    <Version>1.0.0.0</Version>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<RootNamespace>Radiant.ServerConsole</RootNamespace>
+		<Authors>Azariel</Authors>
+		<Version>1.0.0.0</Version>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<AssemblyName>Radiant.Servers.RadiantServerConsole</AssemblyName>
+		<RootNamespace>Radiant.Servers.RadiantServerConsole</RootNamespace>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RadiantNotifier\RadiantNotifier.csproj" />
-    <ProjectReference Include="..\WebScraper\RadiantClientWebScraper\RadiantClientWebScraper.csproj" />
-    <ProjectReference Include="..\WebScraper\RadiantWebScraper\RadiantWebScraper.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\RadiantCommon\RadiantCommon.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="RadiantServerConsoleConfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="RadiantServerConsoleConfig.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(ProjectDir)..\WebScraper\RadiantWebScraper\bin\Debug\geckodriver.exe&quot; &quot;$(TargetDir)geckodriver.exe&quot;&#xD;&#xA;copy /Y &quot;..\RadiantCommon\bin\Debug\RadiantConfig.json&quot; &quot;$(TargetDir)RadiantConfig.json&quot;" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy /Y &quot;$(ProjectDir)..\WebScraper\RadiantWebScraper\bin\Debug\geckodriver.exe&quot; &quot;$(TargetDir)geckodriver.exe&quot;&#xD;&#xA;copy /Y &quot;..\RadiantCommon\bin\Debug\RadiantConfig.json&quot; &quot;$(TargetDir)RadiantConfig.json&quot;" />
+	</Target>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="copy /Y &quot;..\RadiantNotifier\bin\Debug\Radiant.Notifier.dll&quot; &quot;$(TargetDir)Radiant.Notifier.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\Misc\Readers\RadiantReader\bin\Debug\RadiantReader.dll&quot; &quot;$(TargetDir)RadiantReader.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistoryCommon\bin\Debug\ProductsHistoryCommon.dll&quot; &quot;$(TargetDir)ProductsHistoryCommon.dll&quot;&#xD;&#xA;copy /Y &quot;..\WebScraper\RadiantWebScraper\bin\Debug\RadiantWebScraper.dll&quot; &quot;$(TargetDir)RadiantWebScraper.dll&quot;" />
-  </Target>
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="copy /Y &quot;..\RadiantNotifier\bin\Debug\Radiant.Notifier.dll&quot; &quot;$(TargetDir)Radiant.Notifier.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\Misc\Readers\RadiantReader\bin\Debug\Radiant.Custom.Readers.RadiantReader.dll&quot; &quot;$(TargetDir)Radiant.Custom.Readers.RadiantReader.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistory\bin\Debug\Radiant.Custom.ProductsWatcher.ProductsHistory.dll&quot; &quot;$(TargetDir)Radiant.Custom.ProductsWatcher.ProductsHistory.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistoryCommon\bin\Debug\Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.dll&quot; &quot;$(TargetDir)Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.dll&quot;&#xD;&#xA;copy /Y &quot;..\WebScraper\RadiantWebScraper\bin\Debug\Radiant.WebScraper.RadiantWebScraper.dll&quot; &quot;$(TargetDir)Radiant.WebScraper.RadiantWebScraper.dll&quot;&#xD;&#xA;copy /Y &quot;..\RadiantInputsManager\bin\Debug\Radiant.InputsManager.dll&quot; &quot;$(TargetDir)Radiant.InputsManager.dll&quot;" />
+	</Target>
 
 </Project>

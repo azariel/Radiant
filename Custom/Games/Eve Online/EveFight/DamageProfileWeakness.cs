@@ -1,4 +1,4 @@
-﻿namespace EveFight
+﻿namespace Radiant.Custom.Games.EveOnline.EveFight
 {
     public class DamageProfileWeakness
     {

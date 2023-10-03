@@ -7,19 +7,20 @@
 		<Product>Radiant</Product>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<Nullable>disable</Nullable>
 		<AssemblyName>Radiant.Notifier</AssemblyName>
 		<RootNamespace>Radiant.Notifier</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="JetBrains.DotMemoryUnit" Version="3.1.20200127.214830" />
-		<PackageReference Include="MailKit" Version="3.1.1" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-		<PackageReference Include="xunit" Version="2.4.1" />
-		<PackageReference Include="xunit.analyzers" Version="0.10.0" />
-		<PackageReference Include="xunit.assert" Version="2.4.1" />
-		<PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+		<PackageReference Include="MailKit" Version="4.2.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+		<PackageReference Include="xunit" Version="2.5.1" />
+		<PackageReference Include="xunit.analyzers" Version="1.3.0" />
+		<PackageReference Include="xunit.assert" Version="2.5.1" />
+		<PackageReference Include="xunit.extensibility.core" Version="2.5.1" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

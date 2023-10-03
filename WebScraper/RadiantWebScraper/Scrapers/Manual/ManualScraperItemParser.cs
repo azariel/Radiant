@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Radiant.WebScraper.Scrapers.Conditions;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions;
 
-namespace Radiant.WebScraper.Scrapers.Manual
+namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 {
     public class ManualScraperItemParser : IScraperItemParser
     {

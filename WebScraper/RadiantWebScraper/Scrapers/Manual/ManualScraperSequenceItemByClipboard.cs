@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Radiant.WebScraper.Scrapers.Manual
+namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 {
     public class ManualScraperSequenceItemByClipboard : ManualScraperSequenceItem
     {

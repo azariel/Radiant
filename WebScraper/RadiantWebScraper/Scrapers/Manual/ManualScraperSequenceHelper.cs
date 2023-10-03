@@ -1,8 +1,8 @@
 ﻿using System.Threading;
-using RadiantInputsManager;
-using RadiantInputsManager.InputsParam;
+using Radiant.InputsManager;
+using Radiant.InputsManager.InputsParam;
 
-namespace Radiant.WebScraper.Scrapers.Manual
+namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 {
     public static class ManualScraperSequenceHelper
     {
@@ -14,7 +14,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         /// </summary>
         public static void CloseCurrentTab()
         {
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 290,
                 KeyStrokeCodes = new[]
@@ -31,7 +31,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         /// <param name="aDelayBetweenSelectAllAndCopyToClipboardInMs"></param>
         public static void CopyAllToClipboard(int aDelayBetweenSelectAllAndCopyToClipboardInMs = 500)
         {
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 160,
                 KeyStrokeCodes = new[]
@@ -43,7 +43,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
             Thread.Sleep(aDelayBetweenSelectAllAndCopyToClipboardInMs);
 
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 260,
                 KeyStrokeCodes = new[]
@@ -62,7 +62,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         /// <param name="aTextToSearch"></param>
         public static void Search(string aTextToSearch)
         {
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 89,
                 KeyStrokeCodes = new[]
@@ -74,7 +74,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
             Thread.Sleep(450);
 
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardTypeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardTypeActionInputParam
             {
                 Delay = 115,
                 ValueToType = aTextToSearch

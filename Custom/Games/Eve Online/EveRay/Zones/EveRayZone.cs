@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using EveRay.Watch;
+using Radiant.Custom.Games.EveOnline.EveRay.Watch;
 
-namespace EveRay.Zones
+namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
 {
     public class EveRayZone
     {

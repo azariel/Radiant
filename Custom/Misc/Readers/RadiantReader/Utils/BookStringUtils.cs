@@ -1,4 +1,4 @@
-﻿namespace RadiantReader.Utils
+﻿namespace Radiant.Custom.Readers.RadiantReader.Utils
 {
     public static class BookStringUtils
     {

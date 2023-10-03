@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace EveRay.Watch
+namespace Radiant.Custom.Games.EveOnline.EveRay.Watch
 {
     public class WatchItemColor : IWatchItemByBitmap
     {

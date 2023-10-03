@@ -6,11 +6,11 @@ using System.IO;
 using System.Threading;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Utils;
-using Radiant.WebScraper.Helpers;
-using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers;
+using Radiant.WebScraper.RadiantWebScraper.Helpers;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers;
 
-namespace Radiant.WebScraper.Business.Objects.TargetScraper.Manual
+namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual
 {
     /// <summary>
     /// Base implementation with several helping scrap functions

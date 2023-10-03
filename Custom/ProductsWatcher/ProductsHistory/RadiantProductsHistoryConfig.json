@@ -1,19 +1,19 @@
 {
-  "$type": "Radiant.Custom.ProductsHistory.Configuration.ProductsHistoryConfiguration, ProductsHistory",
+  "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration.ProductsHistoryConfiguration, Radiant.Custom.ProductsWatcher.ProductsHistory",
   "GoogleDriveAPIConfig": {
-    "$type": "Radiant.Custom.ProductsHistoryCommon.Configuration.GoogleDriveAPIConfig, ProductsHistoryCommon",
+    "$type": "Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.Configuration.GoogleDriveAPIConfig, Radiant.Custom.ProductsWatcher.ProductsHistoryCommon",
     "DatabaseFileId": "15JSxCpWr_GMe3l-WZE2Mebk-Eeoh9pIL",
     "VersionFileId": "10I5f_wj-7w7NM7MbW5x9Noqo-PDzqUJO"
   },
   "DOMParserItems": [
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "Price",
       "IfUrlContains": "amazon.c",
       "Condition": null,
       "RegexPattern": "priceblock_ourprice.*?>(.*?)<\\/span>",
       "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
         "IfUrlContains": "amazon.c",
         "RegexPattern": "[\\d,]+\\.\\d+",
         "SubParserToExecuteOnTargetValue": null,
@@ -24,13 +24,13 @@
       "UID": "59720390-2643-47d9-a9c6-fdc2fda3020f"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "Price",
       "IfUrlContains": "amazon.c",
       "Condition": null,
       "RegexPattern": "priceblock_dealprice.*?>(.*?)<\\/span>",
       "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
         "IfUrlContains": "amazon.c",
         "Condition": null,
         "RegexPattern": "[\\d,]+\\.\\d+",
@@ -42,13 +42,13 @@
       "UID": "e03df465-1bdd-4930-86d3-47b3ae4a1f6d"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "Price",
       "IfUrlContains": "amazon.c",
       "Condition": null,
       "RegexPattern": "priceAmount\":(.*?),",
       "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
         "IfUrlContains": "amazon.c",
         "Condition": null,
         "RegexPattern": "[\\d,]+\\.\\d+",
@@ -60,13 +60,13 @@
       "UID": "e03df465-1bdd-4930-86d3-47b3ae4a1f6d"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "Price",
       "IfUrlContains": "newegg.c",
       "Condition": null,
       "RegexPattern": "\\\"price\\\":\\\"(.*?)[\\\"|,]",
       "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
         "IfUrlContains": "newegg.c",
         "Condition": null,
         "RegexPattern": "[\\d,]+\\.\\d+",
@@ -78,13 +78,13 @@
       "UID": "3e90372b-5f04-4457-a28d-e628aaab4e0c"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "Price",
       "IfUrlContains": "bestbuy.c",
       "Condition": null,
       "RegexPattern": "priceWithEhf\":(.*?),",
       "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
         "IfUrlContains": "bestbuy.c",
         "Condition": null,
         "RegexPattern": "[\\d,]+\\.\\d+",
@@ -96,7 +96,7 @@
       "UID": "44c73c97-95af-49d2-8c0a-e0ef5f81ad01"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "Title",
       "IfUrlContains": "amazon.c",
       "Condition": null,
@@ -106,7 +106,7 @@
       "UID": "4383cf72-3ce5-40f3-8a27-159009951a33"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "Title",
       "IfUrlContains": "bestbuy.c",
       "Condition": null,
@@ -116,7 +116,7 @@
       "UID": "eb1c631c-c6fa-4564-ade4-4b127af91df1"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "Title",
       "IfUrlContains": "newegg.c",
       "Condition": null,
@@ -126,7 +126,7 @@
       "UID": "c39afe74-6139-4d32-b5ad-78f5d4451148"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "ShippingCost",
       "IfUrlContains": "newegg.c",
       "Condition": null,
@@ -136,7 +136,7 @@
       "UID": "e9cc192c-645f-48ea-85e5-387b82b0b8bb"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "DiscountPrice",
       "IfUrlContains": "newegg.c",
       "Condition": null,
@@ -146,13 +146,13 @@
       "UID": "095c31c1-2c7d-454a-89e6-9334b01032cc"
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "ParserItemTarget": "OutOfStock",
       "IfUrlContains": "newegg.c",
       "Condition": null,
       "RegexPattern": "Out of Stock(.*?)",
       "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.Parsers.DOM.DOMParserItem, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
         "IfUrlContains": "newegg.c",
         "Condition": null,
         "RegexPattern": "(.*)",
@@ -166,16 +166,16 @@
   ],
   "ManualScraperSequenceItems": [
     {
-      "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper.ManualScraperProductParser, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "IfUrlContains": "amazon.c",
       "Condition": {
-        "$type": "Radiant.WebScraper.Scrapers.Conditions.ManualScraperManualCondition, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions.ManualScraperManualCondition, Radiant.WebScraper.RadiantWebScraper",
         "ExpectedValue": "Deal Price",
         "ManualScraperSequenceItems": [
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -186,9 +186,9 @@
             "WaitMsOnEnd": 500
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
               "Delay": 115,
               "ValueToType": "Deal Price"
             },
@@ -196,9 +196,9 @@
             "WaitMsOnEnd": 425
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Escape"
@@ -208,9 +208,9 @@
             "WaitMsOnEnd": 300
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -221,7 +221,7 @@
             "WaitMsOnEnd": 450
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
             "Operation": "Get",
             "Value": null,
             "WaitMsOnEnd": 300
@@ -234,7 +234,7 @@
       },
       "Target": "Price",
       "ValueParser": {
-        "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "ParserItemTarget": "Price",
         "IfUrlContains": "amazon.c",
         "Condition": null,
@@ -245,9 +245,9 @@
       },
       "ManualScraperSequenceItems": [
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 89,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -258,9 +258,9 @@
           "WaitMsOnEnd": 650
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
             "Delay": 115,
             "ValueToType": "Deal Price:"
           },
@@ -268,9 +268,9 @@
           "WaitMsOnEnd": 825
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 290,
             "KeyStrokeCodes": [
               "XK_Escape"
@@ -280,9 +280,9 @@
           "WaitMsOnEnd": 525
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 321,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -293,9 +293,9 @@
           "WaitMsOnEnd": 422
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 159,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -306,15 +306,15 @@
           "WaitMsOnEnd": 522
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Set",
           "Value": "",
           "WaitMsOnEnd": 325
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 273,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -325,7 +325,7 @@
           "WaitMsOnEnd": 1114
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
           "WaitMsOnEnd": 714
@@ -333,16 +333,16 @@
       ]
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper.ManualScraperProductParser, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "IfUrlContains": "amazon.c",
       "Condition": {
-        "$type": "Radiant.WebScraper.Scrapers.Conditions.ManualScraperManualCondition, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions.ManualScraperManualCondition, Radiant.WebScraper.RadiantWebScraper",
         "ExpectedValue": "Deal of the Day:",
         "ManualScraperSequenceItems": [
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 66,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -353,9 +353,9 @@
             "WaitMsOnEnd": 521
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
               "Delay": 127,
               "ValueToType": "Deal of the Day:"
             },
@@ -363,9 +363,9 @@
             "WaitMsOnEnd": 979
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 66,
               "KeyStrokeCodes": [
                 "XK_Escape"
@@ -375,9 +375,9 @@
             "WaitMsOnEnd": 517
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 61,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -388,7 +388,7 @@
             "WaitMsOnEnd": 631
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
             "Operation": "Get",
             "Value": null,
             "WaitMsOnEnd": 511
@@ -401,7 +401,7 @@
       },
       "Target": "Price",
       "ValueParser": {
-        "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "ParserItemTarget": "Price",
         "IfUrlContains": "amazon.c",
         "Condition": null,
@@ -412,9 +412,9 @@
       },
       "ManualScraperSequenceItems": [
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 97,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -425,9 +425,9 @@
           "WaitMsOnEnd": 669
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
             "Delay": 117,
             "ValueToType": "Deal of the Day:"
           },
@@ -435,9 +435,9 @@
           "WaitMsOnEnd": 1076
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 294,
             "KeyStrokeCodes": [
               "XK_Escape"
@@ -447,9 +447,9 @@
           "WaitMsOnEnd": 629
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 319,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -460,9 +460,9 @@
           "WaitMsOnEnd": 499
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 164,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -473,15 +473,15 @@
           "WaitMsOnEnd": 541
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Set",
           "Value": "",
           "WaitMsOnEnd": 337
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 257,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -492,7 +492,7 @@
           "WaitMsOnEnd": 889
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
           "WaitMsOnEnd": 978
@@ -500,16 +500,16 @@
       ]
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper.ManualScraperProductParser, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "IfUrlContains": "amazon.c",
       "Condition": {
-        "$type": "Radiant.WebScraper.Scrapers.Conditions.ManualScraperManualCondition, RadiantWebScraper",
-        "ExpectedValue": "price:",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions.ManualScraperManualCondition, Radiant.WebScraper.RadiantWebScraper",
+        "ExpectedValue": "ratings",
         "ManualScraperSequenceItems": [
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -520,19 +520,19 @@
             "WaitMsOnEnd": 500
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
               "Delay": 115,
-              "ValueToType": "price:"
+              "ValueToType": "ratings"
             },
             "InputType": "Keyboard",
             "WaitMsOnEnd": 725
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Escape"
@@ -542,9 +542,9 @@
             "WaitMsOnEnd": 500
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -555,7 +555,7 @@
             "WaitMsOnEnd": 650
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
             "Operation": "Get",
             "Value": null,
             "WaitMsOnEnd": 500
@@ -568,7 +568,7 @@
       },
       "Target": "Price",
       "ValueParser": {
-        "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "ParserItemTarget": "Price",
         "IfUrlContains": "amazon.c",
         "Condition": null,
@@ -580,9 +580,9 @@
       },
       "ManualScraperSequenceItems": [
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 89,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -593,19 +593,19 @@
           "WaitMsOnEnd": 650
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
             "Delay": 115,
-            "ValueToType": "price:"
+            "ValueToType": "ratings"
           },
           "InputType": "Keyboard",
           "WaitMsOnEnd": 725
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 290,
             "KeyStrokeCodes": [
               "XK_Escape"
@@ -615,67 +615,41 @@
           "WaitMsOnEnd": 625
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 321,
-            "KeyStrokeCodes": [
-              "XK_Shift_L",
-              "XK_Right"
-            ]
-          },
-          "InputType": "Keyboard",
-          "WaitMsOnEnd": 422
-        },
-        {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
-          "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
-            "Delay": 159,
-            "KeyStrokeCodes": [
-              "XK_Shift_L",
-              "XK_End"
-            ]
-          },
-          "InputType": "Keyboard",
-          "WaitMsOnEnd": 522
-        },
-        {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
-          "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
-            "Delay": 259,
             "KeyStrokeCodes": [
               "XK_Shift_L",
               "XK_Down"
             ]
           },
           "InputType": "Keyboard",
-          "WaitMsOnEnd": 322
-        },
-        {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
-          "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
-            "Delay": 179,
-            "KeyStrokeCodes": [
-              "XK_Shift_L",
-              "XK_End"
-            ]
-          },
-          "InputType": "Keyboard",
           "WaitMsOnEnd": 422
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
+          "InputParam": {
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+            "Delay": 159,
+            "KeyStrokeCodes": [
+              "XK_Shift_L",
+              "XK_Down"
+            ]
+          },
+          "InputType": "Keyboard",
+          "WaitMsOnEnd": 522
+        },
+        {
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Set",
           "Value": "",
           "WaitMsOnEnd": 325
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 273,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -686,7 +660,7 @@
           "WaitMsOnEnd": 814
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
           "WaitMsOnEnd": 614
@@ -694,11 +668,11 @@
       ]
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper.ManualScraperProductParser, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "IfUrlContains": "bestbuy.c",
       "Target": "Price",
       "ValueParser": {
-        "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "ParserItemTarget": "Price",
         "IfUrlContains": "bestbuy.c",
         "RegexPattern": "\\$(.*)",
@@ -708,9 +682,9 @@
       },
       "ManualScraperSequenceItems": [
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 111,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -721,9 +695,9 @@
           "WaitMsOnEnd": 565
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
             "Delay": 111,
             "ValueToType": "$"
           },
@@ -731,9 +705,9 @@
           "WaitMsOnEnd": 636
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 310,
             "KeyStrokeCodes": [
               "XK_Escape"
@@ -743,9 +717,9 @@
           "WaitMsOnEnd": 597
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 471,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -756,9 +730,9 @@
           "WaitMsOnEnd": 442
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 163,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -769,15 +743,15 @@
           "WaitMsOnEnd": 567
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Set",
           "Value": "",
           "WaitMsOnEnd": 395
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 309,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -788,7 +762,7 @@
           "WaitMsOnEnd": 601
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
           "WaitMsOnEnd": 454
@@ -796,16 +770,16 @@
       ]
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper.ManualScraperProductParser, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "IfUrlContains": "newegg.c",
       "Condition": {
-        "$type": "Radiant.WebScraper.Scrapers.Conditions.ManualScraperManualCondition, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions.ManualScraperManualCondition, Radiant.WebScraper.RadiantWebScraper",
         "ExpectedValue": "Ratings",
         "ManualScraperSequenceItems": [
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -816,9 +790,9 @@
             "WaitMsOnEnd": 500
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
               "Delay": 115,
               "ValueToType": "Ratings"
             },
@@ -826,9 +800,9 @@
             "WaitMsOnEnd": 625
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Escape"
@@ -838,9 +812,9 @@
             "WaitMsOnEnd": 500
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 481,
               "KeyStrokeCodes": [
                 "XK_Shift_L",
@@ -851,9 +825,9 @@
             "WaitMsOnEnd": 443
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -864,7 +838,7 @@
             "WaitMsOnEnd": 650
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
             "Operation": "Get",
             "Value": null,
             "WaitMsOnEnd": 500
@@ -877,7 +851,7 @@
       },
       "Target": "Price",
       "ValueParser": {
-        "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "ParserItemTarget": "Price",
         "IfUrlContains": "newegg.c",
         "RegexPattern": "\\$(?!.*\\$)(.*)",
@@ -887,9 +861,9 @@
       },
       "ManualScraperSequenceItems": [
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 111,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -900,9 +874,9 @@
           "WaitMsOnEnd": 565
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
             "Delay": 111,
             "ValueToType": "Ratings"
           },
@@ -910,9 +884,9 @@
           "WaitMsOnEnd": 636
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 310,
             "KeyStrokeCodes": [
               "XK_Escape"
@@ -922,9 +896,9 @@
           "WaitMsOnEnd": 597
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 471,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -935,9 +909,9 @@
           "WaitMsOnEnd": 442
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 163,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -948,9 +922,9 @@
           "WaitMsOnEnd": 567
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 193,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -961,9 +935,9 @@
           "WaitMsOnEnd": 467
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 123,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -974,9 +948,9 @@
           "WaitMsOnEnd": 967
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 169,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -987,15 +961,15 @@
           "WaitMsOnEnd": 667
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Set",
           "Value": "",
           "WaitMsOnEnd": 395
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 309,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -1006,7 +980,7 @@
           "WaitMsOnEnd": 1101
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
           "WaitMsOnEnd": 454
@@ -1014,16 +988,16 @@
       ]
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper.ManualScraperProductParser, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "IfUrlContains": "newegg.c",
       "Condition": {
-        "$type": "Radiant.WebScraper.Scrapers.Conditions.ManualScraperManualCondition, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions.ManualScraperManualCondition, Radiant.WebScraper.RadiantWebScraper",
         "ExpectedValue": "Sold and shipped",
         "ManualScraperSequenceItems": [
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -1034,9 +1008,9 @@
             "WaitMsOnEnd": 500
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
               "Delay": 115,
               "ValueToType": "Sold and shipped"
             },
@@ -1044,9 +1018,9 @@
             "WaitMsOnEnd": 725
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Escape"
@@ -1056,9 +1030,9 @@
             "WaitMsOnEnd": 500
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 481,
               "KeyStrokeCodes": [
                 "XK_Shift_L",
@@ -1069,9 +1043,9 @@
             "WaitMsOnEnd": 443
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -1082,7 +1056,7 @@
             "WaitMsOnEnd": 650
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
             "Operation": "Get",
             "Value": null,
             "WaitMsOnEnd": 500
@@ -1095,7 +1069,7 @@
       },
       "Target": "Price",
       "ValueParser": {
-        "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "ParserItemTarget": "Price",
         "IfUrlContains": "newegg.c",
         "RegexPattern": "\\$(?!.*\\$)(.*)",
@@ -1105,9 +1079,9 @@
       },
       "ManualScraperSequenceItems": [
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 471,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1118,9 +1092,9 @@
           "WaitMsOnEnd": 442
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 163,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1131,9 +1105,9 @@
           "WaitMsOnEnd": 567
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 193,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1144,9 +1118,9 @@
           "WaitMsOnEnd": 467
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 321,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1157,9 +1131,9 @@
           "WaitMsOnEnd": 621
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 169,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1170,15 +1144,15 @@
           "WaitMsOnEnd": 667
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Set",
           "Value": "",
           "WaitMsOnEnd": 395
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 309,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -1189,7 +1163,7 @@
           "WaitMsOnEnd": 801
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
           "WaitMsOnEnd": 454
@@ -1197,16 +1171,16 @@
       ]
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper.ManualScraperProductParser, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "IfUrlContains": "newegg.c",
       "Condition": {
-        "$type": "Radiant.WebScraper.Scrapers.Conditions.ManualScraperManualCondition, RadiantWebScraper",
+        "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions.ManualScraperManualCondition, Radiant.WebScraper.RadiantWebScraper",
         "ExpectedValue": "Sold by:",
         "ManualScraperSequenceItems": [
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -1217,9 +1191,9 @@
             "WaitMsOnEnd": 500
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
               "Delay": 115,
               "ValueToType": "Sold by:"
             },
@@ -1227,9 +1201,9 @@
             "WaitMsOnEnd": 625
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Escape"
@@ -1239,9 +1213,9 @@
             "WaitMsOnEnd": 500
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 481,
               "KeyStrokeCodes": [
                 "XK_Shift_L",
@@ -1252,9 +1226,9 @@
             "WaitMsOnEnd": 443
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
             "InputParam": {
-              "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+              "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
               "Delay": 50,
               "KeyStrokeCodes": [
                 "XK_Control_L",
@@ -1265,7 +1239,7 @@
             "WaitMsOnEnd": 650
           },
           {
-            "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+            "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
             "Operation": "Get",
             "Value": null,
             "WaitMsOnEnd": 500
@@ -1278,7 +1252,7 @@
       },
       "Target": "Price",
       "ValueParser": {
-        "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "ParserItemTarget": "Price",
         "IfUrlContains": "newegg.c",
         "RegexPattern": "\\$(?!.*\\$)(.*)",
@@ -1288,9 +1262,9 @@
       },
       "ManualScraperSequenceItems": [
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 471,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1301,9 +1275,9 @@
           "WaitMsOnEnd": 442
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 163,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1314,9 +1288,9 @@
           "WaitMsOnEnd": 567
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 193,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1327,9 +1301,9 @@
           "WaitMsOnEnd": 467
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 321,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1340,9 +1314,9 @@
           "WaitMsOnEnd": 621
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 261,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1353,9 +1327,9 @@
           "WaitMsOnEnd": 439
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 169,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1366,15 +1340,15 @@
           "WaitMsOnEnd": 667
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Set",
           "Value": "",
           "WaitMsOnEnd": 395
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 309,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -1385,7 +1359,7 @@
           "WaitMsOnEnd": 801
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
           "WaitMsOnEnd": 554
@@ -1393,11 +1367,11 @@
       ]
     },
     {
-      "$type": "Radiant.Custom.ProductsHistory.Scraper.ManualScraperProductParser, ProductsHistory",
+      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper.ManualScraperProductParser, Radiant.Custom.ProductsWatcher.ProductsHistory",
       "IfUrlContains": "sauterellesetcoccinelles.com",
       "Target": "Price",
       "ValueParser": {
-        "$type": "Radiant.Custom.ProductsHistory.Parsers.ProductDOMParserItem, ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "ParserItemTarget": "Price",
         "IfUrlContains": "sauterellesetcoccinelles.com",
         "RegexPattern": "(.*)",
@@ -1407,9 +1381,9 @@
       },
       "ManualScraperSequenceItems": [
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 131,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -1420,9 +1394,9 @@
           "WaitMsOnEnd": 765
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardTypeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardTypeActionInputParam, Radiant.InputsManager",
             "Delay": 111,
             "ValueToType": "$"
           },
@@ -1430,9 +1404,9 @@
           "WaitMsOnEnd": 736
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 310,
             "KeyStrokeCodes": [
               "XK_Escape"
@@ -1442,9 +1416,9 @@
           "WaitMsOnEnd": 597
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 471,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1455,9 +1429,9 @@
           "WaitMsOnEnd": 442
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 163,
             "KeyStrokeCodes": [
               "XK_Shift_L",
@@ -1468,15 +1442,15 @@
           "WaitMsOnEnd": 567
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Set",
           "Value": "",
           "WaitMsOnEnd": 395
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByInput, Radiant.WebScraper.RadiantWebScraper",
           "InputParam": {
-            "$type": "RadiantInputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, RadiantInputsManager",
+            "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
             "Delay": 309,
             "KeyStrokeCodes": [
               "XK_Control_L",
@@ -1487,7 +1461,7 @@
           "WaitMsOnEnd": 801
         },
         {
-          "$type": "Radiant.WebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, RadiantWebScraper",
+          "$type": "Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual.ManualScraperSequenceItemByClipboard, Radiant.WebScraper.RadiantWebScraper",
           "Operation": "Get",
           "Value": null,
           "WaitMsOnEnd": 454

@@ -1,4 +1,4 @@
-﻿namespace Radiant.ServerConsole.Configuration
+﻿namespace Radiant.Servers.RadiantServerConsole.Configuration
 {
     public class RadiantServerConsoleConfiguration
     {

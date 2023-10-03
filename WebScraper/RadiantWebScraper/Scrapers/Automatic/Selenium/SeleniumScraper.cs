@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Radiant.WebScraper.Business.Objects.TargetScraper;
-using Radiant.WebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
 
-namespace Radiant.WebScraper.Scrapers.Automatic.Selenium
+namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Automatic.Selenium
 {
     public class SeleniumScraper : IScraper
     {

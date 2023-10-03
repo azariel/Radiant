@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace EveFight
+namespace Radiant.Custom.Games.EveOnline.EveFight
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum DamageWeakness

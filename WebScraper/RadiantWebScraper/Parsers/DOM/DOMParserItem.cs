@@ -2,9 +2,9 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Radiant.Common.Business;
-using Radiant.WebScraper.Scrapers.Conditions;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions;
 
-namespace Radiant.WebScraper.Parsers.DOM
+namespace Radiant.WebScraper.RadiantWebScraper.Parsers.DOM
 {
     public class DOMParserItem
     {
