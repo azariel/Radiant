@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent;
-using Radiant.WebScraper.Business.Objects.TargetScraper;
-using Radiant.WebScraper.Configuration;
-using Radiant.WebScraper.Helpers;
-using Radiant.WebScraper.Parsers.DOM;
-using RadiantInputsManager;
-using RadiantInputsManager.InputsParam;
+using Radiant.InputsManager;
+using Radiant.InputsManager.InputsParam;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper;
+using Radiant.WebScraper.RadiantWebScraper.Configuration;
+using Radiant.WebScraper.RadiantWebScraper.Helpers;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
 
-namespace Radiant.WebScraper.Scrapers.Manual
+namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 {
     /// <summary>
     /// Manual scraper is a very little special tool. It reproduce user inputs to physically go to the website and scrap
@@ -27,7 +26,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         //                            Constants
         // ********************************************************************
-        private const int NB_MS_WAIT_FOR_INPUT_HANG = 30000;
+        private const int NB_MS_WAIT_FOR_INPUT_HANG = 5000;// TODO: set this as configurable since on a high tier system, 10 sec is a lot. On a Rpie, not so much
 
         // ********************************************************************
         //                            Private
@@ -36,7 +35,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
         private void CloseCurrentTab()
         {
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 300,
                 KeyStrokeCodes = new[]
@@ -49,7 +48,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
 
         private void ExecuteFullScreenF11()
         {
-            InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 KeyStrokeCodes = new[] { Keycode.XK_F11 }
             });
@@ -120,11 +119,11 @@ namespace Radiant.WebScraper.Scrapers.Manual
         // ********************************************************************
         public void GetTargetValueFromUrl(Browser aSupportedBrowser, string aUrl, IScraperTarget aTarget, List<IScraperItemParser> aManualScraperItems, List<DOMParserItem> aDOMParserItems)
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             // First thing is to get to the webpage
             // For the duration of the function, we're taking exclusivity of inputs to avoid conflicts
-            InputsManager.ExecuteInputsWithExclusivity(() =>
+            InputsManager.InputsManager.ExecuteInputsWithExclusivity(() =>
             {
                 // Close all tabs to avoid "browser ready" state issue
                 CloseAllTabs(aSupportedBrowser, aTarget);
@@ -146,8 +145,8 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
                 var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
                 SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
-                Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? 30000);
-                
+                Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG);
+
                 Thread.Sleep(500);
 
                 // Fullscreen
@@ -200,7 +199,7 @@ namespace Radiant.WebScraper.Scrapers.Manual
             // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
             var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
             SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
-            Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? 15000);
+            Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG / 2);
 
             var _Stopwatch = new Stopwatch();
             _Stopwatch.Start();
@@ -212,9 +211,9 @@ namespace Radiant.WebScraper.Scrapers.Manual
                 if (!_ProcessesToKill.Any())
                     break;
 
-                Thread.Sleep(1000);
+                Thread.Sleep(NB_MS_WAIT_FOR_INPUT_HANG / 20);
                 CloseCurrentTab();
-                Thread.Sleep(5000);
+                Thread.Sleep(NB_MS_WAIT_FOR_INPUT_HANG / 5);
 
                 if (_Stopwatch.Elapsed.TotalHours > 1)
                 {

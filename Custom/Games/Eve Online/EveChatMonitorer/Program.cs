@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Media;
 using System.Text;
 using System.Text.RegularExpressions;
-using EveChatMonitorer.Configuration;
+using Radiant.Custom.Games.EveOnline.EveChatMonitorer.Configuration;
 
 Dictionary<string, int> SkipNbFilesByFilePath = new();
 

@@ -8,12 +8,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Radiant.Common.Diagnostics;
-using RadiantReader.Configuration;
-using RadiantReader.Managers;
-using RadiantReader.Views;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReader.Managers;
+using Radiant.Custom.Readers.RadiantReader.Views;
 using Point = System.Drawing.Point;
 
-namespace RadiantReader
+namespace Radiant.Custom.Readers.RadiantReader
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -27,6 +27,7 @@ namespace RadiantReader
         {
             InitializeComponent();
             MainGrid.PreviewMouseLeftButtonDown += MainGridOnMouseLeftButtonDown;
+            this.KeyDown += MainGridOnKeyDown;
             MainGrid.Background = new SolidColorBrush(Color.FromArgb(a: 10, r: 1, g: 1, b: 1));
 
             // Wait until app is loaded before applying state
@@ -38,6 +39,19 @@ namespace RadiantReader
             GridContent.Children.Add(fReaderContentUserControl);
 
             HeaderControl.fSetReaderContentModule = SetReaderContentModule;
+        }
+
+        private void MainGridOnKeyDown(object aSender, KeyEventArgs aE)
+        {
+            switch (aE.Key)
+            {
+                case Key.Down:
+                    fReaderContentUserControl.ContentScrollViewer.LineDown();
+                    break;
+                case Key.Up:
+                    fReaderContentUserControl.ContentScrollViewer.LineUp();
+                    break;
+            }
         }
 
         // ********************************************************************
@@ -129,13 +143,15 @@ namespace RadiantReader
                 return;
             }
 
-            fReaderContentUserControl.SetTextContent(_LineElements);
+            //fReaderContentUserControl.SetTextContent(_LineElements);
+            
+            // save config
+            StateManager.SetCurrentBook(_Files.Single());
+
+            fReaderContentUserControl.Reload();
 
             // set scrollbar to start
             fReaderContentUserControl.ContentScrollViewer.ScrollToTop();
-
-            // save config
-            StateManager.SetCurrentBook(_Files.Single());
         }
 
         private void OnLoaded(object aSender, RoutedEventArgs aE)

@@ -1,8 +1,12 @@
 ﻿using System;
+using Radiant.Common.Tasks.Triggers.Base;
 
 namespace Radiant.Common.Tasks.Triggers
 {
-    public class ScheduleTrigger : RadiantTrigger, ITrigger
+    /// <summary>
+    /// Trigger around a specific time schedule.
+    /// </summary>
+    public class ScheduleTrigger : ProcessesNotRunningTrigger, IRadiantTrigger
     {
         // ********************************************************************
         //                            Nested
@@ -65,6 +69,9 @@ namespace Radiant.Common.Tasks.Triggers
         // ********************************************************************
         public bool Evaluate()
         {
+            if (!base.Evaluate())
+                return false;
+
             DateTime _Now = DateTime.Now;
 
             if (IsTriggerBlockedByBlackOut(_Now))

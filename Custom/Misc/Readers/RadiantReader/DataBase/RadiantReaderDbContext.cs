@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Sqlite;
 
-namespace RadiantReader.DataBase
+namespace Radiant.Custom.Readers.RadiantReader.DataBase
 {
     /// <summary>
     /// This DbContext is to be used ONLY in server side. It may contains sensible information

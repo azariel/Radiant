@@ -1,31 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <Nullable>disable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<AssemblyName>Radiant.WebScraper.WebApi</AssemblyName>
+		<RootNamespace>Radiant.WebScraper.WebApi</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Models\**" />
-    <Content Remove="Models\**" />
-    <EmbeddedResource Remove="Models\**" />
-    <None Remove="Models\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Models\**" />
+		<Content Remove="Models\**" />
+		<EmbeddedResource Remove="Models\**" />
+		<None Remove="Models\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\RadiantCommon\RadiantCommon.csproj" />
-    <ProjectReference Include="..\RadiantWebScraper\RadiantWebScraper.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\RadiantCommon\RadiantCommon.csproj" />
+		<ProjectReference Include="..\RadiantWebScraper\RadiantWebScraper.csproj" />
+	</ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(ProjectDir)..\RadiantWebScraper\bin\Debug\geckodriver.exe&quot; &quot;$(TargetDir)geckodriver.exe&quot;&#xD;&#xA;copy /Y &quot;$(ProjectDir)..\RadiantWebScraper\bin\Debug\RadiantWebScrapersConfig.json&quot; &quot;$(ProjectDir)..\RadiantWebScraperWebApi\RadiantWebScrapersConfig.json&quot;&#xD;&#xA;" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy /Y &quot;$(ProjectDir)..\RadiantWebScraper\bin\Debug\geckodriver.exe&quot; &quot;$(TargetDir)geckodriver.exe&quot;&#xD;&#xA;" />
+	</Target>
 
 </Project>

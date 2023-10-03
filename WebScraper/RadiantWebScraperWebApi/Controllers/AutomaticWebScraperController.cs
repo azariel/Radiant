@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Radiant.WebScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper.Automatic.Selenium;
-using Radiant.WebScraper.Scrapers.Automatic.Selenium;
-using System.Net;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Radiant.WebScraper.RadiantWebScraper;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Automatic.Selenium;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Automatic.Selenium;
 
-namespace RadiantWebScraperWebApi.Controllers
+namespace Radiant.WebScraper.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]

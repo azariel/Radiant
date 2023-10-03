@@ -1,4 +1,4 @@
-﻿namespace RadiantBookCleaner.Cleaners
+﻿namespace Radiant.Custom.Readers.RadiantBookCleaner.Cleaners
 {
     public interface ICleaner
     {

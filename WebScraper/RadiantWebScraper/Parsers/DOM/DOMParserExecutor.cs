@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Radiant.Common.Business;
 using Radiant.Common.Diagnostics;
 
-namespace Radiant.WebScraper.Parsers.DOM
+namespace Radiant.WebScraper.RadiantWebScraper.Parsers.DOM
 {
     public static class DOMParserExecutor
     {

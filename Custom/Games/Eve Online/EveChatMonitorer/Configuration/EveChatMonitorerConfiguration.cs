@@ -1,6 +1,6 @@
-﻿using EveChatMonitorer.Models;
+﻿using Radiant.Custom.Games.EveOnline.EveChatMonitorer.Models;
 
-namespace EveChatMonitorer.Configuration
+namespace Radiant.Custom.Games.EveOnline.EveChatMonitorer.Configuration
 {
     public class EveChatMonitorerConfiguration
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase.Subscriptions
 {
     public class RadiantServerProductSubscriptionModel : RadiantProductSubscriptionModel
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Radiant.Common.Database.Sqlite;
 
-namespace Radiant.Custom.ProductsHistoryCommon.DataBase
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase
 {
     [Table("Products")]
     public class RadiantProductModel : RadiantSqliteBaseTable

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace EveRay.Watch
+namespace Radiant.Custom.Games.EveOnline.EveRay.Watch
 {
     public class WatchItemBitmapNoise : IWatchItemByBitmap
     {

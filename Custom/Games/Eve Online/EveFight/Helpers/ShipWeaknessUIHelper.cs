@@ -4,9 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using EveFight.Models;
+using Radiant.Custom.Games.EveOnline.EveFight.Models;
 
-namespace EveFight.Helpers
+namespace Radiant.Custom.Games.EveOnline.EveFight.Helpers
 {
     internal static class ShipWeaknessUIHelper
     {

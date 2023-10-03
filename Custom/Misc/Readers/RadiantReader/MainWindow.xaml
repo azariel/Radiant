@@ -1,9 +1,9 @@
-﻿<Window x:Class="RadiantReader.MainWindow"
+﻿<Window x:Class="Radiant.Custom.Readers.RadiantReader.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Views="clr-namespace:RadiantReader.Views"
+        xmlns:views="clr-namespace:Radiant.Custom.Readers.RadiantReader.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="250" WindowStartupLocation="Manual" AllowsTransparency="True" Background="Transparent" WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowDrop="True" Icon="Resources/logo.png">
     <Grid Name="MainGrid">
@@ -11,7 +11,7 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="8*" />
         </Grid.RowDefinitions>
-        <Views:HeaderUserControl x:Name="HeaderControl" Grid.Row="0" MinHeight="24" CloseButtonAvailable="True" ShowNewBooksAvailable="True" ShowNextAvailable="True" ShowPreviousAvailable="True" SettingsButtonAvailable="True" ShowDownloadAvailable="True" />
+        <views:HeaderUserControl x:Name="HeaderControl" Grid.Row="0" MinHeight="24" CloseButtonAvailable="True" ShowNewBooksAvailable="True" ShowNextAvailable="True" ShowPreviousAvailable="True" SettingsButtonAvailable="True" ShowDownloadAvailable="True" />
         <Grid Grid.Row="1" Name="GridContent">
         </Grid>
     </Grid>

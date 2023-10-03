@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace EveFight.UIElements;
+namespace Radiant.Custom.Games.EveOnline.EveFight.UIElements;
 
 [JsonConverter(typeof(StringEnumConverter))]
 public enum ThreatType

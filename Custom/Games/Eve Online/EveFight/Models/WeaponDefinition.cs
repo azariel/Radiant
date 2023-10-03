@@ -1,4 +1,4 @@
-﻿namespace EveFight.Models
+﻿namespace Radiant.Custom.Games.EveOnline.EveFight.Models
 {
     public class WeaponDefinition
     {

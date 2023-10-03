@@ -1,4 +1,4 @@
-﻿namespace EveFight.Configuration;
+﻿namespace Radiant.Custom.Games.EveOnline.EveFight.Configuration;
 
 public class ThreatDetermination
 {

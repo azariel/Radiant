@@ -1,7 +1,7 @@
-﻿using Radiant.Common.HttpClients.RestClient;
-using System.Net;
+﻿using System.Net;
+using Radiant.Common.HttpClients.RestClient;
 
-namespace RadiantClientWebScraper
+namespace Radiant.WebScraper.RadiantClientWebScraper
 {
     // TODO: make this generic, it's almost the same as AutomaticWebScraperClient
     public static class ManualWebScraperClient

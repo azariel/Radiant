@@ -1,9 +1,8 @@
-﻿using Radiant.WebScraper.Business.Objects.TargetScraper;
-using Radiant.WebScraper.Business.Objects.TargetScraper.Manual;
-using Radiant.WebScraper.Scrapers.Manual;
+﻿using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual;
 using Xunit;
 
-namespace Radiant.WebScraper.Tests.Scrapers.Manual
+namespace Radiant.WebScraper.RadiantWebScraper.Tests.Scrapers.Manual
 {
     public class ManualScraperTests
     {

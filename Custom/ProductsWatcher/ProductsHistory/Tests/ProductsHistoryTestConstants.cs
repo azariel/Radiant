@@ -1,4 +1,4 @@
-﻿namespace Radiant.Custom.ProductsHistory.Tests
+﻿namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tests
 {
     public class ProductsHistoryTestConstants
     {

@@ -1,4 +1,4 @@
-﻿namespace RadiantInputsManager.Windows
+﻿namespace Radiant.InputsManager.Windows
 {
     /// <summary>
     /// Enumeration for virtual keys.

@@ -1,4 +1,4 @@
-﻿namespace Radiant.WebScraper.Scrapers.Automatic.HTTPClient
+﻿namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Automatic.HTTPClient
 {
     public class HttpClientParserItemParser : IScraperItemParser { }
 }

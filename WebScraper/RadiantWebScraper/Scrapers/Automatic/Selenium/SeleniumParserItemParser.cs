@@ -1,6 +1,6 @@
-﻿using Radiant.WebScraper.Parsers.DOM;
+﻿using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
 
-namespace Radiant.WebScraper.Scrapers.Automatic.Selenium
+namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Automatic.Selenium
 {
     public class SeleniumParserItemParser : DOMParserItem { }
 }

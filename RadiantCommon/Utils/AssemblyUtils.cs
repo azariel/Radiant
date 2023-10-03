@@ -18,7 +18,7 @@ namespace Radiant.Common.Utils
             foreach (string _FilePath in aAssemblyFilesPath)
             {
                 if (!File.Exists(_FilePath))
-                    throw new Exception($"B729FD97-6217-4D40-AC70-E73C4BE18235 - Dependent custom library file [{_FilePath}] doesn't exists. Aborting.");
+                    throw new Exception($"B729FD97-6217-4D40-AC70-E73C4BE18235 - Dependent custom library file [{_FilePath}] doesn't exists. Aborting. ExecutingPath=[{Environment.CurrentDirectory}]");
             }
 
             foreach (string _FilePath in aAssemblyFilesPath)

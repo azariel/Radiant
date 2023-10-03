@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>Radiant.WindowsServer</RootNamespace>
+		<Authors>Azariel</Authors>
+		<Version>1.0.0.0</Version>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<AssemblyName>Radiant.Servers.RadiantWindowsServer</AssemblyName>
+		<RootNamespace>Radiant.Servers.RadiantWindowsServer</RootNamespace>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\radiant.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\RadiantCommon\RadiantCommon.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\radiant.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="RadiantWindowsServerConfig.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="copy /Y &quot;..\RadiantNotifier\bin\Debug\Radiant.Notifier.dll&quot; &quot;$(TargetDir)Radiant.Notifier.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\Misc\Readers\RadiantReader\bin\Debug\Radiant.Custom.Readers.RadiantReader.dll&quot; &quot;$(TargetDir)Radiant.Custom.Readers.RadiantReader.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistory\bin\Debug\Radiant.Custom.ProductsWatcher.ProductsHistory.dll&quot; &quot;$(TargetDir)Radiant.Custom.ProductsWatcher.ProductsHistory.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistoryCommon\bin\Debug\Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.dll&quot; &quot;$(TargetDir)Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.dll&quot;&#xD;&#xA;copy /Y &quot;..\WebScraper\RadiantWebScraper\bin\Debug\Radiant.WebScraper.RadiantWebScraper.dll&quot; &quot;$(TargetDir)Radiant.WebScraper.RadiantWebScraper.dll&quot;&#xD;&#xA;copy /Y &quot;..\RadiantInputsManager\bin\Debug\Radiant.InputsManager.dll&quot; &quot;$(TargetDir)Radiant.InputsManager.dll&quot;" />
+	</Target>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy /Y &quot;$(ProjectDir)..\WebScraper\RadiantWebScraper\bin\Debug\geckodriver.exe&quot; &quot;$(TargetDir)geckodriver.exe&quot;&#xD;&#xA;copy /Y &quot;..\RadiantCommon\bin\Debug\RadiantConfig.json&quot; &quot;$(TargetDir)RadiantConfig.json&quot;" />
+	</Target>
+
+</Project>

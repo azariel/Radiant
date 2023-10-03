@@ -1,10 +1,10 @@
-﻿using Radiant.Common.Diagnostics;
-using RadiantReader.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows.Documents;
+using Radiant.Common.Diagnostics;
+using Radiant.Custom.Readers.RadiantReader.Utils;
 
-namespace RadiantReader
+namespace Radiant.Custom.Readers.RadiantReader
 {
     internal class RadiantReaderFileLoader
     {

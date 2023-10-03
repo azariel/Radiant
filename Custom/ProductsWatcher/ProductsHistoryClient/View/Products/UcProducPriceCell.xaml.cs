@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ProductsHistoryClient.View.Products
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.View.Products
 {
     /// <summary>
     /// Interaction logic for UcProductRow.xaml

@@ -1,9 +1,9 @@
 ﻿using System.Threading;
-using Radiant.WebScraper.Business.Objects.TargetScraper.Automatic.Selenium;
-using Radiant.WebScraper.Scrapers.Automatic.Selenium;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Automatic.Selenium;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers.Automatic.Selenium;
 using Xunit;
 
-namespace Radiant.WebScraper.Tests.Scrapers.Selenium
+namespace Radiant.WebScraper.RadiantWebScraper.Tests.Scrapers.Selenium
 {
     public class SeleniumScraperTests
     {

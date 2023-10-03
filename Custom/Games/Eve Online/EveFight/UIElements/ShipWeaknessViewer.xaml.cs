@@ -6,11 +6,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using EveFight.Configuration;
-using EveFight.Helpers;
-using EveFight.Models;
+using Radiant.Custom.Games.EveOnline.EveFight.Configuration;
+using Radiant.Custom.Games.EveOnline.EveFight.Helpers;
+using Radiant.Custom.Games.EveOnline.EveFight.Models;
 
-namespace EveFight.UIElements
+namespace Radiant.Custom.Games.EveOnline.EveFight.UIElements
 {
     /// <summary>
     /// Interaction logic for ShipWeaknessViewer.xaml

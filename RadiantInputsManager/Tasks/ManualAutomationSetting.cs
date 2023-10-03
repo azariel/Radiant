@@ -1,6 +1,6 @@
-﻿using RadiantInputsManager.InputsParam;
+﻿using Radiant.InputsManager.InputsParam;
 
-namespace RadiantInputsManager.Tasks
+namespace Radiant.InputsManager.Tasks
 {
     public class ManualAutomationSetting
     {

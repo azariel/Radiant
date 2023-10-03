@@ -1,4 +1,4 @@
-﻿namespace RadiantInputsManager.Linux.xdotool
+﻿namespace Radiant.InputsManager.Linux.xdotool
 {
     public class MouseOptions
     {

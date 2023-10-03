@@ -35,7 +35,7 @@ namespace Radiant.Notifier.UnitTests.Notifications.Email
             };
             _MailRequest.ToAddresses = new List<string> { RadiantCommonUnitTestsConstants.EMAIL };
 
-            _EmailNotification.Send(_MailRequest);
+            Assert.True(_EmailNotification.Send(_MailRequest));
         }
     }
 }

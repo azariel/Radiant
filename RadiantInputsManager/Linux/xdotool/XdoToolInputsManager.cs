@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Radiant.Common.Diagnostics;
-using RadiantInputsManager.ExecutionResults;
-using RadiantInputsManager.InputsParam;
+using Radiant.InputsManager.ExecutionResults;
+using Radiant.InputsManager.InputsParam;
 
-namespace RadiantInputsManager.Linux.xdotool
+namespace Radiant.InputsManager.Linux.xdotool
 {
     public static class XdoToolInputsManager
     {

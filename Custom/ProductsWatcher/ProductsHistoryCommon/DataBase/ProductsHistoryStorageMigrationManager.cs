@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
-using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase.Subscriptions;
 
-namespace Radiant.Custom.ProductsHistoryCommon.DataBase
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase
 {
     /// <summary>
     /// Offer functionalities to migrate from Server database to Client one. 

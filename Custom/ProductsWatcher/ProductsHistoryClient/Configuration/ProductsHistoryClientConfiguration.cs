@@ -1,6 +1,6 @@
-﻿using Radiant.Custom.ProductsHistoryCommon.Configuration;
+﻿using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.Configuration;
 
-namespace ProductsHistoryClient.Configuration
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Configuration
 {
     public class ProductsHistoryClientConfiguration 
     {

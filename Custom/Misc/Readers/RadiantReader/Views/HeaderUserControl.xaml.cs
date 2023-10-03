@@ -5,12 +5,14 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
-using RadiantReader.Configuration;
-using RadiantReader.DataBase;
-using RadiantReader.Views.NewBooks;
-using RadiantReader.Views.Settings;
+using Radiant.Common.Diagnostics;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReader.Views.NewBooks;
+using Radiant.Custom.Readers.RadiantReader.Views.Settings;
 
-namespace RadiantReader.Views
+namespace Radiant.Custom.Readers.RadiantReader.Views
 {
     /// <summary>
     /// Interaction logic for HeaderUserControl.xaml
@@ -63,6 +65,14 @@ namespace RadiantReader.Views
             if (_Config.State.SelectedBook == null)
                 return;
 
+            if (!string.IsNullOrEmpty(_Config.State.SelectedBook.AlternativeBookPathOnDisk))
+            {
+                NextAlternativeChapter();
+                OpenReaderContentModule();
+                SetControlState();
+                return;
+            }
+
             using var _DataBaseContext = new RadiantReaderDbContext();
             _DataBaseContext.BookDefinitions.Load();
             _DataBaseContext.BookContent.Load();
@@ -88,6 +98,14 @@ namespace RadiantReader.Views
 
             if (_Config.State.SelectedBook == null)
                 return;
+
+            if (!string.IsNullOrEmpty(_Config.State.SelectedBook.AlternativeBookPathOnDisk))
+            {
+                PreviousAlternativeChapter();
+                OpenReaderContentModule();
+                SetControlState();
+                return;
+            }
 
             if (_Config.State.SelectedBook.BookChapterIndex > 0)
             {
@@ -117,6 +135,24 @@ namespace RadiantReader.Views
             });
         }
 
+        private void NextAlternativeChapter()
+        {
+            string _NewFilePath = AlternativeBookContentHelper.FindAlternativeChapterWithOffset(1);
+
+            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            if (_NewFilePath == null)
+            {
+                LoggingManager.LogToFile("c92bb8ca-3506-49ea-bd57-cc473babf43f", $"Can't find file for next chapter of following file [{_Config.State.SelectedBook.AlternativeBookPathOnDisk}].");
+                return;
+            }
+
+            _Config.State.SelectedBook.AlternativeBookPathOnDisk = _NewFilePath;
+            _Config.State.VerticalScrollbarOffset = 0;
+            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
+            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
+        }
+
         private void OpenReaderContentModule()
         {
             // Open reader content control
@@ -133,6 +169,24 @@ namespace RadiantReader.Views
             SetControlState();
         }
 
+        private void PreviousAlternativeChapter()
+        {
+            string _NewFilePath = AlternativeBookContentHelper.FindAlternativeChapterWithOffset(-1);
+
+            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            if (_NewFilePath == null)
+            {
+                LoggingManager.LogToFile("e9acc386-8e27-4dfd-a50e-54b93fed54fb", $"Can't find file for previous chapter of following file [{_Config.State.SelectedBook.AlternativeBookPathOnDisk}].");
+                return;
+            }
+
+            _Config.State.SelectedBook.AlternativeBookPathOnDisk = _NewFilePath;
+            _Config.State.VerticalScrollbarOffset = 0;
+            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
+            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
+        }
+
         private void SetChapterInfosUIRepresentation()
         {
             RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.GetConfigFromMemory();
@@ -141,7 +195,6 @@ namespace RadiantReader.Views
             _DataBaseContext.BookContent.Load();
 
             // Set chapter infos
-
             if (_Config.State.SelectedBook == null)
                 return;
 
@@ -150,6 +203,7 @@ namespace RadiantReader.Views
             if (_SelectedBook == null)
             {
                 // Don't throw, if the user may had loaded a book from disk instead of inStorage
+                lblChapterIndex.Content = $"chp.{AlternativeBookContentHelper.GetAlternativeChapterIndex(0)}";
                 return;
             }
 

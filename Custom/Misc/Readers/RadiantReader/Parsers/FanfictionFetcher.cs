@@ -1,10 +1,10 @@
 ﻿using System;
 using Radiant.Common.Diagnostics;
-using RadiantClientWebScraper;
-using RadiantReader.DataBase;
-using RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Utils;
+using Radiant.WebScraper.RadiantClientWebScraper;
 
-namespace RadiantReader.Parsers
+namespace Radiant.Custom.Readers.RadiantReader.Parsers
 {
     internal static class FanfictionFetcher
     {
@@ -26,8 +26,11 @@ namespace RadiantReader.Parsers
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static RadiantReaderBookChapter FetchNextChapterFromBookDefinition(RadiantReaderBookDefinitionModel aBookDefinition)
+        public static RadiantReaderBookChapter FetchNextChapterFromBookDefinition(
+            RadiantReaderBookDefinitionModel aBookDefinition, out bool shouldStop)
         {
+            shouldStop = false;
+
             if (aBookDefinition == null)
                 return null;
 
@@ -41,6 +44,7 @@ namespace RadiantReader.Parsers
 
             // Get DOM
             string _CurrentDOM = ManualWebScraperClient.GetDOMAsync(_CurrentChapterUrl).Result;
+            shouldStop = true;
 
             if (!DOMIsValidChapter(_CurrentDOM))
                 return null;

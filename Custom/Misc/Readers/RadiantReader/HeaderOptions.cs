@@ -1,4 +1,4 @@
-﻿namespace RadiantReader
+﻿namespace Radiant.Custom.Readers.RadiantReader
 {
     public class HeaderOptions
     {

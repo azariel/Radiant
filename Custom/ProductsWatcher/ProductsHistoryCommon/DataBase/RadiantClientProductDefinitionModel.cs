@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Radiant.Custom.ProductsHistoryCommon.DataBase
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase
 {
     public class RadiantClientProductDefinitionModel : RadiantProductDefinitionModel
     {

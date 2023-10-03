@@ -1,6 +1,6 @@
 ﻿using Radiant.Common.Serialization;
 
-namespace EveChatMonitorer.Configuration
+namespace Radiant.Custom.Games.EveOnline.EveChatMonitorer.Configuration
 {
     public static class EveChatMonitorerConfigurationManager
     {

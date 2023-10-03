@@ -1,10 +1,10 @@
-﻿using Radiant.Common.Database.Sqlite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Radiant.Common.Database.Sqlite;
 
-namespace RadiantReader.DataBase
+namespace Radiant.Custom.Readers.RadiantReader.DataBase
 {
     [Table("BookDefinitions")]
     public class RadiantReaderBookDefinitionModel : RadiantSqliteBaseTable

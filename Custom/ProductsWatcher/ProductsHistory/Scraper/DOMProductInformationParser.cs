@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Radiant.Common.Diagnostics;
-using Radiant.Custom.ProductsHistory.Parsers;
-using Radiant.WebScraper.Parsers.DOM;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
 
-namespace Radiant.Custom.ProductsHistory.Scraper
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
 {
     internal static class DOMProductInformationParser
     {

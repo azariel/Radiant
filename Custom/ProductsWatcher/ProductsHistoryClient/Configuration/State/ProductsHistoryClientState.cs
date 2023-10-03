@@ -1,4 +1,4 @@
-﻿namespace ProductsHistoryClient.Configuration.State
+﻿namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Configuration.State
 {
     public class ProductsHistoryClientState
     {

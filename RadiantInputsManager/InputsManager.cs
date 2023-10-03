@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
 using Radiant.Common.OSDependent;
-using RadiantInputsManager.ExecutionResults;
-using RadiantInputsManager.InputsParam;
-using RadiantInputsManager.Linux.xdotool;
-using RadiantInputsManager.Windows;
+using Radiant.InputsManager.ExecutionResults;
+using Radiant.InputsManager.InputsParam;
+using Radiant.InputsManager.Linux.xdotool;
+using Radiant.InputsManager.Windows;
 
-namespace RadiantInputsManager
+namespace Radiant.InputsManager
 {
     public static class InputsManager
     {

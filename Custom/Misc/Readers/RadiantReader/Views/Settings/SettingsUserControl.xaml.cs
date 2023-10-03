@@ -2,9 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
 
-namespace RadiantReader.Views.Settings
+namespace Radiant.Custom.Readers.RadiantReader.Views.Settings
 {
     /// <summary>
     /// Interaction logic for SettingsUserControl.xaml

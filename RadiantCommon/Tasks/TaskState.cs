@@ -3,6 +3,7 @@
     public enum TaskState
     {
         Idle,
+        InTriggerEvaluation,
         InProgress
     }
 }

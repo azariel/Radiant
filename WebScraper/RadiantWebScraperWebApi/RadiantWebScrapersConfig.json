@@ -1,19 +1,26 @@
 {
-    "$type": "Radiant.WebScraper.Configuration.WebScrapersConfiguration, RadiantWebScraper",
-    "SupportedBrowsers": [
-        {
-            "$type": "Radiant.WebScraper.Configuration.SupportedBrowserConfiguration, RadiantWebScraper",
-            "LinuxCommand": "chromium-browser",
-            "ExecutablePath": "C:\\Users\\cuser\\AppData\\Local\\Mozilla Firefox\\firefox.exe",
-            "NbMsToWaitOnBrowserStart":  7500, 
-            "SupportedBrowser": 0
-        },
-        {
-            "$type": "Radiant.WebScraper.Configuration.SupportedBrowserConfiguration, RadiantWebScraper",
-            "LinuxCommand": "chromium-browser",
-            "ExecutablePath": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
-            "NbMsToWaitOnBrowserStart": 7500,
-            "SupportedBrowser": 0
-        }
-    ]
+  "$type": "Radiant.WebScraper.RadiantWebScraper.Configuration.WebScrapersConfiguration, Radiant.WebScraper.RadiantWebScraper",
+  "SupportedBrowsers": [
+    {
+      "$type": "Radiant.WebScraper.RadiantWebScraper.Configuration.SupportedBrowserConfiguration, Radiant.WebScraper.RadiantWebScraper",
+      "LinuxCommand": "chromium-browser",
+      "ExecutablePath": "C:\\Users\\cuser\\AppData\\Local\\Mozilla Firefox\\firefox.exe",
+      "NbMsToWaitOnBrowserStart": 3000,
+      "SupportedBrowser": 0
+    },
+    {
+      "$type": "Radiant.WebScraper.RadiantWebScraper.Configuration.SupportedBrowserConfiguration, Radiant.WebScraper.RadiantWebScraper",
+      "LinuxCommand": "chromium-browser",
+      "ExecutablePath": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+      "NbMsToWaitOnBrowserStart": 3000,
+      "SupportedBrowser": 0
+    },
+    {
+      "$type": "Radiant.WebScraper.RadiantWebScraper.Configuration.SupportedBrowserConfiguration, Radiant.WebScraper.RadiantWebScraper",
+      "LinuxCommand": "chromium-browser",
+      "ExecutablePath": "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe",
+      "NbMsToWaitOnBrowserStart": 3000,
+      "SupportedBrowser": 0
+    }
+  ]
 }

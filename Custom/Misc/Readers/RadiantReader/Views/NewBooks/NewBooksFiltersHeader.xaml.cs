@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace RadiantReader.Views.NewBooks
+namespace Radiant.Custom.Readers.RadiantReader.Views.NewBooks
 {
     /// <summary>
     /// Interaction logic for NewBooksFiltersHeader.xaml

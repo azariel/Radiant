@@ -4,11 +4,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using Radiant.Common.Diagnostics;
-using Radiant.WebScraper.Configuration;
-using Radiant.WebScraper.Parsers.DOM;
-using Radiant.WebScraper.Scrapers;
+using Radiant.WebScraper.RadiantWebScraper.Configuration;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Scrapers;
 
-namespace Radiant.WebScraper.Business.Objects.TargetScraper.Automatic.Selenium
+namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Automatic.Selenium
 {
     public class SeleniumDOMTargetScraper : IScraperTarget
     {

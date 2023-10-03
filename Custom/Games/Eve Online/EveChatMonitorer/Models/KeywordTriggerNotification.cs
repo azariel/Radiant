@@ -1,4 +1,4 @@
-﻿namespace EveChatMonitorer.Models
+﻿namespace Radiant.Custom.Games.EveOnline.EveChatMonitorer.Models
 {
     public class KeywordTriggerNotification 
     {

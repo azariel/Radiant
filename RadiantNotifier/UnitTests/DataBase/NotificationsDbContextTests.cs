@@ -56,7 +56,7 @@ namespace Radiant.Notifier.UnitTests.DataBase
                 Assert.True(_DbContext.Notifications.Single().Sent);
             }
 
-            // Clean up TODO
+            // Clean up
             RemoveAllNotifications();
         }
     }

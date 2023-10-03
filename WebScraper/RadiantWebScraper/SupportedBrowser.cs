@@ -1,4 +1,4 @@
-﻿namespace Radiant.WebScraper
+﻿namespace Radiant.WebScraper.RadiantWebScraper
 {
     /// <summary>
     /// Supported browsers

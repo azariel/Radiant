@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Radiant.WebScraper.Parsers.DOM;
+using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
 
-namespace Radiant.Custom.ProductsHistory.Parsers
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers
 {
     public class ProductDOMParserItem : DOMParserItem
     {

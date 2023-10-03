@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Tests;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
-using Radiant.Custom.ProductsHistoryCommon.DataBase.Subscriptions;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase.Subscriptions;
 using Xunit;
 
-namespace Radiant.Custom.ProductsHistory.Tests.DataBase
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tests.DataBase
 {
     public class ProductsDbContextTests
     {

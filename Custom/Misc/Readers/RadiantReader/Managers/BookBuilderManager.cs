@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using RadiantReader.Business;
-using RadiantReader.DataBase;
-using RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReader.Business;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Utils;
 
-namespace RadiantReader.Managers
+namespace Radiant.Custom.Readers.RadiantReader.Managers
 {
     public static class BookBuilderManager
     {

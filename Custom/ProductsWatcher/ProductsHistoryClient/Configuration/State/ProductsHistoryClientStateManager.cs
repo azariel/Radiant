@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Radiant.Common.Serialization;
 
-namespace ProductsHistoryClient.Configuration.State
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Configuration.State
 {
     public static class ProductsHistoryClientStateManager
     {

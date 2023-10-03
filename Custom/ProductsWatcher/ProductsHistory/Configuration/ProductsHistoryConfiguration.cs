@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Radiant.Custom.ProductsHistory.Parsers;
-using Radiant.Custom.ProductsHistory.Scraper;
-using Radiant.Custom.ProductsHistoryCommon.Configuration;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.Configuration;
 
-namespace Radiant.Custom.ProductsHistory.Configuration
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration
 {
     public class ProductsHistoryConfiguration
     {

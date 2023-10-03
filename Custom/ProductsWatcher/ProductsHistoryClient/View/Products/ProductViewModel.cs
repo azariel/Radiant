@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Windows;
 using Radiant.Common.Utils;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 
-namespace ProductsHistoryClient.View.Products
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.View.Products
 {
     public class ProductViewModel
     {

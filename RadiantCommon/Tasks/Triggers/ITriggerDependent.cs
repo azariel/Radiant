@@ -7,6 +7,6 @@ namespace Radiant.Common.Tasks.Triggers
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        List<ITrigger> Triggers { get; set; }
+        List<IRadiantTrigger> Triggers { get; set; }
     }
 }

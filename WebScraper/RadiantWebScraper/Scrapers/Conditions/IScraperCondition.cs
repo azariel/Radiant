@@ -1,4 +1,4 @@
-﻿namespace Radiant.WebScraper.Scrapers.Conditions
+﻿namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Conditions
 {
     public interface IScraperCondition
     {

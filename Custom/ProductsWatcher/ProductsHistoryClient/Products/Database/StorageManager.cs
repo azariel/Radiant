@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 
-namespace ProductsHistoryClient.Products.Database
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Products.Database
 {
     public static class StorageManager
     {

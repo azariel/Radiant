@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using Radiant.Common.Tasks.Triggers;
+﻿using Radiant.Common.Tasks.Triggers;
+using System.Diagnostics;
 
 namespace Radiant.Common.Tasks
 {

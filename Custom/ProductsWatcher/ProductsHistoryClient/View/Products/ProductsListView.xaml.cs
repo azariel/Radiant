@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Radiant.Custom.ProductsHistoryCommon.DataBase;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 
-namespace ProductsHistoryClient.View.Products
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.View.Products
 {
     /// <summary>
     /// Interaction logic for ProductsListView.xaml

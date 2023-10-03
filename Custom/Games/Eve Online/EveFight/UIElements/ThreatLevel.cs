@@ -1,4 +1,4 @@
-﻿namespace EveFight.UIElements;
+﻿namespace Radiant.Custom.Games.EveOnline.EveFight.UIElements;
 
 public enum ThreatLevel
 { 

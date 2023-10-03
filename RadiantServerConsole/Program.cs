@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 using Radiant.Common.Configuration;
 using Radiant.Common.Tasks;
 using Radiant.Common.Utils;
-using Radiant.ServerConsole.Configuration;
-using RadiantInputsManager;
-using RadiantInputsManager.InputsParam;
+using Radiant.Servers.RadiantServerConsole.Configuration;
 
-namespace Radiant.ServerConsole
+namespace Radiant.Servers.RadiantServerConsole
 {
     internal class Program
     {
@@ -21,21 +19,13 @@ namespace Radiant.ServerConsole
         // ********************************************************************
         //                            Private
         // ********************************************************************
+        private static readonly object Lock = new();
+
         private static void Main(string[] args)
         {
             StartBackgroundProcesses();
             Console.WriteLine("-----Please choose and option-----");
             Console.WriteLine("0) Exit");
-
-            //InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
-            //{
-            //    Delay = 460,
-            //    KeyStrokeCodes = new[]
-            //    {
-            //        Keycode.XK_Control_L,
-            //        Keycode.XK_c
-            //    }
-            //});
 
             ConsoleKeyInfo _Key = Console.ReadKey();
             switch (_Key.Key)
@@ -43,56 +33,6 @@ namespace Radiant.ServerConsole
                 case ConsoleKey.D0 or ConsoleKey.NumPad0:
                     Environment.Exit(0);
                     break;
-
-                    //case ConsoleKey.D1 or ConsoleKey.NumPad1:
-                    //    Console.Clear();
-                    //    Console.WriteLine("-----Inputs Manager-----");
-                    //    Console.WriteLine("---Status---");
-
-                    //    RadiantConfig _test = new();
-                    //    _test.Tasks.Tasks.Add(new ManualAutomationTask
-                    //    {
-                    //        Triggers = new List<ITrigger>
-                    //        {
-                    //            new ScheduleTrigger
-                    //            {
-                    //                TriggerEverySeconds = 10,
-                    //                //ResetTriggeredTimesOnStart = true
-                    //            }
-                    //        },
-                    //        Settings = new List<ManualAutomationSetting>
-                    //        {
-                    //            new()
-                    //            {
-                    //                ManualAutomationOperationType = ManualAutomation.ManualAutomationOperationType.MouseClick,
-                    //                InputParam = new MouseActionInputParam
-                    //                {
-                    //                    X = 5,
-                    //                    Y = 6,
-                    //                    Button = MouseOptions.MouseButtons.Left
-                    //                }
-                    //            }
-                    //        },
-                    //        IsEnabled = true
-                    //    });
-
-                    //    _test.Tasks.Tasks.Add(new ProductsMonitorTask
-                    //    {
-                    //        Triggers = new List<ITrigger>
-                    //        {
-                    //            new ScheduleTrigger
-                    //            {
-                    //                TriggerEverySeconds = 10,
-                    //            }
-                    //        },
-                    //        IsEnabled = true
-                    //    });
-                    //    CommonConfigurationManager.SetConfigInMemory(_test);
-                    //    CommonConfigurationManager.SaveConfigInMemoryToDisk();
-
-                    //    RadiantConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
-
-                    //    break;
             }
 
 
@@ -108,6 +48,7 @@ namespace Radiant.ServerConsole
             {
                 IsBackground = true
             };
+
             _TaskRunnerThread.Start();
         }
 
@@ -130,14 +71,46 @@ namespace Radiant.ServerConsole
                 // Evaluate each tasks async to avoid blocking evaluation of other tasks
                 foreach (IRadiantTask _RadiantTask in _RadiantConfig.Tasks.Tasks.Where(w => w.IsEnabled && w.State == TaskState.Idle))
                 {
-                    lock (_RadiantTask.TaskLockObject)
+                    // If there's a running foreground task, ignore all tasks requiring foreground exclusivity
+
+                    lock (Lock)
                     {
-                        _RadiantTask.State = TaskState.InProgress;
+                        lock (_RadiantTask.TaskLockObject)
+                        {
+                            if (_RadiantTask.State == TaskState.InProgress)
+                                continue;
+
+                            _RadiantTask.State = TaskState.InTriggerEvaluation;
+                        }
                     }
 
+                    // Copy reference for our new Task
+                    IRadiantTask _CurrentRadiantTask = _RadiantTask;
                     Task.Run(() =>
                     {
-                        _RadiantTask.EvaluateTriggers();
+                        _CurrentRadiantTask.EvaluateTriggers(() =>
+                        {
+                            lock (Lock)
+                            {
+                                IRadiantTask _TaskFromLiveList = _RadiantConfig.Tasks.Tasks.Single(s => s.UID == _CurrentRadiantTask.UID);
+                                lock (_TaskFromLiveList.TaskLockObject)
+                                {
+                                    if (_TaskFromLiveList.State != TaskState.InTriggerEvaluation)
+                                        return false;
+
+                                    if (_RadiantConfig.Tasks.Tasks.Any(a =>
+                                            a.IsEnabled &&
+                                            a.State == TaskState.InProgress &&
+                                            a.IsForegroundExclusive))
+                                    {
+                                        return false;
+                                    }
+
+                                    _TaskFromLiveList.State = TaskState.InProgress;
+                                    return true;
+                                }
+                            }
+                        }, null);
                     });
                 }
 

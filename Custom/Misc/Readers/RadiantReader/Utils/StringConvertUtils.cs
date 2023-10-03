@@ -1,14 +1,13 @@
-﻿using Radiant.Common.Diagnostics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Documents;
 using System.Xml;
+using Radiant.Common.Diagnostics;
 
-namespace RadiantReader.Utils
+namespace Radiant.Custom.Readers.RadiantReader.Utils
 {
     public static class StringConvertUtils
     {
@@ -25,7 +24,7 @@ namespace RadiantReader.Utils
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private static Regex HrFinderRegex = new Regex("<hr.*>");
+        private static Regex HrFinderRegex = new Regex("<hr.*?>");
 
         // ********************************************************************
         //                            Public
@@ -41,8 +40,7 @@ namespace RadiantReader.Utils
                                      .Replace("amp;", "")
                                      .Replace("nbsp;", " ");
 
-            Regex _Regex = new Regex("<hr.*>");
-            _ChapterContent = _Regex.Replace(_ChapterContent, "");
+            _ChapterContent = HrFinderRegex.Replace(_ChapterContent, "");
 
             // Replace tags by regex
             // ex: <hr size="1" noshade=""> should become <hr />

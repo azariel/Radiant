@@ -1,4 +1,4 @@
-﻿namespace Radiant.WebScraper.Configuration
+﻿namespace Radiant.WebScraper.RadiantWebScraper.Configuration
 {
     public class SupportedBrowserConfiguration
     {

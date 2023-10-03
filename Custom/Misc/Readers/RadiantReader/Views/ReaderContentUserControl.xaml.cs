@@ -7,11 +7,11 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
-using RadiantReader.Configuration;
-using RadiantReader.DataBase;
-using RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReader.Utils;
 
-namespace RadiantReader.Views
+namespace Radiant.Custom.Readers.RadiantReader.Views
 {
     /// <summary>
     /// Interaction logic for ReaderContentUserControl.xaml
@@ -137,6 +137,12 @@ namespace RadiantReader.Views
             TextContentTextBlock.Inlines.Clear();
             TextContentTextBlock.Text = "";// Start by emptying it just to be sure we don't forget anything
             TextContentTextBlock.Inlines.AddRange(aLineElements);
+        }
+
+        public void Reload()
+        {
+            LoadBookContentFromConfig();
+            SetControlState();
         }
     }
 }

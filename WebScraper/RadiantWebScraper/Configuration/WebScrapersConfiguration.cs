@@ -5,7 +5,7 @@ using System.Linq;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent;
 
-namespace Radiant.WebScraper.Configuration
+namespace Radiant.WebScraper.RadiantWebScraper.Configuration
 {
     public class WebScrapersConfiguration
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Radiant.Custom.ProductsHistory.Resources {
+namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Radiant.Custom.ProductsHistory.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Radiant.Custom.ProductsHistory.Resources.UnitTestsResources", typeof(UnitTestsResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Radiant.Custom.ProductsWatcher.ProductsHistory.Resources.UnitTestsResources", typeof(UnitTestsResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

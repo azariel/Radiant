@@ -1,6 +1,6 @@
-﻿using RadiantInputsManager.Linux.xdotool;
+﻿using Radiant.InputsManager.Linux.xdotool;
 
-namespace RadiantInputsManager.InputsParam
+namespace Radiant.InputsManager.InputsParam
 {
     public class MouseActionInputParam : IMouseActionInputParam
     {

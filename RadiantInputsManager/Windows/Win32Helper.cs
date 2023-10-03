@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using RadiantInputsManager.Linux.xdotool;
+using Radiant.InputsManager.Linux.xdotool;
 
-namespace RadiantInputsManager.Windows
+namespace Radiant.InputsManager.Windows
 {
     public static class Win32Helper
     {
@@ -96,11 +96,32 @@ namespace RadiantInputsManager.Windows
                 Keycode.XK_Down => (byte)WindowsVirtualKeys.Down,
                 Keycode.XK_Up => (byte)WindowsVirtualKeys.Up,
                 Keycode.XK_Escape => (byte)WindowsVirtualKeys.Escape,
-                Keycode.XK_u => (byte)WindowsVirtualKeys.U,
                 Keycode.XK_a => (byte)WindowsVirtualKeys.A,
+                Keycode.XK_b => (byte)WindowsVirtualKeys.B,
                 Keycode.XK_c => (byte)WindowsVirtualKeys.C,
+                Keycode.XK_d => (byte)WindowsVirtualKeys.D,
+                Keycode.XK_e => (byte)WindowsVirtualKeys.E,
                 Keycode.XK_f => (byte)WindowsVirtualKeys.F,
+                Keycode.XK_g => (byte)WindowsVirtualKeys.G,
+                Keycode.XK_h => (byte)WindowsVirtualKeys.H,
+                Keycode.XK_i => (byte)WindowsVirtualKeys.I,
+                Keycode.XK_j => (byte)WindowsVirtualKeys.J,
+                Keycode.XK_k => (byte)WindowsVirtualKeys.K,
+                Keycode.XK_l => (byte)WindowsVirtualKeys.L,
+                Keycode.XK_m => (byte)WindowsVirtualKeys.M,
+                Keycode.XK_n => (byte)WindowsVirtualKeys.N,
+                Keycode.XK_o => (byte)WindowsVirtualKeys.O,
+                Keycode.XK_p => (byte)WindowsVirtualKeys.P,
+                Keycode.XK_q => (byte)WindowsVirtualKeys.Q,
+                Keycode.XK_r => (byte)WindowsVirtualKeys.R,
+                Keycode.XK_s => (byte)WindowsVirtualKeys.S,
+                Keycode.XK_t => (byte)WindowsVirtualKeys.T,
+                Keycode.XK_u => (byte)WindowsVirtualKeys.U,
+                Keycode.XK_v => (byte)WindowsVirtualKeys.V,
                 Keycode.XK_w => (byte)WindowsVirtualKeys.W,
+                Keycode.XK_x => (byte)WindowsVirtualKeys.X,
+                Keycode.XK_y => (byte)WindowsVirtualKeys.Y,
+                Keycode.XK_z => (byte)WindowsVirtualKeys.Z,
                 Keycode.XK_End => (byte)WindowsVirtualKeys.End,
                 Keycode.XK_Home => (byte)WindowsVirtualKeys.Home,
                 _ => throw new ArgumentOutOfRangeException(nameof(aKeyCode), aKeyCode, null)
