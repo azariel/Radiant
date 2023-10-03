@@ -6,7 +6,7 @@
       // Update products price history in foreground
       {
         "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.ProductsMonitorTask, Radiant.Custom.ProductsWatcher.ProductsHistory",
-        "IsEnabled": true,
+        "IsEnabled": false,
         "IsForegroundExclusive": true,
         "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
         "Triggers": [
@@ -14,7 +14,7 @@
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "01:00:00",
+              "BlackOutEnd": "17:00:00",
               "BlackOutStart": "18:30:00"
             },
             // avoid running when a VM is running
