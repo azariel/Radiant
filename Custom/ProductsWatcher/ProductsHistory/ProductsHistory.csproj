@@ -15,7 +15,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="xunit" Version="2.5.1" />
 		<PackageReference Include="xunit.analyzers" Version="1.3.0" />
 		<PackageReference Include="xunit.assert" Version="2.5.1" />
@@ -58,7 +58,7 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;..\..\..\RadiantServerConsole\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)\ProductsRemoteServiceKeys.json&quot; &quot;..\..\..\RadiantServerConsole\bin\Debug\ProductsRemoteServiceKeys.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)\RadiantProductsHistoryConfig.json&quot; &quot;..\..\..\RadiantWindowsServer\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)\ProductsRemoteServiceKeys.json&quot; &quot;..\..\..\RadiantWindowsServer\bin\Debug\ProductsRemoteServiceKeys.json&quot;" />
+		<Exec Command="copy /Y &quot;$(TargetDir)RadiantProductsHistoryConfig.json&quot; &quot;$(SolutionDir)RadiantServerConsole\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)ProductsRemoteServiceKeys.json&quot; &quot;$(SolutionDir)RadiantServerConsole\bin\Debug\ProductsRemoteServiceKeys.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)RadiantProductsHistoryConfig.json&quot; &quot;$(SolutionDir)RadiantWindowsServer\bin\Debug\RadiantProductsHistoryConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)ProductsRemoteServiceKeys.json&quot; &quot;$(SolutionDir)RadiantWindowsServer\bin\Debug\ProductsRemoteServiceKeys.json&quot;&#xD;&#xA;copy /Y &quot;$(SolutionDir)RadiantCommon\bin\Debug\API\Google\radiant-401111-51788a83823c.json&quot; &quot;$(TargetDir)\radiant-401111-51788a83823c.json&quot;" />
 	</Target>
 
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">

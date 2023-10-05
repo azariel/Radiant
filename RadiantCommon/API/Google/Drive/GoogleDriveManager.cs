@@ -11,7 +11,7 @@ using Radiant.Common.Diagnostics;
 using Radiant.Common.Utils;
 using File = Google.Apis.Drive.v3.Data.File;
 
-namespace Radiant.Common.API.GoogleDrive
+namespace Radiant.Common.API.Google.Drive
 {
     public class GoogleDriveManager
     {
@@ -30,6 +30,14 @@ namespace Radiant.Common.API.GoogleDrive
         //                            Private
         // ********************************************************************
         private readonly string fJsonServiceKeyFilePath;
+        private readonly string[] fScopes =
+        {
+            DriveService.Scope.Drive,// View and manage the files in your Google Drive
+            DriveService.Scope.DriveAppdata,// View and manage its own configuration data in your Google Drive
+            DriveService.Scope.DriveFile,// View and manage Google Drive files and folders that you have opened or created with this app
+            DriveService.Scope.DriveMetadata,// View and manage metadata of files in your Google Drive
+            DriveService.Scope.DriveScripts
+        };
 
         private DriveService AuthenticateServiceAccount()
         {
@@ -43,19 +51,9 @@ namespace Radiant.Common.API.GoogleDrive
                     throw new Exception("The service account credentials .JSon file does not exist at:" + _JsonServiceKeyFileName);
 
                 // These are the scopes of permissions you need. It is best to request only what you need and not all of them
-                string[] scopes =
-                {
-                    DriveService.Scope.Drive,// View and manage the files in your Google Drive
-                    DriveService.Scope.DriveAppdata,// View and manage its own configuration data in your Google Drive
-                    DriveService.Scope.DriveFile,// View and manage Google Drive files and folders that you have opened or created with this app
-                    DriveService.Scope.DriveMetadata,// View and manage metadata of files in your Google Drive
-                    //DriveService.Scope.DriveMetadataReadonly,// View metadata for files in your Google Drive
-                    //DriveService.Scope.DrivePhotosReadonly,// View the photos, videos and albums in your Google Photos
-                    //DriveService.Scope.DriveReadonly,// View the files in your Google Drive
-                    DriveService.Scope.DriveScripts
-                };// Modify your Google Apps Script scripts' behavior
+                
                 Stream stream = new FileStream(_JsonServiceKeyFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                var credential = GoogleCredential.FromStream(stream).CreateScoped(scopes);
+                var credential = GoogleCredential.FromStream(stream).CreateScoped(fScopes);
 
                 // Create the  Drive service.
                 return new DriveService(new BaseClientService.Initializer
@@ -63,7 +61,8 @@ namespace Radiant.Common.API.GoogleDrive
                     HttpClientInitializer = credential,
                     ApplicationName = "Drive Authentication Sample"
                 });
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 //Console.WriteLine("Create service account DriveService failed" + ex.Message);
                 throw new Exception("CreateServiceAccountDriveServiceFailed", ex);
@@ -119,7 +118,8 @@ namespace Radiant.Common.API.GoogleDrive
                 DriveService _DriveService = AuthenticateServiceAccount();
                 foreach (string _FileId in aFileIds)
                     _DriveService.Files.Delete(_FileId).Execute();
-            } catch (Exception _Exception)
+            }
+            catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("2B6A1983-0923-4D7F-858A-9A4DC1325BF5", $"Couldn't delete document content. FileIDs were [{string.Join(",", aFileIds)}].", _Exception);
                 return false;
@@ -138,7 +138,8 @@ namespace Radiant.Common.API.GoogleDrive
                 GeneratedIds _GeneratedIds = _GeneratedIdsRequest.Execute();
 
                 return _GeneratedIds.Ids.Single();
-            } catch (Exception _Exception)
+            }
+            catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("DE6FBEF8-E72E-4A16-9312-912434A9E4A3", "Couldn't generate new file id from google service.", _Exception);
                 return null;
@@ -156,7 +157,8 @@ namespace Radiant.Common.API.GoogleDrive
                 // Delete folder by folder
                 var _FoldersList = _DriveService.Drives.List().Execute();
                 DeleteFiles(_FoldersList.Drives.Select(s => s.Id).ToArray());
-            } catch (Exception _Exception)
+            }
+            catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("ECC062C5-DC1A-40B8-8D1E-17A6B032979E", "Couldn't prune everything.", _Exception);
                 return false;
@@ -198,7 +200,8 @@ namespace Radiant.Common.API.GoogleDrive
                 File _File = _Request.ResponseBody;
 
                 return _File.Id;
-            } catch (Exception _Exception)
+            }
+            catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("FFEAF804-B0F8-425B-A910-7139A3AC3915", $"Couldn't create new document. Filename was [{aFileNameWithExtension}].", _Exception);
                 return null;
@@ -239,7 +242,8 @@ namespace Radiant.Common.API.GoogleDrive
                 _FileRequest.Download(_MemoryStream);
 
                 return _MemoryStream.ToArray();
-            } catch (Exception _Exception)
+            }
+            catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("E820BF3F-AFFD-4910-9A78-F179CE82ADB7", $"Couldn't fetch document content as string. FileID was [{aFileID}].", _Exception);
                 return null;
@@ -254,7 +258,8 @@ namespace Radiant.Common.API.GoogleDrive
 
                 string _StringContent = Encoding.ASCII.GetString(_StreamContent.ToArray());
                 return _StringContent;
-            } catch (Exception _Exception)
+            }
+            catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("45A0DB98-5723-4CD6-A8AF-611942064B04", $"Couldn't fetch document content as string. FileID was [{aFileID}].", _Exception);
                 return null;
@@ -270,7 +275,8 @@ namespace Radiant.Common.API.GoogleDrive
                 _FileRequest.Fields = aFieldsToSelect;
 
                 return _FileRequest.Execute();
-            } catch (Exception _Exception)
+            }
+            catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("1CD25C90-37DA-4B2F-97E3-FE6F9F998354", $"Couldn't fetch document. FileID was [{aFileId}].", _Exception);
             }
@@ -299,10 +305,12 @@ namespace Radiant.Common.API.GoogleDrive
 
                 if (_MediaUpload.Status == UploadStatus.Failed)
                     LoggingManager.LogToFile("2BA3A24F-2EEC-4666-A130-30EAA0A312BB", $"Couldn't update document content. Request failed. FileID was [{aFileId}].");
-            } catch (Exception _Exception)
+            }
+            catch (Exception _Exception)
             {
                 LoggingManager.LogToFile("F253BAFE-30A4-4DB7-8A85-22D3F643C7B6", $"Couldn't update document content. FileID was [{aFileId}].", _Exception);
-            } finally
+            }
+            finally
             {
                 aFileContentStream.Close();
             }

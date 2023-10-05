@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Radiant.Common.API.GoogleDrive;
+using Radiant.Common.API.Google.Drive;
 using Xunit;
 
 namespace Radiant.Common.Tests.API.GoogleDrive
