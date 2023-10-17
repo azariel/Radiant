@@ -1,6 +1,6 @@
 ﻿using System;
 using Google.Apis.Drive.v3.Data;
-using Radiant.Common.API.GoogleDrive;
+using Radiant.Common.API.Google.Drive;
 using Radiant.Common.Diagnostics;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Configuration;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Configuration.State;

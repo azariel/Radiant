@@ -19,8 +19,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Google.Apis.Auth" Version="1.56.0" />
-		<PackageReference Include="Google.Apis.Drive.v3" Version="1.56.0.2601" />
+		<PackageReference Include="Google.Apis.Auth" Version="1.62.1" />
+		<PackageReference Include="Google.Apis.Drive.v3" Version="1.62.0.3155" />
+		<PackageReference Include="Google.Apis.Sheets.v4" Version="1.62.0.3148" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.11" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.11" />
@@ -35,7 +36,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="SQLite" Version="3.13.0" />
 		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
 		<PackageReference Include="xunit" Version="2.5.1" />
@@ -49,11 +50,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="API\GoogleDrive\gdriveoauth.json">
+		<None Update="API\Google\Drive\gdriveoauth.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Update="API\GoogleDrive\radiant-319014-d7d51b9a40d1.json">
+		<None Update="API\Google\Drive\radiant-319014-d7d51b9a40d1.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="API\Google\radiant-401111-51788a83823c.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="RadiantConfig.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

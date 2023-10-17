@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Radiant.Common.API.GoogleDrive;
+using Radiant.Common.API.Google.Drive;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
 using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
