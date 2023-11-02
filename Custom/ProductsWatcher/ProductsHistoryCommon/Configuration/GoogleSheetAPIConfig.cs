@@ -1,10 +1,10 @@
-﻿namespace Radiant.Custom.ProductsWatcher.ProductsHistoryClient.Configuration.State
+﻿namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.Configuration
 {
-    public class ProductsHistoryClientState
+    public class GoogleSheetAPIConfig
     {
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public ProductsHistoryClientStateDataBase RemoteDataBaseState { get; set; } = new();
+        public string SpreadSheetFileId { get; set; }
     }
 }

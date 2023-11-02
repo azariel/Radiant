@@ -24,9 +24,11 @@ namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Ma
         // ********************************************************************
         //                            Private
         // ********************************************************************
+        private const string DEBUG_FILENAME = "DOMScraperOps.txt";
+
         private void CloseInspector()
         {
-            File.AppendAllText(@"C:\temp\test.txt", $"Close Inspector.{Environment.NewLine}");
+            File.AppendAllText(DEBUG_FILENAME, $"Close Inspector.{Environment.NewLine}");
             InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 120,
@@ -40,10 +42,10 @@ namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Ma
 
         private void ExtractDOM()
         {
-            File.AppendAllText(@"C:\temp\test.txt", $"ExtractDOM start.{Environment.NewLine}");
+            File.AppendAllText(DEBUG_FILENAME, $"ExtractDOM start.{Environment.NewLine}");
             // Get DOM
             ShowAndFocusDOMInInspector();
-            File.AppendAllText(@"C:\temp\test.txt", $"ExtractDOM done.{Environment.NewLine}");
+            File.AppendAllText(DEBUG_FILENAME, $"ExtractDOM done.{Environment.NewLine}");
 
             // Clear clipboard
             ClipboardManager.SetClipboardValue("");
@@ -76,7 +78,8 @@ namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Ma
 
         private void ShowAndFocusDOMInInspector()
         {
-            File.AppendAllText(@"C:\temp\test.txt", $"Focus DOM in Inspector.{Environment.NewLine}");
+            File.AppendAllText(DEBUG_FILENAME, $"Focus DOM in Inspector.{Environment.NewLine}");
+
             // Note that it's the same in every supported browser (atm)
             InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
@@ -86,7 +89,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Ma
                     Keycode.XK_F12
                 }
             });
-            WaitForBrowserInputsReadyOrMax(3154);
+            WaitForBrowserInputsReadyOrMax(2054);
 
             InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {

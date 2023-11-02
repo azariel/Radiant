@@ -5,6 +5,8 @@ using Google.Apis.Sheets.v4.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Engine;
+using Radiant.Common.Diagnostics;
 using Radiant.Common.Serialization;
 
 namespace Radiant.Common.API.Google.Sheets
@@ -49,14 +51,14 @@ namespace Radiant.Common.API.Google.Sheets
 
             try
             {
-                string range = $"{sheetId}!A1:ZZ";
-                string valueInputOption = "USER_ENTERED";
+                string _Range = $"{sheetId}!A1:ZZ";
+                const string valueInputOption = "USER_ENTERED";
 
                 // The new values to apply to the spreadsheet.
                 List<ValueRange> _Data = new();
                 var _Values = new ValueRange();
 
-                _Values.Range = range;
+                _Values.Range = _Range;
                 _Values.Values = googleSheetData.RowDataCollection.Select(s => s.RowCellData).ToArray();
 
                 // add values to the data ValueRange List
@@ -67,17 +69,17 @@ namespace Radiant.Common.API.Google.Sheets
                 //requestBody.IncludeValuesInResponse = true;
                 requestBody.Data = _Data;
 
-                var request = fSheetsService.Spreadsheets.Values.BatchUpdate(requestBody, spreadSheetId);
+                var _Request = fSheetsService.Spreadsheets.Values.BatchUpdate(requestBody, spreadSheetId);
 
-                request.Execute();
+                _Request.Execute();
                 //IList<IList<object>> updatedValues = response.Responses[0].UpdatedData.Values;
                 // Data.BatchUpdateValuesResponse response = await request.ExecuteAsync(); // For async 
 
                 // TODO: Validate that the update was correctly executed
             }
-            catch (Exception ex)
+            catch (Exception _Ex)
             {
-                // TODO: logs
+                LoggingManager.LogToFile("72a168d4-d80d-4e63-a85f-1caed24d85ff", $"Couldn't update remote google sheet (tab) [{sheetId}] of spreadSheetId [{spreadSheetId}].", _Ex);
                 return false;
             }
             return true;

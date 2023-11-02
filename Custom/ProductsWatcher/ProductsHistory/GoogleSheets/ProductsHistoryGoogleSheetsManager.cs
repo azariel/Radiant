@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Google.Apis.Sheets.v4.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Radiant.Common.API.Google.Sheets;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistory.GoogleSheets
 {
     public static class ProductsHistoryGoogleSheetsManager
     {
-        private const string DATA_SPREAD_SHEET_ID = "13TnLPl-iUP-7FbvJXaLBPwhd3-F92Uzo-dtLcr-icBM"; // TODO: config
-        private const string DATA_SHEET_ID = "AUTO_Data";
-        private const int INT_DAYS_TO_EXPORT = 1825; // 5 years
         private static RadiantGoogleSheetsApi fGoogleSheetsApi;
 
         public static void Authenticate()
@@ -32,7 +29,8 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.GoogleSheets
 
         public static bool UpdateDataSheet(GoogleSheetData googleSheetData, string dataSheetId = null)
         {
-            return fGoogleSheetsApi.UpdateSheet(dataSheetId, DATA_SPREAD_SHEET_ID, googleSheetData);
+            var _Config = ProductsHistoryConfigurationManager.ReloadConfig();
+            return fGoogleSheetsApi.UpdateSheet(dataSheetId, _Config.GoogleSheetAPIConfig.SpreadSheetFileId, googleSheetData);
         }
 
         public static bool UpdateDataSheetWithProductsInStorage(string dataSheetId = null)
@@ -56,8 +54,9 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.GoogleSheets
             _GoogleSheetData.RowDataCollection.Add(_HeaderRowData);
 
             var _Now = DateTime.Now;
-            List<GoogleSheetRowData> _RowsData = new(INT_DAYS_TO_EXPORT);
-            for (int i = 0; i < INT_DAYS_TO_EXPORT; i++)
+            var _Config = ProductsHistoryConfigurationManager.ReloadConfig();
+            List<GoogleSheetRowData> _RowsData = new(_Config.GoogleSheetProductsExportData.NbDaysToExport);
+            for (int i = 0; i < _Config.GoogleSheetProductsExportData.NbDaysToExport; i++)
             {
                 _RowsData.Add(new GoogleSheetRowData
                 {
@@ -74,9 +73,8 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.GoogleSheets
                 // Add prices by date day by day
                 IGrouping<DateTime, RadiantServerProductHistoryModel>[] _DefinitionHistoryGroupedByDay = _Product.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection).GroupBy(g => g.InsertDateTime.Date).ToArray();
 
-
-                // Keep 10 last years
-                for (int i = 0; i < INT_DAYS_TO_EXPORT; i++)
+                // Keep x last years
+                for (int i = 0; i < _Config.GoogleSheetProductsExportData.NbDaysToExport; i++)
                 {
                     DateTime _DateToFind = _Now.Date.AddDays(-i);
                     IGrouping<DateTime, RadiantServerProductHistoryModel> _HistoryModelsForSpecificDay = _DefinitionHistoryGroupedByDay.FirstOrDefault(w => w.Key == _DateToFind);
@@ -94,7 +92,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.GoogleSheets
 
             _GoogleSheetData.RowDataCollection.AddRange(_RowsData);
 
-            return fGoogleSheetsApi.UpdateSheet(dataSheetId ?? DATA_SHEET_ID, DATA_SPREAD_SHEET_ID, _GoogleSheetData);
+            return fGoogleSheetsApi.UpdateSheet(dataSheetId ?? _Config.GoogleSheetProductsExportData.DataSheetTabId, _Config.GoogleSheetAPIConfig.SpreadSheetFileId, _GoogleSheetData);
         }
     }
 }

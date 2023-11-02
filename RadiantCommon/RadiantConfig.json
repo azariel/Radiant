@@ -21,7 +21,7 @@
             "ProcessesNameNotRunningCollection": [
               "vmmem"
             ],
-            "TriggerEveryXSeconds": 1
+            "TriggerEveryXSeconds": 5
           }
         ]
       },
@@ -38,20 +38,20 @@
           }
         ]
       },
-      // TODO: Rethink + Refactor this task..
+      // Update remote google sheet with products' prices over time
       {
-        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.UpdateRemoteProductsDatabase, Radiant.Custom.ProductsWatcher.ProductsHistory",
+        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.UpdateRemoteProductsGoogleSheet, Radiant.Custom.ProductsWatcher.ProductsHistory",
         "IsEnabled": false,
-        "UID": "7d879255-c739-41b2-9e9a-a0836e82a8d4",
+        "UID": "1523950d-a4b8-4f3d-bb76-6e49d19ea353",
         "Triggers": [
           {
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": null,
-            "TriggerEveryXSeconds": 3600
+            "TriggerEveryXSeconds": 7200
           }
         ]
       },
-      // Shutdown computer at 19h15, only if inactive for at least 15 min
+      // Shutdown computer at ~19h20-19h30, only if inactive for at least 10 min (manual scraper is considered as an Active task)
       {
         "$type": "Radiant.Common.Tasks.ShutdownComputerTask, Radiant.Common",
         "IsEnabled": false,
@@ -61,8 +61,8 @@
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "19:10:00",
-              "BlackOutStart": "19:20:00"
+              "BlackOutEnd": "19:20:00",
+              "BlackOutStart": "19:30:00"
             },
             "TriggerEveryXSeconds": 300,
             "InactivityTriggerEnabled": true,
@@ -104,7 +104,7 @@
             "ProcessesNameNotRunningCollection": [
               "vmmem"
             ],
-            "TriggerEveryXSeconds": 1
+            "TriggerEveryXSeconds": 5
           }
         ]
       }

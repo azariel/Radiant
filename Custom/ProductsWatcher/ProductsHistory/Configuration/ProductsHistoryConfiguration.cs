@@ -134,5 +134,9 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration
             //};
 
             public GoogleDriveAPIConfig GoogleDriveAPIConfig { get; set; } = new();
+
+            public GoogleSheetAPIConfig GoogleSheetAPIConfig { get; set; } = new();
+
+            public GoogleSheetProductsExportData GoogleSheetProductsExportData { get; set; } = new();
     }
 }

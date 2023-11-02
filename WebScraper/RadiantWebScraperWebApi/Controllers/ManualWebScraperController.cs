@@ -15,12 +15,12 @@ namespace Radiant.WebScraper.WebApi.Controllers
         // ********************************************************************
         [HttpGet("{Url}")]
         [ActionName("DOM")]
-        public async Task<ActionResult<string>> GetDOMAsync(string Url)
+        public async Task<ActionResult<string>> GetDOMAsync(string url)
         {
-            if (string.IsNullOrWhiteSpace(Url))
-                return BadRequest($"Argument {nameof(Url)} is required.");
+            if (string.IsNullOrWhiteSpace(url))
+                return BadRequest($"Argument {nameof(url)} is required.");
 
-            string _DecodedUrl = WebUtility.UrlDecode(Url);
+            string _DecodedUrl = WebUtility.UrlDecode(url);
             // TODO: format aUrl, pad with "http://", etc.
 
             var _ManualScraper = new ManualScraper();
