@@ -1,13 +1,1 @@
-{
-  "type": "service_account",
-  "project_id": "radiant-401111",
-  "private_key_id": "51788a83823cacc051315f36ebfb549c5b302492",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDWsYRa8JVyI1Gc\nXTbX3EAOqIiUA7XalFg2Qk3T1/uVW6NdShXLai2xKrKjHgFxp4CK4sCupdHPaplo\nw/HavWYoDy1uQNJ6m/GUV7cstuh6euOGMqi7y/f1lZ0VTaBvW8AmqNoLwmL3lVxs\nxzFYT2gjQJOk0y4olrjZp4sQl1HwFw398Zw14rwiamkyPHtBws1iSd+b6e57A9Hu\nQ1m424ssTwrzKXB4i/Wyy42Is/u1wTEMVxFFYH6IbEs2jZ9TaY3gciOuULenKDsH\nPGkCsOSauuvqIR4ndF4vE16mBII/NvzjV97xCra7aM+rxSpvx7MXxL0z6Q6FuR56\nN6KS53SpAgMBAAECggEAGmW1OmE+XsxM6objiWMBVUwPjvNt1rRKrFE2tIdn3ZNo\n4L2NNHeXqqLvV/MGhmzr9yeuPUsSIwieWC1PfW+wMdi740SBHKYz6+NlGFBdAUI+\n2287I+wOTtnYeJgU09xaIea8+JksBfkNZiqPvKX2ze7QuIFmuYLes5RQGvggEP7r\nCEphg2lb6XG0drtipxqejOes0Ti1nsMm3/RMB5SemSytSCUU2qLFr3jZdN6zq11c\n6+7JpTvUq54Sq5xZnseHARRCJ1JDzoseVjA5u+2e0F74U1lTzyCXaE7ZAQ5hWIsf\nPEIA1NbHxLwi+ZtTpe6uJ8egC0Ok8YYcy8aWJwB7aQKBgQDsfV1DdGUsKJMOnYcm\nCnzt9J2ygMPQ4i4NwbrFLRAfgfs3+T9Qquin4+LIc+xG1ro50nCDl+FRTQP9P3/U\n5oyw13yaNUFRPaWjNCcfhkiGiqmrOv+85IgTAe8lXE9S8DrfzCahIgM1JcMEK9n2\n7yM2cpZSmpFgLFhM9q2npA80QwKBgQDoZ9FZx296aRxcSFa+Ck9qJl/PjDNOGCSx\nldgyEGFuZ3GLyTtb++gLFYxKZUeH0dd+JH9AegvrW/rA6vLwIbkIuxVUv6OZ+vxe\nuYXBD+crGr+1pl98D4HI5GF/X/dRBMGJkmtYZ6nEMG63LNz99l7YUWFA45D8p/Fc\nOUf3EfY6owKBgQCulC1RKo+1dY5575hhYMSw9S+lIqFrhkzxIt65yHZqjA3kWD+B\nUWnG5tf3mnwGH2YCYXNl8a0H047qWQIJLNkXgzwcqsu5KYUpYcqv3vWTPLHcEgXQ\nb/Rz862TKv30ABu2MoMh2HX9ug6o+aZCQG8CNrz55dkD4jidOE0hwF7o+QKBgQDP\nx+nrC5yGY61AcEhlNdCUheSJKb7A5mMABok5EV4amA9zO6F/drOaHVTFOtF+A8VW\n+QhwO+2mKiEBE83JlUzaGnFSyNdbFoNFqTaFSlOSPSMDI9EgmLifRFhKyiDSZZ8n\nASpJ6rxkNCz4Rfr6b6eSXQfHPO3mhbwLiQbnRT7QYwKBgEPIW7OvxRAqL2hIcHZ6\n88xCpEbRbkDjJhiFZzpEPH+OWCgVvd0EK5dwFwGrL8/YuWr7klFg2uqn0qSUdyjk\n7NRipR0Tsvdl/yI9zZo+pGVELs4xJqJ5PPXoG37BVbBXPsMuZ42MfZ/QxL+gbZRr\nBXifNI+MLNMtY/0m5PE8+LRF\n-----END PRIVATE KEY-----\n",
-  "client_email": "radiantservice@radiant-401111.iam.gserviceaccount.com",
-  "client_id": "100737363189039463437",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/radiantservice%40radiant-401111.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
+// Export YOUR GoogleApi configuration here

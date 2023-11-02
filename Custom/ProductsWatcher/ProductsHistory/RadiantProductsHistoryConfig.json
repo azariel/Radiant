@@ -5,6 +5,15 @@
     "DatabaseFileId": "15JSxCpWr_GMe3l-WZE2Mebk-Eeoh9pIL",
     "VersionFileId": "10I5f_wj-7w7NM7MbW5x9Noqo-PDzqUJO"
   },
+  "GoogleSheetAPIConfig": {
+    "$type": "Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.Configuration.GoogleSheetAPIConfig, Radiant.Custom.ProductsWatcher.ProductsHistoryCommon",
+    "SpreadSheetFileId": "13TnLPl-iUP-7FbvJXaLBPwhd3-F92Uzo-dtLcr-icBM"
+  },
+  "GoogleSheetProductsExportData": {
+    "$type": "Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.Configuration.GoogleSheetProductsExportData, Radiant.Custom.ProductsWatcher.ProductsHistoryCommon",
+    "NbDaysToExport": 1825,
+    "DataSheetTabId": "AUTO_Data"
+  },
   "DOMParserItems": [
     {
       "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
