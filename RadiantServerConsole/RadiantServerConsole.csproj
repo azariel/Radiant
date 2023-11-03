@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\RadiantCommon\RadiantCommon.csproj" />
+	  <ProjectReference Include="..\RadiantNotifier\RadiantNotifier.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

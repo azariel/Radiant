@@ -69,8 +69,8 @@ namespace Radiant.Common.Tasks.Triggers
                 return;
 
             onTriggered?.Invoke();
-            TriggerNowImplementation();
             this.LastDateTimeTriggered = DateTime.Now;
+            TriggerNowImplementation();
         }
 
         // ********************************************************************
