@@ -1,48 +1,48 @@
 {
-  "$type": "EveFight.Configuration.EveFightConfiguration, Radiant.Custom.Games.EveOnline.EveFight",
+  "$type": "Radiant.Custom.Games.EveOnline.EveFight.Configuration.EveFightConfiguration, Radiant.Custom.Games.EveOnline.EveFight",
   "CompactUI": false,
   "CompactUIContainerHeight": 40,
   "LogsDirectoryPath": "C:\\Users\\Azariel-PC\\Documents\\EVE\\logs\\Gamelogs",
   "TrackPlayerNameInLogs": "Seyrdis",
   "PlayerNameMaxDigitsOnUI": 500,
   "TankInfo": {
-    "$type": "EveFight.Configuration.TankInfo, Radiant.Custom.Games.EveOnline.EveFight",
+    "$type": "Radiant.Custom.Games.EveOnline.EveFight.Configuration.TankInfo, Radiant.Custom.Games.EveOnline.EveFight",
     "TotalDPSYellow": 80,
     "TotalDPSOrange": 130,
     "TotalDPSRed": 200
   },
   "ThreatColorByDps": {
-    "$type": "EveFight.Configuration.ThreatColorByDps, Radiant.Custom.Games.EveOnline.EveFight",
+    "$type": "Radiant.Custom.Games.EveOnline.EveFight.Configuration.ThreatColorByDps, Radiant.Custom.Games.EveOnline.EveFight",
     "ThreatColorDpsList": [
       {
-        "$type": "EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
+        "$type": "Radiant.Custom.Games.EveOnline.EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
         "Treshold": -1,
         "Color": "#9600AF00"
       },
       {
-        "$type": "EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
+        "$type": "Radiant.Custom.Games.EveOnline.EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
         "Treshold": 50,
         "Color": "#96AFAF00"
       },
       {
-        "$type": "EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
+        "$type": "Radiant.Custom.Games.EveOnline.EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
         "Treshold": 70,
         "Color": "#96C87D00"
       },
       {
-        "$type": "EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
+        "$type": "Radiant.Custom.Games.EveOnline.EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
         "Treshold": 80,
         "Color": "#96AF0000"
       },
       {
-        "$type": "EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
+        "$type": "Radiant.Custom.Games.EveOnline.EveFight.Configuration.ThreatColorDps, Radiant.Custom.Games.EveOnline.EveFight",
         "Treshold": 100,
         "Color": "#96FF0000"
       }
     ]
   },
   "ThreatDetermination": {
-    "$type": "EveFight.Configuration.ThreatDetermination, Radiant.Custom.Games.EveOnline.EveFight",
+    "$type": "Radiant.Custom.Games.EveOnline.EveFight.Configuration.ThreatDetermination, Radiant.Custom.Games.EveOnline.EveFight",
     "PrioritizeTackleIfNumberOfTacklingShipsBelowThisNumberAndTankIsGreen": 1000,
     "PrioritizeLogiShipsIfDpsBelowThisNumber": 1000
   },
@@ -59,77 +59,77 @@
   "WeaponDefinitions": [
     // TODO
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Bomb Launcher",
       "DefaultRange": "Range"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Beam Laser",
       "DefaultRange": "Range"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Pulse Laser",
       "DefaultRange": "Close"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Blaster",
       "DefaultRange": "Close"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Railgun",
       "DefaultRange": "Range"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Cruise Missile",
       "DefaultRange": "Range"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Heavy Assault Missile",
       "DefaultRange": "Close"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Rapid Heavy Missile",
       "DefaultRange": "Close"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Heavy Missile",
       "DefaultRange": "Range"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Light Missile",
       "DefaultRange": "Range"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Rapid Light Missile",
       "DefaultRange": "Close"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Rapid Torpedo Missile",
       "DefaultRange": "Close"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Torpedo Missile",
       "DefaultRange": "Range"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Artillery",
       "DefaultRange": "Range"
     },
     {
-      "$type": "EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.WeaponDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "WeaponType": "Autocannons",
       "DefaultRange": "Close"
     }
@@ -137,7 +137,7 @@
   "ShipDefinitions": [
     // Player Ships
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Abaddon",
       "ThreatType": "DPS",
       "SignatureRadius": 470,
@@ -160,7 +160,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Absolution",
       "ThreatType": "COMMAND",
       "SignatureRadius": 265,
@@ -183,7 +183,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Adrestia",
       "ThreatType": "DPS",
       "SignatureRadius": 120,
@@ -206,7 +206,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Aeon",
       "ThreatType": "DPS",
       "SignatureRadius": 18870,
@@ -229,7 +229,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Algos",
       "ThreatType": "DPS",
       "SignatureRadius": 72,
@@ -252,7 +252,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Anathema",
       "ThreatType": "DPS",
       "SignatureRadius": 47,
@@ -275,7 +275,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Anshar",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 2880,
@@ -298,7 +298,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Apocalypse",
       "ThreatType": "DPS",
       "SignatureRadius": 380,
@@ -321,7 +321,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Apocalypse Imperial Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 400,
@@ -344,7 +344,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Apocalypse Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 370,
@@ -367,7 +367,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Apostle",
       "ThreatType": "LOGI",
       "SignatureRadius": 10,
@@ -390,7 +390,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Arazu",
       "ThreatType": "DPS",
       "SignatureRadius": 155,
@@ -413,7 +413,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Arbitrator",
       "ThreatType": "DPS",
       "SignatureRadius": 130,
@@ -436,7 +436,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Archon",
       "ThreatType": "DPS",
       "SignatureRadius": 9920,
@@ -459,7 +459,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ares",
       "SignatureRadius": 35,
       "ThreatType": "TACKLE",
@@ -482,7 +482,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ark",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 2800,
@@ -505,7 +505,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Armageddon",
       "ThreatType": "DPS",
       "SignatureRadius": 450,
@@ -528,7 +528,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Armageddon Imperial Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 400,
@@ -551,7 +551,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Armageddon Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 400,
@@ -574,7 +574,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ashimmu",
       "ThreatType": "DPS",
       "SignatureRadius": 130,
@@ -597,7 +597,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Astarte",
       "ThreatType": "COMMAND",
       "SignatureRadius": 300,
@@ -620,7 +620,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Astero",
       "ThreatType": "TACKLE",
       "SignatureRadius": 35,
@@ -643,7 +643,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Atron",
       "ThreatType": "TACKLE",
       "SignatureRadius": 35,
@@ -666,7 +666,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Augoror",
       "ThreatType": "LOGI",
       "SignatureRadius": 90,
@@ -689,7 +689,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Augoror Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 120,
@@ -712,7 +712,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Avatar",
       "ThreatType": "DPS",
       "SignatureRadius": 22760,
@@ -735,7 +735,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Badger",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 190,
@@ -758,7 +758,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Bantam",
       "ThreatType": "LOGI",
       "SignatureRadius": 35,
@@ -781,7 +781,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Barghest",
       "ThreatType": "DPS",
       "SignatureRadius": 370,
@@ -804,7 +804,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Basilisk",
       "ThreatType": "LOGI",
       "SignatureRadius": 90,
@@ -827,7 +827,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Bellicose",
       "ThreatType": "DPS",
       "SignatureRadius": 120,
@@ -850,7 +850,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Bestower",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 215,
@@ -873,7 +873,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Bhaalgorn",
       "ThreatType": "NEUT",
       "SignatureRadius": 400,
@@ -896,7 +896,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Bifrost",
       "ThreatType": "COMMAND",
       "SignatureRadius": 60,
@@ -919,7 +919,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Blackbird",
       "ThreatType": "ECM",
       "SignatureRadius": 150,
@@ -942,7 +942,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Bowhead",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 3200,
@@ -965,7 +965,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Breacher",
       "ThreatType": "DPS",
       "SignatureRadius": 36,
@@ -988,7 +988,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Broadsword",
       "ThreatType": "DPS",
       "SignatureRadius": 130,
@@ -1011,7 +1011,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Brutix",
       "ThreatType": "DPS",
       "SignatureRadius": 305,
@@ -1034,7 +1034,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Brutix Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 305,
@@ -1057,7 +1057,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Burst",
       "ThreatType": "LOGI",
       "SignatureRadius": 33,
@@ -1080,7 +1080,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Bustard",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 165,
@@ -1103,7 +1103,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Buzzard",
       "ThreatType": "DPS",
       "SignatureRadius": 50,
@@ -1126,7 +1126,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Caedes",
       "ThreatType": "DPS",
       "SignatureRadius": 35,
@@ -1149,7 +1149,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Caiman",
       "ThreatType": "DPS",
       "SignatureRadius": 12000,
@@ -1172,7 +1172,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Caldari Navy Hookbill",
       "ThreatType": "DPS",
       "SignatureRadius": 40,
@@ -1195,7 +1195,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Cambion",
       "ThreatType": "DPS",
       "SignatureRadius": 37,
@@ -1218,7 +1218,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Caracal",
       "ThreatType": "DPS",
       "SignatureRadius": 125,
@@ -1241,7 +1241,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Caracal Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 125,
@@ -1264,7 +1264,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Catalyst",
       "ThreatType": "DPS",
       "SignatureRadius": 68,
@@ -1287,7 +1287,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Celestis",
       "SignatureRadius": 135,
       "ThreatType": "ECM",
@@ -1310,7 +1310,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Cerberus",
       "ThreatType": "DPS",
       "SignatureRadius": 135,
@@ -1333,7 +1333,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Chameleon",
       "ThreatType": "DPS",
       "SignatureRadius": 160,
@@ -1356,7 +1356,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Charon",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 3660,
@@ -1379,7 +1379,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Cheetah",
       "ThreatType": "DPS",
       "SignatureRadius": 46,
@@ -1402,7 +1402,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Chemosh",
       "ThreatType": "DPS",
       "SignatureRadius": 11800,
@@ -1425,7 +1425,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Chimera",
       "ThreatType": "DPS",
       "SignatureRadius": 10070,
@@ -1448,7 +1448,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Chremoas",
       "ThreatType": "DPS",
       "SignatureRadius": 30,
@@ -1471,7 +1471,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Claw",
       "ThreatType": "TACKLE",
       "SignatureRadius": 30,
@@ -1494,7 +1494,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Claymore",
       "ThreatType": "COMMAND",
       "SignatureRadius": 240,
@@ -1517,7 +1517,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Coercer",
       "ThreatType": "DPS",
       "SignatureRadius": 62,
@@ -1540,7 +1540,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Condor",
       "ThreatType": "TACKLE",
       "SignatureRadius": 33,
@@ -1563,7 +1563,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Confessor",
       "ThreatType": "DPS",
       "SignatureRadius": 65,
@@ -1586,7 +1586,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Corax",
       "ThreatType": "DPS",
       "SignatureRadius": 69,
@@ -1609,7 +1609,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Cormorant",
       "ThreatType": "DPS",
       "SignatureRadius": 65,
@@ -1632,7 +1632,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Covetor",
       "ThreatType": "MINING",
       "SignatureRadius": 200,
@@ -1655,7 +1655,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Crane",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 115,
@@ -1678,7 +1678,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Crow",
       "ThreatType": "TACKLE",
       "SignatureRadius": 35,
@@ -1701,7 +1701,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Crucifier",
       "ThreatType": "DPS",
       "SignatureRadius": 38,
@@ -1724,7 +1724,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Crucifier Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 38,
@@ -1747,7 +1747,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Cruor",
       "ThreatType": "DPS",
       "SignatureRadius": 35,
@@ -1770,7 +1770,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Crusader",
       "ThreatType": "TACKLE",
       "SignatureRadius": 32,
@@ -1793,7 +1793,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Curse",
       "ThreatType": "ECM",
       "SignatureRadius": 145,
@@ -1816,7 +1816,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Cyclone",
       "ThreatType": "DPS",
       "SignatureRadius": 250,
@@ -1839,7 +1839,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Cynabal",
       "ThreatType": "DPS",
       "SignatureRadius": 115,
@@ -1862,7 +1862,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Dagon",
       "ThreatType": "DPS",
       "SignatureRadius": 11500,
@@ -1885,7 +1885,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Damavik",
       "ThreatType": "DPS",
       "SignatureRadius": 32,
@@ -1908,7 +1908,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Damnation",
       "ThreatType": "COMMAND",
       "SignatureRadius": 265,
@@ -1931,7 +1931,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Daredevil",
       "ThreatType": "DPS",
       "SignatureRadius": 35,
@@ -1954,7 +1954,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Deacon",
       "ThreatType": "LOGI",
       "SignatureRadius": 34,
@@ -1977,7 +1977,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Deimos",
       "ThreatType": "LOGI",
       "SignatureRadius": 150,
@@ -2000,7 +2000,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Devoter",
       "ThreatType": "DPS",
       "SignatureRadius": 140,
@@ -2023,7 +2023,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Dominix",
       "ThreatType": "DPS",
       "SignatureRadius": 465,
@@ -2046,7 +2046,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Dominix Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 455,
@@ -2069,7 +2069,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Dragoon",
       "ThreatType": "DPS",
       "SignatureRadius": 66,
@@ -2092,7 +2092,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Drake",
       "ThreatType": "DPS",
       "SignatureRadius": 295,
@@ -2115,7 +2115,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Drake Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 295,
@@ -2138,7 +2138,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Dramiel",
       "ThreatType": "DPS",
       "SignatureRadius": 30,
@@ -2161,7 +2161,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Draugur",
       "ThreatType": "COMMAND",
       "SignatureRadius": 62,
@@ -2184,7 +2184,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Drekavac",
       "ThreatType": "DPS",
       "SignatureRadius": 255,
@@ -2207,7 +2207,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Eagle",
       "ThreatType": "DPS",
       "SignatureRadius": 140,
@@ -2230,7 +2230,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Echelon",
       "ThreatType": "DPS",
       "SignatureRadius": 33,
@@ -2253,7 +2253,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Echo",
       "ThreatType": "DPS",
       "SignatureRadius": 46,
@@ -2276,7 +2276,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Enforcer",
       "ThreatType": "DPS",
       "SignatureRadius": 120,
@@ -2299,7 +2299,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Enyo",
       "ThreatType": "DPS",
       "SignatureRadius": 37,
@@ -2322,7 +2322,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Eos",
       "ThreatType": "COMMAND",
       "SignatureRadius": 300,
@@ -2345,7 +2345,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Epithal",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 195,
@@ -2368,7 +2368,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Erebus",
       "ThreatType": "DPS",
       "SignatureRadius": 23205,
@@ -2391,7 +2391,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Eris",
       "ThreatType": "TACKLE",
       "SignatureRadius": 78,
@@ -2414,7 +2414,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Executioner",
       "ThreatType": "TACKLE",
       "SignatureRadius": 31,
@@ -2437,7 +2437,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Exequror Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 110,
@@ -2460,7 +2460,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Exequror",
       "ThreatType": "LOGI",
       "SignatureRadius": 80,
@@ -2483,7 +2483,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Falcon",
       "ThreatType": "ECM",
       "SignatureRadius": 175,
@@ -2506,7 +2506,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Federation Navy Comet",
       "ThreatType": "DPS",
       "SignatureRadius": 42,
@@ -2529,7 +2529,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Fenrir",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 3385,
@@ -2552,7 +2552,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ferox",
       "ThreatType": "DPS",
       "SignatureRadius": 325,
@@ -2575,7 +2575,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Flycatcher",
       "ThreatType": "TACKLE",
       "SignatureRadius": 80,
@@ -2598,7 +2598,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Freki",
       "ThreatType": "DPS",
       "SignatureRadius": 33,
@@ -2621,7 +2621,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Garmur",
       "ThreatType": "TACKLE",
       "SignatureRadius": 32,
@@ -2644,7 +2644,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Gila",
       "ThreatType": "DPS",
       "SignatureRadius": 145,
@@ -2667,7 +2667,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Gnosis",
       "ThreatType": "DPS",
       "SignatureRadius": 275,
@@ -2690,7 +2690,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Golem",
       "ThreatType": "DPS",
       "SignatureRadius": 450,
@@ -2713,7 +2713,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Griffin",
       "ThreatType": "ECM",
       "SignatureRadius": 42,
@@ -2736,7 +2736,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Griffin Navy Issue",
       "ThreatType": "ECM",
       "SignatureRadius": 42,
@@ -2759,7 +2759,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Guardian",
       "ThreatType": "LOGI",
       "SignatureRadius": 70,
@@ -2782,7 +2782,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Harbinger",
       "SignatureRadius": 270,
       "ThreatType": "DPS",
@@ -2805,7 +2805,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Harbinger Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 270,
@@ -2828,7 +2828,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Harpy",
       "ThreatType": "DPS",
       "SignatureRadius": 37,
@@ -2851,7 +2851,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hawk",
       "ThreatType": "DPS",
       "SignatureRadius": 39,
@@ -2874,7 +2874,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hecate",
       "ThreatType": "DPS",
       "SignatureRadius": 70,
@@ -2897,7 +2897,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hel",
       "ThreatType": "DPS",
       "SignatureRadius": 18640,
@@ -2920,7 +2920,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Helios",
       "ThreatType": "DPS",
       "SignatureRadius": 49,
@@ -2943,7 +2943,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hematos",
       "ThreatType": "DPS",
       "SignatureRadius": 48,
@@ -2966,7 +2966,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Heretic",
       "ThreatType": "DPS",
       "SignatureRadius": 75,
@@ -2989,7 +2989,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Heron",
       "ThreatType": "DPS",
       "SignatureRadius": 40,
@@ -3012,7 +3012,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Heron Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 40,
@@ -3035,7 +3035,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hoarder",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 185,
@@ -3058,7 +3058,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hound",
       "ThreatType": "DPS",
       "SignatureRadius": 38,
@@ -3081,7 +3081,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Huginn",
       "ThreatType": "ECM",
       "SignatureRadius": 120,
@@ -3104,7 +3104,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hulk",
       "ThreatType": "MINING",
       "SignatureRadius": 200,
@@ -3127,7 +3127,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hurricane",
       "ThreatType": "COMMAND",
       "SignatureRadius": 250,
@@ -3150,7 +3150,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hurricane Fleet Issue",
       "ThreatType": "COMMAND",
       "SignatureRadius": 250,
@@ -3173,7 +3173,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hyena",
       "ThreatType": "ECM",
       "SignatureRadius": 39,
@@ -3196,7 +3196,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Hyperion",
       "ThreatType": "DPS",
       "SignatureRadius": 485,
@@ -3219,7 +3219,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ibis",
       "ThreatType": "ECM",
       "SignatureRadius": 52,
@@ -3242,7 +3242,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ikitursa",
       "ThreatType": "DPS",
       "SignatureRadius": 120,
@@ -3265,7 +3265,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Imicus",
       "ThreatType": "DPS",
       "SignatureRadius": 41,
@@ -3288,7 +3288,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Imicus Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 41,
@@ -3311,7 +3311,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Immolator",
       "ThreatType": "DPS",
       "SignatureRadius": 50,
@@ -3334,7 +3334,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Impairor",
       "ThreatType": "DPS",
       "SignatureRadius": 50,
@@ -3357,7 +3357,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Imperial Navy Slicer",
       "ThreatType": "DPS",
       "SignatureRadius": 38,
@@ -3380,7 +3380,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Impel",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 160,
@@ -3403,7 +3403,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Incursus",
       "ThreatType": "DPS",
       "SignatureRadius": 42,
@@ -3426,7 +3426,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Inquisitor",
       "ThreatType": "LOGI",
       "SignatureRadius": 34,
@@ -3449,7 +3449,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ishkur",
       "SignatureRadius": 39,
       "ThreatType": "DPS",
@@ -3472,7 +3472,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ishtar",
       "ThreatType": "DPS",
       "SignatureRadius": 145,
@@ -3495,7 +3495,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Jackdaw",
       "ThreatType": "DPS",
       "SignatureRadius": 70,
@@ -3518,7 +3518,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Jaguar",
       "ThreatType": "DPS",
       "SignatureRadius": 34,
@@ -3541,7 +3541,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Keres",
       "ThreatType": "ECM",
       "SignatureRadius": 43,
@@ -3564,7 +3564,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Kestrel",
       "ThreatType": "DPS",
       "SignatureRadius": 38,
@@ -3587,7 +3587,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Kikimora",
       "SignatureRadius": 58,
       "ThreatType": "DPS",
@@ -3610,7 +3610,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Kirin",
       "ThreatType": "LOGI",
       "SignatureRadius": 35,
@@ -3633,7 +3633,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Kitsune",
       "ThreatType": "ECM",
       "SignatureRadius": 47,
@@ -3656,7 +3656,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Kronos",
       "ThreatType": "DPS",
       "SignatureRadius": 420,
@@ -3679,7 +3679,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Lachesis",
       "ThreatType": "DPS",
       "SignatureRadius": 150,
@@ -3702,7 +3702,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Legion",
       "ThreatType": "DPS",
       "SignatureRadius": 170,
@@ -3725,7 +3725,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Leshak",
       "ThreatType": "DPS",
       "SignatureRadius": 370,
@@ -3748,7 +3748,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Leviathan",
       "ThreatType": "DPS",
       "SignatureRadius": 23590,
@@ -3771,7 +3771,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Lif",
       "ThreatType": "LOGI",
       "SignatureRadius": 10,
@@ -3794,7 +3794,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Loggerhead",
       "ThreatType": "DPS",
       "SignatureRadius": 11700,
@@ -3817,7 +3817,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Loki",
       "ThreatType": "DPS",
       "SignatureRadius": 160,
@@ -3840,7 +3840,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Machariel",
       "ThreatType": "DPS",
       "SignatureRadius": 380,
@@ -3863,7 +3863,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Mackinaw",
       "ThreatType": "MINING",
       "SignatureRadius": 200,
@@ -3886,7 +3886,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Maelstrom",
       "ThreatType": "DPS",
       "SignatureRadius": 460,
@@ -3909,7 +3909,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Magnate",
       "ThreatType": "DPS",
       "SignatureRadius": 39,
@@ -3932,7 +3932,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Magnate Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 39,
@@ -3955,7 +3955,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Malediction",
       "ThreatType": "TACKLE",
       "SignatureRadius": 33,
@@ -3978,7 +3978,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Magus",
       "ThreatType": "COMMAND",
       "SignatureRadius": 67,
@@ -4001,7 +4001,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Maller",
       "ThreatType": "TANK",
       "SignatureRadius": 130,
@@ -4024,7 +4024,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Malice",
       "ThreatType": "DPS",
       "SignatureRadius": 40,
@@ -4047,7 +4047,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Mammoth",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 180,
@@ -4070,7 +4070,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Manticore",
       "ThreatType": "DPS",
       "SignatureRadius": 41,
@@ -4093,7 +4093,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Marshal",
       "ThreatType": "DPS",
       "SignatureRadius": 330,
@@ -4116,7 +4116,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Mastodon",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 150,
@@ -4139,7 +4139,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Maulus",
       "ThreatType": "DPS",
       "SignatureRadius": 40,
@@ -4162,7 +4162,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Maulus Navy Issue",
       "ThreatType": "TACKLE",
       "SignatureRadius": 40,
@@ -4185,7 +4185,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Megathron",
       "ThreatType": "DPS",
       "SignatureRadius": 380,
@@ -4208,7 +4208,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Megathron Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 385,
@@ -4231,7 +4231,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Merlin",
       "ThreatType": "DPS",
       "SignatureRadius": 39,
@@ -4254,7 +4254,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Miasmos",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 205,
@@ -4277,7 +4277,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Mimir",
       "ThreatType": "DPS",
       "SignatureRadius": 130,
@@ -4300,7 +4300,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Minokawa",
       "ThreatType": "LOGI",
       "SignatureRadius": 10,
@@ -4323,7 +4323,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Moa",
       "ThreatType": "DPS",
       "SignatureRadius": 135,
@@ -4346,7 +4346,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Molok",
       "ThreatType": "DPS",
       "SignatureRadius": 24000,
@@ -4369,7 +4369,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Monitor",
       "ThreatType": "DPS",
       "SignatureRadius": 40,
@@ -4392,7 +4392,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Moracha",
       "ThreatType": "DPS",
       "Weaknesses": null,
@@ -4414,7 +4414,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Moros",
       "ThreatType": "DPS",
       "SignatureRadius": 11300,
@@ -4437,7 +4437,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Moros Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 11300,
@@ -4460,7 +4460,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Muninn",
       "ThreatType": "DPS",
       "SignatureRadius": 125,
@@ -4483,7 +4483,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Myrmidon",
       "ThreatType": "DPS",
       "SignatureRadius": 305,
@@ -4506,7 +4506,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Naga",
       "ThreatType": "DPS",
       "SignatureRadius": 215,
@@ -4529,7 +4529,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Naglfar",
       "ThreatType": "DPS",
       "SignatureRadius": 11000,
@@ -4552,7 +4552,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Naglfar Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 11000,
@@ -4575,7 +4575,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Navitas",
       "ThreatType": "LOGI",
       "SignatureRadius": 36,
@@ -4598,7 +4598,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Nemesis",
       "ThreatType": "DPS",
       "SignatureRadius": 42,
@@ -4621,7 +4621,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Nereus",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 185,
@@ -4644,7 +4644,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Nergal",
       "ThreatType": "DPS",
       "SignatureRadius": 36,
@@ -4667,7 +4667,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Nestor",
       "ThreatType": "DPS",
       "SignatureRadius": 420,
@@ -4690,7 +4690,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Nidhoggur",
       "ThreatType": "DPS",
       "SignatureRadius": 9865,
@@ -4713,7 +4713,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Nighthawk",
       "ThreatType": "COMMAND",
       "SignatureRadius": 265,
@@ -4736,7 +4736,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Nightmare",
       "SignatureRadius": 370,
       "ThreatType": "DPS",
@@ -4759,7 +4759,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ninazu",
       "SignatureRadius": 10,
       "ThreatType": "LOGI",
@@ -4782,7 +4782,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Noctis",
       "ThreatType": "MINING",
       "SignatureRadius": 250,
@@ -4805,7 +4805,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Nomad",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 2700,
@@ -4828,7 +4828,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Nyx",
       "ThreatType": "DPS",
       "SignatureRadius": 19000,
@@ -4851,7 +4851,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Obelisk",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 3605,
@@ -4874,7 +4874,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Occator",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 165,
@@ -4897,7 +4897,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Omen",
       "ThreatType": "DPS",
       "SignatureRadius": 115,
@@ -4920,7 +4920,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Omen Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 100,
@@ -4943,7 +4943,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Oneiros",
       "ThreatType": "LOGI",
       "SignatureRadius": 70,
@@ -4966,7 +4966,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Onyx",
       "ThreatType": "DPS",
       "SignatureRadius": 150,
@@ -4989,7 +4989,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Oracle",
       "ThreatType": "DPS",
       "SignatureRadius": 210,
@@ -5012,7 +5012,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Orca",
       "ThreatType": "MINING",
       "SignatureRadius": 1000,
@@ -5035,7 +5035,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Orthrus",
       "ThreatType": "DPS",
       "SignatureRadius": 135,
@@ -5058,7 +5058,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Osprey",
       "ThreatType": "LOGI",
       "SignatureRadius": 95,
@@ -5081,7 +5081,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Osprey Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 115,
@@ -5104,7 +5104,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Pacifier",
       "ThreatType": "DPS",
       "SignatureRadius": 30,
@@ -5127,7 +5127,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Paladin",
       "ThreatType": "DPS",
       "SignatureRadius": 420,
@@ -5150,7 +5150,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Panther",
       "ThreatType": "DPS",
       "SignatureRadius": 288,
@@ -5173,7 +5173,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Phantasm",
       "ThreatType": "DPS",
       "SignatureRadius": 120,
@@ -5196,7 +5196,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Phobos",
       "ThreatType": "DPS",
       "SignatureRadius": 160,
@@ -5219,7 +5219,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Phoenix",
       "ThreatType": "DPS",
       "SignatureRadius": 11200,
@@ -5242,7 +5242,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Phoenix Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 11200,
@@ -5265,7 +5265,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Pilgrim",
       "ThreatType": "NEUT",
       "SignatureRadius": 150,
@@ -5288,7 +5288,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Pontifex",
       "ThreatType": "DPS",
       "SignatureRadius": 64,
@@ -5311,7 +5311,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Porpoise",
       "ThreatType": "MINING",
       "SignatureRadius": 300,
@@ -5334,7 +5334,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Praxis",
       "ThreatType": "DPS",
       "SignatureRadius": 465,
@@ -5357,7 +5357,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Primae",
       "ThreatType": "MINING",
       "SignatureRadius": 150,
@@ -5380,7 +5380,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Probe",
       "ThreatType": "DPS",
       "SignatureRadius": 38,
@@ -5403,7 +5403,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Probe Fleet Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 38,
@@ -5426,7 +5426,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Procurer",
       "ThreatType": "MINING",
       "SignatureRadius": 200,
@@ -5449,7 +5449,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Prophecy",
       "ThreatType": "DPS",
       "SignatureRadius": 270,
@@ -5472,7 +5472,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Prorator",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 110,
@@ -5495,7 +5495,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Proteus",
       "ThreatType": "DPS",
       "SignatureRadius": 190,
@@ -5518,7 +5518,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Providence",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 3515,
@@ -5541,7 +5541,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Prowler",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 105,
@@ -5564,7 +5564,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Punisher",
       "ThreatType": "DPS",
       "SignatureRadius": 37,
@@ -5587,7 +5587,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Purifier",
       "ThreatType": "DPS",
       "SignatureRadius": 40,
@@ -5610,7 +5610,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Ragnarok",
       "ThreatType": "DPS",
       "SignatureRadius": 22430,
@@ -5633,7 +5633,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Rapier",
       "ThreatType": "DPS",
       "SignatureRadius": 125,
@@ -5656,7 +5656,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Raptor",
       "ThreatType": "TACKLE",
       "SignatureRadius": 34,
@@ -5679,7 +5679,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Rattlesnake",
       "ThreatType": "DPS",
       "SignatureRadius": 450,
@@ -5702,7 +5702,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Raven",
       "ThreatType": "DPS",
       "SignatureRadius": 410,
@@ -5725,7 +5725,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Raven Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 410,
@@ -5748,7 +5748,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Reaper",
       "ThreatType": "DPS",
       "SignatureRadius": 48,
@@ -5771,7 +5771,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Redeemer",
       "ThreatType": "DPS",
       "SignatureRadius": 333,
@@ -5794,7 +5794,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Republic Fleet Firetail",
       "ThreatType": "DPS",
       "SignatureRadius": 35,
@@ -5817,7 +5817,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Retribution",
       "ThreatType": "DPS",
       "SignatureRadius": 35,
@@ -5840,7 +5840,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Retriever",
       "ThreatType": "MINING",
       "SignatureRadius": 200,
@@ -5863,7 +5863,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Revelation",
       "ThreatType": "DPS",
       "SignatureRadius": 11100,
@@ -5886,7 +5886,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Revelation Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 11100,
@@ -5909,7 +5909,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Revenant",
       "ThreatType": "DPS",
       "SignatureRadius": 18870,
@@ -5932,7 +5932,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Rhea",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 2930,
@@ -5955,7 +5955,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Rifter",
       "ThreatType": "DPS",
       "SignatureRadius": 35,
@@ -5978,7 +5978,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Rodiva",
       "ThreatType": "DPS",
       "SignatureRadius": 100,
@@ -6001,7 +6001,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Rokh",
       "ThreatType": "DPS",
       "SignatureRadius": 500,
@@ -6024,7 +6024,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Rook",
       "ThreatType": "ECM",
       "SignatureRadius": 170,
@@ -6047,7 +6047,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Rorqual",
       "ThreatType": "MINING",
       "SignatureRadius": 11500,
@@ -6070,7 +6070,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Rupture",
       "ThreatType": "DPS",
       "SignatureRadius": 125,
@@ -6093,7 +6093,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Sabre",
       "ThreatType": "TACKLE",
       "SignatureRadius": 70,
@@ -6116,7 +6116,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Sacrilege",
       "ThreatType": "DPS",
       "SignatureRadius": 135,
@@ -6139,7 +6139,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Scalpel",
       "ThreatType": "LOGI",
       "SignatureRadius": 33,
@@ -6162,7 +6162,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Scimitar",
       "ThreatType": "LOGI",
       "SignatureRadius": 65,
@@ -6185,7 +6185,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Scorpion",
       "ThreatType": "ECM",
       "SignatureRadius": 480,
@@ -6208,7 +6208,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Scorpion Navy Issue",
       "ThreatType": "ECM",
       "SignatureRadius": 465,
@@ -6231,7 +6231,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Scythe",
       "ThreatType": "LOGI",
       "SignatureRadius": 75,
@@ -6254,7 +6254,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Scythe Fleet Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 90,
@@ -6277,7 +6277,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Sentinel",
       "ThreatType": "ECM",
       "SignatureRadius": 41,
@@ -6300,7 +6300,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Sigil",
       "SignatureRadius": 175,
       "ThreatType": "FREIGHTER",
@@ -6323,7 +6323,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Sin",
       "ThreatType": "DPS",
       "SignatureRadius": 378,
@@ -6346,7 +6346,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Skiff",
       "ThreatType": "MINING",
       "SignatureRadius": 200,
@@ -6369,7 +6369,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Skybreaker",
       "ThreatType": "DPS",
       "SignatureRadius": 37,
@@ -6392,7 +6392,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Slasher",
       "ThreatType": "TACKLE",
       "SignatureRadius": 30,
@@ -6415,7 +6415,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Sleipnir",
       "ThreatType": "COMMAND",
       "SignatureRadius": 240,
@@ -6438,7 +6438,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Stabber",
       "ThreatType": "DPS",
       "SignatureRadius": 100,
@@ -6461,7 +6461,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Stabber Fleet Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 100,
@@ -6484,7 +6484,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Stiletto",
       "ThreatType": "TACKLE",
       "SignatureRadius": 31,
@@ -6507,7 +6507,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Stork",
       "ThreatType": "COMMAND",
       "SignatureRadius": 69,
@@ -6530,7 +6530,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Stormbringer",
       "ThreatType": "DPS",
       "SignatureRadius": 130,
@@ -6553,7 +6553,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Stratios",
       "ThreatType": "DPS", //DroneBoat
       "SignatureRadius": 150,
@@ -6576,7 +6576,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Succubus",
       "ThreatType": "DPS",
       "SignatureRadius": 33,
@@ -6599,7 +6599,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Sunesis",
       "ThreatType": "DPS",
       "SignatureRadius": 65,
@@ -6622,7 +6622,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Svipul",
       "ThreatType": "DPS",
       "SignatureRadius": 60,
@@ -6645,7 +6645,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Taipan",
       "ThreatType": "DPS",
       "SignatureRadius": 50,
@@ -6668,7 +6668,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Talos",
       "ThreatType": "DPS",
       "SignatureRadius": 220,
@@ -6691,7 +6691,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Talwar",
       "ThreatType": "DPS",
       "SignatureRadius": 60,
@@ -6714,7 +6714,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Taranis",
       "ThreatType": "TACKLE",
       "SignatureRadius": 36,
@@ -6737,7 +6737,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Tayra",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 230,
@@ -6760,7 +6760,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Tempest",
       "ThreatType": "DPS",
       "SignatureRadius": 360,
@@ -6783,7 +6783,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Tempest Fleet Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 360,
@@ -6806,7 +6806,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Tengu",
       "ThreatType": "DPS",
       "SignatureRadius": 180,
@@ -6829,7 +6829,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Thanatos",
       "ThreatType": "DPS",
       "SignatureRadius": 9960,
@@ -6852,7 +6852,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Thalia",
       "ThreatType": "LOGI",
       "SignatureRadius": 36,
@@ -6875,7 +6875,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Thorax",
       "ThreatType": "DPS",
       "SignatureRadius": 120,
@@ -6898,7 +6898,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Thunderchild",
       "ThreatType": "DPS",
       "SignatureRadius": 485,
@@ -6921,7 +6921,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Thrasher",
       "ThreatType": "DPS",
       "SignatureRadius": 56,
@@ -6944,7 +6944,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Tormentor",
       "ThreatType": "DPS",
       "SignatureRadius": 35,
@@ -6967,7 +6967,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Tornado",
       "ThreatType": "DPS",
       "SignatureRadius": 195,
@@ -6990,7 +6990,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Tristan",
       "ThreatType": "DPS",
       "SignatureRadius": 41,
@@ -7013,7 +7013,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Typhoon",
       "ThreatType": "DPS",
       "SignatureRadius": 330,
@@ -7036,7 +7036,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Typhoon Fleet Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 330,
@@ -7059,7 +7059,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Utu",
       "ThreatType": "DPS",
       "SignatureRadius": 39,
@@ -7082,7 +7082,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vagabond",
       "ThreatType": "DPS",
       "SignatureRadius": 115,
@@ -7105,7 +7105,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vanquisher",
       "ThreatType": "DPS",
       "SignatureRadius": 24800,
@@ -7128,7 +7128,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vargur",
       "ThreatType": "DPS",
       "SignatureRadius": 360,
@@ -7151,7 +7151,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vedmak",
       "ThreatType": "DPS",
       "SignatureRadius": 110,
@@ -7174,7 +7174,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Velator",
       "ThreatType": "DPS",
       "SignatureRadius": 54,
@@ -7197,7 +7197,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vehement",
       "ThreatType": "DPS",
       "SignatureRadius": 12000,
@@ -7220,7 +7220,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vengeance",
       "ThreatType": "DPS",
       "SignatureRadius": 37,
@@ -7243,7 +7243,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Venture",
       "ThreatType": "MINING",
       "SignatureRadius": 40,
@@ -7266,7 +7266,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vexor",
       "ThreatType": "DPS",
       "SignatureRadius": 145,
@@ -7289,7 +7289,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vexor Navy Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 130,
@@ -7312,7 +7312,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Viator",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 120,
@@ -7335,7 +7335,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vigil",
       "ThreatType": "DPS",
       "SignatureRadius": 34,
@@ -7358,7 +7358,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vigil Fleet Issue",
       "ThreatType": "DPS",
       "SignatureRadius": 34,
@@ -7381,7 +7381,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vigilant",
       "ThreatType": "DPS",
       "SignatureRadius": 130,
@@ -7404,7 +7404,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vindicator",
       "ThreatType": "DPS",
       "SignatureRadius": 400,
@@ -7427,7 +7427,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Violator",
       "ThreatType": "DPS",
       "SignatureRadius": 52,
@@ -7450,7 +7450,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Vulture",
       "ThreatType": "COMMAND",
       "SignatureRadius": 285,
@@ -7473,7 +7473,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Whiptail",
       "ThreatType": "TACKLE",
       "SignatureRadius": 35,
@@ -7496,7 +7496,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Widow",
       "ThreatType": "ECM",
       "SignatureRadius": 405,
@@ -7519,7 +7519,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Wolf",
       "ThreatType": "DPS",
       "SignatureRadius": 33,
@@ -7542,7 +7542,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Worm",
       "ThreatType": "DPS",
       "SignatureRadius": 40,
@@ -7565,7 +7565,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Wreathe",
       "ThreatType": "FREIGHTER",
       "SignatureRadius": 155,
@@ -7588,7 +7588,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Wyvern",
       "ThreatType": "DPS",
       "SignatureRadius": 19470,
@@ -7611,7 +7611,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Zarmazd",
       "ThreatType": "LOGI",
       "SignatureRadius": 70,
@@ -7634,7 +7634,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Zealot",
       "ThreatType": "DPS",
       "SignatureRadius": 125,
@@ -7657,7 +7657,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Zephyr",
       "ThreatType": "DPS",
       "SignatureRadius": 25,
@@ -7680,7 +7680,7 @@
       }
     },
     {
-      "$type": "EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
+      "$type": "Radiant.Custom.Games.EveOnline.EveFight.Models.ShipDefinition, Radiant.Custom.Games.EveOnline.EveFight",
       "ShipType": "Zirnitra",
       "ThreatType": "DPS",
       "SignatureRadius": 10000,
