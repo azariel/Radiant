@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
-using Radiant.Custom.Games.EveOnline.EveRay.TriggerActions;
-using Radiant.Custom.Games.EveOnline.EveRay.Watch;
-using Color = System.Windows.Media.Color;
+using Radiant.Common.Screen.Watcher.PixelsInZone.Models;
+using Radiant.Common.Screen.Watcher.PixelsInZone.TriggerActions;
+using Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems;
 
-namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
+namespace Radiant.Common.Screen.Watcher.PixelsInZone
 {
-    public static class ZoneEvaluator
+    public static class PixelsInZoneEvaluator
     {
         // ********************************************************************
         //                            Private
@@ -22,21 +22,21 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
         //                            Public
         // ********************************************************************
 
-        public static void EvaluateZones(List<ZoneWatcher> aConfigZonesWatcher, Action<Point, Size, Color, int, int?> aShowZoneAction)
+        public static void EvaluateZones(List<PixelsInZoneAreaModel> aConfigZonesWatcher, Action<Point, Size, Color, int, int?> aShowZoneAction)
         {
-            foreach (ZoneWatcher _ZoneWatcher in aConfigZonesWatcher)
+            foreach (PixelsInZoneAreaModel _ZoneWatcher in aConfigZonesWatcher)
             {
                 bool _Triggered = false;
-                foreach (IWatchItem _ZoneWatcherWatchItem in _ZoneWatcher.WatchItems)
+                foreach (IPixelsInZoneWatchItem _ZoneWatcherWatchItem in _ZoneWatcher.WatchItems)
                 {
                     if (_Triggered)
                         break;
 
                     switch (_ZoneWatcherWatchItem)
                     {
-                        case WatchItemBitmapNoise _WatchItemBitmapNoise:
+                        case PixelsInZoneWatchItemBitmapNoise _WatchItemBitmapNoise:
 
-                            if (_ZoneWatcher.Zone.IsDifferentFromLastEvaluation(_WatchItemBitmapNoise.NoiseTreshold, _WatchItemBitmapNoise.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk))
+                            if (_ZoneWatcher.Zone.IsDifferentFromLastEvaluation(_WatchItemBitmapNoise.NoiseTreshold, _WatchItemBitmapNoise.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDiskOnTriggered))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
                                 aShowZoneAction?.Invoke(_ZoneWatcher.Zone.Location, _ZoneWatcher.Zone.Size, _ZoneWatcherWatchItem.StrokeColor, 1, _ZoneWatcherWatchItem.MsToShowZoneOnDetection);
@@ -46,8 +46,8 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
                             }
 
                             break;
-                        case WatchItemColor _WatchItemColor:
-                            if (_ZoneWatcher.Zone.ContainsColor(WatchItemColors.WatchItemDetectionType.WhiteList, _WatchItemColor.Color, _WatchItemColor.ColorTreshold, _WatchItemColor.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk, out Point? _HitPointLocationOfColor))
+                        case PixelsInZoneWatchItemColor _WatchItemColor:
+                            if (_ZoneWatcher.Zone.ContainsColor(PixelsInZoneWatchItemColors.WatchItemDetectionType.WhiteList, _WatchItemColor.Color, _WatchItemColor.ColorTreshold, _WatchItemColor.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDiskOnTriggered, out Point? _HitPointLocationOfColor))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
 
@@ -59,8 +59,8 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
                             }
 
                             break;
-                        case WatchItemColors _WatchItemColors:
-                            if (_ZoneWatcher.Zone.ContainsColors(_WatchItemColors.DetectionType, _WatchItemColors.Colors, _WatchItemColors.ColorTreshold, _WatchItemColors.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDisk, out Point? _HitPointLocationOfColors))
+                        case PixelsInZoneWatchItemColors _WatchItemColors:
+                            if (_ZoneWatcher.Zone.ContainsColors(_WatchItemColors.DetectionType, _WatchItemColors.Colors, _WatchItemColors.ColorTreshold, _WatchItemColors.WatchItemNbPixelsToTrigger, _ZoneWatcher.SaveImageOnDiskOnTriggered, out Point? _HitPointLocationOfColors))
                             {
                                 TriggerAction(_ZoneWatcher.TriggerAction);
 

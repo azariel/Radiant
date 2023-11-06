@@ -62,6 +62,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantWindowsServer", "Rad
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{154F991E-119B-43AC-8FE2-232FFF3149C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveBee", "Custom\Games\Eve Online\EveBee\EveBee.csproj", "{527D3B7A-AA16-49DD-96BD-E3CEADF8E5E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +130,10 @@ Global
 		{ECBDC898-8DC2-4D27-8485-086A8FF22690}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECBDC898-8DC2-4D27-8485-086A8FF22690}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECBDC898-8DC2-4D27-8485-086A8FF22690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{527D3B7A-AA16-49DD-96BD-E3CEADF8E5E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{527D3B7A-AA16-49DD-96BD-E3CEADF8E5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{527D3B7A-AA16-49DD-96BD-E3CEADF8E5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{527D3B7A-AA16-49DD-96BD-E3CEADF8E5E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,6 +156,7 @@ Global
 		{4A726F73-9E9C-436A-9FD1-8EE99CB62DF4} = {81A142C2-04C5-434E-991A-A080648A3EB2}
 		{352266CD-CE53-44C6-8FD5-56277611A439} = {583E5F62-453D-4574-A865-C17767F30D2E}
 		{ECBDC898-8DC2-4D27-8485-086A8FF22690} = {154F991E-119B-43AC-8FE2-232FFF3149C3}
+		{527D3B7A-AA16-49DD-96BD-E3CEADF8E5E1} = {583E5F62-453D-4574-A865-C17767F30D2E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B1D993C-526C-4722-8B7F-57AFF81FC466}

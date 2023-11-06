@@ -7,9 +7,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Radiant.Common.Screen.Watcher.PixelsInZone;
+using Radiant.Common.Screen.Watcher.PixelsInZone.Models;
 using Radiant.Custom.Games.EveOnline.EveRay.Configuration;
-using Radiant.Custom.Games.EveOnline.EveRay.Zones;
-using Color = System.Windows.Media.Color;
 using Point = System.Drawing.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
 using Size = System.Drawing.Size;
@@ -40,6 +40,9 @@ namespace Radiant.Custom.Games.EveOnline.EveRay
         {
             InitializeComponent();
 
+            EveRayConfiguration _Config = EveRayConfigurationManager.ReloadConfig();
+            EveRayConfigurationManager.SaveConfigInMemoryToDisk();
+
             //IntPtr _WindowHandle = new WindowInteropHelper(this).Handle;
             //int initialStyle = GetWindowLong(_WindowHandle, -20);
             //SetWindowLong(_WindowHandle, -20, initialStyle | 0x80000 | 0x20);
@@ -56,20 +59,20 @@ namespace Radiant.Custom.Games.EveOnline.EveRay
             EveRayConfiguration _Config = EveRayConfigurationManager.ReloadConfig();
 
             // Show zones if required
-            foreach (ZoneWatcher _ZoneWatcher in _Config.ZonesWatcher.Where(w => w.AlwaysShowZone))
-                ShowZoneAction(new Point(_ZoneWatcher.Zone.OnCurrentScreenShowLocation.X-1, _ZoneWatcher.Zone.OnCurrentScreenShowLocation.Y-1), new Size(_ZoneWatcher.Zone.Size.Width+4, _ZoneWatcher.Zone.Size.Height+4), Color.FromArgb(255, 24, 115, 204), 1, null);
+            foreach (PixelsInZoneAreaModel _ZoneWatcher in _Config.ZonesWatcher.Where(w => w.AlwaysShowZoneUI))
+                ShowZoneAction(new Point(_ZoneWatcher.Zone.OnCurrentScreenShowLocation.X-1, _ZoneWatcher.Zone.OnCurrentScreenShowLocation.Y-1), new Size(_ZoneWatcher.Zone.Size.Width+4, _ZoneWatcher.Zone.Size.Height+4), System.Drawing.Color.FromArgb(255, 24, 115, 204), 1, null);
 
             // Delay process here to let the player set up ; )
             Thread.Sleep(1000);
 
             while (true)
             {
-                ZoneEvaluator.EvaluateZones(_Config.ZonesWatcher.Where(w => w.Enabled).ToList(), ShowZoneAction);
+                PixelsInZoneEvaluator.EvaluateZones(_Config.ZonesWatcher.Where(w => w.Enabled).ToList(), ShowZoneAction);
                 Thread.Sleep(5000);
             }
         }
 
-        private void ShowZoneAction(Point aZoneLocation, Size aZoneSize, Color aStrokeColor, int aStrokeThickness, int? aTimeOutMs = 1500)
+        private void ShowZoneAction(Point aZoneLocation, Size aZoneSize, System.Drawing.Color aStrokeColor, int aStrokeThickness, int? aTimeOutMs = 1500)
         {
             Task.Run(() =>
             {
@@ -82,7 +85,7 @@ namespace Radiant.Custom.Games.EveOnline.EveRay
                         Width = aZoneSize.Width,
                         Height = aZoneSize.Height,
                         Fill = new SolidColorBrush(Color.FromArgb(8, aStrokeColor.R, aStrokeColor.G, aStrokeColor.B)),
-                        Stroke = new SolidColorBrush(aStrokeColor),
+                        Stroke = new SolidColorBrush(Color.FromArgb(aStrokeColor.A, aStrokeColor.R, aStrokeColor.G, aStrokeColor.B)),
                         StrokeThickness = aStrokeThickness,
                         IsHitTestVisible = false,
                     };

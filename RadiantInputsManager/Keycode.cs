@@ -10,8 +10,19 @@ namespace Radiant.InputsManager
     {
         KP_Enter = 0xff0d,// Enter
         XK_Escape = 0xff1b,//Escape
+        XK_F1 = 0xffbe,// F1
+        XK_F2 = 0xffbf,// F2
+        XK_F3 = 0xffc0,// F3
+        XK_F4 = 0xffc1,// F4
+        XK_F5 = 0xffc2,// F5
+        XK_F6 = 0xffc3,// F6
+        XK_F7 = 0xffc4,// F7
+        XK_F8 = 0xffc5,// F8
+        XK_F9 = 0xffc6,// F9
+        XK_F10 = 0xffc7,// F10
         XK_F11 = 0xffc8,// F11
         XK_F12 = 0xffc9,// F12
+        XK_Alt_L = 0xffe9,// L-ALT
         XK_TAB = 0xff09,// TAB
         XK_Control_L = 0xffe3,// Left Control
         XK_a = 0x0061,// a
@@ -46,6 +57,7 @@ namespace Radiant.InputsManager
         XK_Up = 0x08fc,// Up Arrow
         XK_Shift_L = 0xffe1,// Left Shift
         XK_End = 0xff57,//End
-        XK_Home = 0xff50//Home
+        XK_Home = 0xff50,//Home
+        XK_KP_Space = 0xff80,//Space
     }
 }

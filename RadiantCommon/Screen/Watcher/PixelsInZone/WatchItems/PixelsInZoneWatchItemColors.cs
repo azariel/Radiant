@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace Radiant.Custom.Games.EveOnline.EveRay.Watch
+namespace Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems
 {
-    public class WatchItemColors : IWatchItemByBitmap
+    public class PixelsInZoneWatchItemColors : IPixelsInZoneWatchItemByBitmap
     {
         public enum WatchItemDetectionType 
         {
@@ -19,6 +19,6 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Watch
         public float WatchItemNbPixelsToTrigger { get; set; }
         public int MsToShowZoneOnDetection { get; set; } = 1500;
         public WatchItemDetectionType DetectionType { get; set; } = WatchItemDetectionType.WhiteList;
-        public System.Windows.Media.Color StrokeColor { get; set; } = System.Windows.Media.Color.FromArgb(255, 139, 0, 0);
+        public Color StrokeColor { get; set; } = Color.FromArgb(255, 139, 0, 0);
     }
 }

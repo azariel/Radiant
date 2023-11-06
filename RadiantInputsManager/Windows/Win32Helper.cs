@@ -41,7 +41,7 @@ namespace Radiant.InputsManager.Windows
         private const uint MOUSEEVENTF_XDOWN = 0x0080;
         private const uint MOUSEEVENTF_XUP = 0x0100;
 
-        private static void ExecuteMouseEventByButton(uint aButtonAliasDown, uint aButtonAliasUp, int aDelay = 100)
+        private static void ExecuteMouseEventByButton(uint aButtonAliasDown, uint aButtonAliasUp, int aDelay = 117)
         {
             ExecuteMouseEventByButton(aButtonAliasDown);
             Thread.Sleep(aDelay);
@@ -81,14 +81,26 @@ namespace Radiant.InputsManager.Windows
                 Keycode.XK_Up,
                 Keycode.XK_End,
                 Keycode.XK_Home,
+                Keycode.XK_KP_Space,
             };
 
             byte _KeyCode = aKeyCode switch
             {
                 Keycode.KP_Enter => (byte)WindowsVirtualKeys.Return,
+                Keycode.XK_F1 => (byte)WindowsVirtualKeys.F1,
+                Keycode.XK_F2 => (byte)WindowsVirtualKeys.F2,
+                Keycode.XK_F3 => (byte)WindowsVirtualKeys.F3,
+                Keycode.XK_F4 => (byte)WindowsVirtualKeys.F4,
+                Keycode.XK_F5 => (byte)WindowsVirtualKeys.F5,
+                Keycode.XK_F6 => (byte)WindowsVirtualKeys.F6,
+                Keycode.XK_F7 => (byte)WindowsVirtualKeys.F7,
+                Keycode.XK_F8 => (byte)WindowsVirtualKeys.F8,
+                Keycode.XK_F9 => (byte)WindowsVirtualKeys.F9,
+                Keycode.XK_F10 => (byte)WindowsVirtualKeys.F10,
                 Keycode.XK_F11 => (byte)WindowsVirtualKeys.F11,
                 Keycode.XK_F12 => (byte)WindowsVirtualKeys.F12,
                 Keycode.XK_TAB => (byte)WindowsVirtualKeys.Tab,
+                Keycode.XK_Alt_L => (byte)WindowsVirtualKeys.LAlt,
                 Keycode.XK_Control_L => (byte)WindowsVirtualKeys.LeftControl,
                 Keycode.XK_Shift_L => (byte)WindowsVirtualKeys.LeftShift,
                 Keycode.XK_Left => (byte)WindowsVirtualKeys.Left,
@@ -124,6 +136,7 @@ namespace Radiant.InputsManager.Windows
                 Keycode.XK_z => (byte)WindowsVirtualKeys.Z,
                 Keycode.XK_End => (byte)WindowsVirtualKeys.End,
                 Keycode.XK_Home => (byte)WindowsVirtualKeys.Home,
+                Keycode.XK_KP_Space => (byte)WindowsVirtualKeys.Space,
                 _ => throw new ArgumentOutOfRangeException(nameof(aKeyCode), aKeyCode, null)
             };
 

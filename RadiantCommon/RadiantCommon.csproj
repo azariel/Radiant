@@ -11,6 +11,7 @@
 		<Nullable>disable</Nullable>
 		<AssemblyName>Radiant.Common</AssemblyName>
 		<RootNamespace>Radiant.Common</RootNamespace>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -1,113 +1,117 @@
 {
-  "$type": "Radiant.Common.Configuration.RadiantConfig, Radiant.Common",
-  "Tasks": {
-    "$type": "Radiant.Common.Configuration.RadiantTasksConfig, Radiant.Common",
-    "Tasks": [
-      // Update products price history in foreground
-      {
-        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.ProductsMonitorTask, Radiant.Custom.ProductsWatcher.ProductsHistory",
-        "IsEnabled": false,
-        "IsForegroundExclusive": true,
-        "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
-        "Triggers": [
-          {
-            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "BlackOutTimeFrame": {
-              "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "17:00:00",
-              "BlackOutStart": "18:30:00"
+    "$type": "Radiant.Common.Configuration.RadiantConfig, Radiant.Common",
+    "Tasks": {
+        "$type": "Radiant.Common.Configuration.RadiantTasksConfig, Radiant.Common",
+        "Tasks": [
+            // Update products price history in foreground
+            {
+                "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.ProductsMonitorTask, Radiant.Custom.ProductsWatcher.ProductsHistory",
+                "IsEnabled": false,
+                "IsForegroundExclusive": true,
+                "UID": "5e6fff65-a049-4dca-88ff-02c15b13f7be",
+                "Triggers": [
+                    {
+                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+                        "BlackOutTimeFrame": {
+                            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
+                            "BlackOutEnd": "17:00:00",
+                            "BlackOutStart": "18:30:00"
+                        },
+                        // avoid running when a VM is running
+                        "ProcessesNameNotRunningCollection": [
+                            "vmmem",
+                            "wow",
+                            "evefile"
+                        ],
+                        "TriggerEveryXSeconds": 5
+                    }
+                ]
             },
-            // avoid running when a VM is running
-            "ProcessesNameNotRunningCollection": [
-              "vmmem"
-            ],
-            "TriggerEveryXSeconds": 5
-          }
-        ]
-      },
-      // Send notifications to users
-      {
-        "$type": "Radiant.Notifier.Tasks.NotificationsMonitorTask, Radiant.Notifier",
-        "IsEnabled": false,
-        "UID": "10c7195d-8a4d-4eed-9b04-8c8362928702",
-        "Triggers": [
-          {
-            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "TriggerEveryXSeconds": 600,
-            "UID": "f2dc3da0-6999-4e61-bf92-5e7e2c79c2af"
-          }
-        ]
-      },
-      // Update remote google sheet with products' prices over time
-      {
-        "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.UpdateRemoteProductsGoogleSheet, Radiant.Custom.ProductsWatcher.ProductsHistory",
-        "IsEnabled": false,
-        "UID": "1523950d-a4b8-4f3d-bb76-6e49d19ea353",
-        "Triggers": [
-          {
-            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "BlackOutTimeFrame": null,
-            "TriggerEveryXSeconds": 7200
-          }
-        ]
-      },
-      // Shutdown computer at ~19h20-19h30, only if inactive for at least 10 min (manual scraper is considered as an Active task)
-      {
-        "$type": "Radiant.Common.Tasks.ShutdownComputerTask, Radiant.Common",
-        "IsEnabled": false,
-        "UID": "7fd1aa65-16e3-47ba-8ca9-3db957e228d2",
-        "Triggers": [
-          {
-            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "BlackOutTimeFrame": {
-              "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "19:20:00",
-              "BlackOutStart": "19:30:00"
+            // Send notifications to users
+            {
+                "$type": "Radiant.Notifier.Tasks.NotificationsMonitorTask, Radiant.Notifier",
+                "IsEnabled": false,
+                "UID": "10c7195d-8a4d-4eed-9b04-8c8362928702",
+                "Triggers": [
+                    {
+                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+                        "TriggerEveryXSeconds": 600,
+                        "UID": "f2dc3da0-6999-4e61-bf92-5e7e2c79c2af"
+                    }
+                ]
             },
-            "TriggerEveryXSeconds": 300,
-            "InactivityTriggerEnabled": true,
-            "MinimumInactivityTimeSpan": "00:10:00"
-          }
-        ]
-      },
-      // Update in background the newly available books
-      {
-        "$type": "Radiant.Custom.Readers.RadiantReader.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReader",
-        "IsEnabled": false,
-        "UID": "63043528-6cd9-4c01-9ff1-03307f3b3176",
-        "HandleNewBooks": true,
-        "HandleNewChapters": false,
-        "Triggers": [
-          {
-            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "TriggerEveryXSeconds": 3600
-          }
-        ]
-      },
-      // Update every chapters either in background or foreground depending on the website
-      {
-        "$type": "Radiant.Custom.Readers.RadiantReader.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReader",
-        "IsEnabled": false,
-        "IsForegroundExclusive": true,
-        "UID": "32585567-003c-4c92-b95b-0ee58591bae0",
-        "HandleNewBooks": false,
-        "HandleNewChapters": true,
-        "Triggers": [
-          {
-            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "BlackOutTimeFrame": {
-              "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "18:00:00",
-              "BlackOutStart": "19:00:00"
+            // Update remote google sheet with products' prices over time
+            {
+                "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.UpdateRemoteProductsGoogleSheet, Radiant.Custom.ProductsWatcher.ProductsHistory",
+                "IsEnabled": false,
+                "UID": "1523950d-a4b8-4f3d-bb76-6e49d19ea353",
+                "Triggers": [
+                    {
+                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+                        "BlackOutTimeFrame": null,
+                        "TriggerEveryXSeconds": 7200
+                    }
+                ]
             },
-            // avoid running when a VM is running
-            "ProcessesNameNotRunningCollection": [
-              "vmmem"
-            ],
-            "TriggerEveryXSeconds": 5
-          }
+            // Shutdown computer at ~19h20-19h30, only if inactive for at least 10 min (manual scraper is considered as an Active task)
+            {
+                "$type": "Radiant.Common.Tasks.ShutdownComputerTask, Radiant.Common",
+                "IsEnabled": false,
+                "UID": "7fd1aa65-16e3-47ba-8ca9-3db957e228d2",
+                "Triggers": [
+                    {
+                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+                        "BlackOutTimeFrame": {
+                            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
+                            "BlackOutEnd": "19:20:00",
+                            "BlackOutStart": "19:30:00"
+                        },
+                        "TriggerEveryXSeconds": 300,
+                        "InactivityTriggerEnabled": true,
+                        "MinimumInactivityTimeSpan": "00:10:00"
+                    }
+                ]
+            },
+            // Update in background the newly available books
+            {
+                "$type": "Radiant.Custom.Readers.RadiantReader.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReader",
+                "IsEnabled": true,
+                "UID": "63043528-6cd9-4c01-9ff1-03307f3b3176",
+                "HandleNewBooks": true,
+                "HandleNewChapters": false,
+                "Triggers": [
+                    {
+                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+                        "TriggerEveryXSeconds": 30
+                    }
+                ]
+            },
+            // Update every chapters either in background or foreground depending on the website
+            {
+                "$type": "Radiant.Custom.Readers.RadiantReader.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReader",
+                "IsEnabled": false,
+                "IsForegroundExclusive": true,
+                "UID": "32585567-003c-4c92-b95b-0ee58591bae0",
+                "HandleNewBooks": false,
+                "HandleNewChapters": true,
+                "Triggers": [
+                    {
+                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+                        "BlackOutTimeFrame": {
+                            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
+                            "BlackOutEnd": "18:00:00",
+                            "BlackOutStart": "19:00:00"
+                        },
+                        // avoid running when a VM is running
+                        "ProcessesNameNotRunningCollection": [
+                            "vmmem",
+                            "wow",
+                            "evefile"
+                        ],
+                        "TriggerEveryXSeconds": 5
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  }
+    }
 }

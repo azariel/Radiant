@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using Radiant.Custom.Games.EveOnline.EveRay.Watch;
+using Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems;
 
-namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
+namespace Radiant.Common.Screen.Watcher.PixelsInZone
 {
-    public class EveRayZone
+    public class PixelsInZoneAreaManager
     {
         // ********************************************************************
         //                            Private
@@ -16,7 +16,7 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
         private Size fSize = new(1, 1);
         private bool fIsFirstCheck = true;
 
-        public bool ContainsColor(WatchItemColors.WatchItemDetectionType aWatchItemDetectionType, Color aColor, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
+        public bool ContainsColor(PixelsInZoneWatchItemColors.WatchItemDetectionType aWatchItemDetectionType, Color aColor, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
         {
             return ContainsColors(aWatchItemDetectionType, new List<Color> { aColor }, aTreshold, aWatchItemNbPixelsToTrigger, aSaveImageOnDisk, out aHitPointLocation);
         }
@@ -24,7 +24,7 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public unsafe bool ContainsColors(WatchItemColors.WatchItemDetectionType aWatchItemDetectionType, List<Color> aColors, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
+        public unsafe bool ContainsColors(PixelsInZoneWatchItemColors.WatchItemDetectionType aWatchItemDetectionType, List<Color> aColors, float aTreshold, float aWatchItemNbPixelsToTrigger, bool aSaveImageOnDisk, out Point? aHitPointLocation)
         {
             aHitPointLocation = null;
 
@@ -71,7 +71,7 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
                                 Math.Abs(_RatioGreenToBlue - _CurrentRatioGreenToBlue) > _Tolerance ||
                                 Math.Abs(_Color.R - r) + Math.Abs(_Color.G - g) + Math.Abs(_Color.B - b) > aTreshold)
                             {
-                                if (aWatchItemDetectionType == WatchItemColors.WatchItemDetectionType.WhiteList)
+                                if (aWatchItemDetectionType == PixelsInZoneWatchItemColors.WatchItemDetectionType.WhiteList)
                                     continue;
                             }
 
@@ -90,7 +90,8 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
                 fBitmap.UnlockBits(_BitmapData);
             }
 
-            SaveImageIfFirstCheckForManualValidation();
+            if (aSaveImageOnDisk)
+                SaveImageIfFirstCheckForManualValidation();
 
             if (_NbPixelsMatchingWatchItem >= aWatchItemNbPixelsToTrigger)
             {
@@ -180,7 +181,8 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Zones
                 fBitmap.UnlockBits(_BitmapData);
             }
 
-            SaveImageIfFirstCheckForManualValidation();
+            if (aSaveImageOnDisk)
+                SaveImageIfFirstCheckForManualValidation();
 
             if (_NbPixelsMatching >= aWatchItemNbPixelsToTrigger)
             {
