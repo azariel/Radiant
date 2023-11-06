@@ -1,7 +1,9 @@
 ﻿using EveBee.Configuration;
+using Newtonsoft.Json;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent.Clipboard;
 using Radiant.Common.Screen.Watcher.PixelsInZone;
+using Radiant.Common.Serialization;
 using Radiant.InputsManager;
 using Radiant.InputsManager.InputsParam;
 
@@ -82,7 +84,7 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
             }
 
-            // deactivate modules such as afterburner to align quicker
+            // deactivate modules such as afterburner to align quicker. Note there is an issue here. If we just arrived on a combat site and there's a Carrier, we're ACTIVATING the afterburner...buuut the ship isn't "on grid" yet atm, so it's a fake issue
             foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.DockToStationScenario.DeactivateModules)
             {
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
@@ -94,21 +96,36 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _Action);
             }
 
-            // Wait for drones
             // TODO Check in logFiles for drones return instead ?
-            Thread.Sleep(_Config.DockToStationScenario.WaitForDroneDelayMs);
+            // Wait for drones
+            int _NbSeconds = (int)Math.Floor((double)_Config.DockToStationScenario.WaitForDroneDelayMs / 1000);
+            int _RemainingMs = (int)Math.Min(_Config.DockToStationScenario.WaitForDroneDelayMs - (_NbSeconds * 1000), 1000);// Math.max as failsafe
+            var _AlignAction = _Config.DockToStationScenario.AlignToStation.LastOrDefault();
+            for (int i = 0; i < _NbSeconds; i++)
+            {
+                Thread.Sleep(new Random().Next(950, 1050));
 
-            for (int i = 0; i < 12; i++)// for 1 to 2 min, spam that dock button
+                // Align to station
+                if (_AlignAction != null)
+                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _AlignAction);
+            }
+
+            Thread.Sleep(_RemainingMs);
+
+            for (int i = 0; i < 12; i++)// for ~ 1 min, spam that dock button
             {
                 foreach (MouseActionInputParam _Action in _Config.DockToStationScenario.DockToStation)
                 {
                     InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _Action);
                 }
-                Thread.Sleep(new Random().Next(5000, 10000));
+                Thread.Sleep(new Random().Next(4500, 6500));
             }
 
             // Validate that we are docked in Logfiles
             BeeState.Docked = true;
+            BeeState.MustFlee = false;
+            BeeState.MustGoBackToStationGrid = false;
+            BeeState.IsWarping = false;
         }
 
         public static void FindNextCombatSite()
@@ -170,10 +187,11 @@ namespace EveBee.Actions
                 foreach (var _Action in _Config.FindNextCombatSiteScenario.CleanTopOneRadarResult)
                 {
                     // Add noise
-                    _Action.X += new Random().Next(-15, 15);
-                    _Action.Y += new Random().Next(-3, 3);
+                    MouseActionInputParam _TempAction = JsonCommonSerializer.DeserializeFromString<MouseActionInputParam>(JsonCommonSerializer.SerializeToString(_Action));
+                    _TempAction.X += new Random().Next(-20, 10);
+                    _TempAction.Y += new Random().Next(-2, 2);
 
-                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _Action);
+                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _TempAction);
                     Thread.Sleep(new Random().Next(100, 550));// wait between actions
                 }
 
@@ -245,14 +263,26 @@ namespace EveBee.Actions
         {
             var _Config = EveBeeConfigurationManager.ReloadConfig();
 
+            // Select all targets
             for (int i = 0; i < _Config.AttackFirstWaveTargetsScenario.NbManualTargetsToDo; i++)
             {
+                // Click on enemy
                 foreach (MouseActionInputParam _Action in _Config.AttackFirstWaveTargetsScenario.SelectTopTarget)
                 {
                     // Add noise
-                    _Action.X += new Random().Next(-2, 2);
-                    _Action.Y += new Random().Next(-1, 1);
-                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _Action);
+                    MouseActionInputParam _TempAction = JsonCommonSerializer.DeserializeFromString<MouseActionInputParam>(JsonCommonSerializer.SerializeToString(_Action));
+                    _TempAction.X += new Random().Next(-2, 2);
+                    _TempAction.Y += i * _Config.AttackFirstWaveTargetsScenario.PixelsSpacingBetweenTargetsInOverview;
+
+                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _TempAction);
+                }
+
+                // Click on TARGET
+                foreach (MouseActionInputParam _Action in _Config.AttackFirstWaveTargetsScenario.TargetSelectedEnemy)
+                {
+                    MouseActionInputParam _TempAction = JsonCommonSerializer.DeserializeFromString<MouseActionInputParam>(JsonCommonSerializer.SerializeToString(_Action));
+                    _TempAction.X += new Random().Next(-2, 2);
+                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _TempAction);
                 }
 
                 if (IsThereEnemiesInLocal() || IsThereACarrierOnGrid())
@@ -260,21 +290,26 @@ namespace EveBee.Actions
                     return;
                 }
 
-                if (!SafeWait(_Config.AttackFirstWaveTargetsScenario.TargetDelayMs))
+                // F (attack)
+                foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.AttackFirstWaveTargetsScenario.AttackCurrentTarget)
                 {
-                    return;
+                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
                 }
+            }
 
+            BeeState.NextManualTargetToFocusDateTime = DateTime.Now.AddSeconds(new Random().Next(60, 180));
+            BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddMinutes(5);
+
+            // Attack
+            for (int i = 0; i < _Config.AttackFirstWaveTargetsScenario.ContinuousAttackDurationInLoop; i++)
+            {
+                // F
                 foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.AttackFirstWaveTargetsScenario.AttackCurrentTarget)
                 {
                     InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
                 }
 
-                // drones are attacking the target, wait for a little
-                if (!SafeWait(_Config.AttackFirstWaveTargetsScenario.DamageTargetDelayMs))
-                {
-                    return;
-                }
+                Thread.Sleep(new Random().Next(5000, 8500));
             }
         }
 
@@ -303,6 +338,8 @@ namespace EveBee.Actions
         {
             LoggingManager.LogToFile("196f8777-d122-43ad-8538-7c97650b8a8f", "Warping to station grid...");
 
+            BeeState.IsWarping = true;
+
             var _Config = EveBeeConfigurationManager.ReloadConfig();
 
             int _NbSeconds = (int)Math.Floor((double)_Config.WarpToStationScenario.WarpMaxTimeToWaitInMs / 1000);
@@ -320,9 +357,10 @@ namespace EveBee.Actions
                 for (int i = 0; i < Math.Min(5, _NbSeconds); i++)
                 {
                     // Add noise
-                    _LastMouseAction.X += new Random().Next(-1, 1);
-                    _LastMouseAction.Y += new Random().Next(-1, 1);
-                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _LastMouseAction);
+                    MouseActionInputParam _TempAction = JsonCommonSerializer.DeserializeFromString<MouseActionInputParam>(JsonCommonSerializer.SerializeToString(_LastMouseAction));
+                    _TempAction.X += new Random().Next(-2, 2);
+                    _TempAction.Y += new Random().Next(-2, 2);
+                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _TempAction);
                     Thread.Sleep(new Random().Next(900, 1100));
                 }
             }
@@ -330,6 +368,101 @@ namespace EveBee.Actions
             int _NbMsRemaining = (Math.Max(0, _NbSeconds - 5) * 1000) + _RemainingMs;
             LoggingManager.LogToFile("4e06dc89-5573-4499-a6fa-1bef52a4d39b", $"In warp to station, waiting [{_NbMsRemaining}] ms...");
             Thread.Sleep(_NbMsRemaining);
+
+            BeeState.IsWarping = false;
+        }
+
+        public static void SemiIdleCombat()
+        {
+            if (DateTime.Now < BeeState.NextManualTargetToFocusDateTime)
+            {
+                return;
+            }
+
+            // Every ~5 min, select a target and focus it
+            var _Config = EveBeeConfigurationManager.ReloadConfig();
+
+            foreach (MouseActionInputParam _Action in _Config.AttackFirstWaveTargetsScenario.SelectTopTarget)
+            {
+                // Add noise
+                MouseActionInputParam _TempAction = JsonCommonSerializer.DeserializeFromString<MouseActionInputParam>(JsonCommonSerializer.SerializeToString(_Action));
+                _TempAction.X += new Random().Next(-5, 10);
+                _TempAction.Y += new Random().Next(-1, 1);
+                InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _TempAction);
+            }
+
+            // Click on TARGET
+            foreach (MouseActionInputParam _Action in _Config.AttackFirstWaveTargetsScenario.TargetSelectedEnemy)
+            {
+                MouseActionInputParam _TempAction = JsonCommonSerializer.DeserializeFromString<MouseActionInputParam>(JsonCommonSerializer.SerializeToString(_Action));
+                _TempAction.X += new Random().Next(-2, 2);
+                InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _TempAction);
+            }
+
+            if (IsThereEnemiesInLocal() || IsThereACarrierOnGrid())
+            {
+                return;
+            }
+
+            if (!SafeWait(_Config.AttackFirstWaveTargetsScenario.DelayBetweenDroneAttackNewTarget * 2))
+            {
+                return;
+            }
+
+            foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.AttackFirstWaveTargetsScenario.AttackCurrentTarget)
+            {
+                InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
+            }
+
+            BeeState.NextManualTargetToFocusDateTime = DateTime.Now.AddSeconds(new Random().Next(300, 480));
+        }
+
+        public static bool DetermineIfCombatSiteIsCompleted()
+        {
+            // Check every 5 min if the combat site is completed
+            if (DateTime.Now < BeeState.NextCombatSiteCompletionValidatorDateTime)
+            {
+                return false;
+            }
+
+            BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddMinutes(5);
+
+            var _Config = EveBeeConfigurationManager.ReloadConfig();
+
+            // TODO: validate for Friendly on Grid. If so, ignore this combat site
+
+            DateTime _BeforeEval = DateTime.Now;
+            PixelsInZoneEvaluator.EvaluateZones(_Config.DetermineIfCombatSiteIsCompletedScenario.ZonesWatcher, null);
+
+            if (BeeState.CombatSiteIsOverDateTimeTrigger != null && _BeforeEval < BeeState.CombatSiteIsOverDateTimeTrigger)
+            {
+                BeeState.CombatSiteIsOverDateTimeTrigger = null;
+
+                if (BeeState.CombatSiteValidatorIterator > 3)
+                {
+                    BeeState.CombatSiteValidatorIterator = 0;
+
+                    // Recall drones
+                    foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.DockToStationScenario.RecallDrones)
+                    {
+                        InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
+                    }
+
+                    // Wait for drones to come back. Large amount of time to be sure we're not loosing drones needlessly
+                    SafeWait(30000);
+
+                    WarpToStation();
+                    return true;
+
+                } else
+                {
+                    // Make sure. Spawn may take a few secs
+                    BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddSeconds(5);
+                    ++BeeState.CombatSiteValidatorIterator;
+                }
+            }
+
+            return false;
         }
     }
 }

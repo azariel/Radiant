@@ -22,5 +22,6 @@ namespace EveBee.Configuration
         public WarpToStationScenario WarpToStationScenario { get; set; }
         public PrepareToCombatSiteScenario PrepareToCombatSiteScenario { get; set; }
         public AttackFirstWaveTargetsScenario AttackFirstWaveTargetsScenario { get; set; }
+        public DetermineIfCombatSiteIsCompletedScenario DetermineIfCombatSiteIsCompletedScenario { get; set; }
     }
 }

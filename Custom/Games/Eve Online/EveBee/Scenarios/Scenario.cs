@@ -14,5 +14,6 @@
         GoingBackToStationGrid,
         PreparingCombat,
         CombatFirstWave,// First manually the first ~10 enemies (get rid of scraming frigs for instance)
+        SemiIdleCombat// From time to time, select the first target manually and focus it. Beside that, just be idle until the combat site is done
     }
 }

@@ -98,7 +98,7 @@ namespace Radiant.Common.Screen.Watcher.PixelsInZone
                 if (aSaveImageOnDisk)
                 {
                     CreateTempFolderIfDoesntExists();
-                    fBitmap.Save($"C:\\Temp\\COLOR_{Guid.NewGuid()}.png");
+                    fBitmap.Save($"C:\\Temp\\TRIGGERED_COLOR_{Guid.NewGuid()}.png");
                 }
 
                 return true;

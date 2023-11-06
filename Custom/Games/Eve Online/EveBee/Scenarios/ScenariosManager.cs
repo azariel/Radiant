@@ -13,28 +13,28 @@ namespace EveBee.Scenarios
             var _Config = EveBeeConfigurationManager.ReloadConfig();
 
             // Check if there are enemies in local
-            bool _EnnemiesInLocal = ActionsExecutor.IsThereEnemiesInLocal();
-
-            if (_EnnemiesInLocal)
-            {
-                // If there are, do nothing. Wait up.
-                BeeState.ForceWaitInDockedIdleUntilDateTime = DateTime.Now.AddMinutes(10);// force wait idly in docked for 10 min
-            }
+            ActionsExecutor.IsThereEnemiesInLocal();
 
             // Fleeing
             if (BeeState.MustFlee)
             {
-                LoggingManager.LogToFile("7199df12-3361-444d-b79c-4c4089722056", "Bee must flee. Docking procedures triggered.");
-
                 BeeState.MustFlee = false;
 
                 if (!BeeState.Docked)
                 {
+                    LoggingManager.LogToFile("7199df12-3361-444d-b79c-4c4089722056", "Bee must flee. Docking procedures triggered.");
                     fCurrentScenario = Scenario.Docking;
                     ActionsExecutor.DockToStation();
                 }
 
                 fCurrentScenario = Scenario.Idle;
+
+                if (BeeState.Docked)
+                {
+                    // Don't spam local detection
+                    Thread.Sleep(30000);
+                }
+
                 return;
             }
 
@@ -105,14 +105,29 @@ namespace EveBee.Scenarios
                     // TODO: target smallest ship. kill it. Loop for the next few min
                     AttackFirstWaveTargets();
                     break;
+                case Scenario.SemiIdleCombat:
+                    SemiIdleCombat();
+                    break;
                 default:
                     return;
             }
         }
 
+        private static void SemiIdleCombat()
+        {
+            ActionsExecutor.SemiIdleCombat();
+
+            // determine if combat site is over
+            if (ActionsExecutor.DetermineIfCombatSiteIsCompleted())
+                fCurrentScenario = Scenario.Idle;
+
+            // TODO: If health is low, go Dock
+        }
+
         private static void AttackFirstWaveTargets()
         {
             ActionsExecutor.AttackFirstWaveTargets();
+            fCurrentScenario = Scenario.SemiIdleCombat;
         }
 
         private static void FindNextCombatSite()
@@ -175,24 +190,25 @@ namespace EveBee.Scenarios
         // Try to find something to do as we're in idle state
         private static void GetScenarioToDoFromIdleState()
         {
-            if (BeeState.ForceWaitInDockedIdleUntilDateTime != null)
-            {
-                if (BeeState.ForceWaitInDockedIdleUntilDateTime > DateTime.Now)
-                {
-                    return;// continue waiting idly
-                }
-
-                LoggingManager.LogToFile("94e3e393-9c2d-4c30-b98d-91e12c939a6c", "Bee idle state is over.");
-
-                // wait is over
-                BeeState.ForceWaitInDockedIdleUntilDateTime = null;
-            }
-
-            LoggingManager.LogToFile("77fc9fba-55f1-4dc7-a5ae-f3696ece2529", "Bee is idle. Generating next event...");
+            LoggingManager.LogToFile("a7a373db-4a11-4466-a83c-082fce38b580", $"Bee is idle. Docked=[{BeeState.Docked}]. MustFlee=[{BeeState.MustFlee}]. IsWarping=[{BeeState.IsWarping}]. MustGoBackToStationGrid=[{BeeState.MustGoBackToStationGrid}]. ForceWaitInDockedIdleUntilDateTime=[{BeeState.ForceWaitInDockedIdleUntilDateTime}]. Now: [{DateTime.Now}].");
 
             // if we're still docked
             if (BeeState.Docked)
             {
+                if (BeeState.ForceWaitInDockedIdleUntilDateTime != null)
+                {
+                    if (BeeState.ForceWaitInDockedIdleUntilDateTime > DateTime.Now)
+                    {
+                        Thread.Sleep(30000);// innacurate wait, dont spam local detection
+                        return;// continue waiting idly
+                    }
+
+                    LoggingManager.LogToFile("94e3e393-9c2d-4c30-b98d-91e12c939a6c", "Bee idle state is over.");
+
+                    // wait is over
+                    BeeState.ForceWaitInDockedIdleUntilDateTime = null;
+                }
+
                 fCurrentScenario = Scenario.Repairing;
 
                 // 1st thing to do is repairing
