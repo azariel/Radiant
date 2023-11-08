@@ -23,5 +23,6 @@ namespace EveBee.Configuration
         public PrepareToCombatSiteScenario PrepareToCombatSiteScenario { get; set; }
         public AttackFirstWaveTargetsScenario AttackFirstWaveTargetsScenario { get; set; }
         public DetermineIfCombatSiteIsCompletedScenario DetermineIfCombatSiteIsCompletedScenario { get; set; }
+        public BeeHealthStateScenario BeeHealthStateScenario { get; set; }
     }
 }

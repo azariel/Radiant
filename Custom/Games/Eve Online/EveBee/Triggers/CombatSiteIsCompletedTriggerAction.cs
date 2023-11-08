@@ -1,5 +1,4 @@
-﻿using Radiant.Common.Diagnostics;
-using Radiant.Common.Screen.Watcher.PixelsInZone.TriggerActions;
+﻿using Radiant.Common.Screen.Watcher.PixelsInZone.TriggerActions;
 
 namespace EveBee.Triggers
 {
@@ -7,8 +6,7 @@ namespace EveBee.Triggers
     {
         public void Trigger()
         {
-            LoggingManager.LogToFile("48a6385c-28f6-46fa-aa9a-92eb1261c08d", "Combat site is deemed as completed.");
-            BeeState.CombatSiteIsOverDateTimeTrigger = DateTime.Now;
+            BeeState.CombatSiteIsStillValidDateTimeTrigger = DateTime.Now;
         }
     }
 }

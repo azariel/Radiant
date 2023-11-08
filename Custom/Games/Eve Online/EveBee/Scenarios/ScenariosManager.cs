@@ -10,7 +10,15 @@ namespace EveBee.Scenarios
 
         public static void Tick()
         {
-            var _Config = EveBeeConfigurationManager.ReloadConfig();
+            var _Config = EveBeeConfigurationManager.GetConfigFromMemory();
+
+            // TODO: If we're scrammed, kill 1 frig and retry
+
+            // If health is low, go Dock and come back
+            if (!BeeState.MustFlee)
+            {
+                ActionsExecutor.DetectIfBeeHealthIsLow();
+            }
 
             // Check if there are enemies in local
             ActionsExecutor.IsThereEnemiesInLocal();
@@ -102,7 +110,7 @@ namespace EveBee.Scenarios
                     PrepareToCombat();
                     break;
                 case Scenario.CombatFirstWave:
-                    // TODO: target smallest ship. kill it. Loop for the next few min
+                    // target smallest ship. kill it. Loop for the next few min
                     AttackFirstWaveTargets();
                     break;
                 case Scenario.SemiIdleCombat:
@@ -120,8 +128,6 @@ namespace EveBee.Scenarios
             // determine if combat site is over
             if (ActionsExecutor.DetermineIfCombatSiteIsCompleted())
                 fCurrentScenario = Scenario.Idle;
-
-            // TODO: If health is low, go Dock
         }
 
         private static void AttackFirstWaveTargets()
@@ -148,7 +154,10 @@ namespace EveBee.Scenarios
             LoggingManager.LogToFile("2ae84613-43b7-4057-9f3c-ba43d028c9ff", "Validating combat site...");
             bool _CurrentCombatSiteIsInvalid = ActionsExecutor.DetermineValidityOfCurrentCombatSite();
 
-            if (!_CurrentCombatSiteIsInvalid)
+            Thread.Sleep(100);
+            bool _CurrentCombatSiteIsInvalid2 = ActionsExecutor.DetermineValidityOfCurrentCombatSite();
+
+            if (!_CurrentCombatSiteIsInvalid || !_CurrentCombatSiteIsInvalid2)
             {
                 // Combat site is valid, prepare to combat (ex: anchor + afterburner)
                 LoggingManager.LogToFile("e3696007-32ea-45a0-9541-322992a35448", "Combat site is valid.");

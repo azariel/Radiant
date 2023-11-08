@@ -550,7 +550,7 @@
     },
     "AttackFirstWaveTargetsScenario": {
         "$type": "EveBee.Scenarios.AttackFirstWaveTargetsScenario, EveBee",
-        "PixelsSpacingBetweenTargetsInOverview": 24,
+        //"PixelsSpacingBetweenTargetsInOverview": 24,
         "SelectTopTarget": [
             {
                 "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
@@ -574,8 +574,7 @@
                 "Y": 140
             }
         ],
-        "NbManualTargetsToDo": 8,
-        "DelayBetweenDroneAttackNewTarget": 5000,
+        "DelayBetweenDroneAttackNewTarget": 9000,
         "AttackCurrentTarget": [
             {
                 "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
@@ -647,8 +646,75 @@
                 ],
                 "Zone": {
                     "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
-                    "Location": "532, 278",
+                    "Location": "530, 320",
                     "Size": "16, 120"
+                }
+            }
+        ]
+    },
+    "BeeHealthStateScenario": {
+        "$type": "EveBee.Scenarios.BeeHealthStateScenario, EveBee",
+        "ZonesWatcher": [
+            {
+                "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.Models.PixelsInZoneAreaModel, Radiant.Common",
+                "AlwaysShowZoneUI": false,
+                "Enabled": true,
+                "SaveImageOnDiskOnTriggered": true,
+                "TriggerAction": {
+                    "$type": "EveBee.Triggers.DockTriggerAction, EveBee"
+                },
+                "WatchItems": [
+                    {
+                        "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems.PixelsInZoneWatchItemColors, Radiant.Common",
+                        "Colors": [
+                            // RED
+                            "Red",
+                            "255,98,2,3",
+                            "255,107,6,8",
+                            "255,109,2,2",
+                            "255,109,15,17",
+                            "255,111,17,19",
+                            "255,112,18,21",
+                            "255,115,14,14",
+                            "255,115,14,15",
+                            "255,115,22,27",
+                            "255,116,23,28",
+                            "255,119,18,18",
+                            "255,125,25,25",
+                            "255,129,2,2",
+                            "255,130,25,25",
+                            "255,143,8,10",
+                            "255,144,1,1",
+                            "255,144,20,22",
+                            "255,145,15,19",
+                            "255,146,16,19",
+                            "255,148,5,6",
+                            "255,148,6,7",
+                            "255,150,7,8",
+                            "255,151,8,8",
+                            "255,160,20,20",
+                            "255,171,22,24",
+                            "255,180,30,30",
+                            "255,186,29,32",
+                            "255,189,0,0",
+                            "255,200,25,25",
+                            "255,200,0,0",
+                            "255,205,20,20",
+                            "255,210,25,25",
+                            "255,215,30,30",
+                            "255,215,105,25",
+                            "255,225,35,35"
+                        ],
+                        "ColorTreshold": 60,
+                        "MsToShowZoneOnDetection": 1500,
+                        "StrokeColor": "#FF8B0000",
+                        "WatchItemNbPixelsToTrigger": 2
+                    }
+                ],
+                "Zone": {
+                    "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
+                    "Location": "890, 908",
+                    "Size": "20, 20"
                 }
             }
         ]

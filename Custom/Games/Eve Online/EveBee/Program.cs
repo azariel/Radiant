@@ -1,6 +1,8 @@
-﻿using EveBee.Scenarios;
+﻿using EveBee.Configuration;
+using EveBee.Scenarios;
 
 Thread.Sleep(10000);
+
 while (true)
 {
     ScenariosManager.Tick();
