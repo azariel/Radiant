@@ -4,6 +4,7 @@ namespace EveBee.Scenarios
 {
     public class DetermineValidityOfCurrentCombatSiteScenario
     {
-        public List<PixelsInZoneAreaModel> ZonesWatcher { get; set; }
+        public List<PixelsInZoneAreaModel> FriendlyZonesWatcher { get; set; }
+        public List<PixelsInZoneAreaModel> TurretsZonesWatcher { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace EveBee.Scenarios
             var _Config = EveBeeConfigurationManager.GetConfigFromMemory();
 
             // TODO: If we're scrammed, kill 1 frig and retry
+            // TODO: Detect if an enemy player is on grid. If so, click on warp directly, forget about the drones
 
             // If health is low, go Dock and come back
             if (!BeeState.MustFlee)
@@ -154,7 +155,8 @@ namespace EveBee.Scenarios
             LoggingManager.LogToFile("2ae84613-43b7-4057-9f3c-ba43d028c9ff", "Validating combat site...");
             bool _CurrentCombatSiteIsInvalid = ActionsExecutor.DetermineValidityOfCurrentCombatSite();
 
-            Thread.Sleep(100);
+            Thread.Sleep(new Random().Next(200,400));
+
             bool _CurrentCombatSiteIsInvalid2 = ActionsExecutor.DetermineValidityOfCurrentCombatSite();
 
             if (!_CurrentCombatSiteIsInvalid || !_CurrentCombatSiteIsInvalid2)
@@ -231,6 +233,8 @@ namespace EveBee.Scenarios
 
                 fCurrentScenario = Scenario.StoppingShip;
                 ActionsExecutor.StopShip();
+
+
 
                 fCurrentScenario = Scenario.ActivatingForeverModules;
                 LoggingManager.LogToFile("0b39f718-65dd-426c-a3f8-9774bd8fcddc", "Bee is activating forever modules.");

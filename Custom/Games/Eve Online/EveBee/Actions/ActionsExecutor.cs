@@ -29,6 +29,12 @@ namespace EveBee.Actions
                 return;
             }
 
+            if (BeeState.LastRepairDateTime.AddMinutes(_Config.RepairShipScenario.RepairCooldownInMin) < DateTime.Now)
+            {
+                // Skip repair. We repairing not long ago
+                return;
+            }
+
             LoggingManager.LogToFile("56e884b9-1af0-42cb-8453-134e1595d15a", "Bee is repairing.");
 
             // Select items to repair
@@ -37,6 +43,8 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
                 Thread.Sleep(new Random().Next(250, 550));// Wait for window to open/animation
             }
+
+            BeeState.LastRepairDateTime = DateTime.Now;
 
             Thread.Sleep(new Random().Next(350, 575));
         }
@@ -83,11 +91,15 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
             }
 
+            Thread.Sleep(new Random().Next(50, 120));
+
             // deactivate modules such as afterburner to align quicker. Note there is an issue here. If we just arrived on a combat site and there's a Carrier, we're ACTIVATING the afterburner...buuut the ship isn't "on grid" yet atm, so it's a fake issue
             foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.DockToStationScenario.DeactivateModules)
             {
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
             }
+
+            Thread.Sleep(new Random().Next(80, 160));
 
             // Align to station
             foreach (MouseActionInputParam _Action in _Config.DockToStationScenario.AlignToStation)
@@ -95,7 +107,7 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _Action);
             }
 
-            Thread.Sleep(new Random().Next(100, 200));
+            Thread.Sleep(new Random().Next(50, 200));
 
             // spam recall again
             foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.DockToStationScenario.RecallDrones)
@@ -164,7 +176,8 @@ namespace EveBee.Actions
                 if (!_RadarLineData.ToLowerInvariant().Contains(_Config.FindNextCombatSiteScenario.AnomalyNameEnforcerLower))
                 {
                     ++_NbAnomaliesToCleanFromRadarUI;
-                } else
+                }
+                else
                 {
                     break;// we stop ignoring it as soon as we get one
                 }
@@ -172,9 +185,7 @@ namespace EveBee.Actions
 
             LoggingManager.LogToFile("e0c833c5-6275-4ca5-9219-b1b30647ff99", $"Ignoring top [{_NbAnomaliesToCleanFromRadarUI}] of [{_RadarDataCollection.Count}] combat sites...");
 
-            DetectIfBeeHealthIsLow();
-
-            if (BeeState.MustFlee)
+            if (!ValidateBeeSafety())
                 return;
 
             // Cleanup Radar UI (Ignore anomalies that aren't the one we want the Bee to farm)
@@ -249,11 +260,8 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
             }
 
-            DetectIfBeeHealthIsLow();
-            if (IsThereEnemiesInLocal() || IsThereACarrierOnGrid() || BeeState.MustFlee)
-            {
+            if (!ValidateBeeSafety())
                 return;
-            }
 
             foreach (MouseActionInputParam _Action in _Config.PrepareToCombatSiteScenario.Anchor)
             {
@@ -265,9 +273,15 @@ namespace EveBee.Actions
         {
             var _Config = EveBeeConfigurationManager.GetConfigFromMemory();
 
-            // TODO: validate for Friendly on Grid. If so, ignore this combat site
+            // validate for Friendly on Grid. If so, ignore this combat site
+            PixelsInZoneEvaluator.EvaluateZones(_Config.DetermineValidityOfCurrentCombatSiteScenario.FriendlyZonesWatcher, null);
 
-            PixelsInZoneEvaluator.EvaluateZones(_Config.DetermineValidityOfCurrentCombatSiteScenario.ZonesWatcher, null);
+            // If site has already been deemed as invalid, stop testing for validity
+            if (BeeState.CurrentCombatSiteIsInvalid)
+                return true;
+
+            // Check if there are turrets in the combat site AKA invalid type of site for our current Bee
+            PixelsInZoneEvaluator.EvaluateZones(_Config.DetermineValidityOfCurrentCombatSiteScenario.TurretsZonesWatcher, null);
 
             return BeeState.CurrentCombatSiteIsInvalid;
         }
@@ -298,13 +312,13 @@ namespace EveBee.Actions
                     InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _TempAction);
                 }
 
-                DetectIfBeeHealthIsLow();
-                if (BeeState.MustFlee || IsThereEnemiesInLocal() || IsThereACarrierOnGrid())
+                if (!ValidateBeeSafety())
                 {
                     return;
                 }
 
-                SafeWait(_Config.AttackFirstWaveTargetsScenario.DelayBetweenDroneAttackNewTarget);
+                if (!SafeWait(_Config.AttackFirstWaveTargetsScenario.DelayBetweenDroneAttackNewTarget))
+                    return;
 
                 // F (attack)
                 foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.AttackFirstWaveTargetsScenario.AttackCurrentTarget)
@@ -327,13 +341,28 @@ namespace EveBee.Actions
             {
                 Thread.Sleep(1000);
 
-                if (IsThereEnemiesInLocal() || IsThereACarrierOnGrid())
-                {
+                if (!ValidateBeeSafety())
                     return false;
-                }
             }
 
             Thread.Sleep(_RemainingMs);
+            return true;
+        }
+
+        private static bool ValidateBeeSafety()
+        {
+            DetectIfBeeHealthIsLow();
+
+            if (BeeState.MustFlee)
+            {
+                return false;
+            }
+
+            if (!IsThereEnemiesInLocal() || IsThereACarrierOnGrid())
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -380,7 +409,7 @@ namespace EveBee.Actions
 
         public static void SemiIdleCombat()
         {
-            if (DateTime.Now < BeeState.NextManualTargetToFocusDateTime)
+            if (BeeState.CombatSiteDone || DateTime.Now < BeeState.NextManualTargetToFocusDateTime)
             {
                 return;
             }
@@ -405,7 +434,7 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _TempAction);
             }
 
-            if (IsThereEnemiesInLocal() || IsThereACarrierOnGrid())
+            if (!ValidateBeeSafety())
             {
                 return;
             }
@@ -431,7 +460,7 @@ namespace EveBee.Actions
                 return false;
             }
 
-            BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddSeconds(new Random().Next(45, 120));
+            BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddSeconds(new Random().Next(30, 60));
 
             var _Config = EveBeeConfigurationManager.GetConfigFromMemory();
 
@@ -446,6 +475,7 @@ namespace EveBee.Actions
                 {
                     LoggingManager.LogToFile("60e56cd3-d89a-464f-9fdb-169626f236f3", "Combat site is done. Recalling drones and warping to station...");
                     BeeState.CombatSiteValidatorIterator = 0;
+                    BeeState.CombatSiteDone = true;
 
                     // Recall drones
                     foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.DockToStationScenario.RecallDrones)
@@ -454,18 +484,22 @@ namespace EveBee.Actions
                     }
 
                     // Wait for drones to come back. Large amount of time to be sure we're not loosing drones needlessly
-                    SafeWait(30000);
+                    if (!SafeWait(_Config.DockToStationScenario.WaitForDroneDelayMs * 1.5f))
+                        return false;
 
+                    BeeState.CombatSiteDone = false;
                     WarpToStation();
                     return true;
 
-                } else
+                }
+                else
                 {
                     // Make sure. Spawn may take a few secs
                     BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddSeconds(5);
                     ++BeeState.CombatSiteValidatorIterator;
                 }
-            } else
+            }
+            else
             {
                 BeeState.CombatSiteValidatorIterator = 0;
             }

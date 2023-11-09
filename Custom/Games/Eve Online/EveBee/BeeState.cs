@@ -13,6 +13,9 @@
         public static DateTime NextManualTargetToFocusDateTime { get; set; } = DateTime.MinValue;
         public static DateTime CombatSiteIsStillValidDateTimeTrigger { get; set; } = DateTime.MinValue;
         public static DateTime NextCombatSiteCompletionValidatorDateTime { get; set; } = DateTime.MinValue;
+        public static DateTime LastRepairDateTime { get; set; } = DateTime.MinValue;
+        public static bool CombatSiteDone { get; set; }
+
         public static int CombatSiteValidatorIterator = 0;
     }
 }
