@@ -99,7 +99,7 @@
         "Zone": {
           "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
           "Location": "359, 601",
-          "Size": "16, 240"
+          "Size": "16, 400"
         }
       }
     ]
@@ -174,7 +174,7 @@
   "RepairShipScenario": {
     "$type": "EveBee.Scenarios.RepairShipsScenario, EveBee",
     "Enabled": true,
-    "RepairCooldownInMin": 30,
+    "RepairCooldownInMin": 120,
     "RepairShipsWhenDocked": [
       {
         "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
@@ -342,7 +342,7 @@
   },
   "DockToStationScenario": {
     "$type": "EveBee.Scenarios.DockToStationScenario, EveBee",
-    "WaitForDroneDelayMs": 15000,
+    "WaitForDroneDelayMs": 14000,
     "RecallDrones": [
       {
         "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
@@ -393,30 +393,36 @@
   "WarpToNextCombatSiteScenario": {
     "$type": "EveBee.Scenarios.WarpToNextCombatSiteScenario, EveBee",
     "WarpToTopOneRadarResult": [
-      {
-        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
-        "Button": "Left",
-        "X": 1178,
-        "Y": 84
-      },
-      {
-        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
-        "Button": "Right",
-        "X": 1187,
-        "Y": 86
-      },
-      {
-        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
-        "Button": "None",
-        "X": 1363,
-        "Y": 130
-      },
-      {
-        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
-        "Button": "Left",
-        "X": 1423,
-        "Y": 184
-      }
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "Left",
+            "X": 1178,
+            "Y": 84
+        },
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "Right",
+            "X": 1187,
+            "Y": 86
+        },
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "None",
+            "X": 1365,
+            "Y": 132
+        },
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "None",
+            "X": 1435,
+            "Y": 134
+        },
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "Left",
+            "X": 1444,
+            "Y": 187
+        }
     ]
   },
   "DetermineValidityOfCurrentCombatSiteScenario": {
@@ -434,10 +440,17 @@
           {
             "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems.PixelsInZoneWatchItemColors, Radiant.Common",
             "Colors": [
-              // BLUE/GREEN/PURPLE
-              "Blue",
-              "Green",
-              "Purple"
+                // BLUE
+                "Blue",
+                "255,11,31,88",
+                "255,10,32,96",
+                "255,6,34,120",
+                // GREEN
+                "Green",
+                "255,25,120,25",
+                "255,24,96,24",
+                // PURPLE
+                "Purple"
             ],
             "ColorTreshold": 60,
             "MsToShowZoneOnDetection": 1500,
@@ -447,8 +460,8 @@
         ],
         "Zone": {
           "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
-          "Location": "700, 320",
-          "Size": "16, 120"
+          "Location": "880, 320",
+          "Size": "60, 120"
         }
       }
     ],
@@ -597,7 +610,7 @@
         "Y": 329
       }
     ],
-    "ContinuousAttackDurationInLoop": 30,
+    "ContinuousAttackDurationInLoop": 20,
     "TargetSelectedEnemy": [
       {
         "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",

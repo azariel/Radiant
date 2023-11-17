@@ -1,6 +1,9 @@
 ﻿using EveBee.Actions;
 using EveBee.Configuration;
 using Radiant.Common.Diagnostics;
+using Radiant.InputsManager;
+using Radiant.InputsManager.InputsParam;
+using Radiant.InputsManager.Linux.xdotool;
 
 namespace EveBee.Scenarios
 {
@@ -14,6 +17,7 @@ namespace EveBee.Scenarios
 
             // TODO: If we're scrammed, kill 1 frig and retry
             // TODO: Detect if an enemy player is on grid. If so, click on warp directly, forget about the drones
+            // idea Ctr+A in pirates overview to know how many frigs there are
 
             // If health is low, go Dock and come back
             if (!BeeState.MustFlee)
@@ -155,7 +159,7 @@ namespace EveBee.Scenarios
             LoggingManager.LogToFile("2ae84613-43b7-4057-9f3c-ba43d028c9ff", "Validating combat site...");
             bool _CurrentCombatSiteIsInvalid = ActionsExecutor.DetermineValidityOfCurrentCombatSite();
 
-            Thread.Sleep(new Random().Next(200,400));
+            Thread.Sleep(new Random().Next(200, 400));
 
             bool _CurrentCombatSiteIsInvalid2 = ActionsExecutor.DetermineValidityOfCurrentCombatSite();
 
@@ -168,6 +172,8 @@ namespace EveBee.Scenarios
             }
 
             LoggingManager.LogToFile("1190e24e-942d-4821-be43-83c8d6be3a55", "Combat site is invalid.");
+
+            BeeState.CurrentCombatSiteIsInvalid = false;
 
             // Remove current site from radar
             BeeState.MustCleanTopMostCombatSite = true;
@@ -210,7 +216,16 @@ namespace EveBee.Scenarios
                 {
                     if (BeeState.ForceWaitInDockedIdleUntilDateTime > DateTime.Now)
                     {
-                        Thread.Sleep(30000);// innacurate wait, dont spam local detection
+                        Thread.Sleep(new Random().Next(30000,60000));// inaccurate wait, don't spam local detection
+
+                        // mouse mouse a bit
+                        InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, new MouseActionInputParam
+                        {
+                            Button = MouseOptions.MouseButtons.None,
+                            X = new Random().Next(250,500),
+                            Y = new Random().Next(250,500),
+                        });
+
                         return;// continue waiting idly
                     }
 

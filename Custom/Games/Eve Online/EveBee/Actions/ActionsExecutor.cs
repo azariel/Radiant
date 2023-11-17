@@ -29,7 +29,7 @@ namespace EveBee.Actions
                 return;
             }
 
-            if (BeeState.LastRepairDateTime.AddMinutes(_Config.RepairShipScenario.RepairCooldownInMin) < DateTime.Now)
+            if (BeeState.LastRepairDateTime.AddMinutes(_Config.RepairShipScenario.RepairCooldownInMin) > DateTime.Now)
             {
                 // Skip repair. We repairing not long ago
                 return;
@@ -91,14 +91,6 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
             }
 
-            Thread.Sleep(new Random().Next(50, 120));
-
-            // deactivate modules such as afterburner to align quicker. Note there is an issue here. If we just arrived on a combat site and there's a Carrier, we're ACTIVATING the afterburner...buuut the ship isn't "on grid" yet atm, so it's a fake issue
-            foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.DockToStationScenario.DeactivateModules)
-            {
-                InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
-            }
-
             Thread.Sleep(new Random().Next(80, 160));
 
             // Align to station
@@ -116,6 +108,8 @@ namespace EveBee.Actions
             }
 
             // TODO Check in logFiles for drones return instead ?
+            bool _ModulesDeactivated = false;
+
             // Wait for drones
             int _NbSeconds = (int)Math.Floor((double)_Config.DockToStationScenario.WaitForDroneDelayMs / 1000);
             int _RemainingMs = (int)Math.Min(_Config.DockToStationScenario.WaitForDroneDelayMs - (_NbSeconds * 1000), 1000);// Math.max as failsafe
@@ -127,6 +121,28 @@ namespace EveBee.Actions
                 // Align to station
                 if (_AlignAction != null)
                     InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Mouse, _AlignAction);
+
+                if (i == _NbSeconds / 2 && !_ModulesDeactivated)
+                {
+                    _ModulesDeactivated = true;
+
+                    // deactivate modules such as afterburner to align quicker. Note there is an issue here. If we just arrived on a combat site and there's a Carrier, we're ACTIVATING the afterburner...buuut the ship isn't "on grid" yet atm, so it's a fake issue
+                    foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.DockToStationScenario.DeactivateModules)
+                    {
+                        InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
+                    }
+                }
+            }
+
+            if (!_ModulesDeactivated)
+            {
+                _ModulesDeactivated = true;
+
+                // deactivate modules such as afterburner to align quicker. Note there is an issue here. If we just arrived on a combat site and there's a Carrier, we're ACTIVATING the afterburner...buuut the ship isn't "on grid" yet atm, so it's a fake issue
+                foreach (KeyboardKeyStrokeActionInputParam _Action in _Config.DockToStationScenario.DeactivateModules)
+                {
+                    InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
+                }
             }
 
             Thread.Sleep(_RemainingMs);
@@ -176,8 +192,7 @@ namespace EveBee.Actions
                 if (!_RadarLineData.ToLowerInvariant().Contains(_Config.FindNextCombatSiteScenario.AnomalyNameEnforcerLower))
                 {
                     ++_NbAnomaliesToCleanFromRadarUI;
-                }
-                else
+                } else
                 {
                     break;// we stop ignoring it as soon as we get one
                 }
@@ -358,7 +373,7 @@ namespace EveBee.Actions
                 return false;
             }
 
-            if (!IsThereEnemiesInLocal() || IsThereACarrierOnGrid())
+            if (IsThereEnemiesInLocal() || IsThereACarrierOnGrid())
             {
                 return false;
             }
@@ -449,7 +464,7 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
             }
 
-            BeeState.NextManualTargetToFocusDateTime = DateTime.Now.AddSeconds(new Random().Next(300, 480));
+            BeeState.NextManualTargetToFocusDateTime = DateTime.Now.AddSeconds(new Random().Next(300, 420));
         }
 
         public static bool DetermineIfCombatSiteIsCompleted()
@@ -483,23 +498,21 @@ namespace EveBee.Actions
                         InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
                     }
 
-                    // Wait for drones to come back. Large amount of time to be sure we're not loosing drones needlessly
-                    if (!SafeWait(_Config.DockToStationScenario.WaitForDroneDelayMs * 1.5f))
+                    // Wait for drones to come back. DockToStation will recall them again just in case and give more time
+                    if (!SafeWait(_Config.DockToStationScenario.WaitForDroneDelayMs / 2))
                         return false;
 
                     BeeState.CombatSiteDone = false;
-                    WarpToStation();
+                    DockToStation();
                     return true;
 
-                }
-                else
+                } else
                 {
                     // Make sure. Spawn may take a few secs
                     BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddSeconds(5);
                     ++BeeState.CombatSiteValidatorIterator;
                 }
-            }
-            else
+            } else
             {
                 BeeState.CombatSiteValidatorIterator = 0;
             }

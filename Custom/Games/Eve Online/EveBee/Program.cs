@@ -1,5 +1,4 @@
-﻿using EveBee.Configuration;
-using EveBee.Scenarios;
+﻿using EveBee.Scenarios;
 
 Thread.Sleep(10000);
 
