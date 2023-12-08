@@ -1,4 +1,5 @@
 ﻿using System.Media;
+using Radiant.Common.Screen.Watcher.PixelsInZone.TriggerActions;
 using File = System.IO.File;
 
 namespace Radiant.Custom.Games.EveOnline.EveRay.TriggerActions

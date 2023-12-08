@@ -17,6 +17,8 @@
         Return = 0x0D,
         Shift = 0x10,
         Control = 0x11,
+        LAlt = 0xA4,
+        RAlt = 0xA5,
 
         /// <summary></summary>
         Menu = 0x12,

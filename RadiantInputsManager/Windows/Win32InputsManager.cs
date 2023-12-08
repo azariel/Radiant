@@ -73,6 +73,19 @@ namespace Radiant.InputsManager.Windows
 
         private static void ExecuteMouseClickAction(IMouseActionInputParam aMouseActionInputParam)
         {
+            //// Move mouse to centerScreen if required
+            //if (aMouseActionInputParam.GoBackToCenterScreenFirst)
+            //{
+            //    var _ScreenSize = Win32Helper.GetScreenSize();
+            //    var _CenterScreenMouseActionInputParam = new MouseActionInputParam
+            //    {
+            //        Button = MouseOptions.MouseButtons.None,
+            //        X = _ScreenSize.Width / 2,
+            //        Y = _ScreenSize.Height / 2,
+            //    };
+            //    ExecuteMouseMoveAction(aMouseActionInputParam);
+            //}
+
             // Move mouse to location first
             ExecuteMouseMoveAction(aMouseActionInputParam);
 
@@ -82,7 +95,49 @@ namespace Radiant.InputsManager.Windows
 
         private static void ExecuteMouseMoveAction(IMouseActionInputParam aMouseActionInputParam)
         {
-            Win32Helper.SetCursorPosition(aMouseActionInputParam.X, aMouseActionInputParam.Y);
+            Point _CursorLocation = Win32Helper.GetCursorPosition();
+
+            while (true)
+            {
+                int _Magnitude = new Random().Next(5, 15);
+
+                if (aMouseActionInputParam.X > _CursorLocation.X)
+                {
+                    if (aMouseActionInputParam.X - _CursorLocation.X <= _Magnitude * 5)
+                        _CursorLocation.X++;
+                    else
+                        _CursorLocation.X += _Magnitude;
+                } else if (aMouseActionInputParam.X < _CursorLocation.X)
+                {
+                    if (_CursorLocation.X - aMouseActionInputParam.X <= _Magnitude * 5)
+                        _CursorLocation.X--;
+                    else
+                        _CursorLocation.X -= _Magnitude;
+                }
+
+                if (aMouseActionInputParam.Y > _CursorLocation.Y)
+                {
+                    if (aMouseActionInputParam.Y - _CursorLocation.Y <= _Magnitude * 5)
+                        _CursorLocation.Y++;
+                    else
+                        _CursorLocation.Y += _Magnitude;
+                } else if (aMouseActionInputParam.Y < _CursorLocation.Y)
+                {
+                    if (_CursorLocation.Y - aMouseActionInputParam.Y <= _Magnitude * 5)
+                        _CursorLocation.Y--;
+                    else
+                        _CursorLocation.Y -= _Magnitude;
+                }
+
+                Win32Helper.SetCursorPosition(_CursorLocation.X, _CursorLocation.Y);
+
+                if (_CursorLocation.X == aMouseActionInputParam.X && _CursorLocation.Y == aMouseActionInputParam.Y)
+                {
+                    break;
+                }
+
+                Thread.Sleep(10);
+            }
         }
 
         private static IInputExecutionResult ExecuteMouseOperation(IMouseInputParam aInputParam)

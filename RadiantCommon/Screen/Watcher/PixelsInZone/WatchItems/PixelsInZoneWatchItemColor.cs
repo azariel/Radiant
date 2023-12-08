@@ -1,13 +1,14 @@
-﻿using System.Windows.Media;
+﻿using System.Drawing;
 
-namespace Radiant.Custom.Games.EveOnline.EveRay.Watch
+namespace Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems
 {
-    public class WatchItemBitmapNoise : IWatchItemByBitmap
+    public class PixelsInZoneWatchItemColor : IPixelsInZoneWatchItemByBitmap
     {
         // ********************************************************************
-        //                            Properties
+        //                            Public
         // ********************************************************************
-        public float NoiseTreshold { get; set; } = 1;
+        public Color Color { get; set; } = Color.White;
+        public float ColorTreshold { get; set; } = 1;
         public float WatchItemNbPixelsToTrigger { get; set; }
         public int MsToShowZoneOnDetection { get; set; } = 1500;
         public Color StrokeColor { get; set; } = Color.FromArgb(255, 139, 0, 0);

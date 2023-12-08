@@ -67,7 +67,7 @@ namespace Radiant.Common.Tasks.Triggers
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public bool Evaluate()
+        public override bool Evaluate()
         {
             if (!base.Evaluate())
                 return false;

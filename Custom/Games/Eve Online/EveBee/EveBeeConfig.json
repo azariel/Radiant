@@ -1,0 +1,767 @@
+{
+  "$type": "EveBee.Configuration.EveBeeConfiguration, EveBee",
+  "WarpMaxTimeToWaitInMs": 45000,
+  "EnemiesInLocalDetectionScenario": {
+    "$type": "EveBee.Scenarios.EnemiesInLocalDetectionScenario, EveBee",
+    "ZonesWatcher": [
+      {
+        "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.Models.PixelsInZoneAreaModel, Radiant.Common",
+        "AlwaysShowZoneUI": false,
+        "Enabled": true,
+        "SaveImageOnDiskOnTriggered": true,
+        "TriggerAction": {
+          "$type": "EveBee.Triggers.DockAndWaitTriggerAction, EveBee"
+        },
+        "WatchItems": [
+          {
+            "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems.PixelsInZoneWatchItemColors, Radiant.Common",
+            "Colors": [
+              // RED
+              "Red",
+              "255,98,2,3",
+              "255,107,6,8",
+              "255,109,2,2",
+              "255,115,22,27",
+              "255,116,23,28",
+              "255,129,2,2",
+              "255,143,8,10",
+              "255,144,1,1",
+              "255,145,15,19",
+              "255,146,16,19",
+              "255,148,6,7",
+              "255,148,5,6",
+              "255,150,7,8",
+              "255,151,8,8",
+              "255,189,0,0",
+
+              // ORANGE
+              "255,138,51,6",
+              "255,140,56,7",
+              "255,140,53,7",
+              "255,143,50,11",
+              "255,145,52,2",
+              "255,150,70,28",
+              "255,150,71,27",
+              "255,154,71,22",
+              "255,155,70,23",
+              "255,183,71,10",
+              "255,184,75,16",
+              "255,188,71,8",
+              "255,187,84,12",
+              "255,187,70,7",
+              "255,188,70,7",
+              "255,189,70,5",
+              "255,189,72,10",
+              "255,189,73,10",
+              "255,190,74,9",
+              "255,190,73,11",
+              "255,191,78,18",
+              "255,192,68,1",
+              "255,192,75,12",
+              "255,192,80,19",
+              "255,194,71,4",
+              "255,194,70,4",
+              "255,195,71,5",
+              "255,196,73,7",
+              "255,197,75,9",
+              "255,198,73,13",
+              "255,198,74,7",
+              "255,198,79,13",
+              "255,199,75,9",
+              "255,200,80,11",
+              "255,200,83,22",
+              "255,255,89,0",
+
+              // LIMITED ENGAGEMENT greenish
+              "255,0,153,138",
+              "255,1,138,125",
+
+              // YELLOW
+              "Yellow",
+              "255,205,158,50",
+              "255,239,170,53",
+              "255,197,141,7",
+              "255,215,153,48",
+              "255,244,177,60",
+              "255,248,90,6",
+              "255,248,176,6",
+
+              // GRAY
+              "255,141,141,141",
+              "255,139,139,140"
+            ],
+            "ColorTreshold": 60,
+            "MsToShowZoneOnDetection": 1500,
+            "StrokeColor": "#FF8B0000",
+            "WatchItemNbPixelsToTrigger": 2
+          }
+        ],
+        "Zone": {
+          "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
+          "Location": "359, 601",
+          "Size": "16, 400"
+        }
+      }
+    ]
+  },
+  "CarrierDetectionScenario": {
+    "$type": "EveBee.Scenarios.CarrierDetectionScenario, EveBee",
+    "ZonesWatcher": [
+      {
+        "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.Models.PixelsInZoneAreaModel, Radiant.Common",
+        "AlwaysShowZoneUI": false,
+        "Enabled": true,
+        "SaveImageOnDiskOnTriggered": true,
+        "TriggerAction": {
+          "$type": "EveBee.Triggers.DockTriggerAction, EveBee"
+        },
+        "WatchItems": [
+          {
+            "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems.PixelsInZoneWatchItemColors, Radiant.Common",
+            "Colors": [
+              // RED
+              "Red",
+              "255,98,2,3",
+              "255,107,6,8",
+              "255,109,2,2",
+              "255,109,15,17",
+              "255,111,17,19",
+              "255,112,18,21",
+              "255,115,14,14",
+              "255,115,14,15",
+              "255,115,22,27",
+              "255,116,23,28",
+              "255,119,18,18",
+              "255,125,25,25",
+              "255,129,2,2",
+              "255,130,25,25",
+              "255,143,8,10",
+              "255,144,1,1",
+              "255,144,20,22",
+              "255,145,15,19",
+              "255,146,16,19",
+              "255,148,5,6",
+              "255,148,6,7",
+              "255,150,7,8",
+              "255,151,8,8",
+              "255,160,20,20",
+              "255,171,22,24",
+              "255,180,30,30",
+              "255,186,29,32",
+              "255,189,0,0",
+              "255,200,25,25",
+              "255,200,0,0",
+              "255,205,20,20",
+              "255,210,25,25",
+              "255,215,30,30",
+              "255,215,105,25",
+              "255,225,35,35"
+            ],
+            "ColorTreshold": 60,
+            "MsToShowZoneOnDetection": 1500,
+            "StrokeColor": "#FF8B0000",
+            "WatchItemNbPixelsToTrigger": 2
+          }
+        ],
+        "Zone": {
+          "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
+          "Location": "700, 86",
+          "Size": "16, 120"
+        }
+      }
+    ]
+  },
+  "RepairShipScenario": {
+    "$type": "EveBee.Scenarios.RepairShipsScenario, EveBee",
+    "Enabled": true,
+    "RepairCooldownInMin": 120,
+    "RepairShipsWhenDocked": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 73,
+        "KeyStrokeCodes": [
+          "XK_Control_L",
+          "XK_m"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 85,
+        "KeyStrokeCodes": [
+          "XK_Control_L",
+          "XK_a"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 25,
+        "KeyStrokeCodes": [
+          "XK_TAB"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 44,
+        "KeyStrokeCodes": [
+          "KP_Enter"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 12,
+        "KeyStrokeCodes": [
+          "XK_TAB"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 23,
+        "KeyStrokeCodes": [
+          "XK_TAB"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 75,
+        "KeyStrokeCodes": [
+          "XK_TAB"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 29,
+        "KeyStrokeCodes": [
+          "KP_Enter"
+        ]
+      }
+    ]
+  },
+  "ActivateForeverModulesScenario": {
+    "$type": "EveBee.Scenarios.ActivateForeverModulesScenario, EveBee",
+    "ForeverModulesActivation": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 72,
+        "KeyStrokeCodes": [
+          "XK_F1"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 114,
+        "KeyStrokeCodes": [
+          "XK_F3"
+        ]
+      }
+    ]
+  },
+  "UndockScenario": {
+    "$type": "EveBee.Scenarios.UndockScenario, EveBee",
+    "Undock": {
+      "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+      "Delay": 357,
+      "KeyStrokeCodes": [
+        "XK_Control_L",
+        "XK_n"
+      ]
+    },
+    "NbMsToWaitForUndock": 15000
+  },
+  "StopShipScenario": {
+    "$type": "EveBee.Scenarios.StopShipScenario, EveBee",
+    "StopShip": {
+      "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+      "Delay": 287,
+      "KeyStrokeCodes": [
+        "XK_Control_L",
+        "XK_KP_Space"
+      ]
+    },
+    "NbMsToWaitForStopping": 3000
+  },
+  "FindNextCombatSiteScenario": {
+    "$type": "EveBee.Scenarios.FindNextCombatSiteScenario, EveBee",
+    "AnomalyNameEnforcerLower": "drone horde",
+    "GetRadarData": [
+      // Close Radar window
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 112,
+        "KeyStrokeCodes": [
+          "XK_Alt_L",
+          "XK_p"
+        ]
+      },
+      // Re-open Radar window. Focus is in new window automatically
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 138,
+        "KeyStrokeCodes": [
+          "XK_Alt_L",
+          "XK_p"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 174,
+        "KeyStrokeCodes": [
+          "XK_Control_L",
+          "XK_a"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 221,
+        "KeyStrokeCodes": [
+          "XK_Control_L",
+          "XK_c"
+        ]
+      }
+    ],
+    "CleanTopOneRadarResult": [
+      // Ignore top anomaly
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 1178,
+        "Y": 82
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Right",
+        "X": 1200,
+        "Y": 81
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 1287,
+        "Y": 250
+      }
+    ]
+  },
+  "DockToStationScenario": {
+    "$type": "EveBee.Scenarios.DockToStationScenario, EveBee",
+    "WaitForDroneDelayMs": 14000,
+    "RecallDrones": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 311,
+        "KeyStrokeCodes": [
+          "XK_h"
+        ]
+      }
+    ],
+    "DeactivateModules": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 210,
+        "KeyStrokeCodes": [
+          "XK_F2"
+        ]
+      }
+    ],
+    "DockToStation": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 1496,
+        "Y": 140
+      }
+    ],
+    "AlignToStation": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "None",
+        "X": 638,
+        "Y": 132
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 938,
+        "Y": 96
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 1405,
+        "Y": 140
+      }
+    ]
+  },
+  "WarpToNextCombatSiteScenario": {
+    "$type": "EveBee.Scenarios.WarpToNextCombatSiteScenario, EveBee",
+    "WarpToTopOneRadarResult": [
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "Left",
+            "X": 1178,
+            "Y": 84
+        },
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "Right",
+            "X": 1187,
+            "Y": 86
+        },
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "None",
+            "X": 1365,
+            "Y": 132
+        },
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "None",
+            "X": 1435,
+            "Y": 134
+        },
+        {
+            "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+            "Button": "Left",
+            "X": 1444,
+            "Y": 187
+        }
+    ]
+  },
+  "DetermineValidityOfCurrentCombatSiteScenario": {
+    "$type": "EveBee.Scenarios.DetermineValidityOfCurrentCombatSiteScenario, EveBee",
+    "FriendlyZonesWatcher": [
+      {
+        "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.Models.PixelsInZoneAreaModel, Radiant.Common",
+        "AlwaysShowZoneUI": false,
+        "Enabled": true,
+        "SaveImageOnDiskOnTriggered": true,
+        "TriggerAction": {
+          "$type": "EveBee.Triggers.InvalidCombatSiteTriggerAction, EveBee"
+        },
+        "WatchItems": [
+          {
+            "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems.PixelsInZoneWatchItemColors, Radiant.Common",
+            "Colors": [
+                // BLUE
+                "Blue",
+                "255,11,31,88",
+                "255,10,32,96",
+                "255,6,34,120",
+                // GREEN
+                "Green",
+                "255,25,120,25",
+                "255,24,96,24",
+                // PURPLE
+                "Purple"
+            ],
+            "ColorTreshold": 60,
+            "MsToShowZoneOnDetection": 1500,
+            "StrokeColor": "#FF8B0000",
+            "WatchItemNbPixelsToTrigger": 2
+          }
+        ],
+        "Zone": {
+          "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
+          "Location": "880, 320",
+          "Size": "60, 120"
+        }
+      }
+    ],
+    "TurretsZonesWatcher": [
+      {
+        "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.Models.PixelsInZoneAreaModel, Radiant.Common",
+        "AlwaysShowZoneUI": false,
+        "Enabled": true,
+        "SaveImageOnDiskOnTriggered": true,
+        "TriggerAction": {
+          "$type": "EveBee.Triggers.InvalidCombatSiteTriggerAction, EveBee"
+        },
+        "WatchItems": [
+          {
+            "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems.PixelsInZoneWatchItemColors, Radiant.Common",
+            "Colors": [
+              // RED
+              "Red",
+              "255,98,2,3",
+              "255,107,6,8",
+              "255,109,2,2",
+              "255,109,15,17",
+              "255,111,17,19",
+              "255,112,18,21",
+              "255,115,14,14",
+              "255,115,14,15",
+              "255,115,22,27",
+              "255,116,23,28",
+              "255,119,18,18",
+              "255,125,25,25",
+              "255,129,2,2",
+              "255,130,25,25",
+              "255,143,8,10",
+              "255,144,1,1",
+              "255,144,20,22",
+              "255,145,15,19",
+              "255,146,16,19",
+              "255,148,5,6",
+              "255,148,6,7",
+              "255,150,7,8",
+              "255,151,8,8",
+              "255,160,20,20",
+              "255,171,22,24",
+              "255,180,30,30",
+              "255,186,29,32",
+              "255,189,0,0",
+              "255,200,25,25",
+              "255,200,0,0",
+              "255,205,20,20",
+              "255,210,25,25",
+              "255,215,30,30",
+              "255,215,105,25",
+              "255,225,35,35"
+            ],
+            "ColorTreshold": 60,
+            "MsToShowZoneOnDetection": 1500,
+            "StrokeColor": "#FF8B0000",
+            "WatchItemNbPixelsToTrigger": 2
+          }
+        ],
+        "Zone": {
+          "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
+          "Location": "535, 84",
+          "Size": "9, 100"
+        }
+      }
+    ]
+  },
+  "WarpToStationScenario": {
+    "$type": "EveBee.Scenarios.WarpToStationScenario, EveBee",
+    "WarpToStation": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "None",
+        "X": 642,
+        "Y": 133
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 941,
+        "Y": 94
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 1453,
+        "Y": 146
+      }
+    ],
+    "WarpMaxTimeToWaitInMs": 45000
+  },
+  "PrepareToCombatSiteScenario": {
+    "$type": "EveBee.Scenarios.PrepareToCombatSiteScenario, EveBee",
+    "ActivateModules": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 73,
+        "KeyStrokeCodes": [
+          "XK_F2"
+        ]
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 132,
+        "KeyStrokeCodes": [
+          "XK_j"
+        ]
+      }
+    ],
+    "Anchor": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "None",
+        "X": 552,
+        "Y": 345
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 706,
+        "Y": 330
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 1487,
+        "Y": 140
+      }
+    ]
+  },
+  "AttackFirstWaveTargetsScenario": {
+    "$type": "EveBee.Scenarios.AttackFirstWaveTargetsScenario, EveBee",
+    //"PixelsSpacingBetweenTargetsInOverview": 24,
+    "SelectTopTarget": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "None",
+        "X": 475,
+        "Y": 340
+      },
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 566,
+        "Y": 329
+      }
+    ],
+    "ContinuousAttackDurationInLoop": 20,
+    "TargetSelectedEnemy": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
+        "Button": "Left",
+        "X": 1577,
+        "Y": 140
+      }
+    ],
+    "DelayBetweenDroneAttackNewTarget": 9000,
+    "AttackCurrentTarget": [
+      {
+        "$type": "Radiant.InputsManager.InputsParam.KeyboardKeyStrokeActionInputParam, Radiant.InputsManager",
+        "Delay": 122,
+        "KeyStrokeCodes": [
+          "XK_f"
+        ]
+      }
+    ]
+  },
+  "DetermineIfCombatSiteIsCompletedScenario": {
+    "$type": "EveBee.Scenarios.DetermineIfCombatSiteIsCompletedScenario, EveBee",
+    "ZonesWatcher": [
+      {
+        "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.Models.PixelsInZoneAreaModel, Radiant.Common",
+        "AlwaysShowZoneUI": false,
+        "Enabled": true,
+        "SaveImageOnDiskOnTriggered": true,
+        "TriggerAction": {
+          "$type": "EveBee.Triggers.CombatSiteIsCompletedTriggerAction, EveBee"
+        },
+        "WatchItems": [
+          {
+            "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems.PixelsInZoneWatchItemColors, Radiant.Common",
+            "Colors": [
+              // RED
+              "Red",
+              "255,98,2,3",
+              "255,107,6,8",
+              "255,109,2,2",
+              "255,109,15,17",
+              "255,111,17,19",
+              "255,112,18,21",
+              "255,115,14,14",
+              "255,115,14,15",
+              "255,115,22,27",
+              "255,116,23,28",
+              "255,119,18,18",
+              "255,125,25,25",
+              "255,129,2,2",
+              "255,130,25,25",
+              "255,143,8,10",
+              "255,144,1,1",
+              "255,144,20,22",
+              "255,145,15,19",
+              "255,146,16,19",
+              "255,148,5,6",
+              "255,148,6,7",
+              "255,150,7,8",
+              "255,151,8,8",
+              "255,160,20,20",
+              "255,171,22,24",
+              "255,180,30,30",
+              "255,186,29,32",
+              "255,189,0,0",
+              "255,200,25,25",
+              "255,200,0,0",
+              "255,205,20,20",
+              "255,210,25,25",
+              "255,215,30,30",
+              "255,215,105,25",
+              "255,225,35,35"
+            ],
+            "ColorTreshold": 60,
+            "MsToShowZoneOnDetection": 1500,
+            "StrokeColor": "#FF8B0000",
+            "WatchItemNbPixelsToTrigger": 2
+          }
+        ],
+        "Zone": {
+          "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
+          "Location": "530, 320",
+          "Size": "16, 120"
+        }
+      }
+    ]
+  },
+  "BeeHealthStateScenario": {
+    "$type": "EveBee.Scenarios.BeeHealthStateScenario, EveBee",
+    "ZonesWatcher": [
+      {
+        "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.Models.PixelsInZoneAreaModel, Radiant.Common",
+        "AlwaysShowZoneUI": false,
+        "Enabled": true,
+        "SaveImageOnDiskOnTriggered": true,
+        "TriggerAction": {
+          "$type": "EveBee.Triggers.DockTriggerAction, EveBee"
+        },
+        "WatchItems": [
+          {
+            "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.WatchItems.PixelsInZoneWatchItemColors, Radiant.Common",
+            "Colors": [
+              // RED
+              "Red",
+              "255,98,2,3",
+              "255,107,6,8",
+              "255,109,2,2",
+              "255,109,15,17",
+              "255,111,17,19",
+              "255,112,18,21",
+              "255,115,14,14",
+              "255,115,14,15",
+              "255,115,22,27",
+              "255,116,23,28",
+              "255,119,18,18",
+              "255,125,25,25",
+              "255,129,2,2",
+              "255,130,25,25",
+              "255,143,8,10",
+              "255,144,1,1",
+              "255,144,20,22",
+              "255,145,15,19",
+              "255,146,16,19",
+              "255,148,5,6",
+              "255,148,6,7",
+              "255,150,7,8",
+              "255,151,8,8",
+              "255,160,20,20",
+              "255,171,22,24",
+              "255,180,30,30",
+              "255,186,29,32",
+              "255,189,0,0",
+              "255,200,25,25",
+              "255,200,0,0",
+              "255,205,20,20",
+              "255,210,25,25",
+              "255,215,30,30",
+              "255,215,105,25",
+              "255,225,35,35"
+            ],
+            "ColorTreshold": 60,
+            "MsToShowZoneOnDetection": 1500,
+            "StrokeColor": "#FF8B0000",
+            "WatchItemNbPixelsToTrigger": 2
+          }
+        ],
+        "Zone": {
+          "$type": "Radiant.Common.Screen.Watcher.PixelsInZone.PixelsInZoneAreaManager, Radiant.Common",
+          "Location": "890, 908",
+          "Size": "20, 20"
+        }
+      }
+    ]
+  }
+}

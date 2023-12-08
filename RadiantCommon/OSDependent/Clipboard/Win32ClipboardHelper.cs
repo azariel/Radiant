@@ -155,7 +155,15 @@ namespace Radiant.Common.OSDependent.Clipboard
 
             TryOpenClipboard();
 
-            return InnerGet();
+            string _UnicodeValue = InnerGet();
+
+            if(_UnicodeValue == null)
+                return null;
+
+            var UTF8bytes = Encoding.UTF8.GetBytes(_UnicodeValue);
+            var UTF8value = Encoding.UTF8.GetString(UTF8bytes);
+
+            return UTF8value;
         }
 
         public static async Task<string?> GetTextAsync(CancellationToken cancellation)

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Radiant.Custom.Games.EveOnline.EveRay.Zones;
+using Radiant.Common.Screen.Watcher.PixelsInZone.Models;
 
 namespace Radiant.Custom.Games.EveOnline.EveRay.Configuration
 {
@@ -8,6 +8,6 @@ namespace Radiant.Custom.Games.EveOnline.EveRay.Configuration
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public List<ZoneWatcher> ZonesWatcher { get; set; } = new();
+        public List<PixelsInZoneAreaModel> ZonesWatcher { get; set; } = new();
     }
 }
