@@ -409,13 +409,13 @@
             "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
             "Button": "None",
             "X": 1365,
-            "Y": 132
+            "Y": 135
         },
         {
             "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",
             "Button": "None",
             "X": 1435,
-            "Y": 134
+            "Y": 138
         },
         {
             "$type": "Radiant.InputsManager.InputsParam.MouseActionInputParam, Radiant.InputsManager",

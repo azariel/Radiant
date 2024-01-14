@@ -62,7 +62,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadiantWindowsServer", "Rad
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{154F991E-119B-43AC-8FE2-232FFF3149C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveBee", "Custom\Games\Eve Online\EveBee\EveBee.csproj", "{527D3B7A-AA16-49DD-96BD-E3CEADF8E5E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveBee", "Custom\Games\Eve Online\EveBee\EveBee.csproj", "{527D3B7A-AA16-49DD-96BD-E3CEADF8E5E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
