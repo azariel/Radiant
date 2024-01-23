@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	  <AssemblyName>Radiant.Custom.Finance.Budget.RadiantBudgetBridge</AssemblyName>
+	  <RootNamespace>Radiant.Custom.Finance.Budget.RadiantBudgetBridge</RootNamespace>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\RadiantCommon\RadiantCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="RadiantBudgetBridgeConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(TargetDir)RadiantBudgetBridgeConfig.json&quot; &quot;$(SolutionDir)RadiantServerConsole\bin\Debug\RadiantBudgetBridgeConfig.json&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)RadiantBudgetBridgeConfig.json&quot; &quot;$(SolutionDir)RadiantWindowsServer\bin\Debug\RadiantBudgetBridgeConfig.json&quot;" />
+  </Target>
+
+</Project>

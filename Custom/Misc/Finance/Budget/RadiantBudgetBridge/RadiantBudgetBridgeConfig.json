@@ -1,0 +1,28 @@
+{
+  "$type": "Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Configuration.RadiantBudgetBridgeConfiguration, Radiant.Custom.Finance.Budget.RadiantBudgetBridge",
+  "ImapConfiguration": {
+    "$type": "Radiant.Common.Emails.Mailkit.EmailServerConfiguration, Radiant.Common",
+    "SleepMsBetweenEmailSent": 30000,
+    "SmtpPassword": "izdt ljav hxoq buke",
+    "SmtpPort": 993,
+    "SmtpServer": "imap.gmail.com",
+    "SmtpUsername": "frost.qc2@gmail.com"
+  },
+  "GoogleSheetTransactionsHistoryExportData": {
+    "$type": "Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets.GoogleTransactionsHistoryExportDataConfig, Radiant.Custom.Finance.Budget.RadiantBudgetBridge",
+    "DataSheetTabId": "AUTO_Transactions",
+    "BackupFolderPath": "BackupsBudgetBridgeDataHistory",
+    "ConfigByFileTagCollection": [
+      {
+        "Tag": "frost.qc.gmail.com",
+        "DataSheetId": "AUTO_Transactions",
+        "SpreadSheetFileId": "1Vjo3beWt2atUQcjhDJx--7zMLKso7G5ZxO20exQbblo"
+      },
+      {
+        "Tag": "eden.archambault.gmail.com",
+        "DataSheetId": "AUTO_Transactions",
+        "SpreadSheetFileId": "1Vjo3beWt2atUQcjhDJx--7zMLKso7G5ZxO20exQbblo"
+      }
+    ]
+  }
+}

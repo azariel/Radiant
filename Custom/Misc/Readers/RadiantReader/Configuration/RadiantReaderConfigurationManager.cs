@@ -43,9 +43,9 @@ namespace Radiant.Custom.Readers.RadiantReader.Configuration
             File.WriteAllText(RADIANT_READER_CONFIG_FILE_NAME, _SerializedConfig);
         }
 
-        public static void SetConfigInMemory(RadiantReaderConfiguration aProductsHistoryConfiguration)
+        public static void SetConfigInMemory(RadiantReaderConfiguration configuration)
         {
-            fRadiantReaderConfiguration = aProductsHistoryConfiguration;
+            fRadiantReaderConfiguration = configuration;
         }
     }
 }

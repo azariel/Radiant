@@ -1,12 +1,14 @@
-﻿using System;
+﻿using MailKit.Security;
+using MimeKit;
+using Radiant.Common.Diagnostics;
+using Radiant.Common.Emails.Mailkit;
+using Radiant.Common.Notifications;
+using Radiant.Notifier.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using MailKit.Security;
-using MimeKit;
-using Radiant.Common.Diagnostics;
-using Radiant.Notifier.Configuration;
-using Radiant.Notifier.Notifications.Email.Mailkit;
+using Radiant.Common;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace Radiant.Notifier.Notifications.Email
