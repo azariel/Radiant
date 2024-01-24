@@ -14,9 +14,9 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks
             var _Config = RadiantBudgetBridgeConfigurationManager.ReloadConfig();
             EmailsManager _EmailsManager = new EmailsManager(_Config.ImapConfiguration);
 
-            MimeMessage[] _Emails = _EmailsManager.ParseMailbox("budget");
+            MimeMessage[] _Emails = _EmailsManager.ParseMailbox(containsAttachmentsOfMediaTypes: new[]{ "csv" });
 
-            foreach (var _Email in _Emails)
+            foreach (MimeMessage _Email in _Emails)
             {
                 if (!_Email.Attachments.Any())
                 {
@@ -51,6 +51,8 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks
                         }
                     }
                 }
+
+                _EmailsManager.DeleteMessageFromInbox(_Email.MessageId);
             }
         }
     }

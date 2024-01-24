@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MailKit;
 using MailKit.Net.Imap;
-using MailKit.Net.Pop3;
-using MailKit.Net.Smtp;
-using MailKit.Security;
 using MimeKit;
 using Radiant.Common.Emails.Mailkit;
 
@@ -22,7 +20,7 @@ namespace Radiant.Common.Emails
             fEmailServerConfiguration = emailServerConfiguration;
         }
 
-        public MimeMessage[] ParseMailbox(string containsSubject = null)
+        public MimeMessage[] ParseMailbox(string containsSubject = null, string[] containsAttachmentsContainingString = null, string[] containsAttachmentsOfMediaTypes = null)
         {
             List<MimeMessage> messages = new();
 
@@ -34,13 +32,20 @@ namespace Radiant.Common.Emails
                 var inbox = client.Inbox;
                 inbox.Open(FolderAccess.ReadOnly);
 
-
                 for (int i = 0; i < inbox.Count; i++)
                 {
                     var message = inbox.GetMessage(i);
 
                     if (containsSubject == null || message.Subject.Contains(containsSubject, StringComparison.InvariantCultureIgnoreCase))
-                        messages.Add(inbox.GetMessage(i));
+                    {
+                        if (containsAttachmentsOfMediaTypes == null || containsAttachmentsOfMediaTypes.Length <= 0 || message.Attachments.Any(a => containsAttachmentsOfMediaTypes.Any(b => b.Equals(a.ContentType.MediaSubtype, StringComparison.InvariantCultureIgnoreCase))))
+                        {
+                            if (containsAttachmentsContainingString == null || containsAttachmentsContainingString.Length <= 0 || message.Attachments.OfType<TextPart>().Any(a => containsAttachmentsContainingString.Any(b => a.FileName.Contains(b, StringComparison.InvariantCultureIgnoreCase))))
+                            {
+                                messages.Add(inbox.GetMessage(i));
+                            }
+                        }
+                    }
                 }
 
                 client.Disconnect(true);
@@ -68,9 +73,9 @@ namespace Radiant.Common.Emails
 
                         inbox.AddFlags(i, MessageFlags.Deleted, null, false);
                         inbox.Expunge();// TODO: async ?
+                        return true;
                     }
-                }
-                finally
+                } finally
                 {
                     client.Disconnect(true);
                 }

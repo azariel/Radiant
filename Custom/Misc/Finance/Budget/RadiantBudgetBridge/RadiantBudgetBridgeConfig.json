@@ -1,12 +1,12 @@
 {
   "$type": "Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Configuration.RadiantBudgetBridgeConfiguration, Radiant.Custom.Finance.Budget.RadiantBudgetBridge",
   "ImapConfiguration": {
-    "$type": "Radiant.Common.Emails.Mailkit.EmailServerConfiguration, Radiant.Common",
-    "SleepMsBetweenEmailSent": 30000,
-    "SmtpPassword": "izdt ljav hxoq buke",
-    "SmtpPort": 993,
-    "SmtpServer": "imap.gmail.com",
-    "SmtpUsername": "frost.qc2@gmail.com"
+      "$type": "Radiant.Common.Emails.Mailkit.EmailServerConfiguration, Radiant.Common",
+      "SleepMsBetweenEmailSent": 30000,
+      "SmtpPassword": "kqhw swxy tddq rshp",
+      "SmtpPort": 993,
+      "SmtpServer": "imap.gmail.com",
+      "SmtpUsername": "radiant.service.public@gmail.com"
   },
   "GoogleSheetTransactionsHistoryExportData": {
     "$type": "Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets.GoogleTransactionsHistoryExportDataConfig, Radiant.Custom.Finance.Budget.RadiantBudgetBridge",
