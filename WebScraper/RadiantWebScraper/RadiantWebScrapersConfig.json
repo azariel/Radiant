@@ -5,21 +5,21 @@
       "$type": "Radiant.WebScraper.RadiantWebScraper.Configuration.SupportedBrowserConfiguration, Radiant.WebScraper.RadiantWebScraper",
       "LinuxCommand": "chromium-browser",
       "ExecutablePath": "C:\\Users\\cuser\\AppData\\Local\\Mozilla Firefox\\firefox.exe",
-      "NbMsToWaitOnBrowserStart": 3000,
+      "NbMsToWaitOnBrowserStart": 10000,
       "SupportedBrowser": 0
     },
     {
       "$type": "Radiant.WebScraper.RadiantWebScraper.Configuration.SupportedBrowserConfiguration, Radiant.WebScraper.RadiantWebScraper",
       "LinuxCommand": "chromium-browser",
       "ExecutablePath": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
-      "NbMsToWaitOnBrowserStart": 3000,
+      "NbMsToWaitOnBrowserStart": 10000,
       "SupportedBrowser": 0
     },
     {
       "$type": "Radiant.WebScraper.RadiantWebScraper.Configuration.SupportedBrowserConfiguration, Radiant.WebScraper.RadiantWebScraper",
       "LinuxCommand": "chromium-browser",
       "ExecutablePath": "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe",
-      "NbMsToWaitOnBrowserStart": 3000,
+      "NbMsToWaitOnBrowserStart": 10000,
       "SupportedBrowser": 0
     }
   ]

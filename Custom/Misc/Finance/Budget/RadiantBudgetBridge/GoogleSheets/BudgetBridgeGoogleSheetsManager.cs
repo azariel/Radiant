@@ -63,6 +63,12 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
             // Order dict
             IOrderedEnumerable<CsvEntryModel> _OrderedDictionary = csvAsDictionary.OrderByDescending(o =>
             {
+                if (!DateTime.TryParse(o.Date, out DateTime _DateTimeResult))
+                    _DateTimeResult = default;
+
+                return _DateTimeResult;
+            }).ThenByDescending(o =>
+            {
                 if (!DateTime.TryParse(o.CreatedAt, out DateTime _DateTimeResult))
                     _DateTimeResult = default;
 

@@ -19,11 +19,10 @@
             },
             // avoid running when a VM is running
             "ProcessesNameNotRunningCollection": [
-              "vmmem",
               "wow",
               "evefile"
             ],
-            "TriggerEveryXSeconds": 5
+            "TriggerEveryXSeconds": 30
           }
         ]
       },
@@ -35,7 +34,7 @@
         "Triggers": [
           {
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "TriggerEveryXSeconds": 600,
+            "TriggerEveryXSeconds": 300,
             "UID": "f2dc3da0-6999-4e61-bf92-5e7e2c79c2af"
           }
         ]
@@ -82,7 +81,7 @@
         "Triggers": [
           {
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "TriggerEveryXSeconds": 30
+            "TriggerEveryXSeconds": 1800
           }
         ]
       },
@@ -108,7 +107,7 @@
               "wow",
               "evefile"
             ],
-            "TriggerEveryXSeconds": 5
+            "TriggerEveryXSeconds": 30
           }
         ]
       },
@@ -121,7 +120,7 @@
         "Triggers": [
           {
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "TriggerEveryXSeconds": 1
+            "TriggerEveryXSeconds": 600
           }
         ]
       },
@@ -134,7 +133,7 @@
         "Triggers": [
           {
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-            "TriggerEveryXSeconds": 1
+            "TriggerEveryXSeconds": 900
           }
         ]
       }
