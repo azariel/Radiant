@@ -1,12 +1,12 @@
 {
   "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration.ProductsHistoryConfiguration, Radiant.Custom.ProductsWatcher.ProductsHistory",
   "GoogleDriveAPIConfig": {
-    "$type": "Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.Configuration.GoogleDriveAPIConfig, Radiant.Custom.ProductsWatcher.ProductsHistoryCommon",
+    "$type": "Radiant.Common.API.Google.Drive.GoogleDriveAPIConfig, Radiant.Common",
     "DatabaseFileId": "15JSxCpWr_GMe3l-WZE2Mebk-Eeoh9pIL",
     "VersionFileId": "10I5f_wj-7w7NM7MbW5x9Noqo-PDzqUJO"
   },
   "GoogleSheetAPIConfig": {
-    "$type": "Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.Configuration.GoogleSheetAPIConfig, Radiant.Custom.ProductsWatcher.ProductsHistoryCommon",
+    "$type": "Radiant.Common.API.Google.Sheets.GoogleSheetAPIConfig, Radiant.Common",
     "SpreadSheetFileId": "13TnLPl-iUP-7FbvJXaLBPwhd3-F92Uzo-dtLcr-icBM"
   },
   "GoogleSheetProductsExportData": {

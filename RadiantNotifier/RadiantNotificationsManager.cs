@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
+using Radiant.Common.Emails.Mailkit;
 using Radiant.Notifier.Configuration;
 using Radiant.Notifier.DataBase;
 using Radiant.Notifier.Notifications.Email;
-using Radiant.Notifier.Notifications.Email.Mailkit;
+using System;
+using System.Linq;
+using System.Threading;
 
 namespace Radiant.Notifier
 {

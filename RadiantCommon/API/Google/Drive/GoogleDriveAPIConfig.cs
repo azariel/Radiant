@@ -1,4 +1,4 @@
-﻿namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.Configuration
+﻿namespace Radiant.Common.API.Google.Drive
 {
     public class GoogleDriveAPIConfig
     {

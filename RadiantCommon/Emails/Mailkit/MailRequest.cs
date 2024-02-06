@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Radiant.Common.Notifications;
+using System.Collections.Generic;
 
-namespace Radiant.Notifier.Notifications.Email.Mailkit
+namespace Radiant.Common.Emails.Mailkit
 {
     public class MailRequest : INotificationRequest
     {

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Text;
+﻿using Radiant.Common.Emails.Mailkit;
 using Radiant.Common.Tests;
 using Radiant.Notifier.Notifications.Email;
-using Radiant.Notifier.Notifications.Email.Mailkit;
+using System.Collections.Generic;
+using System.Text;
 using Xunit;
 
 namespace Radiant.Notifier.UnitTests.Notifications.Email

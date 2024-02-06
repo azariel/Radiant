@@ -1,4 +1,4 @@
-﻿using Radiant.Notifier.Notifications.Email.Mailkit;
+﻿using Radiant.Common.Emails.Mailkit;
 
 namespace Radiant.Notifier.Configuration
 {

@@ -1,4 +1,4 @@
-﻿namespace Radiant.Notifier.Notifications.Email.Mailkit
+﻿namespace Radiant.Common.Emails.Mailkit
 {
     public class MailRequestAttachment
     {
