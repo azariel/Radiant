@@ -172,16 +172,17 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
                 return;
             }
 
-            if (fAllowManualOperations)
-            {
-                // We consider this an error only if we had at least 1 config available
-                ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price).ToArray();
-                if (_AvailableProductParser.Any())
-                {
-                    LoggingManager.LogToFile("2781E8CF-F080-4B51-A831-7EDC06560E43", $"Manual steps to fetch price of product [{fUrl}] failed.");
-                    this.OneOrMoreStepFailedAndRequiredAFallback = true;
-                }
-            }
+            // Handle by checking that manual parsed price is equivalent to DOM parsed one
+            //if (fAllowManualOperations)
+            //{
+            //    // We consider this an error only if we had at least 1 config available
+            //    ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price).ToArray();
+            //    if (_AvailableProductParser.Any())
+            //    {
+            //        LoggingManager.LogToFile("2781E8CF-F080-4B51-A831-7EDC06560E43", $"Manual steps to fetch price of product [{fUrl}] failed.");
+            //        this.OneOrMoreStepFailedAndRequiredAFallback = true;
+            //    }
+            //}
 
             // If it doesn't work, fallback to find the price in the DOM
             TryFetchProductPriceByDOM();

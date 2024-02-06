@@ -53,7 +53,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
             // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
             var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
             SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
-            Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG / 2);
+            Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG * 2);
 
             var _Stopwatch = new Stopwatch();
             _Stopwatch.Start();
@@ -65,11 +65,11 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
                 if (!_ProcessesToKill.Any())
                     break;
 
-                Thread.Sleep(NB_MS_WAIT_FOR_INPUT_HANG / 20);
+                Thread.Sleep(NB_MS_WAIT_FOR_INPUT_HANG / 10);
                 CloseCurrentTab();
                 Thread.Sleep(NB_MS_WAIT_FOR_INPUT_HANG / 5);
 
-                if (_Stopwatch.Elapsed.TotalHours > 1)
+                if (_Stopwatch.Elapsed.TotalMinutes > 5)
                 {
                     LoggingManager.LogToFile("5F3A2CE4-C4A8-42B9-828E-86F2BC7FDA45", "Process to kill browser tabs was stuck.");
                     throw new Exception("Process to kill browser tabs was stuck.");
@@ -182,7 +182,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
                     return;
                 }
 
-                BrowserHelper.WaitForBrowserInputsReadyOrMax(500, aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG);
+                BrowserHelper.WaitForBrowserInputsReadyOrMax(2000, aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG * 2);
                 //if (!BrowserHelper.WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG))
                 //{
                 //    LoggingManager.LogToFile("3A4B102B-E437-4C1B-90AA-EC1FCF3669B4", $"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
@@ -192,9 +192,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
                 // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
                 var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
                 SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
-                Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG);
-
-                Thread.Sleep(500);
+                Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG * 2);
 
                 // Fullscreen
                 ExecuteFullScreenF11();
