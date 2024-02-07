@@ -1,10 +1,10 @@
 {
     "$type": "Radiant.Notifier.Configuration.RadiantNotificationConfig, Radiant.Notifier",
-  "EmailServer": {
-    "$type": "Radiant.Notifier.Notifications.Email.Mailkit.EmailServerConfiguration, Radiant.Notifier",
-    "SmtpPassword": "stbe jqdy nnil tyzw",
-    "SmtpPort": 587,
-    "SmtpServer": "smtp.gmail.com",
-    "SmtpUsername": "frost.qc2@gmail.com"
-  }
+    "EmailServer": {
+        "$type": "Radiant.Common.Emails.Mailkit.EmailServerConfiguration, Radiant.Common",
+        "SmtpPassword": "stbe jqdy nnil tyzw",
+        "SmtpPort": 587,
+        "SmtpServer": "smtp.gmail.com",
+        "SmtpUsername": "frost.qc2@gmail.com"
+    }
 }

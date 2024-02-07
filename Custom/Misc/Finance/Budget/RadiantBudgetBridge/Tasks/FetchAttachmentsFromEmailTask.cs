@@ -14,7 +14,7 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks
             var _Config = RadiantBudgetBridgeConfigurationManager.ReloadConfig();
             EmailsManager _EmailsManager = new EmailsManager(_Config.ImapConfiguration);
 
-            MimeMessage[] _Emails = _EmailsManager.ParseMailbox(containsAttachmentsOfMediaTypes: new[]{ "csv" });
+            MimeMessage[] _Emails = _EmailsManager.ParseMailbox(containsAttachmentsContainingString: new[]{ ".csv" });
 
             foreach (MimeMessage _Email in _Emails)
             {
