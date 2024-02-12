@@ -60,9 +60,9 @@ namespace Radiant.WebScraper.RadiantWebScraper.Helpers
                     {
                         // Force refresh the state before we query it 
                         _Process.Refresh();
-
+                        
                         // Wait for this instance of the browser to be responsive to user input
-                        if (!_Process.WaitForInputIdle(35))
+                        if (!_Process.HasExited && !_Process.WaitForInputIdle(35))
                         {
                             Thread.Sleep(50);
                             continue;
