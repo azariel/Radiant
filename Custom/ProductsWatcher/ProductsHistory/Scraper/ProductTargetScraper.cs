@@ -86,7 +86,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
 
                 // Notify all Admins
                 IEnumerable<string> _Emails = _ProductDbContext.Users.Where(w => w.Type == RadiantUserModel.UserType.Admin).Select(s => s.Email).ToList().Distinct();
-                
+
                 _NewNotification.EmailTo.AddRange(_Emails);
 
                 if (_NewNotification.EmailTo.Count <= 0)
@@ -98,7 +98,8 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
                 using NotificationsDbContext _NotificationDbContext = new();
                 _NotificationDbContext.Notifications.Add(_NewNotification);
                 _NotificationDbContext.SaveChanges();
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("A1273815-7729-41E3-B4C6-94979F9908E9", $"Couldn't create notification on {nameof(ProductTargetScraper)} fetch failure.", _Ex);
             }
@@ -168,21 +169,11 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
 
             if (this.Information.Price.HasValue)
             {
-                LoggingManager.LogToFile("87278768-40EA-4B01-AC63-8C1E2331AC4D", $"Product price [{this.Information.Price}] was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                LoggingManager.LogToFile("af1c3c4f-f9f0-41d3-a03c-dd136b2c6582", $"Product price [{this.Information.Price}] was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
                 return;
             }
 
-            // Handle by checking that manual parsed price is equivalent to DOM parsed one
-            //if (fAllowManualOperations)
-            //{
-            //    // We consider this an error only if we had at least 1 config available
-            //    ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price).ToArray();
-            //    if (_AvailableProductParser.Any())
-            //    {
-            //        LoggingManager.LogToFile("2781E8CF-F080-4B51-A831-7EDC06560E43", $"Manual steps to fetch price of product [{fUrl}] failed.");
-            //        this.OneOrMoreStepFailedAndRequiredAFallback = true;
-            //    }
-            //}
+            LoggingManager.LogToFile("87278768-40EA-4B01-AC63-8C1E2331AC4D", $"Product price couldn't be fetched using manual parser. Trying DOM Parsing.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
             // If it doesn't work, fallback to find the price in the DOM
             TryFetchProductPriceByDOM();
@@ -314,7 +305,8 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
                     if (_Price.HasValue)
                         return _Price;
                 }
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("FA210BC6-9321-422A-9378-4874AB53F241", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
@@ -431,7 +423,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
             if (_Price.HasValue)
             {
                 this.Information.Price = _Price;
-                LoggingManager.LogToFile("2F91F50B-C73E-454D-A2EC-5705377890D8", $"DOM parser step to fetch price of product [{fUrl}] succeeded.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                LoggingManager.LogToFile("2F91F50B-C73E-454D-A2EC-5705377890D8", $"DOM parser step to fetch price of product [{fUrl}] succeeded [{_Price}].", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
             }
 
             if (!this.Information.Price.HasValue)
@@ -470,6 +462,13 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
             try
             {
                 ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == aProductParserItemTarget).ToArray();
+
+                if (_AvailableProductParser.Length <= 0)
+                {
+                    LoggingManager.LogToFile("33692302-d27c-493e-aab5-406f70e7152b", $"Product {fUrl} had no manual parser of target type [{aProductParserItemTarget}].", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                    return _TotalAmount;
+                }
+
                 LoggingManager.LogToFile("B0618052-EBA5-4BB1-ABF5-B0738AA52E2B", $"Trying to fetch {aProductParserItemTarget} of [{fUrl}] using [{_AvailableProductParser.Length}] Manual Product Parsers.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
                 foreach (ManualScraperProductParser _ManualScraperItemParser in _AvailableProductParser)
@@ -479,7 +478,8 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
                     if (_Amount.HasValue)
                         _TotalAmount += _Amount.Value;
                 }
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("D17DCA12-0872-4F45-AB00-120259233C8F", $"Couldn't reproduce steps for manual operation in [{nameof(ProductTargetScraper)}].", _Ex);
                 throw;
@@ -521,7 +521,8 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
 OneOrMoreStepFailedAndRequiredAFallback: {this.OneOrMoreStepFailedAndRequiredAFallback}{Environment.NewLine}
 this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(this.Information)}{Environment.NewLine}{aErrorMessage}{Environment.NewLine}
 ");
-            } catch (Exception _Ex)
+            }
+            catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("6C69E0C6-6C77-4C91-B4D8-FF9EFDA88129", "Couldn't write fail files on disk.", _Ex);
             }
@@ -556,6 +557,8 @@ this.Information: {Environment.NewLine}{JsonCommonSerializer.SerializeToString(t
                 HandleFailureProcess();
                 return;
             }
+
+            LoggingManager.LogToFile("67c76655-0df4-423c-ac6e-c744ee8cbbd6", $"Verifying product [{fUrl}] price from DOM parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
             // Validate fetched information with DOM parser to check if we should inform Admins that a configuration may be incorrect
             double? _Price = DOMProductInformationParser.ParseDouble(fUrl, this.DOM, fDOMParserItems.Where(w => w.ParserItemTarget == ProductParserItemTarget.Price).ToArray());

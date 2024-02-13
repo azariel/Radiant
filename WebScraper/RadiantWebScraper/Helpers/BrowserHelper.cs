@@ -16,11 +16,9 @@ namespace Radiant.WebScraper.RadiantWebScraper.Helpers
             Stopwatch _Stopwatch = new Stopwatch();
             _Stopwatch.Start();
 
-            // TODO: check processes and wait for input
             if (aBrowser.HasValue)
             {
                 WaitForWebPageToFinishLoadingByBrowser(aBrowser.Value, (int)(aMaxMsToWait - _Stopwatch.ElapsedMilliseconds));
-                Thread.Sleep(50);
 
                 if (_Stopwatch.ElapsedMilliseconds > aMaxMsToWait)
                     return;
@@ -43,6 +41,8 @@ namespace Radiant.WebScraper.RadiantWebScraper.Helpers
                 return true;
             }
 
+            LoggingManager.LogToFile("18e74850-afa9-4536-a1d4-121c818278df", $"Waiting for browser [{aSupportedBrowser}] to be ready...", aLogVerbosity:LoggingManager.LogVerbosity.Verbose);
+
             Stopwatch _Stopwatch = new();
             _Stopwatch.Start();
             try
@@ -54,7 +54,10 @@ namespace Radiant.WebScraper.RadiantWebScraper.Helpers
                 while (true)
                 {
                     if (_Stopwatch.ElapsedMilliseconds > aMaxMsToWait)
+                    {
+                        LoggingManager.LogToFile("3e5c0255-feb5-4435-b629-1347235cce51", $"Browser [{aSupportedBrowser}] is still not ready after [{_Stopwatch.ElapsedMilliseconds}] ms. aborting.", aLogVerbosity:LoggingManager.LogVerbosity.Verbose);
                         return false;
+                    }
 
                     foreach (Process _Process in _Processes)
                     {
@@ -67,6 +70,8 @@ namespace Radiant.WebScraper.RadiantWebScraper.Helpers
                             Thread.Sleep(50);
                             continue;
                         }
+
+                        LoggingManager.LogToFile("18e74850-afa9-4536-a1d4-121c818278df", $"Browser [{aSupportedBrowser}] is ready.", aLogVerbosity:LoggingManager.LogVerbosity.Verbose);
 
                         return true;
                     }

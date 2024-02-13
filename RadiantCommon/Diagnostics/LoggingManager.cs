@@ -1,6 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using Radiant.Common.Configuration;
 using Radiant.Common.Utils.MiscUtils;
+using System;
+using System.IO;
 
 namespace Radiant.Common.Diagnostics
 {
@@ -19,6 +20,13 @@ namespace Radiant.Common.Diagnostics
         //                            Constants
         // ********************************************************************
         public const string DEFAULT_LOG_FILE_RELATIVE_PATH = "radiant.log";
+        public static readonly LogVerbosity fLogVerbosity;
+
+        static LoggingManager()
+        {
+            var _Config = CommonConfigurationManager.ReloadConfig();
+            fLogVerbosity = _Config.LogVerbosity;
+        }
 
         // ********************************************************************
         //                            Public
@@ -28,6 +36,9 @@ namespace Radiant.Common.Diagnostics
         /// </summary>
         public static void LogToFile(string aLogUID, string aLogContent, Exception aException = null, LogVerbosity aLogVerbosity = LogVerbosity.Minimal, string aLogFilePath = DEFAULT_LOG_FILE_RELATIVE_PATH)
         {
+            if (aLogVerbosity > fLogVerbosity)
+                return;
+
             string _Message = $"Message=[{aLogContent}]{Environment.NewLine}";
 
             if (aException != null)
