@@ -41,7 +41,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Helpers
                 return true;
             }
 
-            LoggingManager.LogToFile("18e74850-afa9-4536-a1d4-121c818278df", $"Waiting for browser [{aSupportedBrowser}] to be ready...", aLogVerbosity:LoggingManager.LogVerbosity.Verbose);
+            LoggingManager.LogToFile("ac7f3f5b-a18f-49ed-9b6c-b7839cb52f2a", $"Waiting for browser [{aSupportedBrowser}] to be ready...", aLogVerbosity:LoggingManager.LogVerbosity.Verbose);
 
             Stopwatch _Stopwatch = new();
             _Stopwatch.Start();

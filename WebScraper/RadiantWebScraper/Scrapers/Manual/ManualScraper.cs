@@ -57,6 +57,11 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
             SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
             Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG * 2);
 
+            // enter possible popup (recover from crash)
+            ExecuteEnterKey();
+
+            Thread.Sleep(3000);
+
             // Escape possible popup
             ExecuteEscapeKey();
 
@@ -86,6 +91,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 
         private void ExecuteEscapeKey()
         {
+            LoggingManager.LogToFile("e13f1c44-ffd9-4cd1-8b06-e8d6868c8603", $"Pressed escape.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
             InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
                 Delay = 192,
@@ -94,6 +100,29 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
                     Keycode.XK_Escape,
                 }
             });
+
+            Thread.Sleep(224);
+        }
+
+        private void ExecuteEnterKey()
+        {
+
+            LoggingManager.LogToFile("e13f1c44-ffd9-4cd1-8b06-e8d6868c8603", $"Pressed enter.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+
+            try
+            {
+                InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+                {
+                    Delay = 325,
+                    KeyStrokeCodes = new[]
+                    {
+                        Keycode.KP_Enter,
+                    }
+                });
+            } catch (Exception e)
+            {
+                LoggingManager.LogToFile("e13f1c44-ffd9-4cd1-8b06-e8d6868c8603", $"{e.Message} - {e.InnerException?.Message}", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+            }
 
             Thread.Sleep(224);
         }
@@ -146,8 +175,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 
                 fBrowserProcessName = null;
 
-            }
-            else
+            } else
                 fBrowserProcessName = _SupportedBrowserConfiguration.ExecutablePath;
 
             if (_SupportedBrowserConfiguration != null)
@@ -215,6 +243,11 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
                 var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
                 SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
                 Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG * 2);
+
+                // enter possible popup (recover from crash)
+                ExecuteEnterKey();
+
+                Thread.Sleep(3000);
 
                 // Escape possible popup
                 ExecuteEscapeKey();
