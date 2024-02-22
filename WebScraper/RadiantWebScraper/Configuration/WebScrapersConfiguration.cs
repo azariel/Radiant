@@ -46,5 +46,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Configuration
         //                            Properties
         // ********************************************************************
         public List<SupportedBrowserConfiguration> SupportedBrowsers { get; set; } = new();
+        public bool TakeLandingPageScreenshots { get; set; } = true;
+        public bool TakeDOMExtractionScreenshot { get; set; } = true;
     }
 }

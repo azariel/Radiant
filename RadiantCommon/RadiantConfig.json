@@ -1,5 +1,6 @@
 {
   "$type": "Radiant.Common.Configuration.RadiantConfig, Radiant.Common",
+  "LogVerbosity": "Verbose",
   "Tasks": {
     "$type": "Radiant.Common.Configuration.RadiantTasksConfig, Radiant.Common",
     "Tasks": [
@@ -14,7 +15,7 @@
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "17:00:00",
+              "BlackOutEnd": "17:05:00",
               "BlackOutStart": "18:30:00"
             },
             // avoid running when a VM is running
@@ -22,7 +23,7 @@
               "wow",
               "evefile"
             ],
-            "TriggerEveryXSeconds": 30
+            "TriggerEveryXSeconds": 3
           }
         ]
       },
