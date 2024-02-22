@@ -242,7 +242,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
                         return;
 
                     // Mandatory wait between each products (1st very basic avoid bot tagging failsafe)
-                    Thread.Sleep(5000);
+                    Thread.Sleep(500);
                 }
             }
         }
