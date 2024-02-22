@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Radiant.Common.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -13,7 +14,7 @@ namespace Radiant.Common.Tasks.Triggers
         /// <summary>
         /// A working task is a task that is currently evaluating or triggering
         ///// </summary>
-        private bool fIsWorking;
+        private bool fIsWorking = false;
 
         // ********************************************************************
         //                            Protected
@@ -22,7 +23,7 @@ namespace Radiant.Common.Tasks.Triggers
         /// Should the task try to cleanly stop.
         /// IE: The task executed a satisfying loop or is running for so long that it should re-evaluate its trigger.
         /// </summary>
-        protected bool fShouldStop;
+        protected bool fShouldStop = false;
 
         protected abstract void TriggerNowImplementation();
 
@@ -68,9 +69,13 @@ namespace Radiant.Common.Tasks.Triggers
             if (onValidateBeforeTrigger != null && !onValidateBeforeTrigger.Invoke())
                 return;
 
+            LoggingManager.LogToFile("05efbf2d-3e0b-4127-afb2-02324b30dcb6", $"Task [{UID}] - [{GetType().FullName}] triggered.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+
             onTriggered?.Invoke();
             this.LastDateTimeTriggered = DateTime.Now;
             TriggerNowImplementation();
+
+            LoggingManager.LogToFile("c26c0d88-1a4e-4b3c-aca0-ce2a5f2c675f", $"Task [{UID}] - [{GetType().FullName}] is done.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
         }
 
         // ********************************************************************
