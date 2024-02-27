@@ -54,7 +54,7 @@ namespace Radiant.InputsManager
 
         public static void KeyboardType(string aTextToType, int aMinimumDelayBetweenKeyStrokes, int aMaximumDelayBetweenKeyStrokes)
         {
-            Random _Random = new(DateTime.Now.Millisecond);
+            Random _Random = new(DateTime.UtcNow.Millisecond);
             int _Delay = _Random.Next(aMinimumDelayBetweenKeyStrokes, aMaximumDelayBetweenKeyStrokes);
 
             IInputExecutionResult _Result = InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, new KeyboardTypeActionInputParam

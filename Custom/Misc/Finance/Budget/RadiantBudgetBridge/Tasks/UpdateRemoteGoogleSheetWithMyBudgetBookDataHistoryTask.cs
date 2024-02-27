@@ -49,7 +49,7 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks
                     if (!string.IsNullOrWhiteSpace(_Config.GoogleSheetTransactionsHistoryExportData.BackupFolderPath) && !Directory.Exists(_Config.GoogleSheetTransactionsHistoryExportData.BackupFolderPath))
                         Directory.CreateDirectory(_Config.GoogleSheetTransactionsHistoryExportData.BackupFolderPath);
 
-                    File.Copy(csvFile, Path.Combine(_Config.GoogleSheetTransactionsHistoryExportData.BackupFolderPath, $"bkp_{DateTime.Now:yyyy.MM.dd HH.mm.ss}-{Path.GetFileName(csvFile)}"), false);
+                    File.Copy(csvFile, Path.Combine(_Config.GoogleSheetTransactionsHistoryExportData.BackupFolderPath, $"bkp_{DateTime.UtcNow:yyyy.MM.dd HH.mm.ss}-{Path.GetFileName(csvFile)}"), false);
                     File.Delete(csvFile);
                 }
                 catch (Exception ex)

@@ -53,7 +53,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.GoogleSheets
 
             _GoogleSheetData.RowDataCollection.Add(_HeaderRowData);
 
-            var _Now = DateTime.Now;
+            var _Now = DateTime.UtcNow;
             var _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             List<GoogleSheetRowData> _RowsData = new(_Config.GoogleSheetProductsExportData.NbDaysToExport);
             for (int i = 0; i < _Config.GoogleSheetProductsExportData.NbDaysToExport; i++)

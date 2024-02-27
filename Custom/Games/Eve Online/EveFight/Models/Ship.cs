@@ -35,7 +35,7 @@ namespace Radiant.Custom.Games.EveOnline.EveFight.Models
 
         public void AddNewDamageOutput(int aDamage)
         {
-            DateTime _Now = DateTime.Now;
+            DateTime _Now = DateTime.UtcNow;
 
             fTimedDamages.Add(new TimedDamage
             {
@@ -54,7 +54,7 @@ namespace Radiant.Custom.Games.EveOnline.EveFight.Models
             if (fTimedDamages.Count <= 0)
                 return 0;
 
-            var _MaxTime = DateTime.Now;
+            var _MaxTime = DateTime.UtcNow;
             var _MaxRegisteredTime = fTimedDamages.Max(m => m.Time);
             var _MinTime = fTimedDamages.Min(m => m.Time);
 

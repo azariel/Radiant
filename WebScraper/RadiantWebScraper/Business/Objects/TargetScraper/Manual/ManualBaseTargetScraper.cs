@@ -49,7 +49,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Ma
 
                 _Graphics.CopyFromScreen(0, 0, 0, 0, _Bitmap.Size, CopyPixelOperation.SourceCopy);
 
-                DateTime _Now = DateTime.Now;
+                DateTime _Now = DateTime.UtcNow;
                 string _ImagePath = $"{_Now:yyyy-MM-dd HH.mm.ss.fff}.png";
 
                 if (!Directory.Exists(aOutPutPath))
@@ -101,7 +101,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Ma
                     _RootFolder = Path.Combine(_RootFolder, RegexUtils.GetWebSiteDomain(fUrl));
 
                 // Add current date to root folder
-                _RootFolder = Path.Combine(_RootFolder, $"{DateTime.Now:yyyy-MM-dd}");
+                _RootFolder = Path.Combine(_RootFolder, $"{DateTime.UtcNow:yyyy-MM-dd}");
 
                 TryTakeScreenshotAndInfo(_RootFolder);
                 Thread.Sleep(500);

@@ -81,7 +81,7 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
             // Very first line is reserved for the last update date
             GoogleSheetRowData _FirstRowData = new();
             _FirstRowData.RowCellData.Add("Last Update");
-            _FirstRowData.RowCellData.Add($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+            _FirstRowData.RowCellData.Add($"{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}");
             _GoogleSheetData.RowDataCollection.Add(_FirstRowData);
 
             // Then second line is headers

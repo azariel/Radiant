@@ -88,7 +88,7 @@
       // Update every chapters either in background or foreground depending on the website
       {
         "$type": "Radiant.Custom.Readers.RadiantReader.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReader",
-        "IsEnabled": false,
+        "IsEnabled": true,
         "IsForegroundExclusive": true,
         "UID": "32585567-003c-4c92-b95b-0ee58591bae0",
         "HandleNewBooks": false,
@@ -98,7 +98,7 @@
             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
             "BlackOutTimeFrame": {
               "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-              "BlackOutEnd": "18:00:00",
+              "BlackOutEnd": "01:00:00",
               "BlackOutStart": "19:00:00"
             },
             // avoid running when a VM is running
@@ -107,7 +107,7 @@
               "wow",
               "evefile"
             ],
-            "TriggerEveryXSeconds": 30
+            "TriggerEveryXSeconds": 5
           }
         ]
       },

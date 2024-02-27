@@ -38,7 +38,7 @@ namespace Radiant.Notifier.UnitTests.DataBase
                     Subject = "Radiant Notifier UnitTest",
                     EmailFrom = "Radiant UnitTesting unit",
                     EmailTo = { RadiantCommonUnitTestsConstants.EMAIL, RadiantCommonUnitTestsConstants.EMAIL },// We want to test the duplicate error handling as well
-                    MinimalDateTimetoSend = DateTime.Now
+                    MinimalDateTimetoSend = DateTime.UtcNow
                 };
 
                 _DbContext.Notifications.Add(_NewNotification);

@@ -41,7 +41,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
                     Content = $"<p>Product {aProduct.Product.Name} may be mismatched</p><p>Please check that the product hasn't changed.</p><p>Expected: {aProductScraper.Information.Title}</p><p>Found: {aProductTitle}</p><p>{aProduct.Url}</p>",
                     Subject = $"Product {aProduct.Product.Name} may be mismatched",
                     EmailFrom = "Radiant Product History",
-                    MinimalDateTimetoSend = DateTime.Now
+                    MinimalDateTimetoSend = DateTime.UtcNow
                 };
 
                 using ServerProductsDbContext _DbContext = new();
@@ -55,7 +55,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
 
             return new RadiantServerProductHistoryModel
             {
-                InsertDateTime = DateTime.Now,
+                InsertDateTime = DateTime.UtcNow,
                 Price = aProductScraper.Information.Price.Value,
                 ShippingCost = aProductScraper.Information.ShippingCost,
                 DiscountPrice = aProductScraper.Information.DiscountPrice,
@@ -76,7 +76,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
                 Content = $"<p>Product {aProductDefinition.Product.Name} is {aNewProductHistory.Price:F}$</p><p>Shipping Cost: {aNewProductHistory.ShippingCost:F}$</p> <p>Shown total discount: {aNewProductHistory.DiscountPrice:F}$ and {aNewProductHistory.DiscountPercentage:F}%</p><p>Best price for last 365 days: {aBestPriceLastYear:F}$</p><p>Url: {aProductDefinition.Url}</p>",
                 Subject = $"{aNewProductHistory.Price:F}$ -> {aProductDefinition.Product.Name}",
                 EmailFrom = "Radiant - Product History",
-                MinimalDateTimetoSend = DateTime.Now
+                MinimalDateTimetoSend = DateTime.UtcNow
             };
 
             // Add all subscribed users email to notification EmailTo
@@ -94,7 +94,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
                 return;
 
             // Notification if it's the first fetch for this Url AND we're the same day
-            if (!aProductDefinition.ProductHistoryCollection.Any() && (DateTime.Now - aProductDefinition.InsertDateTime).TotalHours < 24)
+            if (!aProductDefinition.ProductHistoryCollection.Any() && (DateTime.UtcNow - aProductDefinition.InsertDateTime).TotalHours < 24)
                 return;
 
             // If price is the same as the last one, skip
@@ -131,7 +131,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
                 return;
 
             double _BestPriceLastYear = _CurrentPrice;
-            RadiantServerProductHistoryModel[] _ProductsHistory = aProductDefinition.Product.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection.Where(w => w.InsertDateTime >= DateTime.Now.AddYears(-1))).ToArray();
+            RadiantServerProductHistoryModel[] _ProductsHistory = aProductDefinition.Product.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection.Where(w => w.InsertDateTime >= DateTime.UtcNow.AddYears(-1))).ToArray();
 
             if (_ProductsHistory.Any())
                 _BestPriceLastYear = _ProductsHistory.Min(m => m.Price + (m.ShippingCost ?? 0) - (m.DiscountPrice ?? 0) - ((m.Price - (m.DiscountPrice ?? 0)) * m.DiscountPercentage ?? 0));
@@ -157,7 +157,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
             if (aProductDefinition == null)
                 return;
 
-            DateTime _Now = DateTime.Now;
+            DateTime _Now = DateTime.UtcNow;
 
             // If product was never fetch, set the next fetch time to right now
             if (!aProductDefinition.NextFetchProductHistory.HasValue)

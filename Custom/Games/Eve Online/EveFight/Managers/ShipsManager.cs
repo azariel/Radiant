@@ -18,7 +18,7 @@ namespace Radiant.Custom.Games.EveOnline.EveFight.Managers
     {
         // Nb lines already processed from logs
         private static int fNbLinesToSkip;
-        private static DateTime fReplayStart = DateTime.Now;
+        private static DateTime fReplayStart = DateTime.UtcNow;
 
         static ShipsManager()
         {
@@ -92,7 +92,7 @@ namespace Radiant.Custom.Games.EveOnline.EveFight.Managers
                 Ship _NewAttacker = new()
                 {
                     PlayerName = _AttackerName,
-                    LastUpdate = DateTime.Now,
+                    LastUpdate = DateTime.UtcNow,
                     ShipName = _AttackerShipName,
                     ThreatType = ThreatType.DPS,// TODO
                     WeaponsDefinition = new List<WeaponDefinition>()
@@ -211,7 +211,7 @@ namespace Radiant.Custom.Games.EveOnline.EveFight.Managers
                 _Ship.UpdateDPS();
 
             // Remove old attackers that aren't active anymore
-            ShipList.RemoveAll(a => (DateTime.Now - a.LastUpdate).TotalMilliseconds > _Config.DpsCycleMs);
+            ShipList.RemoveAll(a => (DateTime.UtcNow - a.LastUpdate).TotalMilliseconds > _Config.DpsCycleMs);
 
             // Next loop, skip the lines we just did
             fNbLinesToSkip = _NbTotalLines;
@@ -352,7 +352,7 @@ namespace Radiant.Custom.Games.EveOnline.EveFight.Managers
 
             // Filter the lines returned to simulate a replay
             // Time elapsed since the start of the replay
-            TimeSpan _TimeElapsedSinceStartOfReplay = DateTime.Now - fReplayStart;
+            TimeSpan _TimeElapsedSinceStartOfReplay = DateTime.UtcNow - fReplayStart;
             DateTime? _FirstReplayLineDateTime = null;
             List<string> _LinesToKeepForReplay = new();
             foreach (string _Line in _Lines) 

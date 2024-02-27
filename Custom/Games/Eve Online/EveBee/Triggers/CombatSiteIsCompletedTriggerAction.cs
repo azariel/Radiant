@@ -6,7 +6,7 @@ namespace EveBee.Triggers
     {
         public void Trigger()
         {
-            BeeState.CombatSiteIsStillValidDateTimeTrigger = DateTime.Now;
+            BeeState.CombatSiteIsStillValidDateTimeTrigger = DateTime.UtcNow;
         }
     }
 }

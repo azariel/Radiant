@@ -72,7 +72,7 @@ namespace Radiant.Common.Tasks.Triggers
             LoggingManager.LogToFile("05efbf2d-3e0b-4127-afb2-02324b30dcb6", $"Task [{UID}] - [{GetType().FullName}] triggered.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
             onTriggered?.Invoke();
-            this.LastDateTimeTriggered = DateTime.Now;
+            this.LastDateTimeTriggered = DateTime.UtcNow;
             TriggerNowImplementation();
 
             LoggingManager.LogToFile("c26c0d88-1a4e-4b3c-aca0-ce2a5f2c675f", $"Task [{UID}] - [{GetType().FullName}] is done.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);

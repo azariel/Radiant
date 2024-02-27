@@ -85,7 +85,7 @@ if (!Directory.Exists(_Config.LogsDirectoryPath))
     Directory.CreateDirectory(_Config.LogsDirectoryPath);
 
 DirectoryInfo _DirInfo = new DirectoryInfo(_Config.LogsDirectoryPath);
-DateTime _StartNow = DateTime.Now;
+DateTime _StartNow = DateTime.UtcNow;
 while (true)
 {
     // Check chat logs

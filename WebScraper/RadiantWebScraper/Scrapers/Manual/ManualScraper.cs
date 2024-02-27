@@ -8,6 +8,7 @@ using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent;
 using Radiant.InputsManager;
 using Radiant.InputsManager.InputsParam;
+using Radiant.InputsManager.Windows;
 using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper;
 using Radiant.WebScraper.RadiantWebScraper.Configuration;
 using Radiant.WebScraper.RadiantWebScraper.Helpers;
@@ -64,6 +65,10 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 
                 if (!_ProcessesToKill.Any())
                     break;
+
+                // TODO: handle Linux
+                if (OperatingSystemHelper.GetCurrentOperatingSystem() == SupportedOperatingSystem.Windows)
+                    Win32Helper.BringProcessMainWindowToFront(_ProcessesToKill.First());
 
                 Thread.Sleep(NB_MS_WAIT_FOR_INPUT_HANG / 10);
                 CloseCurrentTab();

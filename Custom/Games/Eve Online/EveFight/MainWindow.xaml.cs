@@ -137,7 +137,7 @@ namespace Radiant.Custom.Games.EveOnline.EveFight
                 {
                     _SleepMs = 1000;// Ships were attacking us not too long ago
 
-                    var _LastUpdateInMs = (DateTime.Now - ShipsManager.ShipList.Max(m => m.LastUpdate)).TotalMilliseconds;
+                    var _LastUpdateInMs = (DateTime.UtcNow - ShipsManager.ShipList.Max(m => m.LastUpdate)).TotalMilliseconds;
 
                     if (_LastUpdateInMs < 3000)
                         _SleepMs = 500;

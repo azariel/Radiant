@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -41,6 +42,38 @@ namespace Radiant.InputsManager.Windows
         private const uint MOUSEEVENTF_XDOWN = 0x0080;
         private const uint MOUSEEVENTF_XUP = 0x0100;
 
+        // ********************************************************************
+        //                            Private
+        // ********************************************************************
+        private enum ShowWindowEnum
+        {
+            Hide = 0,
+            ShowNormal = 1, ShowMinimized = 2, ShowMaximized = 3,
+            Maximize = 3, ShowNormalNoActivate = 4, Show = 5,
+            Minimize = 6, ShowMinNoActivate = 7, ShowNoActivate = 8,
+            Restore = 9, ShowDefault = 10, ForceMinimized = 11
+        };
+
+        [DllImport("user32.dll")]
+        private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+
+        [DllImport("user32.dll")]
+        private static extern void mouse_event(uint dwFlags, int dx, int dy, uint dwData, UIntPtr dwExtraInfo);
+
+        /// <summary>
+        /// Retrieves the cursor's position, in screen coordinates.
+        /// </summary>
+        /// <see>See MSDN documentation for further information.</see>
+        [DllImport("user32.dll")]
+        private static extern bool SetCursorPos(int X, int Y);
+
+        [DllImport("user32.dll")]
+        private static extern int SetForegroundWindow(IntPtr hwnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ShowWindow(IntPtr hWnd, ShowWindowEnum flags);
+
         private static void ExecuteMouseEventByButton(uint aButtonAliasDown, uint aButtonAliasUp, int aDelay = 117)
         {
             ExecuteMouseEventByButton(aButtonAliasDown);
@@ -53,27 +86,30 @@ namespace Radiant.InputsManager.Windows
             mouse_event(aButtonAlias, 0, 0, 0, (UIntPtr)0);
         }
 
-        [DllImport("user32.dll")]
-        private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
-
         // ********************************************************************
-        //                            Private
+        //                            Public
         // ********************************************************************
-        [DllImport("user32.dll")]
-        private static extern void mouse_event(uint dwFlags, int dx, int dy, uint dwData, UIntPtr dwExtraInfo);
+        public static void BringProcessMainWindowToFront(Process aProcess)
+        {
+            if (aProcess == null)
+                return;
 
-        /// <summary>
-        /// Retrieves the cursor's position, in screen coordinates.
-        /// </summary>
-        /// <see>See MSDN documentation for further information.</see>
-        [DllImport("user32.dll")]
-        private static extern bool SetCursorPos(int X, int Y);
+            // check if the window is hidden / minimized
+            if (aProcess.MainWindowHandle == IntPtr.Zero)
+            {
+                // the window is hidden so try to restore it before setting focus.
+                ShowWindow(aProcess.Handle, ShowWindowEnum.Restore);
+            }
+
+            // set user the focus to the window
+            SetForegroundWindow(aProcess.MainWindowHandle);
+        }
 
         public static void ExecuteKeyboardKey(Keycode aKeyCode, KeyStrokeAction aKeyStrokeAction)
         {
             Keycode[] _ExtendedKeycodes =
             {
-                
+
                 Keycode.XK_Shift_L,
                 Keycode.XK_Right,
                 Keycode.XK_Left,
@@ -148,7 +184,7 @@ namespace Radiant.InputsManager.Windows
             else
                 _FlagByAction = aKeyStrokeAction == KeyStrokeAction.Press ? 0 : KEYEVENTF_KEYUP;
 
-            File.AppendAllText(@"C:\temp\test.txt", $"{DateTime.Now:HH:mm:ss.fff} - Key [{aKeyCode}] [{aKeyStrokeAction}].{Environment.NewLine}");
+            File.AppendAllText(@"C:\temp\test.txt", $"{DateTime.UtcNow:HH:mm:ss.fff} - Key [{aKeyCode}] [{aKeyStrokeAction}].{Environment.NewLine}");
 
             keybd_event(_KeyCode, 0, _FlagByAction, (UIntPtr)0);
         }
@@ -164,9 +200,6 @@ namespace Radiant.InputsManager.Windows
             }
         }
 
-        // ********************************************************************
-        //                            Public
-        // ********************************************************************
         public static void ExecuteMouseEvent(MouseOptions.MouseButtons aButton)
         {
             switch (aButton)

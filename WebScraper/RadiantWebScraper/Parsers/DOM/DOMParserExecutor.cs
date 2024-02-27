@@ -21,7 +21,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Parsers.DOM
             MatchCollection _Matches = _Regex.Matches(aDOM);
             if (_Matches.Count <= 0)
             {
-                LoggingManager.LogToFile("95276771-4C9B-47FD-A2ED-1F3F2E707F9D", $"Couldn't match content. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
+                LoggingManager.LogToFile("95276771-4C9B-47FD-A2ED-1F3F2E707F9D", $"[{nameof(DOMParserExecutor)}] couldn't match content. Check ParserItem config - UID [{aParserItem.UID}]. Regex = [{aParserItem.RegexPattern}].");
                 return null;
             }
 
