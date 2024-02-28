@@ -1,11 +1,11 @@
+using System.Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Installers;
-using System.Net;
 using Radiant.Common.Utils;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Installers;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +39,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware(typeof(ProductsHistoryWebApiExceptionMiddleware));
 
 app.UseHttpsRedirection();
 

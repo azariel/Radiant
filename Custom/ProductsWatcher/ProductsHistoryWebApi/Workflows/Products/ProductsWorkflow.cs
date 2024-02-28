@@ -104,7 +104,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
             var _FilteredProducts = _DataBaseContext.Products.Where(w => w.ProductId == productsRequestDto.ProductId).ToArray();
 
             if (_FilteredProducts.Length != 1)
-                throw new ApiException(HttpStatusCode.InternalServerError, $"The product [{productsRequestDto.Name}] was updated, but couldn't be found afterwards.");
+                throw new ApiException(HttpStatusCode.InternalServerError, $"The product [{productsRequestDto.ProductId}] was updated, but couldn't be found afterwards.");
 
             return ProductsDtoConverter.ConvertToProductsResponseDto(new[] { _FilteredProducts.Single() });
         }

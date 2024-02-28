@@ -123,7 +123,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
             var _FilteredProductDefinitions = _DataBaseContext.ProductDefinitions.Where(w => w.ProductDefinitionId == productDefinitionsRequestDto.ProductDefinitionId).ToArray();
 
             if (_FilteredProductDefinitions.Length != 1)
-                throw new ApiException(HttpStatusCode.InternalServerError, $"The product Definition [{productDefinitionsRequestDto.Url}] was updated, but couldn't be found afterwards.");
+                throw new ApiException(HttpStatusCode.InternalServerError, $"The product Definition [{productDefinitionsRequestDto.ProductDefinitionId}] was updated, but couldn't be found afterwards.");
 
             return ProductDefinitionsDtoConverter.ConvertToProductDefinitionsResponseDto(new[] { _FilteredProductDefinitions.Single() });
         }

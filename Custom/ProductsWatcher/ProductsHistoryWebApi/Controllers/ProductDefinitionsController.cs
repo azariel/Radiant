@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Radiant.Common.Serialization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.ProductDefinitions;
-using System.Threading.Tasks;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Controllers
 {
@@ -21,29 +20,29 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<string> Get()
+        public async Task<IActionResult> Get()
         {
-            return JsonCommonSerializer.SerializeToString(await fProductDefinitionsWorkflow.GetAsync(null).ConfigureAwait(false));
+            return new JsonResult(await fProductDefinitionsWorkflow.GetAsync(null).ConfigureAwait(false));
         }
 
         [HttpGet]
         [Route("{productDefinitionId}")]
-        public async Task<string> GetByProductId([FromRoute] ProductDefinitionsGetRequestDto productsRequestDto)
+        public async Task<IActionResult> GetByProductId([FromRoute] ProductDefinitionsGetRequestDto productsRequestDto)
         {
-            return JsonCommonSerializer.SerializeToString(await fProductDefinitionsWorkflow.GetAsync(productsRequestDto).ConfigureAwait(false));
+            return new JsonResult(await fProductDefinitionsWorkflow.GetAsync(productsRequestDto).ConfigureAwait(false));
         }
 
 
         [HttpPost]
-        public async Task<string> Post(ProductDefinitionsPostRequestDto productDefinitionsRequestDto)
+        public async Task<IActionResult> Post(ProductDefinitionsPostRequestDto productDefinitionsRequestDto)
         {
-            return JsonCommonSerializer.SerializeToString(await fProductDefinitionsWorkflow.PostAsync(productDefinitionsRequestDto).ConfigureAwait(false));
+            return new JsonResult(await fProductDefinitionsWorkflow.PostAsync(productDefinitionsRequestDto).ConfigureAwait(false));
         }
 
         [HttpPatch]
-        public async Task<string> Patch(ProductDefinitionsPatchRequestDto productDefinitionsRequestDto)
+        public async Task<IActionResult> Patch(ProductDefinitionsPatchRequestDto productDefinitionsRequestDto)
         {
-            return JsonCommonSerializer.SerializeToString(await fProductDefinitionsWorkflow.PatchAsync(productDefinitionsRequestDto).ConfigureAwait(false));
+            return new JsonResult(await fProductDefinitionsWorkflow.PatchAsync(productDefinitionsRequestDto).ConfigureAwait(false));
         }
 
         [HttpDelete]
