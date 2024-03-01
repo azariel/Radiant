@@ -2,15 +2,15 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
-namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.Products
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductsHistory
 {
     /// <summary>
     /// Response DTO representing products from products controller
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class ProductsResponseDto
+    public class ProductsHistoryResponseDto
     {
-        [JsonPropertyName("products")]
-        public List<ProductResponseDto> Products { get; set; }
+        [JsonPropertyName("productHistory")]
+        public List<ProductHistoryResponseDto> ProductHistory { get; set; }
     }
 }

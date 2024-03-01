@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
-namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.ProductDefinitions
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductDefinitions
 {
     /// <summary>
     /// Response DTO representing products from products controller

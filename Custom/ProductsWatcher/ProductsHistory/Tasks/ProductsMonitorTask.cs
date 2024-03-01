@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
 using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
 using Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.WebApiClient;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase.Subscriptions;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DtoConverters;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductDefinitions;
 using Radiant.Notifier.DataBase;
 using Radiant.WebScraper.RadiantWebScraper;
 using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual;
@@ -175,8 +179,12 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
             List<IScraperItemParser> _ManualScrapers = _Config.ManualScraperSequenceItems.Select(s => (IScraperItemParser)s).ToList();
             List<DOMParserItem> _DomParsers = _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList();
 
-            _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, aProductDefinition.Url, _ProductScraper, _ManualScrapers, _DomParsers);
-            fShouldStop = true;// Using the manual scraper takes a long time, we want to avoid processing too many products to avoid going outside a blackout timezone/inactivity trigger incoherence
+            // TEMP
+            //_ManualScraper.GetTargetValueFromUrl(Browser.Firefox, aProductDefinition.Url, _ProductScraper, _ManualScrapers, _DomParsers);
+            _ProductScraper.Information.Title = "i'm a super teapot";
+            _ProductScraper.Information.Price = 9.99;
+
+            //fShouldStop = true;// Using the manual scraper takes a long time, we want to avoid processing too many products to avoid going outside a blackout timezone/inactivity trigger incoherence
 
             RadiantServerProductHistoryModel? _MostRecentProductHistory = aProductDefinition.ProductHistoryCollection.FirstOrDefault(f => f.InsertDateTime == aProductDefinition.ProductHistoryCollection.Max(m => m.InsertDateTime));
 
@@ -199,7 +207,11 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
             if (_ProductScraper.Information.OutOfStock != true)// Never send a notification on an out of stock product
                 EvaluateNotifications(aProductDefinition, _ProductHistory);
 
+            // Add new history locally
             aProductDefinition.ProductHistoryCollection.Add(_ProductHistory);
+
+            // Add it remotely
+            RadiantProductsHistoryWebApiClient.AddProductHistory(ProductHistoryDtoConverter.ConvertToProductHistoryPostRequestDto(_ProductHistory)).Wait();
 
             // Update product in db to set the next trigger time
             UpdateNextFetchDateTime(aProductDefinition, aNow);
@@ -225,26 +237,43 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
         // ********************************************************************
         protected override void TriggerNowImplementation()
         {
-            // TODO: to implement fetch the next product to update and update it if the time is right
-            using var _DataBaseContext = new ServerProductsDbContext();
-            _DataBaseContext.Products.Load();
-            _DataBaseContext.ProductDefinitions.Load();
-            _DataBaseContext.ProductsHistory.Load();
+            var _ProductToEvaluate = RadiantProductsHistoryWebApiClient.GetNextPendingProductAsync().Result;
 
-            foreach (RadiantServerProductModel _Product in _DataBaseContext.Products.Where(w => w.FetchProductHistoryEnabled).ToArray())
+            if (_ProductToEvaluate == null)
+                return;
+
+            var _ProductDalModel = ProductsDtoConverter.ConvertToServerProductModel(_ProductToEvaluate);
+            foreach (ProductDefinitionResponseDto _ProductDefinition in _ProductToEvaluate.Definitions?.ProductDefinitions)
             {
-                foreach (RadiantServerProductDefinitionModel _ProductDefinition in _Product.ProductDefinitionCollection)
-                {
-                    EvaluateProductDefinition(_ProductDefinition);
-                    _DataBaseContext.SaveChanges();
+                var _ProductDefinitionDalModel = ProductDefinitionsDtoConverter.ConvertToServerProductDefinitionModel(_ProductDefinition);
+                _ProductDefinitionDalModel.Product = _ProductDalModel;
 
-                    if (fShouldStop)
-                        return;
+                EvaluateProductDefinition(_ProductDefinitionDalModel);
 
-                    // Mandatory wait between each products (1st very basic avoid bot tagging failsafe)
-                    Thread.Sleep(500);
-                }
+                // Update definition
+                RadiantProductsHistoryWebApiClient.UpdateProductDefinitionAsync(ProductDefinitionsDtoConverter.ConvertToProductDefinitionsPatchRequestDto(_ProductDefinitionDalModel)).Wait();
             }
+
+            // TODO: to implement fetch the next product to update and update it if the time is right
+            //using var _DataBaseContext = new ServerProductsDbContext();
+            //_DataBaseContext.Products.Load();
+            //_DataBaseContext.ProductDefinitions.Load();
+            //_DataBaseContext.ProductsHistory.Load();
+
+            //foreach (RadiantServerProductModel _Product in _DataBaseContext.Products.Where(w => w.FetchProductHistoryEnabled).ToArray())
+            //{
+            //    foreach (RadiantServerProductDefinitionModel _ProductDefinition in _Product.ProductDefinitionCollection)
+            //    {
+            //        EvaluateProductDefinition(_ProductDefinition);
+            //        _DataBaseContext.SaveChanges();
+
+            //        if (fShouldStop)
+            //            return;
+
+            //        // Mandatory wait between each products (1st very basic avoid bot tagging failsafe)
+            //        Thread.Sleep(500);
+            //    }
+            //}
         }
     }
 }

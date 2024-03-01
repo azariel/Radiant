@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Security;
+using System.Text;
 using System.Threading.Tasks;
 using Radiant.Common.Diagnostics;
 
@@ -48,9 +50,12 @@ namespace Radiant.Common.HttpClients.RestClient
         /// <summary>
         /// Asynchronous get
         /// </summary>
-        public async Task<string> GetAsync(string aUrl, int aMsTimeOut = 30000)
+        public async Task<string> GetAsync(string aUrl, int aMsTimeOut = 30000, bool aIgnoreCertificateErrors = false)
         {
-            using var _Client = new HttpClient();
+            using var _HttpClientHandler = new HttpClientHandler();
+            _HttpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) => sslPolicyErrors == SslPolicyErrors.None || aIgnoreCertificateErrors;
+
+            using var _Client = new HttpClient(_HttpClientHandler);
             _Client.Timeout = new TimeSpan(0, 0, 0, 0, aMsTimeOut);
 
             try
@@ -72,6 +77,64 @@ namespace Radiant.Common.HttpClients.RestClient
             }
 
             throw new Exception("Unhandled exception");// TODO: wrap error
+        }
+
+        public async Task<string> PostAsync(string aUrl, string jsonPayload, int aMsTimeOut = 30000, bool aIgnoreCertificateErrors = false)
+        {
+            using var _HttpClientHandler = new HttpClientHandler();
+            _HttpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) => sslPolicyErrors == SslPolicyErrors.None || aIgnoreCertificateErrors;
+
+            using var _Client = new HttpClient(_HttpClientHandler);
+            _Client.Timeout = new TimeSpan(0, 0, 0, 0, aMsTimeOut);
+
+            try
+            {
+                HttpResponseMessage _Response = await _Client.PostAsync(aUrl, new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
+
+                if (_Response.IsSuccessStatusCode)
+                    return await _Response.Content.ReadAsStringAsync();
+            }
+            catch (AggregateException _AggregateException) when (_AggregateException.InnerExceptions.Any(a => a.GetType() == typeof(HttpRequestException)))
+            {
+                LoggingManager.LogToFile("157c8016-86d0-41bf-8649-3a176bb6e3a8", $"Couldn't query dependent service. Url = [{aUrl}]", _AggregateException);
+                throw;
+            }
+            catch (Exception _Ex)
+            {
+                LoggingManager.LogToFile("74f24fa2-c994-40ec-9703-007bd0739cef", $"Unhandled exception when querying WebScraper Api querying url [{aUrl}].", _Ex);
+                throw;
+            }
+
+            throw new Exception($"Unhandled exception querying url [{aUrl}].");// TODO: wrap error
+        }
+
+        public async Task<string> PatchAsync(string aUrl, string jsonPayload, int aMsTimeOut = 30000, bool aIgnoreCertificateErrors = false)
+        {
+            using var _HttpClientHandler = new HttpClientHandler();
+            _HttpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) => sslPolicyErrors == SslPolicyErrors.None || aIgnoreCertificateErrors;
+
+            using var _Client = new HttpClient(_HttpClientHandler);
+            _Client.Timeout = new TimeSpan(0, 0, 0, 0, aMsTimeOut);
+
+            try
+            {
+                HttpResponseMessage _Response = await _Client.PatchAsync(aUrl, new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
+
+                if (_Response.IsSuccessStatusCode)
+                    return await _Response.Content.ReadAsStringAsync();
+            }
+            catch (AggregateException _AggregateException) when (_AggregateException.InnerExceptions.Any(a => a.GetType() == typeof(HttpRequestException)))
+            {
+                LoggingManager.LogToFile("6b477a34-a5d7-47e8-86f7-4fb8caa0f6ff", $"Couldn't query dependent service. Url = [{aUrl}]", _AggregateException);
+                throw;
+            }
+            catch (Exception _Ex)
+            {
+                LoggingManager.LogToFile("71601440-192c-4479-bbab-4a67e292338d", $"Unhandled exception when querying WebScraper Api querying url [{aUrl}].", _Ex);
+                throw;
+            }
+
+            throw new Exception($"Unhandled exception querying url [{aUrl}].");// TODO: wrap error
         }
     }
 }

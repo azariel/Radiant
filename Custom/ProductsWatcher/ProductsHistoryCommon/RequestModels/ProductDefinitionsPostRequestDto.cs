@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels
 {
     /// <summary>
     /// Request DTO to fetch products from product Definitions controller
@@ -26,6 +26,9 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels
         [FromBody]
         [JsonPropertyName("fetchProductHistoryEveryX")]
         public TimeSpan FetchProductHistoryEveryX { get; set; }
+
+        [JsonPropertyName("nextFetchProductHistory")]
+        public DateTime? NextFetchProductHistory { get; set; }
 
         [FromBody]
         [JsonPropertyName("fetchProductHistoryTimeSpanNoiseInPerc")]

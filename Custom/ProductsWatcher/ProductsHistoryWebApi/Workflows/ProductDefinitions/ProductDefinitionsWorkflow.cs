@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Exceptions;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.DtoConverters;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.ProductDefinitions;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DtoConverters;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductDefinitions;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -44,10 +44,10 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
             // Check that the definition match an existing product
             var _Product = _DataBaseContext.Products.Where(w => w.ProductId == productDefinitionsRequestDto.ProductId).ToArray();
 
-            if(_Product.Length > 1)
+            if (_Product.Length > 1)
                 throw new ApiException(HttpStatusCode.Conflict, $"Multiple products matching Id [{productDefinitionsRequestDto.ProductId}] found.");
 
-            if(_Product.Length <= 0)
+            if (_Product.Length <= 0)
                 throw new ApiException(HttpStatusCode.NotFound, $"No product matching Id [{productDefinitionsRequestDto.ProductId}] to associate the new definition was found.");
 
             var _LowerInvariantProductDefinitionsRequestUrl = productDefinitionsRequestDto.Url.ToLowerInvariant();
@@ -104,7 +104,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
             await _DataBaseContext.ProductDefinitions.LoadAsync().ConfigureAwait(false);
 
             // Check that associated product exists
-            if(_DataBaseContext.Products.All(w=>w.ProductId != productDefinitionsRequestDto.ProductId))
+            if (_DataBaseContext.Products.All(w => w.ProductId != productDefinitionsRequestDto.ProductId))
                 throw new ApiException(HttpStatusCode.NotFound, $"The product Id [{productDefinitionsRequestDto.ProductId}] couldn't be found.");
 
             var _ProductDefinitionsToUpdate = _DataBaseContext.ProductDefinitions.Where(w => w.ProductDefinitionId == productDefinitionsRequestDto.ProductDefinitionId).ToArray();
@@ -115,6 +115,9 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
                 _ProductDefinitionToUpdate.FetchProductHistoryEnabled = productDefinitionsRequestDto.FetchProductHistoryEnabled;
                 _ProductDefinitionToUpdate.FetchProductHistoryEveryX = productDefinitionsRequestDto.FetchProductHistoryEveryX;
                 _ProductDefinitionToUpdate.FetchProductHistoryTimeSpanNoiseInPerc = productDefinitionsRequestDto.FetchProductHistoryTimeSpanNoiseInPerc;
+
+                if (productDefinitionsRequestDto.NextFetchProductHistory != null)
+                    _ProductDefinitionToUpdate.NextFetchProductHistory = productDefinitionsRequestDto.NextFetchProductHistory;
             }
 
             await _DataBaseContext.SaveChangesAsync();

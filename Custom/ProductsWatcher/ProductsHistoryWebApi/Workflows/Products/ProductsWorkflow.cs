@@ -1,14 +1,13 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Radiant.Common.Exceptions;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.DtoConverters;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.Products;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.Products;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Radiant.Common.Exceptions;
-using System.Xml.Linq;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DtoConverters;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Products
 {
@@ -107,6 +106,22 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
                 throw new ApiException(HttpStatusCode.InternalServerError, $"The product [{productsRequestDto.ProductId}] was updated, but couldn't be found afterwards.");
 
             return ProductsDtoConverter.ConvertToProductsResponseDto(new[] { _FilteredProducts.Single() });
+        }
+
+        public async Task<ProductWithDefinitionsResponseDto> GetNextPendingAsync()
+        {
+            // Load database
+            await using var _DataBaseContext = new ServerProductsDbContext();
+            await _DataBaseContext.Products.LoadAsync().ConfigureAwait(false);
+            await _DataBaseContext.ProductDefinitions.LoadAsync().ConfigureAwait(false);
+            await _DataBaseContext.ProductsHistory.LoadAsync().ConfigureAwait(false);
+
+            RadiantServerProductModel _FilteredProduct = _DataBaseContext.Products.FirstOrDefault(w => w.FetchProductHistoryEnabled && w.ProductDefinitionCollection.Any(a=>a.FetchProductHistoryEnabled && (a.NextFetchProductHistory == null || a.NextFetchProductHistory <= DateTime.UtcNow)));
+
+            if (_FilteredProduct == null)
+                return null;
+
+            return ProductsDtoConverter.ConvertToProductWithDefinitionsResponseDto(_FilteredProduct);
         }
     }
 }

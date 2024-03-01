@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 
-namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.ProductsHistory
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductsHistory
 {
     /// <summary>
     /// Dto to use in response model. Those models are more restrictive than Dal models
@@ -18,6 +18,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.Pr
             this.DiscountPrice = productHistoryFromDal.DiscountPrice;
             this.Price = productHistoryFromDal.Price;
             this.InsertDateTime = productHistoryFromDal.InsertDateTime;
+            this.ShippingCost = productHistoryFromDal.ShippingCost;
         }
 
         [JsonPropertyName("title")]
@@ -37,6 +38,9 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.Pr
 
         [JsonPropertyName("discountPercentage")]
         public double? DiscountPercentage { get; set; }
+
+        [JsonPropertyName("shippingCost")]
+        public double? ShippingCost { get; set; }
 
         [JsonPropertyName("insertDateTime")]
         public DateTime InsertDateTime { get; set; }

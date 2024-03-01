@@ -1,6 +1,6 @@
-﻿using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.Products;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.Products;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Products
 {
@@ -37,5 +37,10 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
         /// <param name="productsRequestDto">requestDto model related to action to execute.</param>
         /// <returns>newly modified product.</returns>
         public Task<ProductsResponseDto> PatchAsync(ProductsPatchRequestDto productsRequestDto);
+
+        /// <summary>
+        /// Get the next product that is pending refresh
+        /// </summary>
+        public Task<ProductWithDefinitionsResponseDto> GetNextPendingAsync();
     }
 }

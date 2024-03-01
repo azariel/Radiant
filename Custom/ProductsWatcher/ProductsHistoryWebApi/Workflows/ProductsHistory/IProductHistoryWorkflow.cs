@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.ProductsHistory;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductsHistory;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.ProductsHistory
 {

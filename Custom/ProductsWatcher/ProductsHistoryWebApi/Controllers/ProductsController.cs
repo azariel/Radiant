@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Products;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Controllers
@@ -49,6 +49,16 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Controllers
         public async Task Delete([FromRoute] ProductsGetRequestDto productsRequestDto)
         {
             await fProductsWorkflow.DeleteAsync(productsRequestDto).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the next product that is pending refresh
+        /// </summary>
+        [HttpGet]
+        [Route("nextPending")]
+        public async Task<IActionResult> GetNextPendingProduct()
+        {
+            return new JsonResult(await fProductsWorkflow.GetNextPendingAsync().ConfigureAwait(false));
         }
     }
 }

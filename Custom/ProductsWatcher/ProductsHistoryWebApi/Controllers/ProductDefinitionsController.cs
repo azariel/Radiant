@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.ProductDefinitions;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Controllers

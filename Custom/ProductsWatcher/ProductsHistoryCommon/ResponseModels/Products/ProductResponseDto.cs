@@ -1,7 +1,7 @@
-﻿using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 
-namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.Products
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.Products
 {
     /// <summary>
     /// Dto to use in response model. Those models are more restrictive than Dal models

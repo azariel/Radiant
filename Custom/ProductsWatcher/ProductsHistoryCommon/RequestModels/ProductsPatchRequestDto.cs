@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels
+namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels
 {
     /// <summary>
     /// Request DTO to update product

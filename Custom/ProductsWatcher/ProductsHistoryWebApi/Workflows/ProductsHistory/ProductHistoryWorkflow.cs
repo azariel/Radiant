@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Exceptions;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.DtoConverters;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.RequestModels;
-using Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.ResponseModels.ProductsHistory;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DtoConverters;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductsHistory;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.ProductsHistory
 {
@@ -125,7 +125,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
                 _ProductHistoryToUpdate.ShippingCost = productHistoryRequestDto.ShippingCost;
                 _ProductHistoryToUpdate.DiscountPercentage = productHistoryRequestDto.DiscountPercentage;
                 _ProductHistoryToUpdate.DiscountPrice = productHistoryRequestDto.DiscountPrice;
-                _ProductHistoryToUpdate.Price = productHistoryRequestDto.Price;
+                _ProductHistoryToUpdate.Price = productHistoryRequestDto.Price ?? -1;
             }
 
             await _DataBaseContext.SaveChangesAsync();

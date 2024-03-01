@@ -1,5 +1,6 @@
 {
   "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration.ProductsHistoryConfiguration, Radiant.Custom.ProductsWatcher.ProductsHistory",
+  "ProductsWebApiBaseUrl": "https://192.99.69.78:58225",
   "GoogleDriveAPIConfig": {
     "$type": "Radiant.Common.API.Google.Drive.GoogleDriveAPIConfig, Radiant.Common",
     "DatabaseFileId": "15JSxCpWr_GMe3l-WZE2Mebk-Eeoh9pIL",
