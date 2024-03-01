@@ -31,6 +31,24 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
             return ProductDefinitionsDtoConverter.ConvertToProductDefinitionsResponseDto(_FilteredProducts);
         }
 
+        public async Task<ProductDefinitionsResponseDto> GetByProductAsync(ProductDefinitionsGetByProductRequestDto productDefinitionsGetByProductRequestDto)
+        {
+            // Load database
+            await using var _DataBaseContext = new ServerProductsDbContext();
+            await _DataBaseContext.Products.LoadAsync().ConfigureAwait(false);
+            await _DataBaseContext.ProductDefinitions.LoadAsync().ConfigureAwait(false);
+
+            if (productDefinitionsGetByProductRequestDto.IncludeHistory)
+                await _DataBaseContext.ProductsHistory.LoadAsync().ConfigureAwait(false);
+
+            RadiantServerProductDefinitionModel[] _FilteredProducts = _DataBaseContext.ProductDefinitions.Where(w => w.ProductId == productDefinitionsGetByProductRequestDto.ProductId).ToArray();
+
+            if (!_FilteredProducts.Any())
+                throw new ApiException(HttpStatusCode.NotFound, $"Product Definition matching Product Id [{productDefinitionsGetByProductRequestDto.ProductId}] not found.");
+
+            return ProductDefinitionsDtoConverter.ConvertToProductDefinitionsResponseDto(_FilteredProducts);
+        }
+
         public async Task<ProductDefinitionsResponseDto> PostAsync(ProductDefinitionsPostRequestDto productDefinitionsRequestDto)
         {
             if (productDefinitionsRequestDto == null || string.IsNullOrWhiteSpace(productDefinitionsRequestDto.Url))

@@ -20,7 +20,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.Pr
             Name = productFromDal.Name;
             ProductId = productFromDal.ProductId;
             InsertDateTime = productFromDal.InsertDateTime;
-            Definitions = new ProductDefinitionsResponseDto()
+            Definitions = new ProductDefinitionsResponseDto
             {
                 ProductDefinitions = productFromDal.ProductDefinitionCollection.Select(s=> new ProductDefinitionResponseDto(s)).ToList()
             };

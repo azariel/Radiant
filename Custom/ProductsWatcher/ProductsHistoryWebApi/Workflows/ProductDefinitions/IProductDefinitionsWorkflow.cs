@@ -17,6 +17,13 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
         public Task<ProductDefinitionsResponseDto> GetAsync(ProductDefinitionsGetRequestDto productDefinitionsRequestDto);
 
         /// <summary>
+        /// Execute GET accordingly to the Product Definitions request model DTO.
+        /// </summary>
+        /// <param name="aaProductDefinitionsGetByProductRequestDto">requestDto model related to action to execute.</param>
+        /// <returns>Product Definitions matching request dto criteria.</returns>
+        public Task<ProductDefinitionsResponseDto> GetByProductAsync(ProductDefinitionsGetByProductRequestDto aProductDefinitionsGetByProductRequestDto);
+
+        /// <summary>
         /// Execute POST accordingly to the Product Definitions request model DTO.
         /// </summary>
         /// <typeparam name="T"></typeparam>

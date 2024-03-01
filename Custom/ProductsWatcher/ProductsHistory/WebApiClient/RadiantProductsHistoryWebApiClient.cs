@@ -1,9 +1,11 @@
-﻿using Radiant.Common.HttpClients.RestClient;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
+using Radiant.Common.HttpClients.RestClient;
 using Radiant.Common.Serialization;
 using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.RequestModels;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductDefinitions;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.Products;
-using System.Threading.Tasks;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistory.WebApiClient
 {
@@ -25,6 +27,33 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.WebApiClient
             return JsonCommonSerializer.DeserializeFromString<ProductWithDefinitionsResponseDto>(_RawJsonObject);
         }
 
+        public static async Task<ProductsResponseDto> GetAllProducts()
+        {
+            var _Config = ProductsHistoryConfigurationManager.ReloadConfig();
+            string url = $"{_Config.ProductsWebApiBaseUrl}/products";
+
+            var _RawJsonObject = await httpRestClient.GetAsync(url, 10000, true);
+
+            // deserialize object
+            return JsonCommonSerializer.DeserializeFromString<ProductsResponseDto>(_RawJsonObject);
+        }
+
+        public static async Task<ProductDefinitionsResponseDto> GetProductDefinition(long aProductId, bool aIncludeProductHistory = false)
+        {
+            var _Config = ProductsHistoryConfigurationManager.ReloadConfig();
+            string url = $"{_Config.ProductsWebApiBaseUrl}/productDefinitions/product/{aProductId}";
+
+            if (aIncludeProductHistory)
+            {
+                url += "?includeHistory=true";
+            }
+
+            var _RawJsonObject = await httpRestClient.GetAsync(url, 10000, true);
+
+            // deserialize object
+            return JsonCommonSerializer.DeserializeFromString<ProductDefinitionsResponseDto>(_RawJsonObject);
+        }
+
         public static async Task<bool> UpdateProductDefinitionAsync(ProductDefinitionsPatchRequestDto productDefinitionRequest)
         {
             var _Config = ProductsHistoryConfigurationManager.ReloadConfig();
@@ -42,7 +71,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.WebApiClient
             var _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             string url = $"{_Config.ProductsWebApiBaseUrl}/productsHistory";
 
-            var _RawJsonObject = await httpRestClient.PostAsync(url, JsonCommonSerializer.SerializeToString(productHistoryPostRequestDto), 10000, true);
+            var _RawJsonObject = await httpRestClient.PostAsync(url, JsonSerializer.Serialize(productHistoryPostRequestDto), 10000, true);
 
             // TODO: validate object
 

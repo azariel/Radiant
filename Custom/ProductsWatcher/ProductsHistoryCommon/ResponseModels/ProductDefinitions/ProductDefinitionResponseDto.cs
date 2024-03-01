@@ -24,10 +24,10 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.Pr
             FetchProductHistoryTimeSpanNoiseInPerc = productDefinitionFromDal.FetchProductHistoryTimeSpanNoiseInPerc;
             NextFetchProductHistory = productDefinitionFromDal.NextFetchProductHistory;
             InsertDateTime = productDefinitionFromDal.InsertDateTime;
-            ProductHistoryCollection = new ProductsHistoryResponseDto
+            ProductHistoryCollection = productDefinitionFromDal.ProductHistoryCollection.Count > 0 ? new ProductsHistoryResponseDto
             {
                 ProductHistory = productDefinitionFromDal.ProductHistoryCollection.Select(s=> new ProductHistoryResponseDto(s)).ToList()
-            };;
+            } : null;
         }
 
         [JsonPropertyName("url")]

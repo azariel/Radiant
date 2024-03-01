@@ -26,12 +26,18 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Controllers
         }
 
         [HttpGet]
+        [Route("product/{productId}")]
+        public async Task<IActionResult> GetByProductId([FromRoute] ProductDefinitionsGetByProductRequestDto productsRequestDto)
+        {
+            return new JsonResult(await fProductDefinitionsWorkflow.GetByProductAsync(productsRequestDto).ConfigureAwait(false));
+        }
+
+        [HttpGet]
         [Route("{productDefinitionId}")]
-        public async Task<IActionResult> GetByProductId([FromRoute] ProductDefinitionsGetRequestDto productsRequestDto)
+        public async Task<IActionResult> GetByProductDefinitionId([FromRoute] ProductDefinitionsGetRequestDto productsRequestDto)
         {
             return new JsonResult(await fProductDefinitionsWorkflow.GetAsync(productsRequestDto).ConfigureAwait(false));
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Post(ProductDefinitionsPostRequestDto productDefinitionsRequestDto)
