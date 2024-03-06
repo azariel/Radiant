@@ -15,165 +15,183 @@
     "NbDaysToExport": 1825,
     "DataSheetTabId": "AUTO_Data"
   },
-  "DOMParserItems": [
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "Price",
-      "IfUrlContains": "amazon.c",
-      "Condition": null,
-      "RegexPattern": "priceblock_ourprice.*?>(.*?)<\\/span>",
-      "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
-        "IfUrlContains": "amazon.c",
-        "RegexPattern": "[\\d,]+\\.\\d+",
-        "SubParserToExecuteOnTargetValue": null,
-        "Target": "Value",
-        "UID": "d96cf489-cd3f-4970-a591-0db2c32f73f1"
-      },
-      "Target": "group1value",
-      "UID": "59720390-2643-47d9-a9c6-fdc2fda3020f"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "Price",
-      "IfUrlContains": "amazon.c",
-      "Condition": null,
-      "RegexPattern": "priceblock_dealprice.*?>(.*?)<\\/span>",
-      "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
-        "IfUrlContains": "amazon.c",
-        "Condition": null,
-        "RegexPattern": "[\\d,]+\\.\\d+",
-        "SubParserToExecuteOnTargetValue": null,
-        "Target": "Value",
-        "UID": "17e0ca3a-824d-46dc-a42e-f75ab32b2f03"
-      },
-      "Target": "group1value",
-      "UID": "e03df465-1bdd-4930-86d3-47b3ae4a1f6d"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "Price",
-      "IfUrlContains": "amazon.c",
-      "Condition": null,
-      "RegexPattern": "priceAmount\":(.*?),",
-      "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
-        "IfUrlContains": "amazon.c",
-        "Condition": null,
-        "RegexPattern": "[\\d,]+\\.\\d+",
-        "SubParserToExecuteOnTargetValue": null,
-        "Target": "Value",
-        "UID": "0c263b7c-a445-4b9b-ad74-b56d3c1d5711"
-      },
-      "Target": "group1value",
-      "UID": "e03df465-1bdd-4930-86d3-47b3ae4a1f6d"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "Price",
-      "IfUrlContains": "newegg.c",
-      "Condition": null,
-      "RegexPattern": "\\\"price\\\":\\\"(.*?)[\\\"|,]",
-      "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
-        "IfUrlContains": "newegg.c",
-        "Condition": null,
-        "RegexPattern": "[\\d,]+\\.\\d+",
-        "SubParserToExecuteOnTargetValue": null,
-        "Target": "Value",
-        "UID": "11ff18cf-c566-4f06-9603-2e6147f47a41"
-      },
-      "Target": "Value",
-      "UID": "3e90372b-5f04-4457-a28d-e628aaab4e0c"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "Price",
-      "IfUrlContains": "bestbuy.c",
-      "Condition": null,
-      "RegexPattern": "priceWithEhf\":(.*?),",
-      "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
-        "IfUrlContains": "bestbuy.c",
-        "Condition": null,
-        "RegexPattern": "[\\d,]+\\.\\d+",
-        "SubParserToExecuteOnTargetValue": null,
-        "Target": "Value",
-        "UID": "d68dfa6d-abe0-4e05-a115-c3e5a5e7eef5"
-      },
-      "Target": "Value",
-      "UID": "44c73c97-95af-49d2-8c0a-e0ef5f81ad01"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "Title",
-      "IfUrlContains": "amazon.c",
-      "Condition": null,
-      "RegexPattern": "<title.*?>(.*?)<.*?\/title.*?>",
-      "SubParserToExecuteOnTargetValue": null,
-      "Target": "group1value",
-      "UID": "4383cf72-3ce5-40f3-8a27-159009951a33"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "Title",
-      "IfUrlContains": "bestbuy.c",
-      "Condition": null,
-      "RegexPattern": "productName.*?>(.*)<\/h1>",
-      "SubParserToExecuteOnTargetValue": null,
-      "Target": "group1value",
-      "UID": "eb1c631c-c6fa-4564-ade4-4b127af91df1"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "Title",
-      "IfUrlContains": "newegg.c",
-      "Condition": null,
-      "RegexPattern": "product-title\".*?>(.*?)<",
-      "SubParserToExecuteOnTargetValue": null,
-      "Target": "group1value",
-      "UID": "c39afe74-6139-4d32-b5ad-78f5d4451148"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "ShippingCost",
-      "IfUrlContains": "newegg.c",
-      "Condition": null,
-      "RegexPattern": "ShippingCharge\":(.*?),",
-      "SubParserToExecuteOnTargetValue": null,
-      "Target": "group1value",
-      "UID": "e9cc192c-645f-48ea-85e5-387b82b0b8bb"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "DiscountPrice",
-      "IfUrlContains": "newegg.c",
-      "Condition": null,
-      "RegexPattern": "PcodeDiscount\":(.*?),",
-      "SubParserToExecuteOnTargetValue": null,
-      "Target": "group1value",
-      "UID": "095c31c1-2c7d-454a-89e6-9334b01032cc"
-    },
-    {
-      "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
-      "ParserItemTarget": "OutOfStock",
-      "IfUrlContains": "newegg.c",
-      "Condition": null,
-      "RegexPattern": "Out of Stock(.*?)",
-      "SubParserToExecuteOnTargetValue": {
-        "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
-        "IfUrlContains": "newegg.c",
-        "Condition": null,
-        "RegexPattern": "(.*)",
-        "SubParserToExecuteOnTargetValue": null,
-        "Target": "Value",
-        "UID": "89e6bebc-4e50-4c7e-9bfd-dbe8df9f44c9"
-      },
-      "Target": "Value",
-      "UID": "674c6587-e28c-4bab-85c9-3038c7cf405b"
-    }
-  ],
+    "DOMParserItems": [
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "Price",
+            "IfUrlContains": "amazon.c",
+            "Condition": null,
+            "RegexPattern": "priceblock_ourprice.*?>(.*?)<\\/span>",
+            "SubParserToExecuteOnTargetValue": {
+                "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
+                "IfUrlContains": "amazon.c",
+                "RegexPattern": "[\\d,]+\\.\\d+",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Value",
+                "UID": "d96cf489-cd3f-4970-a591-0db2c32f73f1"
+            },
+            "Target": "group1value",
+            "UID": "59720390-2643-47d9-a9c6-fdc2fda3020f"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "Price",
+            "IfUrlContains": "amazon.c",
+            "Condition": null,
+            "RegexPattern": "priceblock_dealprice.*?>(.*?)<\\/span>",
+            "SubParserToExecuteOnTargetValue": {
+                "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
+                "IfUrlContains": "amazon.c",
+                "Condition": null,
+                "RegexPattern": "[\\d,]+\\.\\d+",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Value",
+                "UID": "17e0ca3a-824d-46dc-a42e-f75ab32b2f03"
+            },
+            "Target": "group1value",
+            "UID": "e03df465-1bdd-4930-86d3-47b3ae4a1f6d"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "Price",
+            "IfUrlContains": "amazon.c",
+            "Condition": null,
+            "RegexPattern": "aok-offscreen.*?>(.*?)<\\/span>",
+            "SubParserToExecuteOnTargetValue": {
+                "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
+                "IfUrlContains": "amazon.c",
+                "Condition": null,
+                "RegexPattern": "[\\d,]+\\.\\d+",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Value",
+                "UID": "ebdf968e-2949-4a42-8994-d6a601e943b0"
+            },
+            "Target": "group1value",
+            "UID": "e03df465-1bdd-4930-86d3-47b3ae4a1f6d"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "Price",
+            "IfUrlContains": "amazon.c",
+            "Condition": null,
+            "RegexPattern": "priceAmount\":(.*?),",
+            "SubParserToExecuteOnTargetValue": {
+                "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
+                "IfUrlContains": "amazon.c",
+                "Condition": null,
+                "RegexPattern": "[\\d,]+\\.\\d+",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Value",
+                "UID": "0c263b7c-a445-4b9b-ad74-b56d3c1d5711"
+            },
+            "Target": "group1value",
+            "UID": "e03df465-1bdd-4930-86d3-47b3ae4a1f6d"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "Price",
+            "IfUrlContains": "newegg.c",
+            "Condition": null,
+            "RegexPattern": "\\\"price\\\":\\\"(.*?)[\\\"|,]",
+            "SubParserToExecuteOnTargetValue": {
+                "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
+                "IfUrlContains": "newegg.c",
+                "Condition": null,
+                "RegexPattern": "[\\d,]+\\.\\d+",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Value",
+                "UID": "11ff18cf-c566-4f06-9603-2e6147f47a41"
+            },
+            "Target": "Value",
+            "UID": "3e90372b-5f04-4457-a28d-e628aaab4e0c"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "Price",
+            "IfUrlContains": "bestbuy.c",
+            "Condition": null,
+            "RegexPattern": "priceWithEhf\":(.*?),",
+            "SubParserToExecuteOnTargetValue": {
+                "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
+                "IfUrlContains": "bestbuy.c",
+                "Condition": null,
+                "RegexPattern": "[\\d,]+\\.\\d+",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Value",
+                "UID": "d68dfa6d-abe0-4e05-a115-c3e5a5e7eef5"
+            },
+            "Target": "Value",
+            "UID": "44c73c97-95af-49d2-8c0a-e0ef5f81ad01"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "Title",
+            "IfUrlContains": "amazon.c",
+            "Condition": null,
+            "RegexPattern": "<title.*?>(.*?)<.*?\/title.*?>",
+            "SubParserToExecuteOnTargetValue": null,
+            "Target": "group1value",
+            "UID": "4383cf72-3ce5-40f3-8a27-159009951a33"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "Title",
+            "IfUrlContains": "bestbuy.c",
+            "Condition": null,
+            "RegexPattern": "productName.*?>(.*)<\/h1>",
+            "SubParserToExecuteOnTargetValue": null,
+            "Target": "group1value",
+            "UID": "eb1c631c-c6fa-4564-ade4-4b127af91df1"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "Title",
+            "IfUrlContains": "newegg.c",
+            "Condition": null,
+            "RegexPattern": "product-title\".*?>(.*?)<",
+            "SubParserToExecuteOnTargetValue": null,
+            "Target": "group1value",
+            "UID": "c39afe74-6139-4d32-b5ad-78f5d4451148"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "ShippingCost",
+            "IfUrlContains": "newegg.c",
+            "Condition": null,
+            "RegexPattern": "ShippingCharge\":(.*?),",
+            "SubParserToExecuteOnTargetValue": null,
+            "Target": "group1value",
+            "UID": "e9cc192c-645f-48ea-85e5-387b82b0b8bb"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "DiscountPrice",
+            "IfUrlContains": "newegg.c",
+            "Condition": null,
+            "RegexPattern": "PcodeDiscount\":(.*?),",
+            "SubParserToExecuteOnTargetValue": null,
+            "Target": "group1value",
+            "UID": "095c31c1-2c7d-454a-89e6-9334b01032cc"
+        },
+        {
+            "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Parsers.ProductDOMParserItem, Radiant.Custom.ProductsWatcher.ProductsHistory",
+            "ParserItemTarget": "OutOfStock",
+            "IfUrlContains": "newegg.c",
+            "Condition": null,
+            "RegexPattern": "Out of Stock(.*?)",
+            "SubParserToExecuteOnTargetValue": {
+                "$type": "Radiant.WebScraper.RadiantWebScraper.Parsers.DOM.DOMParserItem, Radiant.WebScraper.RadiantWebScraper",
+                "IfUrlContains": "newegg.c",
+                "Condition": null,
+                "RegexPattern": "(.*)",
+                "SubParserToExecuteOnTargetValue": null,
+                "Target": "Value",
+                "UID": "89e6bebc-4e50-4c7e-9bfd-dbe8df9f44c9"
+            },
+            "Target": "Value",
+            "UID": "674c6587-e28c-4bab-85c9-3038c7cf405b"
+        }
+    ],
   "ManualScraperSequenceItems": [
     {
       "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper.ManualScraperProductParser, Radiant.Custom.ProductsWatcher.ProductsHistory",

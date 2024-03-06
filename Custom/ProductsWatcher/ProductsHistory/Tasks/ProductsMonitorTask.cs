@@ -94,6 +94,9 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
 
         private void EvaluateNotifications(RadiantServerProductDefinitionModel aProductDefinition, RadiantServerProductHistoryModel aNewProductHistory)
         {
+            if (aProductDefinition.Product.ProductDefinitionCollection.Any(a => a.ProductHistoryCollection == null))
+                return;
+
             // No notification if it's the first fetch for this product
             if (!aProductDefinition.Product.ProductDefinitionCollection.Any(a => a.ProductHistoryCollection.Count > 0))
                 return;
@@ -185,19 +188,19 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
 
             //fShouldStop = true;// Using the manual scraper takes a long time, we want to avoid processing too many products to avoid going outside a blackout timezone/inactivity trigger incoherence
 
-            RadiantServerProductHistoryModel? _MostRecentProductHistory = aProductDefinition.ProductHistoryCollection.FirstOrDefault(f => f.InsertDateTime == aProductDefinition.ProductHistoryCollection.Max(m => m.InsertDateTime));
+            RadiantServerProductHistoryModel? _MostRecentProductHistory = aProductDefinition.ProductHistoryCollection?.FirstOrDefault(f => f.InsertDateTime == aProductDefinition.ProductHistoryCollection.Max(m => m.InsertDateTime));
 
             RadiantServerProductHistoryModel _ProductHistory = CreateProductHistoryFromProductTargetScraper(_ProductScraper, aProductDefinition, _MostRecentProductHistory?.Title);
 
             if (_ProductHistory == null)
             {
                 LoggingManager.LogToFile("988B416D-BE97-42A3-BA2F-438FFBFEDAF4", $"Couldn't fetch new product history of product [{aProductDefinition.Product.Name}] Url [{aProductDefinition.Url}]. {(_ProductScraper.Information.OutOfStock == true ? "Product was Out of Stock. Skipping it." : "")}");
-                LoggingManager.LogToFile("ADCB5E84-034F-4A7F-BE21-784D5DBC4A77", $"Product [{aProductDefinition.Product.Name}] next update is scheduled on [{aProductDefinition.NextFetchProductHistory}].");
 
                 // Note that when a product fetch fails, the ProductTargetScraper will handle the fail sequence to send notifications to admins, logging relevant informations about failure, etc.
 
                 // To avoid a query loop
                 UpdateNextFetchDateTime(aProductDefinition, aNow);
+                LoggingManager.LogToFile("ADCB5E84-034F-4A7F-BE21-784D5DBC4A77", $"Product [{aProductDefinition.Product.Name}] next update is scheduled on [{aProductDefinition.NextFetchProductHistory:yyyy-MM-dd HH.mm.ss}].");
 
                 return;
             }
@@ -207,6 +210,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
                 EvaluateNotifications(aProductDefinition, _ProductHistory);
 
             // Add new history locally
+            aProductDefinition.ProductHistoryCollection ??= new List<RadiantServerProductHistoryModel>();
             aProductDefinition.ProductHistoryCollection.Add(_ProductHistory);
 
             // Add it remotely

@@ -10,6 +10,9 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.Pr
     {
         public ProductResponseDto(RadiantProductModel productFromDal)
         {
+            if (productFromDal == null)
+                return;
+
             FetchProductHistoryEnabled = productFromDal.FetchProductHistoryEnabled;
             Name = productFromDal.Name;
             ProductId = productFromDal.ProductId;
