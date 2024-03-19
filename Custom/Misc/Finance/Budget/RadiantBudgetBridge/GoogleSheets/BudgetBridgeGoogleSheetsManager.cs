@@ -1,7 +1,6 @@
 ﻿using Radiant.Common.API.Google.Sheets;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Utils;
-using Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Configuration;
 using Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Models;
 
 namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
@@ -47,8 +46,8 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
 
                 return new CsvEntryModel
                 {
-                    Date = splitLine[0],
-                    CreatedAt = splitLine[1],
+                    Date = DateTimeUtils.TryConvertToDateFormat(splitLine[0], "M-d-yyyy"),
+                    CreatedAt = DateTimeUtils.TryConvertToDateFormat(splitLine[1]),
                     Title = splitLine[2],
                     Comment = splitLine[3],
                     PaymentType = splitLine[4],
