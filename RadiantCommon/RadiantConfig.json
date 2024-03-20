@@ -1,5 +1,6 @@
 {
     "$type": "Radiant.Common.Configuration.RadiantConfig, Radiant.Common",
+    "LogVerbosity": "Verbose",
     "Tasks": {
         "$type": "Radiant.Common.Configuration.RadiantTasksConfig, Radiant.Common",
         "Tasks": [

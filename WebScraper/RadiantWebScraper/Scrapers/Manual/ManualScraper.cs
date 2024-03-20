@@ -17,7 +17,7 @@ using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
 namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 {
     /// <summary>
-    /// Manual scraper is a very little special tool. It reproduce user inputs to physically go to the website and scrap
+    /// Manual scraper is a very little special tool. It reproduces user inputs to physically go to the website and scrap
     /// manually the source or the data it wants. It's often a good way to avoid bot detection, but it's painfully slow,
     /// among other things.. So we often consider it to be "the last stand" to fetch the data and should only be used on
     /// a dedicated server..
@@ -34,14 +34,16 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
         // ********************************************************************
         private string fBrowserProcessName;
 
-        private void CloseAllTabs(Browser aSupportedBrowser, IScraperTarget aTarget)
+        private void OpenBrowserAndCloseAllTabs(Browser aSupportedBrowser, IScraperTarget aTarget)
         {
             string _Url = "www.google.com";
+
+            LoggingManager.LogToFile("D5288A56-B37B-4F6C-B691-A2B738F92A1E", $"Opening browser to close all tabs...", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
             // Re-open browser
             if (!StartBrowser(aSupportedBrowser, _Url, false))
             {
-                LoggingManager.LogToFile("D5288A56-B37B-4F6C-B691-A2B738F92A1E", $"Couldn't start browser [{aSupportedBrowser}]. Aborting {nameof(GetTargetValueFromUrl)} from URL [{_Url}].");
+                LoggingManager.LogToFile("c488fd82-ceb6-4354-ba52-8f59e0ea6000", $"Couldn't start browser [{aSupportedBrowser}]. Aborting {nameof(GetTargetValueFromUrl)} from URL [{_Url}].");
                 return;
             }
 
@@ -55,6 +57,14 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
             var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
             SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
             Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG * 2);
+
+            // enter possible popup (recover from crash)
+            ExecuteEnterKey();
+
+            Thread.Sleep(3000);
+
+            // Escape possible popup
+            ExecuteEscapeKey();
 
             var _Stopwatch = new Stopwatch();
             _Stopwatch.Start();
@@ -80,6 +90,46 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
                     throw new Exception("Process to kill browser tabs was stuck.");
                 }
             }
+
+            LoggingManager.LogToFile("e13f1c44-ffd9-4cd1-8b06-e8d6868c8603", $"Browser tabs all closed.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+        }
+
+        private void ExecuteEscapeKey()
+        {
+            LoggingManager.LogToFile("e13f1c44-ffd9-4cd1-8b06-e8d6868c8603", $"Pressed escape.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+            {
+                Delay = 192,
+                KeyStrokeCodes = new[]
+                {
+                    Keycode.XK_Escape,
+                }
+            });
+
+            Thread.Sleep(224);
+        }
+
+        private void ExecuteEnterKey()
+        {
+
+            LoggingManager.LogToFile("e13f1c44-ffd9-4cd1-8b06-e8d6868c8603", $"Pressed enter.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+
+            try
+            {
+                InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
+                {
+                    Delay = 325,
+                    KeyStrokeCodes = new[]
+                    {
+                        Keycode.KP_Enter,
+                    }
+                });
+            } catch (Exception e)
+            {
+                LoggingManager.LogToFile("e13f1c44-ffd9-4cd1-8b06-e8d6868c8603", $"{e.Message} - {e.InnerException?.Message}", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+            }
+
+            Thread.Sleep(224);
         }
 
         private void CloseCurrentTab()
@@ -107,6 +157,8 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
         {
             Process[] _ProcessesToKill = ScraperProcessHelper.GetProcessesAssociatedWithBrowser(aBrowserToKill);
 
+            LoggingManager.LogToFile("048edad0-45ec-489a-9499-dea3d8353903", $"Killing browser process. There is [{_ProcessesToKill.Length}] processes associated with [{aBrowserToKill}] to kill.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+
             foreach (Process _Process in _ProcessesToKill)
                 _Process.Kill();
         }
@@ -117,6 +169,8 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 
             SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
 
+            LoggingManager.LogToFile("2ec9d79f-2737-4ba2-a97f-53b71e2ea42b", $"Starting browser [{aSupportedBrowser}]...", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+
             if (_SupportedBrowserConfiguration == null)
             {
                 LoggingManager.LogToFile("B8C37FE6-707E-4BCA-8644-EDAB3A589DF7", $"Browser [{aSupportedBrowser}] has no valid configuration.");
@@ -126,8 +180,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
 
                 fBrowserProcessName = null;
 
-            }
-            else
+            } else
                 fBrowserProcessName = _SupportedBrowserConfiguration.ExecutablePath;
 
             if (_SupportedBrowserConfiguration != null)
@@ -161,6 +214,8 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
             var _Process = new Process { StartInfo = _StartInfo };
             _Process.Start();
 
+            LoggingManager.LogToFile("73035818-e337-4d2f-b153-e8abd0bc522e", $"Browser [{aSupportedBrowser}] started.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+
             return true;
         }
 
@@ -178,7 +233,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
                 KillBrowserProcess(aSupportedBrowser);
 
                 // Close all tabs to avoid "browser ready" state issue
-                CloseAllTabs(aSupportedBrowser, aTarget);
+                OpenBrowserAndCloseAllTabs(aSupportedBrowser, aTarget);
 
                 // Re-open browser
                 if (!StartBrowser(aSupportedBrowser, aUrl, false))
@@ -188,20 +243,23 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
                 }
 
                 BrowserHelper.WaitForBrowserInputsReadyOrMax(2000, aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG * 2);
-                //if (!BrowserHelper.WaitForWebPageToFinishLoadingByBrowser(aSupportedBrowser, NB_MS_WAIT_FOR_INPUT_HANG))
-                //{
-                //    LoggingManager.LogToFile("3A4B102B-E437-4C1B-90AA-EC1FCF3669B4", $"Couldn't wait for browser [{aSupportedBrowser}]. It may be stuck. Aborting [{nameof(GetTargetValueFromUrl)}] Target was [{aTarget}].");
-                //    return;
-                //}
 
                 // Wait a little longer just in case the system is a little slow (like a raspberry pi for instance)
                 var _WebScraperConfiguration = WebScraperConfigurationManager.ReloadConfig();
                 SupportedBrowserConfiguration _SupportedBrowserConfiguration = _WebScraperConfiguration.GetBrowserConfigurationBySupportedBrowser(aSupportedBrowser);
                 Thread.Sleep(_SupportedBrowserConfiguration?.NbMsToWaitOnBrowserStart ?? NB_MS_WAIT_FOR_INPUT_HANG * 2);
 
+                // enter possible popup (recover from crash)
+                ExecuteEnterKey();
+
+                Thread.Sleep(3000);
+
+                // Escape possible popup
+                ExecuteEscapeKey();
+
                 // Fullscreen
                 ExecuteFullScreenF11();
-                Thread.Sleep(1000);
+                Thread.Sleep(1500);
 
                 // Evaluate the target and get the value
                 aTarget.Evaluate(aSupportedBrowser, aUrl, true, aManualScraperItems?.OfType<ManualScraperItemParser>().Select(s => (IScraperItemParser)s).ToList(), aDOMParserItems);
@@ -216,7 +274,7 @@ namespace Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual
                 CloseCurrentTab();
                 Thread.Sleep(500);
 
-                // Note: actually, we already closed our tab.. so.. no, don't kill the browser..
+                // Note: closing last tab closes the browser altogether
             });
         }
 

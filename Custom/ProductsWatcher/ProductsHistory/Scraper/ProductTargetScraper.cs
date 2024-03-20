@@ -169,21 +169,11 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
 
             if (this.Information.Price.HasValue)
             {
-                LoggingManager.LogToFile("87278768-40EA-4B01-AC63-8C1E2331AC4D", $"Product price [{this.Information.Price}] was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                LoggingManager.LogToFile("af1c3c4f-f9f0-41d3-a03c-dd136b2c6582", $"Product price [{this.Information.Price}] was fetched using manual parser.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
                 return;
             }
 
-            // Handle by checking that manual parsed price is equivalent to DOM parsed one
-            //if (fAllowManualOperations)
-            //{
-            //    // We consider this an error only if we had at least 1 config available
-            //    ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == ProductParserItemTarget.Price).ToArray();
-            //    if (_AvailableProductParser.Any())
-            //    {
-            //        LoggingManager.LogToFile("2781E8CF-F080-4B51-A831-7EDC06560E43", $"Manual steps to fetch price of product [{fUrl}] failed.");
-            //        this.OneOrMoreStepFailedAndRequiredAFallback = true;
-            //    }
-            //}
+            LoggingManager.LogToFile("87278768-40EA-4B01-AC63-8C1E2331AC4D", $"Product price couldn't be fetched using manual parser. Trying DOM Parsing.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
             // If it doesn't work, fallback to find the price in the DOM
             TryFetchProductPriceByDOM();
@@ -480,6 +470,13 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper
             try
             {
                 ManualScraperProductParser[] _AvailableProductParser = fManualScraperItems.Where(w => w.Target == aProductParserItemTarget).ToArray();
+
+                if (_AvailableProductParser.Length <= 0)
+                {
+                    LoggingManager.LogToFile("33692302-d27c-493e-aab5-406f70e7152b", $"Product {fUrl} had no manual parser of target type [{aProductParserItemTarget}].", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
+                    return _TotalAmount;
+                }
+
                 LoggingManager.LogToFile("B0618052-EBA5-4BB1-ABF5-B0738AA52E2B", $"Trying to fetch {aProductParserItemTarget} of [{fUrl}] using [{_AvailableProductParser.Length}] Manual Product Parsers.", aLogVerbosity: LoggingManager.LogVerbosity.Verbose);
 
                 foreach (ManualScraperProductParser _ManualScraperItemParser in _AvailableProductParser)

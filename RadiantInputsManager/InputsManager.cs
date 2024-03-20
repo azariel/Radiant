@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Radiant.Common.Diagnostics;
 using Radiant.Common.OSDependent;
 using Radiant.InputsManager.ExecutionResults;
 using Radiant.InputsManager.InputsParam;
@@ -29,16 +30,24 @@ namespace Radiant.InputsManager
         // ********************************************************************
         public static IInputExecutionResult ExecuteConcurrentInputWithOverrideOfExclusivity(InputType aInputType, IInputParam aInputParam)
         {
-            // Simulate light delay to avoid mismatch inputs
-            Thread.Sleep(30);
-
-            SupportedOperatingSystem _OperatingSystem = OperatingSystemHelper.GetCurrentOperatingSystem();
-            return _OperatingSystem switch
+            try
             {
-                SupportedOperatingSystem.Linux => XdoToolInputsManager.Execute(aInputType, aInputParam),
-                SupportedOperatingSystem.Windows => Win32InputsManager.Execute(aInputType, aInputParam),
-                _ => throw new ArgumentOutOfRangeException(nameof(_OperatingSystem), _OperatingSystem, "Operating system unhandled")
-            };
+                // Simulate light delay to avoid mismatch inputs
+                Thread.Sleep(30);
+
+                SupportedOperatingSystem _OperatingSystem = OperatingSystemHelper.GetCurrentOperatingSystem();
+                return _OperatingSystem switch
+                {
+                    SupportedOperatingSystem.Linux => XdoToolInputsManager.Execute(aInputType, aInputParam),
+                    SupportedOperatingSystem.Windows => Win32InputsManager.Execute(aInputType, aInputParam),
+                    _ => throw new ArgumentOutOfRangeException(nameof(_OperatingSystem), _OperatingSystem, "Operating system unhandled")
+                };
+            }
+            catch (Exception ex)
+            {
+                LoggingManager.LogToFile("755b3557-8c5c-437e-b3da-ef01636204ed", $"Couldn't execute input action [{aInputType}] of Param [{aInputParam}]. Re-throwing.", ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -65,7 +74,8 @@ namespace Radiant.InputsManager
             try
             {
                 aActionToExecuteWithExclusivity.Invoke();
-            } finally
+            }
+            finally
             {
                 lock (fIsWorkingLock)
                 {

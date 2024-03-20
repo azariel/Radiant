@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Utils;
+using Radiant.WebScraper.RadiantWebScraper.Configuration;
 using Radiant.WebScraper.RadiantWebScraper.Helpers;
 using Radiant.WebScraper.RadiantWebScraper.Parsers.DOM;
 using Radiant.WebScraper.RadiantWebScraper.Scrapers;
@@ -42,29 +43,16 @@ namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Ma
 
         private void TryTakeScreenshotAndInfo(string aOutPutPath)
         {
-            try
-            {
-                using var _Bitmap = new Bitmap(1920, 1080, PixelFormat.Format32bppArgb);// TODO: get screen size dynamically
-                using Graphics _Graphics = Graphics.FromImage(_Bitmap);
+            var _Config = WebScraperConfigurationManager.ReloadConfig();
 
-                _Graphics.CopyFromScreen(0, 0, 0, 0, _Bitmap.Size, CopyPixelOperation.SourceCopy);
+            if (!_Config.TakeLandingPageScreenshots)
+                return;
 
-                DateTime _Now = DateTime.UtcNow;
-                string _ImagePath = $"{_Now:yyyy-MM-dd HH.mm.ss.fff}.png";
+            DateTime _Now = DateTime.Now;
+            this.Screenshot = ImageUtils.TakeScreenshot(aOutPutPath, out string _);
 
-                if (!Directory.Exists(aOutPutPath))
-                    Directory.CreateDirectory(aOutPutPath);
-
-                _Bitmap.Save(Path.Combine(aOutPutPath, _ImagePath));
-                this.Screenshot = ImageUtils.ImageToByte2(_Bitmap);
-
-                // Add a info file beside
-                File.WriteAllText(Path.Combine(aOutPutPath, $"{_Now:yyyy-MM-dd HH.mm.ss.fff}-INFO.txt"), $"Url: {fUrl}");
-
-            } catch (Exception _Exception)
-            {
-                LoggingManager.LogToFile("1D33CEE8-20F0-4627-9EFE-B2FCFC4E71CE", "Couldn't take screenshot. Operation will be ignored.", _Exception);
-            }
+            // Add a info file beside
+            File.WriteAllText(Path.Combine(aOutPutPath, $"{_Now:yyyy-MM-dd HH.mm.ss.fff}-BASE_INFO.txt"), $"Url: {fUrl}");
         }
 
         // ********************************************************************
