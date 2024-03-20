@@ -57,7 +57,7 @@ namespace Radiant.Custom.Games.EveOnline.EveFight.UIElements
             }
 
             // If ship is hasn't hit us for half the cycle time, gray it out
-            if ((DateTime.Now - this.Ship.LastUpdate).TotalMilliseconds > EveFightConfigurationManager.GetConfigFromMemory().DpsCycleMs / 2)
+            if ((DateTime.UtcNow - this.Ship.LastUpdate).TotalMilliseconds > EveFightConfigurationManager.GetConfigFromMemory().DpsCycleMs / 2)
                 _ColorBrush = new SolidColorBrush(Color.FromArgb(a: 50, _ColorBrush.Color.R, _ColorBrush.Color.G, _ColorBrush.Color.B));
 
             return _ColorBrush;

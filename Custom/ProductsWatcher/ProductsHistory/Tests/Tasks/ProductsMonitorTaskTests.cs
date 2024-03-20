@@ -30,11 +30,11 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tests.Tasks
                 {
                     new()
                     {
-                        InsertDateTime = DateTime.Now.AddMinutes(-1),
+                        InsertDateTime = DateTime.UtcNow.AddMinutes(-1),
                         FetchProductHistoryEnabled = true,
                         FetchProductHistoryEveryX = new TimeSpan(0, 0, 1),
                         FetchProductHistoryTimeSpanNoiseInPerc = 2.5f,
-                        NextFetchProductHistory = DateTime.Now,
+                        NextFetchProductHistory = DateTime.UtcNow,
                         Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT"
                     }
                 }

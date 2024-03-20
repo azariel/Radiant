@@ -25,7 +25,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Managers
 
                 if (!_DataBaseContext.BookDefinitions.Any())
                 {
-                    _BookToAddOrUpdate.LastFetch = DateTime.Now;
+                    _BookToAddOrUpdate.LastFetch = DateTime.UtcNow;
                     _DataBaseContext.BookDefinitions.Add(_BookToAddOrUpdate);
                     _DataBaseContext.SaveChanges();
                     continue;
@@ -45,7 +45,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Managers
                 if (_MatchingBookDefinitions.Length <= 0)
                 {
                     // Add new
-                    _BookToAddOrUpdate.LastFetch = DateTime.Now;
+                    _BookToAddOrUpdate.LastFetch = DateTime.UtcNow;
                     _DataBaseContext.BookDefinitions.Add(_BookToAddOrUpdate);
                     _DataBaseContext.SaveChanges();// Save changes right now instead of only once at the end to avoid dropping batch due to a single error
                     continue;
@@ -65,7 +65,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Managers
             aBookDefinitionToUpdate.SoftNbWords = aUpdatedBookDefinition.SoftNbWords;
             aBookDefinitionToUpdate.Summary = aUpdatedBookDefinition.Summary;
             aBookDefinitionToUpdate.Title = aUpdatedBookDefinition.Title;
-            aBookDefinitionToUpdate.LastFetch = DateTime.Now;
+            aBookDefinitionToUpdate.LastFetch = DateTime.UtcNow;
             aBookDefinitionToUpdate.Pairings = aUpdatedBookDefinition.Pairings;
             aBookDefinitionToUpdate.RequireUpdate = false;// Book was just updated
             aBookDefinitionToUpdate.SecondaryCharacters = aUpdatedBookDefinition.SecondaryCharacters;

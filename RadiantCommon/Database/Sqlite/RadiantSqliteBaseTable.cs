@@ -12,6 +12,6 @@ namespace Radiant.Common.Database.Sqlite
         //                            Properties
         // ********************************************************************
         [Required]
-        public DateTime InsertDateTime { get; set; } = DateTime.Now;
+        public DateTime InsertDateTime { get; set; } = DateTime.UtcNow;
     }
 }

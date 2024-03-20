@@ -85,7 +85,7 @@ namespace EveBee.Scenarios
 
                     if (BeeState.IsWarping)
                     {
-                        var _NbMsElapsed = (DateTime.Now - BeeState.WarpStartDateTime).TotalMilliseconds;
+                        var _NbMsElapsed = (DateTime.UtcNow - BeeState.WarpStartDateTime).TotalMilliseconds;
                         if (_NbMsElapsed < _Config.WarpMaxTimeToWaitInMs)
                         {
                             LoggingManager.LogToFile("4e23e454-da6e-4c23-9c07-6800f29d9f0c", $"Waiting for Warp to end. Ms left: [{(_Config.WarpMaxTimeToWaitInMs - _NbMsElapsed)}]...");
@@ -150,7 +150,7 @@ namespace EveBee.Scenarios
 
             ActionsExecutor.WarpToNextCombatSite();
             BeeState.IsWarping = true;
-            BeeState.WarpStartDateTime = DateTime.Now;
+            BeeState.WarpStartDateTime = DateTime.UtcNow;
             fCurrentScenario = Scenario.InWarpToCombatSite;
         }
 
@@ -207,14 +207,14 @@ namespace EveBee.Scenarios
         // Try to find something to do as we're in idle state
         private static void GetScenarioToDoFromIdleState()
         {
-            LoggingManager.LogToFile("a7a373db-4a11-4466-a83c-082fce38b580", $"Bee is idle. Docked=[{BeeState.Docked}]. MustFlee=[{BeeState.MustFlee}]. IsWarping=[{BeeState.IsWarping}]. MustGoBackToStationGrid=[{BeeState.MustGoBackToStationGrid}]. ForceWaitInDockedIdleUntilDateTime=[{BeeState.ForceWaitInDockedIdleUntilDateTime}]. Now: [{DateTime.Now}].");
+            LoggingManager.LogToFile("a7a373db-4a11-4466-a83c-082fce38b580", $"Bee is idle. Docked=[{BeeState.Docked}]. MustFlee=[{BeeState.MustFlee}]. IsWarping=[{BeeState.IsWarping}]. MustGoBackToStationGrid=[{BeeState.MustGoBackToStationGrid}]. ForceWaitInDockedIdleUntilDateTime=[{BeeState.ForceWaitInDockedIdleUntilDateTime}]. Now: [{DateTime.UtcNow}].");
 
             // if we're still docked
             if (BeeState.Docked)
             {
                 if (BeeState.ForceWaitInDockedIdleUntilDateTime != null)
                 {
-                    if (BeeState.ForceWaitInDockedIdleUntilDateTime > DateTime.Now)
+                    if (BeeState.ForceWaitInDockedIdleUntilDateTime > DateTime.UtcNow)
                     {
                         Thread.Sleep(new Random().Next(30000,60000));// inaccurate wait, don't spam local detection
 

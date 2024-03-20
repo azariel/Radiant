@@ -51,7 +51,7 @@ namespace Radiant.Common.Tests.Triggers
         [Fact]
         public void BasicScheduleWithActiveBlackoutTest()
         {
-            DateTime _NowDateTime = DateTime.Now;
+            DateTime _NowDateTime = DateTime.UtcNow;
             DateTime _MaxDateTime = _NowDateTime.AddMinutes(5);
             ScheduleTrigger _Trigger = new()
             {

@@ -55,7 +55,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tests.DataBase
                 FetchProductHistoryEnabled = true,
                 FetchProductHistoryEveryX = new TimeSpan(0, 10, 0),
                 FetchProductHistoryTimeSpanNoiseInPerc = 10.0f,
-                NextFetchProductHistory = DateTime.Now,
+                NextFetchProductHistory = DateTime.UtcNow,
                 Url = "https://www.amazon.ca/PlayStation-DualSense-Wireless-Controller-Midnight/dp/B0951JZDWT",
                 Product = _Product
             };
@@ -106,7 +106,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tests.DataBase
             // Validate that the db is empty
             Assert.Equal(0, _DataBaseContext.Products.Count());
 
-            DateTime _Now = DateTime.Now;
+            DateTime _Now = DateTime.UtcNow;
             string _Name1 = "ProductName-041BEB2A-A362-4139-9134-798B8B8AB770";
             string _Title1 = "UnitTestTitle-C3292360-2AD5-4399-93B9-4B68139F9E91";
             double _Price1 = 89.98;

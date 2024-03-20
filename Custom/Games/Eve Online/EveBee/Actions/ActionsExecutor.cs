@@ -29,7 +29,7 @@ namespace EveBee.Actions
                 return;
             }
 
-            if (BeeState.LastRepairDateTime.AddMinutes(_Config.RepairShipScenario.RepairCooldownInMin) > DateTime.Now)
+            if (BeeState.LastRepairDateTime.AddMinutes(_Config.RepairShipScenario.RepairCooldownInMin) > DateTime.UtcNow)
             {
                 // Skip repair. We repairing not long ago
                 return;
@@ -44,7 +44,7 @@ namespace EveBee.Actions
                 Thread.Sleep(new Random().Next(250, 550));// Wait for window to open/animation
             }
 
-            BeeState.LastRepairDateTime = DateTime.Now;
+            BeeState.LastRepairDateTime = DateTime.UtcNow;
 
             Thread.Sleep(new Random().Next(350, 575));
         }
@@ -211,7 +211,7 @@ namespace EveBee.Actions
                 LoggingManager.LogToFile("4abb779d-317c-4da0-b8b3-06026b645b44", $"There is no valid combat site. Docking procedures triggered. Waiting for 5 min and retrying again...");
 
                 // No combat site. Wait 5 min while docked and retry after
-                BeeState.ForceWaitInDockedIdleUntilDateTime = DateTime.Now.AddMinutes(5);
+                BeeState.ForceWaitInDockedIdleUntilDateTime = DateTime.UtcNow.AddMinutes(5);
                 BeeState.MustFlee = true;
             }
         }
@@ -344,8 +344,8 @@ namespace EveBee.Actions
                 Thread.Sleep(new Random().Next(50, 150));
             }
 
-            BeeState.NextManualTargetToFocusDateTime = DateTime.Now.AddSeconds(new Random().Next(60, 180));
-            BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddMinutes(5);
+            BeeState.NextManualTargetToFocusDateTime = DateTime.UtcNow.AddSeconds(new Random().Next(60, 180));
+            BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.UtcNow.AddMinutes(5);
         }
 
         private static bool SafeWait(double waitTimeInMs)
@@ -424,7 +424,7 @@ namespace EveBee.Actions
 
         public static void SemiIdleCombat()
         {
-            if (BeeState.CombatSiteDone || DateTime.Now < BeeState.NextManualTargetToFocusDateTime)
+            if (BeeState.CombatSiteDone || DateTime.UtcNow < BeeState.NextManualTargetToFocusDateTime)
             {
                 return;
             }
@@ -464,24 +464,24 @@ namespace EveBee.Actions
                 InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputType.Keyboard, _Action);
             }
 
-            BeeState.NextManualTargetToFocusDateTime = DateTime.Now.AddSeconds(new Random().Next(300, 420));
+            BeeState.NextManualTargetToFocusDateTime = DateTime.UtcNow.AddSeconds(new Random().Next(300, 420));
         }
 
         public static bool DetermineIfCombatSiteIsCompleted()
         {
             // Check every 5 min if the combat site is completed
-            if (DateTime.Now < BeeState.NextCombatSiteCompletionValidatorDateTime)
+            if (DateTime.UtcNow < BeeState.NextCombatSiteCompletionValidatorDateTime)
             {
                 return false;
             }
 
-            BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddSeconds(new Random().Next(30, 60));
+            BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.UtcNow.AddSeconds(new Random().Next(30, 60));
 
             var _Config = EveBeeConfigurationManager.GetConfigFromMemory();
 
             // TODO: validate for Friendly on Grid. If so, ignore this combat site
 
-            DateTime _BeforeEval = DateTime.Now;
+            DateTime _BeforeEval = DateTime.UtcNow;
             PixelsInZoneEvaluator.EvaluateZones(_Config.DetermineIfCombatSiteIsCompletedScenario.ZonesWatcher, null);
 
             if (_BeforeEval > BeeState.CombatSiteIsStillValidDateTimeTrigger)
@@ -509,7 +509,7 @@ namespace EveBee.Actions
                 } else
                 {
                     // Make sure. Spawn may take a few secs
-                    BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.Now.AddSeconds(5);
+                    BeeState.NextCombatSiteCompletionValidatorDateTime = DateTime.UtcNow.AddSeconds(5);
                     ++BeeState.CombatSiteValidatorIterator;
                 }
             } else

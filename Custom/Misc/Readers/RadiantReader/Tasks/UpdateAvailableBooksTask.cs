@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
+using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
 using Radiant.Custom.Readers.RadiantReader.Business;
 using Radiant.Custom.Readers.RadiantReader.DataBase;
@@ -29,6 +30,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Tasks
 
             foreach (RadiantReaderHostModel _Host in _HostBooks)
             {
+                LoggingManager.LogToFile("3003f205-bc55-4e9c-ab3a-57679867a0c3", $"Fetching new books on landing page [{_Host.HostLandingPage}].");
                 string _DOM = AutomaticWebScraperClient.GetDOMAsync(_Host.HostLandingPage).Result;
                 ParseBooksFromDOMLandingPage(_Host, _DOM);
             }

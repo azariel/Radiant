@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
 using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
 using Radiant.Custom.ProductsWatcher.ProductsHistory.Scraper;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.WebApiClient;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase;
 using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DataBase.Subscriptions;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.DtoConverters;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductDefinitions;
 using Radiant.Notifier.DataBase;
 using Radiant.WebScraper.RadiantWebScraper;
 using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual;
@@ -24,7 +28,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private RadiantServerProductHistoryModel CreateProductHistoryFromProductTargetScraper(ProductTargetScraper aProductScraper, RadiantServerProductDefinitionModel aProduct, string aProductTitle)
+        private RadiantServerProductHistoryModel CreateProductHistoryFromProductTargetScraper(ProductTargetScraper aProductScraper, RadiantServerProductDefinitionModel aProductDefinition, string aProductTitle)
         {
             // Note that is the product is out of stock, we consider the fetched information to be wrong. No point in having an awesome price on a product that isn't available
             if (aProductScraper?.Information?.Price == null || aProductScraper.Information.OutOfStock == true)
@@ -33,15 +37,15 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
             // Check that the Title match. Some website (cough couch Amazon) keep the SAME url, but change the product..
             if (!string.IsNullOrWhiteSpace(aProductTitle) && !string.Equals(aProductScraper.Information.Title, aProductTitle, StringComparison.CurrentCultureIgnoreCase))
             {
-                LoggingManager.LogToFile("E24BD4BD-0AE7-41B5-BF66-1D703B75905A", $"Product Id [{aProduct.ProductId}] was fetched but Title was mismatching. Title expected: [{aProductTitle}] but found [{aProductScraper.Information.Title?.Trim()}].");
+                LoggingManager.LogToFile("E24BD4BD-0AE7-41B5-BF66-1D703B75905A", $"Product Id [{aProductDefinition.ProductId}] was fetched but Title was mismatching. Title expected: [{aProductTitle}] but found [{aProductScraper.Information.Title?.Trim()}].");
 
                 // Send a notification to admins
                 RadiantNotificationModel _NewNotification = new()
                 {
-                    Content = $"<p>Product {aProduct.Product.Name} may be mismatched</p><p>Please check that the product hasn't changed.</p><p>Expected: {aProductScraper.Information.Title}</p><p>Found: {aProductTitle}</p><p>{aProduct.Url}</p>",
-                    Subject = $"Product {aProduct.Product.Name} may be mismatched",
+                    Content = $"<p>Product {aProductDefinition.Product.Name} may be mismatched</p><p>Please check that the product hasn't changed.</p><p>Expected: {aProductScraper.Information.Title}</p><p>Found: {aProductTitle}</p><p>{aProductDefinition.Url}</p>",
+                    Subject = $"Product {aProductDefinition.Product.Name} may be mismatched",
                     EmailFrom = "Radiant Product History",
-                    MinimalDateTimetoSend = DateTime.Now
+                    MinimalDateTimetoSend = DateTime.UtcNow
                 };
 
                 using ServerProductsDbContext _DbContext = new();
@@ -55,12 +59,13 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
 
             return new RadiantServerProductHistoryModel
             {
-                InsertDateTime = DateTime.Now,
+                InsertDateTime = DateTime.UtcNow,
                 Price = aProductScraper.Information.Price.Value,
                 ShippingCost = aProductScraper.Information.ShippingCost,
                 DiscountPrice = aProductScraper.Information.DiscountPrice,
                 DiscountPercentage = aProductScraper.Information.DiscountPercentage,
-                Title = aProductScraper.Information.Title?.Trim()
+                Title = aProductScraper.Information.Title?.Trim(),
+                ProductDefinitionId = aProductDefinition.ProductDefinitionId,
             };
         }
 
@@ -76,7 +81,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
                 Content = $"<p>Product {aProductDefinition.Product.Name} is {aNewProductHistory.Price:F}$</p><p>Shipping Cost: {aNewProductHistory.ShippingCost:F}$</p> <p>Shown total discount: {aNewProductHistory.DiscountPrice:F}$ and {aNewProductHistory.DiscountPercentage:F}%</p><p>Best price for last 365 days: {aBestPriceLastYear:F}$</p><p>Url: {aProductDefinition.Url}</p>",
                 Subject = $"{aNewProductHistory.Price:F}$ -> {aProductDefinition.Product.Name}",
                 EmailFrom = "Radiant - Product History",
-                MinimalDateTimetoSend = DateTime.Now
+                MinimalDateTimetoSend = DateTime.UtcNow
             };
 
             // Add all subscribed users email to notification EmailTo
@@ -89,12 +94,15 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
 
         private void EvaluateNotifications(RadiantServerProductDefinitionModel aProductDefinition, RadiantServerProductHistoryModel aNewProductHistory)
         {
+            if (aProductDefinition.Product.ProductDefinitionCollection.Any(a => a.ProductHistoryCollection == null))
+                return;
+
             // No notification if it's the first fetch for this product
             if (!aProductDefinition.Product.ProductDefinitionCollection.Any(a => a.ProductHistoryCollection.Count > 0))
                 return;
 
             // Notification if it's the first fetch for this Url AND we're the same day
-            if (!aProductDefinition.ProductHistoryCollection.Any() && (DateTime.Now - aProductDefinition.InsertDateTime).TotalHours < 24)
+            if (!aProductDefinition.ProductHistoryCollection.Any() && (DateTime.UtcNow - aProductDefinition.InsertDateTime).TotalHours < 24)
                 return;
 
             // If price is the same as the last one, skip
@@ -102,7 +110,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
 
             foreach (RadiantServerProductDefinitionModel _ProductDefinition in aProductDefinition.Product.ProductDefinitionCollection)
             {
-                var _LatestProductHistory = _ProductDefinition.ProductHistoryCollection.OrderByDescending(o => o.InsertDateTime).FirstOrDefault();
+                var _LatestProductHistory = _ProductDefinition.ProductHistoryCollection.MaxBy(o => o.InsertDateTime);
                 double _TempDiscountedPrice = (_LatestProductHistory?.Price ?? 0) - (_LatestProductHistory?.DiscountPrice ?? 0);
                 double? _LastPriceOfThisDefinition = _LatestProductHistory?.Price + (_LatestProductHistory?.ShippingCost ?? 0) - (_LatestProductHistory?.DiscountPrice ?? 0) - (_TempDiscountedPrice * _LatestProductHistory?.DiscountPercentage ?? 0);
 
@@ -131,7 +139,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
                 return;
 
             double _BestPriceLastYear = _CurrentPrice;
-            RadiantServerProductHistoryModel[] _ProductsHistory = aProductDefinition.Product.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection.Where(w => w.InsertDateTime >= DateTime.Now.AddYears(-1))).ToArray();
+            RadiantServerProductHistoryModel[] _ProductsHistory = aProductDefinition.Product.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection.Where(w => w.InsertDateTime >= DateTime.UtcNow.AddYears(-1))).ToArray();
 
             if (_ProductsHistory.Any())
                 _BestPriceLastYear = _ProductsHistory.Min(m => m.Price + (m.ShippingCost ?? 0) - (m.DiscountPrice ?? 0) - ((m.Price - (m.DiscountPrice ?? 0)) * m.DiscountPercentage ?? 0));
@@ -157,11 +165,10 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
             if (aProductDefinition == null)
                 return;
 
-            DateTime _Now = DateTime.Now;
+            DateTime _Now = DateTime.UtcNow;
 
             // If product was never fetch, set the next fetch time to right now
-            if (!aProductDefinition.NextFetchProductHistory.HasValue)
-                UpdateNextFetchDateTime(aProductDefinition, _Now);
+            aProductDefinition.NextFetchProductHistory ??= _Now.AddSeconds(-1);
 
             if (_Now > aProductDefinition.NextFetchProductHistory)
                 FetchNewProductHistory(aProductDefinition, _Now);
@@ -176,21 +183,24 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
             List<DOMParserItem> _DomParsers = _Config.DOMParserItems.Select(s => (DOMParserItem)s).ToList();
 
             _ManualScraper.GetTargetValueFromUrl(Browser.Firefox, aProductDefinition.Url, _ProductScraper, _ManualScrapers, _DomParsers);
-            fShouldStop = true;// Using the manual scraper takes a long time, we want to avoid processing too many products to avoid going outside a blackout timezone/inactivity trigger incoherence
+            //_ProductScraper.Information.Title = "i'm a super teapot";
+            //_ProductScraper.Information.Price = 9.99;
 
-            RadiantServerProductHistoryModel? _MostRecentProductHistory = aProductDefinition.ProductHistoryCollection.FirstOrDefault(f => f.InsertDateTime == aProductDefinition.ProductHistoryCollection.Max(m => m.InsertDateTime));
+            //fShouldStop = true;// Using the manual scraper takes a long time, we want to avoid processing too many products to avoid going outside a blackout timezone/inactivity trigger incoherence
+
+            RadiantServerProductHistoryModel? _MostRecentProductHistory = aProductDefinition.ProductHistoryCollection?.FirstOrDefault(f => f.InsertDateTime == aProductDefinition.ProductHistoryCollection.Max(m => m.InsertDateTime));
 
             RadiantServerProductHistoryModel _ProductHistory = CreateProductHistoryFromProductTargetScraper(_ProductScraper, aProductDefinition, _MostRecentProductHistory?.Title);
 
             if (_ProductHistory == null)
             {
                 LoggingManager.LogToFile("988B416D-BE97-42A3-BA2F-438FFBFEDAF4", $"Couldn't fetch new product history of product [{aProductDefinition.Product.Name}] Url [{aProductDefinition.Url}]. {(_ProductScraper.Information.OutOfStock == true ? "Product was Out of Stock. Skipping it." : "")}");
-                LoggingManager.LogToFile("ADCB5E84-034F-4A7F-BE21-784D5DBC4A77", $"Product [{aProductDefinition.Product.Name}] next update is scheduled on [{aProductDefinition.NextFetchProductHistory}].");
 
                 // Note that when a product fetch fails, the ProductTargetScraper will handle the fail sequence to send notifications to admins, logging relevant informations about failure, etc.
 
                 // To avoid a query loop
                 UpdateNextFetchDateTime(aProductDefinition, aNow);
+                LoggingManager.LogToFile("ADCB5E84-034F-4A7F-BE21-784D5DBC4A77", $"Product [{aProductDefinition.Product.Name}] next update is scheduled on [{aProductDefinition.NextFetchProductHistory:yyyy-MM-dd HH.mm.ss}].");
 
                 return;
             }
@@ -199,7 +209,12 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
             if (_ProductScraper.Information.OutOfStock != true)// Never send a notification on an out of stock product
                 EvaluateNotifications(aProductDefinition, _ProductHistory);
 
+            // Add new history locally
+            aProductDefinition.ProductHistoryCollection ??= new List<RadiantServerProductHistoryModel>();
             aProductDefinition.ProductHistoryCollection.Add(_ProductHistory);
+
+            // Add it remotely
+            RadiantProductsHistoryWebApiClient.AddProductHistory(ProductHistoryDtoConverter.ConvertToProductHistoryPostRequestDto(_ProductHistory)).Wait();
 
             // Update product in db to set the next trigger time
             UpdateNextFetchDateTime(aProductDefinition, aNow);
@@ -225,26 +240,43 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
         // ********************************************************************
         protected override void TriggerNowImplementation()
         {
-            // TODO: to implement fetch the next product to update and update it if the time is right
-            using var _DataBaseContext = new ServerProductsDbContext();
-            _DataBaseContext.Products.Load();
-            _DataBaseContext.ProductDefinitions.Load();
-            _DataBaseContext.ProductsHistory.Load();
+            var _ProductToEvaluate = RadiantProductsHistoryWebApiClient.GetNextPendingProductAsync().Result;
 
-            foreach (RadiantServerProductModel _Product in _DataBaseContext.Products.Where(w => w.FetchProductHistoryEnabled).ToArray())
+            if (_ProductToEvaluate?.Definitions?.ProductDefinitions == null)
+                return;
+
+            var _ProductDalModel = ProductsDtoConverter.ConvertToServerProductModel(_ProductToEvaluate);
+            foreach (ProductDefinitionResponseDto _ProductDefinition in _ProductToEvaluate.Definitions.ProductDefinitions)
             {
-                foreach (RadiantServerProductDefinitionModel _ProductDefinition in _Product.ProductDefinitionCollection)
-                {
-                    EvaluateProductDefinition(_ProductDefinition);
-                    _DataBaseContext.SaveChanges();
+                var _ProductDefinitionDalModel = ProductDefinitionsDtoConverter.ConvertToServerProductDefinitionModel(_ProductDefinition);
+                _ProductDefinitionDalModel.Product = _ProductDalModel;
 
-                    if (fShouldStop)
-                        return;
+                EvaluateProductDefinition(_ProductDefinitionDalModel);
 
-                    // Mandatory wait between each products (1st very basic avoid bot tagging failsafe)
-                    Thread.Sleep(500);
-                }
+                // Update definition
+                RadiantProductsHistoryWebApiClient.UpdateProductDefinitionAsync(ProductDefinitionsDtoConverter.ConvertToProductDefinitionsPatchRequestDto(_ProductDefinitionDalModel)).Wait();
             }
+
+            // TODO: to implement fetch the next product to update and update it if the time is right
+            //using var _DataBaseContext = new ServerProductsDbContext();
+            //_DataBaseContext.Products.Load();
+            //_DataBaseContext.ProductDefinitions.Load();
+            //_DataBaseContext.ProductsHistory.Load();
+
+            //foreach (RadiantServerProductModel _Product in _DataBaseContext.Products.Where(w => w.FetchProductHistoryEnabled).ToArray())
+            //{
+            //    foreach (RadiantServerProductDefinitionModel _ProductDefinition in _Product.ProductDefinitionCollection)
+            //    {
+            //        EvaluateProductDefinition(_ProductDefinition);
+            //        _DataBaseContext.SaveChanges();
+
+            //        if (fShouldStop)
+            //            return;
+
+            //        // Mandatory wait between each products (1st very basic avoid bot tagging failsafe)
+            //        Thread.Sleep(500);
+            //    }
+            //}
         }
     }
 }

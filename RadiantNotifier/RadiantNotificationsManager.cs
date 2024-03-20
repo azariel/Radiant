@@ -21,7 +21,7 @@ namespace Radiant.Notifier
                 return;
 
             // Timeout notification for an hour TODO: make this configurable ?
-            aRadiantNotificationModel.MinimalDateTimetoSend = DateTime.Now.AddHours(value: 1);
+            aRadiantNotificationModel.MinimalDateTimetoSend = DateTime.UtcNow.AddHours(value: 1);
 
             LoggingManager.LogToFile("0FBFDBD8-DE63-4CBA-9561-C4C52560A189", $"Failed to send notification ID [{aRadiantNotificationModel.NotificationId}]. This notification will be re-queued.");
         }
@@ -87,7 +87,7 @@ namespace Radiant.Notifier
             _DbContext.Notifications.Load();
             _DbContext.NotificationAttachments.Load();
 
-            var _Now = DateTime.Now;
+            var _Now = DateTime.UtcNow;
             foreach (RadiantNotificationModel _NotificationToSend in _DbContext.Notifications.Where(w => !w.Sent && w.MinimalDateTimetoSend < _Now))
             {
                 bool _Result = SendNotification(_NotificationToSend);

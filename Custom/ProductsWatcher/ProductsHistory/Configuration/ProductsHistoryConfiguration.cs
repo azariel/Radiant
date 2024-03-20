@@ -140,5 +140,6 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration
             public GoogleSheetAPIConfig GoogleSheetAPIConfig { get; set; } = new();
 
             public GoogleSheetProductsExportData GoogleSheetProductsExportData { get; set; } = new();
+            public string ProductsWebApiBaseUrl { get; set; } = "https://192.99.69.78:58225";
     }
 }

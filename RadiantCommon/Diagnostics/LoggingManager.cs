@@ -45,7 +45,7 @@ namespace Radiant.Common.Diagnostics
                 _Message += $"Exception=[{Environment.NewLine}{ExceptionUtils.BuildExceptionAndInnerExceptionsMessage(aException)}]{Environment.NewLine}";
 
             // Format message to add useful information
-            _Message = $"{DateTime.Now:yyyy-MM-dd HH.mm.ss.fff} - [{aLogUID}] {_Message}";
+            _Message = $"{DateTime.UtcNow:yyyy-MM-dd HH.mm.ss.fff} - [{aLogUID}] {_Message}";
 
             File.AppendAllText(aLogFilePath, _Message);
         }

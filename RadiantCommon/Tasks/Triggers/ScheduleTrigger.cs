@@ -28,7 +28,7 @@ namespace Radiant.Common.Tasks.Triggers
 
         private void AcknowledgeHasTriggered()
         {
-            DateTime _Now = DateTime.Now;
+            DateTime _Now = DateTime.UtcNow;
             fNextDateTimeToTrigger = _Now.AddSeconds(this.TriggerEveryXSeconds);
         }
 
@@ -72,7 +72,7 @@ namespace Radiant.Common.Tasks.Triggers
             if (!base.Evaluate())
                 return false;
 
-            DateTime _Now = DateTime.Now;
+            DateTime _Now = DateTime.UtcNow;
 
             if (IsTriggerBlockedByBlackOut(_Now))
                 return false;

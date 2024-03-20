@@ -5,6 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Radiant.Custom.ProductsWatcher.ProductsHistory.Configuration;
+using Radiant.Custom.ProductsWatcher.ProductsHistory.WebApiClient;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductDefinitions;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.Products;
+using Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.ProductsHistory;
 
 namespace Radiant.Custom.ProductsWatcher.ProductsHistory.GoogleSheets
 {
@@ -37,23 +41,19 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.GoogleSheets
         {
             // Build payload
             GoogleSheetData _GoogleSheetData = new();
-
-            using var _DataBaseContext = new ServerProductsDbContext();
-            _DataBaseContext.Products.Load();
-            _DataBaseContext.ProductDefinitions.Load();
-            _DataBaseContext.ProductsHistory.Load();
-
             GoogleSheetRowData _HeaderRowData = new();
             _HeaderRowData.RowCellData.Add(null);// Empty
 
-            foreach (RadiantServerProductModel _Product in _DataBaseContext.Products)
+            ProductsResponseDto _ProductsDto = RadiantProductsHistoryWebApiClient.GetAllProducts().Result;
+
+            foreach (var _Product in _ProductsDto.Products)
             {
                 _HeaderRowData.RowCellData.Add(_Product.Name);// Name
             }
 
             _GoogleSheetData.RowDataCollection.Add(_HeaderRowData);
 
-            var _Now = DateTime.Now;
+            var _Now = DateTime.UtcNow;
             var _Config = ProductsHistoryConfigurationManager.ReloadConfig();
             List<GoogleSheetRowData> _RowsData = new(_Config.GoogleSheetProductsExportData.NbDaysToExport);
             for (int i = 0; i < _Config.GoogleSheetProductsExportData.NbDaysToExport; i++)
@@ -68,16 +68,19 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.GoogleSheets
                 });
             }
 
-            foreach (RadiantServerProductModel _Product in _DataBaseContext.Products)
+            foreach (var _Product in _ProductsDto.Products)
             {
+                // Get product definition
+                var _ProductDefinitionResponseDto = RadiantProductsHistoryWebApiClient.GetProductDefinition(_Product.ProductId, true).Result;
+
                 // Add prices by date day by day
-                IGrouping<DateTime, RadiantServerProductHistoryModel>[] _DefinitionHistoryGroupedByDay = _Product.ProductDefinitionCollection.SelectMany(sm => sm.ProductHistoryCollection).GroupBy(g => g.InsertDateTime.Date).ToArray();
+                IGrouping<DateTime, ProductHistoryResponseDto>[] _DefinitionHistoryGroupedByDay = _ProductDefinitionResponseDto.ProductDefinitions.SelectMany(sm => sm.ProductHistoryCollection.ProductHistory).GroupBy(g => g.InsertDateTime.Date).ToArray();
 
                 // Keep x last years
                 for (int i = 0; i < _Config.GoogleSheetProductsExportData.NbDaysToExport; i++)
                 {
                     DateTime _DateToFind = _Now.Date.AddDays(-i);
-                    IGrouping<DateTime, RadiantServerProductHistoryModel> _HistoryModelsForSpecificDay = _DefinitionHistoryGroupedByDay.FirstOrDefault(w => w.Key == _DateToFind);
+                    IGrouping<DateTime, ProductHistoryResponseDto> _HistoryModelsForSpecificDay = _DefinitionHistoryGroupedByDay.FirstOrDefault(w => w.Key == _DateToFind);
 
                     if (_HistoryModelsForSpecificDay == null)
                     {
