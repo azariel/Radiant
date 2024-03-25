@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Database.Common;
 using Radiant.Common.Diagnostics;
@@ -64,7 +62,7 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks
                 ShippingCost = aProductScraper.Information.ShippingCost,
                 DiscountPrice = aProductScraper.Information.DiscountPrice,
                 DiscountPercentage = aProductScraper.Information.DiscountPercentage,
-                Title = aProductScraper.Information.Title?.Trim(),
+                Title = aProductScraper.Information.Title?.Trim() ?? "[Unknown]",
                 ProductDefinitionId = aProductDefinition.ProductDefinitionId,
             };
         }
