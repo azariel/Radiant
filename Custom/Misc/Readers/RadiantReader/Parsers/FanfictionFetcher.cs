@@ -21,6 +21,9 @@ namespace Radiant.Custom.Readers.RadiantReader.Parsers
             if (aCurrentDom.ToLowerInvariant().Contains("chapter not found. please check to see you are not using an outdated url"))
                 return false;
 
+            if (aCurrentDom.ToLowerInvariant().Contains("Story is unavailable for reading"))
+                return false;
+
             return true;
         }
 
@@ -57,9 +60,15 @@ namespace Radiant.Custom.Readers.RadiantReader.Parsers
             }
             catch (Exception _Ex)
             {
-                LoggingManager.LogToFile("76ad9cdb-891b-4053-86fe-7a8d4d1fdb19", $"Couldn't fetch chapter [{_ChapterIndex}] of [{aBookDefinition.Title}] on Url [{aBookDefinition.Url}]. DOM is invalid.");
+                LoggingManager.LogToFile("76ad9cdb-891b-4053-86fe-7a8d4d1fdb19", $"Couldn't fetch chapter [{_ChapterIndex}] of [{aBookDefinition.Title}] on Url [{aBookDefinition.Url}]. DOM is invalid.", _Ex);
 
                 // Note: we don't crash. we log it in a specific file since the DOM takes up a ton of space and would pollute the main log file
+                string path = Path.Combine("readersErrors", $"{nameof(FanfictionFetcher)}-{DateTime.UtcNow:yyyy.MM.dd HH.mm.ss}.log");
+                string directoryPath = Path.GetDirectoryName(path);
+
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
                 LoggingManager.LogToFile("4ebe3c0b-69e9-4022-9336-d251cd594b49", $"NewChapter couldn't be parsed from DOM [{_CurrentDOM}]. Web crawler will end on chapter [{_ChapterIndex - 1}.]", _Ex, aLogFilePath: Path.Combine("readersErrors", $"{nameof(FanfictionFetcher)}-{DateTime.UtcNow:yyyy.MM.dd HH.mm.ss}.log"));
                 return null;
             }
