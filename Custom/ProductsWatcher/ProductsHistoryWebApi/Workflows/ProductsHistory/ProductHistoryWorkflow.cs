@@ -56,18 +56,13 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryWebApi.Workflows.Product
 
             var _LowerInvariantProductHistoryRequestTitle = productHistoryRequestDto.Title.ToLowerInvariant();
 
-            // Check that product History doesn't already exists for this url
-            if (_DataBaseContext.ProductsHistory.Any(w => w.Title.ToLower() == _LowerInvariantProductHistoryRequestTitle))
-            {
-                throw new ApiException(HttpStatusCode.Conflict, $"The product History Title [{productHistoryRequestDto.Title}] already exists.");
-            }
-
             // Add the new product History
-            _DataBaseContext.ProductsHistory.Add(ProductHistoryDtoConverter.ConvertToServerProductHistoryModel(productHistoryRequestDto));
+            var productHistoryToAdd = ProductHistoryDtoConverter.ConvertToServerProductHistoryModel(productHistoryRequestDto);
+            _DataBaseContext.ProductsHistory.Add(productHistoryToAdd);
             await _DataBaseContext.SaveChangesAsync();
 
             // Get product History from DB
-            var _FilteredProductHistory = _DataBaseContext.ProductsHistory.Where(w => w.Title == productHistoryRequestDto.Title).ToArray();
+            var _FilteredProductHistory = _DataBaseContext.ProductsHistory.Where(w => w.InsertDateTime == productHistoryToAdd.InsertDateTime).ToArray();
 
             if (_FilteredProductHistory.Length != 1)
                 throw new ApiException(HttpStatusCode.InternalServerError, $"The product History [{productHistoryRequestDto.Title}] was added to the DB, but couldn't be found afterwards.");

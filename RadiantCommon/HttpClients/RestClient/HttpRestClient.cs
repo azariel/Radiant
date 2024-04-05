@@ -90,9 +90,14 @@ namespace Radiant.Common.HttpClients.RestClient
             try
             {
                 HttpResponseMessage _Response = await _Client.PostAsync(aUrl, new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
+                string responseMessageContent = await _Response.Content.ReadAsStringAsync();
 
                 if (_Response.IsSuccessStatusCode)
-                    return await _Response.Content.ReadAsStringAsync();
+                    return responseMessageContent;
+
+                string errorMessage = $"Couldn't post async to dependent service. Url = [{aUrl}]. HTTP Response Code = [{_Response.StatusCode}]. Response Message = [{responseMessageContent}].";
+                LoggingManager.LogToFile("b423f45b-7032-4eb4-b674-6296a95783db", errorMessage);
+                throw new Exception(errorMessage);
             }
             catch (AggregateException _AggregateException) when (_AggregateException.InnerExceptions.Any(a => a.GetType() == typeof(HttpRequestException)))
             {
