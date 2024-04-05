@@ -11,6 +11,9 @@ namespace Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.ResponseModels.Pr
     {
         public ProductHistoryResponseDto(RadiantServerProductHistoryModel productHistoryFromDal)
         {
+            if (productHistoryFromDal == null)
+                return;
+
             this.Title = productHistoryFromDal.Title;
             this.ProductHistoryId = productHistoryFromDal.ProductHistoryId;
             this.ProductDefinitionId = productHistoryFromDal.ProductDefinitionId;
