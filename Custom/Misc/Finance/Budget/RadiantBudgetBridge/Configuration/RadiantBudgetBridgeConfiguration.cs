@@ -10,5 +10,6 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Configuration
         // ********************************************************************
         public EmailServerConfiguration ImapConfiguration { get; set; } = new();
         public GoogleTransactionsHistoryExportDataConfig GoogleSheetTransactionsHistoryExportData { get; set; } = new();
+        public QuestradeActivitiesExportDataConfig QuestradeActivitiesExportData { get; set; } = new();
     }
 }
