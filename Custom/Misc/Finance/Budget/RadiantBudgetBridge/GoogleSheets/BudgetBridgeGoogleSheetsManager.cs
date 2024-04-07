@@ -18,18 +18,18 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
             fGoogleSheetsApi.Authenticate();
         }
 
-        public static void Dispose()
+        internal static void Dispose()
         {
             fGoogleSheetsApi?.Dispose();
             fGoogleSheetsApi = null;
         }
 
-        public static bool UpdateDataSheet(GoogleSheetData googleSheetData, string dataSheetId, string spreadSheetFileId)
+        internal static bool UpdateDataSheet(GoogleSheetData googleSheetData, string dataSheetId, string spreadSheetFileId)
         {
             return fGoogleSheetsApi.UpdateSheet(dataSheetId, spreadSheetFileId, googleSheetData);
         }
 
-        public static bool UpdateDataSheetWithTransactionsHistory(string aCsvContainingDataHistoryFilePath, string dataSheetId, string spreadSheetFileId)
+        internal static bool UpdateDataSheetWithTransactionsHistory(string aCsvContainingDataHistoryFilePath, string dataSheetId, string spreadSheetFileId)
         {
             string filePath = aCsvContainingDataHistoryFilePath;
             var csvAsDictionary = CsvUtils.LoadFile(filePath, strLineInput =>
@@ -44,7 +44,7 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
                     throw new Exception(message);
                 }
 
-                return new CsvEntryModel
+                return new MyBudgetBookCsvEntryModel
                 {
                     Date = DateTimeUtils.TryConvertToDateFormat(splitLine[0], "M-d-yyyy"),
                     CreatedAt = DateTimeUtils.TryConvertToDateFormat(splitLine[1]),
@@ -60,7 +60,7 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
             }, 1);
 
             // Order dict
-            IOrderedEnumerable<CsvEntryModel> _OrderedDictionary = csvAsDictionary.OrderByDescending(o =>
+            IOrderedEnumerable<MyBudgetBookCsvEntryModel> _OrderedDictionary = csvAsDictionary.OrderByDescending(o =>
             {
                 if (!DateTime.TryParse(o.Date, out DateTime _DateTimeResult))
                     _DateTimeResult = default;
@@ -97,7 +97,7 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
 
             _GoogleSheetData.RowDataCollection.Add(_HeaderRowData);
 
-            foreach (CsvEntryModel csvLine in _OrderedDictionary)
+            foreach (MyBudgetBookCsvEntryModel csvLine in _OrderedDictionary)
             {
                 GoogleSheetRowData _RowData = new();
 
@@ -110,6 +110,103 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
                 _RowData.RowCellData.Add(csvLine.Amount);
                 _RowData.RowCellData.Add(csvLine.Cleared);
                 _RowData.RowCellData.Add(csvLine.Comment);
+
+                _GoogleSheetData.RowDataCollection.Add(_RowData);
+            }
+
+            return fGoogleSheetsApi.UpdateSheet(dataSheetId, spreadSheetFileId, _GoogleSheetData);
+        }
+
+        internal static bool UpdateDataSheetWithQuestradeActivities(string excelFilePath, string dataSheetId, string spreadSheetFileId)
+        {
+            // Convert excel to csv
+            string csvFilePath = CsvUtils.ConvertExcelFileToCsv(excelFilePath);
+
+            //2024-04-04 12:00:00 AM,2024-04-04 12:00:00 AM,EFT,,TRANSFERT,0.00000,0.00000000,0.00,0.00,-21700.00,CAD,28862932,Withdrawals,Individual margin
+            var csvAsDictionary = CsvUtils.LoadFile(csvFilePath, strLineInput =>
+            {
+                var splitLine = strLineInput.Replace("\"", string.Empty).Split(";");
+                if (splitLine.Length != 14)
+                {
+                    var message = $"Invalid nb of columns in CSV file [{csvFilePath}]. Expecting [10] columns but found [{splitLine.Length}].";
+                    LoggingManager.LogToFile("3d112221-ea15-4ff0-916b-8a9c4702e2d8", message);
+                    throw new Exception(message);
+                }
+
+                return new QuestradeActivitiesCsvEntryModel
+                {
+                    TransactionDate = DateTimeUtils.TryConvertToDateFormat(splitLine[0], "M-d-yyyy"),
+                    SettlementDate = DateTimeUtils.TryConvertToDateFormat(splitLine[1], "M-d-yyyy"),
+                    Action = splitLine[2],
+                    Symbol = splitLine[3],
+                    Description = splitLine[4],
+                    Quantity = splitLine[5],
+                    Price = splitLine[6],
+                    GrossAmount = splitLine[7],
+                    Commission = splitLine[8],
+                    NetAmount = splitLine[9],
+                    Currency = splitLine[10],
+                    AccountNumber = splitLine[11],
+                    ActivityType = splitLine[12],
+                    AccountType = splitLine[13],
+                };
+            }, 1);
+
+            // Order dict
+            IOrderedEnumerable<QuestradeActivitiesCsvEntryModel> _OrderedDictionary = csvAsDictionary.OrderByDescending(o =>
+            {
+                if (!DateTime.TryParse(o.TransactionDate, out DateTime _DateTimeResult))
+                    _DateTimeResult = default;
+
+                return _DateTimeResult;
+            }).ThenByDescending(o => o.AccountType);
+
+            // Build payload
+            GoogleSheetData _GoogleSheetData = new();
+
+            // Very first line is reserved for the last update date
+            GoogleSheetRowData _FirstRowData = new();
+            _FirstRowData.RowCellData.Add("Last Update");
+            _FirstRowData.RowCellData.Add($"{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}");
+            _GoogleSheetData.RowDataCollection.Add(_FirstRowData);
+
+            // Then second line is headers
+            GoogleSheetRowData _HeaderRowData = new();
+            _HeaderRowData.RowCellData.Add("Transaction Date");
+            _HeaderRowData.RowCellData.Add("Settlement Date");
+            _HeaderRowData.RowCellData.Add("Action");
+            _HeaderRowData.RowCellData.Add("Symbol");
+            _HeaderRowData.RowCellData.Add("Description");
+            _HeaderRowData.RowCellData.Add("Quantity");
+            _HeaderRowData.RowCellData.Add("Price");
+            _HeaderRowData.RowCellData.Add("Gross Amount");
+            _HeaderRowData.RowCellData.Add("Commission");
+            _HeaderRowData.RowCellData.Add("Net Amount");
+            _HeaderRowData.RowCellData.Add("Currency");
+            _HeaderRowData.RowCellData.Add("Account Number");
+            _HeaderRowData.RowCellData.Add("Activity Type");
+            _HeaderRowData.RowCellData.Add("Account Type");
+
+            _GoogleSheetData.RowDataCollection.Add(_HeaderRowData);
+
+            foreach (QuestradeActivitiesCsvEntryModel csvLine in _OrderedDictionary)
+            {
+                GoogleSheetRowData _RowData = new();
+
+                _RowData.RowCellData.Add(csvLine.TransactionDate);
+                _RowData.RowCellData.Add(csvLine.SettlementDate);
+                _RowData.RowCellData.Add(csvLine.Action);
+                _RowData.RowCellData.Add(csvLine.Symbol);
+                _RowData.RowCellData.Add(csvLine.Description);
+                _RowData.RowCellData.Add(csvLine.Quantity);
+                _RowData.RowCellData.Add(csvLine.Price);
+                _RowData.RowCellData.Add(csvLine.GrossAmount);
+                _RowData.RowCellData.Add(csvLine.Commission);
+                _RowData.RowCellData.Add(csvLine.NetAmount);
+                _RowData.RowCellData.Add(csvLine.Currency);
+                _RowData.RowCellData.Add(csvLine.AccountNumber);
+                _RowData.RowCellData.Add(csvLine.ActivityType);
+                _RowData.RowCellData.Add(csvLine.AccountType);
 
                 _GoogleSheetData.RowDataCollection.Add(_RowData);
             }

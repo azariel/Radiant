@@ -40,7 +40,8 @@ namespace Radiant.Common.Emails
                     {
                         if (containsAttachmentsOfMediaTypes == null || containsAttachmentsOfMediaTypes.Length <= 0 || message.Attachments.Any(a => containsAttachmentsOfMediaTypes.Any(b => b.Equals(a.ContentType.MediaSubtype, StringComparison.InvariantCultureIgnoreCase))))
                         {
-                            if (containsAttachmentsContainingString == null || containsAttachmentsContainingString.Length <= 0 || message.Attachments.OfType<TextPart>().Any(a => containsAttachmentsContainingString.Any(b => a.FileName.Contains(b, StringComparison.InvariantCultureIgnoreCase))))
+                            if (containsAttachmentsContainingString == null || containsAttachmentsContainingString.Length <= 0 ||
+                                message.Attachments.OfType<MimePart>().Any(a => containsAttachmentsContainingString.Any(b => a.FileName.Contains(b, StringComparison.InvariantCultureIgnoreCase))))
                             {
                                 messages.Add(inbox.GetMessage(i));
                             }

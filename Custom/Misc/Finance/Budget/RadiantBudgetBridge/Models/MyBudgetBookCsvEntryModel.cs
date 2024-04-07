@@ -1,6 +1,6 @@
 ﻿namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Models
 {
-    public class CsvEntryModel
+    public class MyBudgetBookCsvEntryModel
     {
         // HEADER = "Date";"Created at";"Title";"Comment";"Payment type";"Main category";"Subcategory";"Account";"Amount";"Cleared"
         public string Date { get; set; }

@@ -10,7 +10,7 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks
     /// </summary>
     public class UpdateRemoteGoogleSheetWithMyBudgetBookDataHistoryTask : RadiantTask
     {
-        private const string FILE_NAME_START_WITH = "HistoryTransactions";
+        private const string FILE_NAME_START_WITH = "MBB-HistoryTransactions";
 
         protected override void TriggerNowImplementation()
         {
@@ -30,6 +30,12 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks
 
                 // find the configuration relating to the processing file
                 ConfigByFileTag configByFileTag = _Config.GoogleSheetTransactionsHistoryExportData.ConfigByFileTagCollection.FirstOrDefault(w => csvFile.Contains(w.Tag, StringComparison.InvariantCultureIgnoreCase));
+
+                if (configByFileTag == null)
+                {
+                    LoggingManager.LogToFile("", $"Couldn't process file [{csvFile}] as no matching configuration could be found for My Budget Book processing.");
+                    continue;
+                }
 
                 // Save model to remote google sheet
                 BudgetBridgeGoogleSheetsManager.Authenticate();

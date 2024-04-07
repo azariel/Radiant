@@ -14,7 +14,7 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks
             var _Config = RadiantBudgetBridgeConfigurationManager.ReloadConfig();
             EmailsManager _EmailsManager = new EmailsManager(_Config.ImapConfiguration);
 
-            MimeMessage[] _Emails = _EmailsManager.ParseMailbox(containsAttachmentsContainingString: new[]{ ".csv" });
+            MimeMessage[] _Emails = _EmailsManager.ParseMailbox(containsAttachmentsContainingString: new[] { ".csv", ".xlsx" });
 
             foreach (MimeMessage _Email in _Emails)
             {
@@ -35,15 +35,30 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks
                 // Download attachment to current Dir
                 foreach (MimeEntity _EmailAttachment in _Email.Attachments)
                 {
-                    using (var stream = File.Create($"HistoryTransactions_{_Email.From.Mailboxes.First().Address.Replace("@", ".")}.csv"))
+                    string fileExtension = ".unknown";
+                    string fileName = $"[{nameof(FetchAttachmentsFromEmailTask)}]UnknownFileName";
+                    if (_EmailAttachment is MimePart mimePartEmailAttachment)
+                    {
+                        fileExtension = Path.GetExtension(mimePartEmailAttachment.FileName);
+
+                        // Questrade Activities file
+                        if (mimePartEmailAttachment.FileName.StartsWith("Activities", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            fileName = "QT-Activities";
+                        } else if (_Email.Subject.StartsWith("My Budget Book", StringComparison.InvariantCultureIgnoreCase) && fileExtension.Equals(".csv", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            fileName = "MBB-HistoryTransactions";
+                        }
+                    }
+
+                    using (var stream = File.Create($"{fileName}_{_Email.From.Mailboxes.First().Address.Replace("@", ".")}{Path.GetExtension(fileExtension)}"))
                     {
                         if (_EmailAttachment is MessagePart)
                         {
                             var part = (MessagePart)_EmailAttachment;
 
                             part.Message.WriteTo(stream);
-                        }
-                        else
+                        } else
                         {
                             var part = (MimePart)_EmailAttachment;
 

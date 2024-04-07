@@ -113,6 +113,19 @@
                     }
                 ]
             },
+            // Fetch attachments from email for Radiant Budget Bridge module
+            {
+                "$type": "Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks.FetchAttachmentsFromEmailTask, Radiant.Custom.Finance.Budget.RadiantBudgetBridge",
+                "IsEnabled": false,
+                "IsForegroundExclusive": false,
+                "UID": "b51f7618-0160-4d5b-978c-b28144518f20",
+                "Triggers": [
+                    {
+                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+                        "TriggerEveryXSeconds": 900
+                    }
+                ]
+            },
             // Update remote google sheet with computed budget infos
             {
                 "$type": "Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks.UpdateRemoteGoogleSheetWithMyBudgetBookDataHistoryTask, Radiant.Custom.Finance.Budget.RadiantBudgetBridge",
@@ -126,16 +139,16 @@
                     }
                 ]
             },
-            // Fetch attachments from email for Radiant Budget Bridge module
+            // Update remote google sheet with computed questrade activities infos
             {
-                "$type": "Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks.FetchAttachmentsFromEmailTask, Radiant.Custom.Finance.Budget.RadiantBudgetBridge",
+                "$type": "Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks.UpdateRemoteGoogleSheetWithQuestradeActivitiesExcelTask, Radiant.Custom.Finance.Budget.RadiantBudgetBridge",
                 "IsEnabled": false,
                 "IsForegroundExclusive": false,
-                "UID": "b51f7618-0160-4d5b-978c-b28144518f20",
+                "UID": "b3a75e7d-8dac-4013-ab55-e36130d1879e",
                 "Triggers": [
                     {
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "TriggerEveryXSeconds": 900
+                        "TriggerEveryXSeconds": 600
                     }
                 ]
             }
