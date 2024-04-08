@@ -36,6 +36,14 @@ namespace Radiant.Notifier
 
         private static bool SendMailNotification(RadiantNotificationModel aRadiantNotificationModel)
         {
+            var emailTo = aRadiantNotificationModel.EmailTo.Distinct().ToList();
+
+            if (emailTo.Count <= 0)
+            {
+                // temp default to this address
+                emailTo.Add("frost.qc@gmail.com");
+            }
+
             MailRequest _MailRequest = new()
             {
                 Subject = aRadiantNotificationModel.Subject,
@@ -114,8 +122,7 @@ namespace Radiant.Notifier
                     {
                         _DbContext.SaveChanges();
                         return;
-                    }
-                    catch (Exception)
+                    } catch (Exception)
                     {
                         Thread.Sleep(millisecondsTimeout: 100);
                     }

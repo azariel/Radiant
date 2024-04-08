@@ -46,8 +46,8 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
 
                 return new MyBudgetBookCsvEntryModel
                 {
-                    Date = DateTimeUtils.TryConvertToDateFormat(splitLine[0], "M-d-yyyy"),
-                    CreatedAt = DateTimeUtils.TryConvertToDateFormat(splitLine[1]),
+                    Date = DateTimeUtils.TryConvertToDateFormat(splitLine[0], "M/d/yyyy"),
+                    CreatedAt = DateTimeUtils.TryConvertToDateFormat(splitLine[1], "M/d/yyyy h:mm:ss tt"),
                     Title = splitLine[2],
                     Comment = splitLine[3],
                     PaymentType = splitLine[4],
