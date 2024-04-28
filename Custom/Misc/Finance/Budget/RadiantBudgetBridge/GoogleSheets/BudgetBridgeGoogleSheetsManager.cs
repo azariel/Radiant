@@ -120,7 +120,7 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.GoogleSheets
         internal static bool UpdateDataSheetWithQuestradeActivities(string excelFilePath, string dataSheetId, string spreadSheetFileId)
         {
             // Convert excel to csv
-            string csvFilePath = CsvUtils.ConvertExcelFileToCsv(excelFilePath);
+            string csvFilePath = CsvUtils.ConvertExcelFileToCsv(excelFilePath, false);
 
             //2024-04-04 12:00:00 AM,2024-04-04 12:00:00 AM,EFT,,TRANSFERT,0.00000,0.00000000,0.00,0.00,-21700.00,CAD,28862932,Withdrawals,Individual margin
             var csvAsDictionary = CsvUtils.LoadFile(csvFilePath, strLineInput =>
