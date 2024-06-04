@@ -22,6 +22,11 @@
                 "Tag": "eden.archambault.gmail.com",
                 "DataSheetId": "AUTO_Transactions",
                 "SpreadSheetFileId": "1Vjo3beWt2atUQcjhDJx--7zMLKso7G5ZxO20exQbblo"
+            },
+            {
+                "Tag": "yan.archambault86.gmail.com",
+                "DataSheetId": "AUTO_Transactions",
+                "SpreadSheetFileId": "1cJ6rUTBW60MsdcRR1XCYhXJ__EfyHKVzdOV6gNd262g"
             }
         ]
     },
@@ -39,6 +44,11 @@
                 "Tag": "eden.archambault.gmail.com",
                 "DataSheetId": "AUTO_Questrade_Activities",
                 "SpreadSheetFileId": "1Vjo3beWt2atUQcjhDJx--7zMLKso7G5ZxO20exQbblo"
+            },
+            {
+                "Tag": "yan.archambault86.gmail.com",
+                "DataSheetId": "AUTO_Questrade_Activities",
+                "SpreadSheetFileId": "1cJ6rUTBW60MsdcRR1XCYhXJ__EfyHKVzdOV6gNd262g"
             }
         ]
     }

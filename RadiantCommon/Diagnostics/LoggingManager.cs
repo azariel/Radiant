@@ -2,6 +2,7 @@
 using Radiant.Common.Utils.MiscUtils;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace Radiant.Common.Diagnostics
 {
@@ -47,7 +48,20 @@ namespace Radiant.Common.Diagnostics
             // Format message to add useful information
             _Message = $"{DateTime.UtcNow:yyyy-MM-dd HH.mm.ss.fff} - [{aLogUID}] {_Message}";
 
-            File.AppendAllText(aLogFilePath, _Message);
+            int retryDecrementor = 100;
+            while (retryDecrementor > 0)
+            {
+                try
+                {
+                    File.AppendAllText(aLogFilePath, _Message);
+                    return;
+                } catch (Exception)
+                {
+                    Thread.Sleep(50);
+                }
+
+                --retryDecrementor;
+            }
         }
     }
 }
