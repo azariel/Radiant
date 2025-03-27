@@ -62,7 +62,7 @@
 	</Target>
 
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-		<Exec Command="copy /Y &quot;..\..\..\WebScraper\RadiantWebScraper\bin\Debug\RadiantWebScrapersConfig.json&quot; &quot;.\bin\Debug\RadiantWebScrapersConfig.json&quot;" />
+		<Exec Command="copy /Y &quot;..\..\..\WebScraper\RadiantWebScraper\RadiantWebScrapersConfig.json&quot; &quot;.\bin\Debug\RadiantWebScrapersConfig.json&quot;" />
 	</Target>
 
 </Project>

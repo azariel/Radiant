@@ -61,6 +61,9 @@
 		<None Update="API\Google\Drive\radiant-319014-d7d51b9a40d1.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="API\Google\Drive\radiant-for-unit-tests.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="API\Google\radiant-401111-51788a83823c.json">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

@@ -26,6 +26,12 @@
 		<ProjectReference Include="..\RadiantWebScraper\RadiantWebScraper.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Update="RadiantWebScrapersConfig.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="copy /Y &quot;$(ProjectDir)..\RadiantWebScraper\bin\Debug\geckodriver.exe&quot; &quot;$(TargetDir)geckodriver.exe&quot;&#xD;&#xA;" />
 	</Target>

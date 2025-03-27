@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Radiant.Common.Configuration;
 using Radiant.Common.Diagnostics;
 using Xunit;
 
@@ -7,9 +8,16 @@ namespace Radiant.Common.Tests.Diagnostics
 {
     public class LoggingManagerTests
     {
+        public LoggingManagerTests()
+        {
+            // Override RadiantCommonConfig.json file so we avoid loading dependencies
+            CommonConfigurationManager.SetConfigInMemory(new RadiantCommonConfig());
+        }
+
         // ********************************************************************
         //                            Public
         // ********************************************************************
+
         /// <summary>
         /// Just a very basic test to try to log to default file.
         /// </summary>

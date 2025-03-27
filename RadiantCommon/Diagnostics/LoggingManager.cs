@@ -25,7 +25,7 @@ namespace Radiant.Common.Diagnostics
 
         static LoggingManager()
         {
-            var _Config = CommonConfigurationManager.ReloadConfig();
+            var _Config = CommonConfigurationManager.GetConfigFromMemory();
             fLogVerbosity = _Config.LogVerbosity;
         }
 
