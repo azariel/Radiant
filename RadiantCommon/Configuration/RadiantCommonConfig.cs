@@ -7,7 +7,7 @@ namespace Radiant.Common.Configuration
     /// <summary>
     /// Global configuration for Radiant
     /// </summary>
-    public class RadiantConfig
+    public class RadiantCommonConfig
     {
         // ********************************************************************
         //                            Properties
