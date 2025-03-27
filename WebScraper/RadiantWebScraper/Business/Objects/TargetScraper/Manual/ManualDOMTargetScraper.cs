@@ -147,16 +147,6 @@ namespace Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Ma
 
             InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
             {
-                Delay = 160,
-                KeyStrokeCodes = new[]
-                {
-                    Keycode.XK_TAB
-                }
-            });
-            WaitForBrowserInputsReadyOrMax(201);
-
-            InputsManager.InputsManager.ExecuteConcurrentInputWithOverrideOfExclusivity(InputsManager.InputsManager.InputType.Keyboard, new KeyboardKeyStrokeActionInputParam
-            {
                 Delay = 320,
                 KeyStrokeCodes = new[]
                 {

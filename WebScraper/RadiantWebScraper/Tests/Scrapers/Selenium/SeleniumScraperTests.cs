@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using Radiant.Common.Configuration;
 using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Automatic.Selenium;
 using Radiant.WebScraper.RadiantWebScraper.Scrapers.Automatic.Selenium;
 using Xunit;
@@ -7,6 +8,12 @@ namespace Radiant.WebScraper.RadiantWebScraper.Tests.Scrapers.Selenium
 {
     public class SeleniumScraperTests
     {
+        public SeleniumScraperTests()
+        {
+           // Override RadiantCommonConfig.json file so we avoid loading dependencies
+            CommonConfigurationManager.SetConfigInMemory(new RadiantCommonConfig()); 
+        }
+
         // ********************************************************************
         //                            Public
         // ********************************************************************

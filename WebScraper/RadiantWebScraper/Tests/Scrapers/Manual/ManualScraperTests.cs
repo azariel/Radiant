@@ -1,4 +1,5 @@
-﻿using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual;
+﻿using Radiant.Common.Configuration;
+using Radiant.WebScraper.RadiantWebScraper.Business.Objects.TargetScraper.Manual;
 using Radiant.WebScraper.RadiantWebScraper.Scrapers.Manual;
 using Xunit;
 
@@ -6,6 +7,12 @@ namespace Radiant.WebScraper.RadiantWebScraper.Tests.Scrapers.Manual
 {
     public class ManualScraperTests
     {
+        public ManualScraperTests()
+        {
+            // Override RadiantCommonConfig.json file so we avoid loading dependencies
+            CommonConfigurationManager.SetConfigInMemory(new RadiantCommonConfig());
+        }
+
         // ********************************************************************
         //                            Public
         // ********************************************************************
