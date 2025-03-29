@@ -5,9 +5,6 @@
         // ********************************************************************
         //                            Properties
         // ********************************************************************
-        public string[] DependentLibraries { get; set; } =
-        {
-            @"..\..\..\Custom\ProductsHistory\bin\Debug\ProductsHistory.dll"
-        };
+        public string[] DependentLibraries { get; set; }
     }
 }
