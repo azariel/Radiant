@@ -22,6 +22,8 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+	  <PackageReference Include="Microsoft.Build.Framework" Version="17.13.9" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="9.0.3" />
 	</ItemGroup>
 
 </Project>

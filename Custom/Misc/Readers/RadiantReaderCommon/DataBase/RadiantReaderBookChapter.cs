@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Radiant.Common.Database.Sqlite;
 
-namespace Radiant.Custom.Readers.RadiantReader.DataBase
+namespace Radiant.Custom.Readers.RadiantReaderCommon.DataBase
 {
     [Table("BookChapters")]
     public class RadiantReaderBookChapter : RadiantSqliteBaseTable

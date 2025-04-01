@@ -8,7 +8,7 @@ namespace Radiant.WebScraper.RadiantClientWebScraper
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private const string URL_PREFIX_WITH_URL_PARAM = "https://localhost:6501/api/AutomaticWebScraper/DOM/";// TODO: revisit this http vs https and port
+        private const string URL_PREFIX_WITH_URL_PARAM = "https://localhost:6921/api/AutomaticWebScraper/DOM/";// TODO: revisit this http vs https and port
 
         // ********************************************************************
         //                            Public

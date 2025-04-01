@@ -22,6 +22,8 @@
 	<ItemGroup>
 		<Content Include="EvefightIcon.ico" />
 		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
+		<PackageReference Include="Microsoft.Build.Framework" Version="17.13.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="9.0.3" />
 		<Resource Include="Resources\EM.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</Resource>

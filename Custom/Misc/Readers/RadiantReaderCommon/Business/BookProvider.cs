@@ -1,4 +1,4 @@
-﻿namespace Radiant.Custom.Readers.RadiantReader.Business
+﻿namespace Radiant.Custom.Readers.RadiantReaderCommon.Business
 {
     /// <summary>
     /// Providers of books

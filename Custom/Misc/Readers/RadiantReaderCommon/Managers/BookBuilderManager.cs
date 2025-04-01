@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Radiant.Custom.Readers.RadiantReader.Business;
-using Radiant.Custom.Readers.RadiantReader.DataBase;
-using Radiant.Custom.Readers.RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReaderCommon.Business;
+using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
+using Radiant.Custom.Readers.RadiantReaderCommon.Utils;
 
-namespace Radiant.Custom.Readers.RadiantReader.Managers
+namespace Radiant.Custom.Readers.RadiantReaderCommon.Managers
 {
     public static class BookBuilderManager
     {
@@ -18,7 +18,6 @@ namespace Radiant.Custom.Readers.RadiantReader.Managers
             {
                 case BookProvider.ArchiveOfOurOwn:
                     return ArchiveOfOurOwnDOMUtils.ParseBooksFromDOM(aDOM);
-                    break;
                 case BookProvider.Fanfiction:
                     return FanfictionDOMUtils.ParseBooksFromDOM(aDOM);
                 default:

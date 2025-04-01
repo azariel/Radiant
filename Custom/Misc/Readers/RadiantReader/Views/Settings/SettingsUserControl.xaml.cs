@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
 
 namespace Radiant.Custom.Readers.RadiantReader.Views.Settings
 {
@@ -38,7 +38,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Views.Settings
 
             var _Config = RadiantReaderConfigurationManager.ReloadConfig();
 
-            _Config.Settings.ForeGroundColor = ClrPckerForeGroundColor.SelectedColor.Value;
+            _Config.Settings.ForeGroundColor = System.Drawing.Color.FromArgb(ClrPckerForeGroundColor.SelectedColor.Value.A, ClrPckerForeGroundColor.SelectedColor.Value.R, ClrPckerForeGroundColor.SelectedColor.Value.G, ClrPckerForeGroundColor.SelectedColor.Value.B);
 
             RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
             RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
@@ -50,11 +50,11 @@ namespace Radiant.Custom.Readers.RadiantReader.Views.Settings
         private void SetControlState()
         {
             var _Config = RadiantReaderConfigurationManager.ReloadConfig();
-            var _ForeGroundColorBrush = new SolidColorBrush(_Config.Settings.ForeGroundColor);
+            var _ForeGroundColorBrush = new SolidColorBrush(Color.FromArgb(_Config.Settings.ForeGroundColor.A, _Config.Settings.ForeGroundColor.R, _Config.Settings.ForeGroundColor.G, _Config.Settings.ForeGroundColor.B));
 
             lblTitle.Foreground = _ForeGroundColorBrush;
             lblForeGroundColor.Foreground = _ForeGroundColorBrush;
-            ClrPckerForeGroundColor.SelectedColor = _Config.Settings.ForeGroundColor;
+            ClrPckerForeGroundColor.SelectedColor = Color.FromArgb(_Config.Settings.ForeGroundColor.A, _Config.Settings.ForeGroundColor.R, _Config.Settings.ForeGroundColor.G, _Config.Settings.ForeGroundColor.B);
             txtBoxFontSize.Text = _Config.Settings.FontSize.ToString();
             chkTopMost.IsChecked = _Config.Settings.TopMost;
         }

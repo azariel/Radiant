@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
 using Radiant.Common.Tasks.Triggers;
-using Radiant.Custom.Readers.RadiantReader.Business;
-using Radiant.Custom.Readers.RadiantReader.DataBase;
-using Radiant.Custom.Readers.RadiantReader.Managers;
-using Radiant.Custom.Readers.RadiantReader.Parsers;
-using Radiant.Custom.Readers.RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReaderCommon.Business;
+using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
+using Radiant.Custom.Readers.RadiantReaderCommon.Managers;
+using Radiant.Custom.Readers.RadiantReaderCommon.Parsers;
+using Radiant.Custom.Readers.RadiantReaderCommon.Utils;
 using Radiant.WebScraper.RadiantClientWebScraper;
 
-namespace Radiant.Custom.Readers.RadiantReader.Tasks
+namespace Radiant.Custom.Readers.RadiantReaderCommon.Tasks
 {
     /// <summary>
     /// Fetch available books / fictions from the internet and store them in storage.

@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Radiant.Common.Diagnostics;
-using Radiant.Custom.Readers.RadiantReader.DataBase;
-using Radiant.Custom.Readers.RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
+using Radiant.Custom.Readers.RadiantReaderCommon.Utils;
 using Radiant.WebScraper.RadiantClientWebScraper;
 
-namespace Radiant.Custom.Readers.RadiantReader.Parsers
+namespace Radiant.Custom.Readers.RadiantReaderCommon.Parsers
 {
     internal static class ArchiveOfOurOwnFetcher
     {

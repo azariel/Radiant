@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Radiant.Common.Database.Sqlite;
 
-namespace Radiant.Custom.Readers.RadiantReader.DataBase
+namespace Radiant.Custom.Readers.RadiantReaderCommon.DataBase
 {
     [Table("BookHosts")]
     public class RadiantReaderHostModel : RadiantSqliteBaseTable

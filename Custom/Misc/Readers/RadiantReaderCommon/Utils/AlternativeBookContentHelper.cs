@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Radiant.Custom.Readers.RadiantReader.Configuration;
+using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
 
-namespace Radiant.Custom.Readers.RadiantReader.Utils
+namespace Radiant.Custom.Readers.RadiantReaderCommon.Utils
 {
     public static class AlternativeBookContentHelper
     {

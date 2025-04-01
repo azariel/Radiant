@@ -1,7 +1,7 @@
-﻿using Radiant.Custom.Readers.RadiantReader.Configuration;
-using Radiant.Custom.Readers.RadiantReader.DataBase;
+﻿using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
+using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
 
-namespace Radiant.Custom.Readers.RadiantReader.Managers
+namespace Radiant.Custom.Readers.RadiantReaderCommon.Managers
 {
     public static class StateManager
     {

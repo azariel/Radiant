@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Radiant.Custom.Readers.RadiantReader.Business;
-using Radiant.Custom.Readers.RadiantReader.DataBase;
-using Radiant.Custom.Readers.RadiantReader.Managers;
+using Radiant.Custom.Readers.RadiantReaderCommon.Business;
+using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
+using Radiant.Custom.Readers.RadiantReaderCommon.Managers;
 using Radiant.Custom.Readers.RadiantReader.Tests.Resources;
 using Xunit;
 

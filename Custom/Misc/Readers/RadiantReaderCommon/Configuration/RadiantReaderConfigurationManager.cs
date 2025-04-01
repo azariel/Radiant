@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Radiant.Common.Serialization;
 
-namespace Radiant.Custom.Readers.RadiantReader.Configuration
+namespace Radiant.Custom.Readers.RadiantReaderCommon.Configuration
 {
     public static class RadiantReaderConfigurationManager
     {

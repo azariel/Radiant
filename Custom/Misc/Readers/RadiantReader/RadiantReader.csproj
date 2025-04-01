@@ -4,7 +4,7 @@
 		<OutputType>WinExe</OutputType>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-		<TargetFramework>net8.0-windows7.0</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<Nullable>disable</Nullable>
 		<AssemblyName>Radiant.Custom.Readers.RadiantReader</AssemblyName>
@@ -28,6 +28,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
+		<PackageReference Include="Microsoft.Build.Framework" Version="17.13.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="9.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -35,6 +37,7 @@
 		<ProjectReference Include="..\..\..\..\WebScraper\RadiantClientWebScraper\RadiantClientWebScraper.csproj">
 			<CopyLocal></CopyLocal>
 		</ProjectReference>
+		<ProjectReference Include="..\RadiantReaderCommon\RadiantReaderCommon.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -6,9 +6,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
-using Radiant.Custom.Readers.RadiantReader.Configuration;
-using Radiant.Custom.Readers.RadiantReader.DataBase;
-using Radiant.Custom.Readers.RadiantReader.Utils;
+using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
+using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
+using Radiant.Custom.Readers.RadiantReaderCommon.Utils;
 using Radiant.Custom.Readers.RadiantReader.Views.NewBooks;
 using Radiant.Custom.Readers.RadiantReader.Views.Settings;
 

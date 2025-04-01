@@ -1,7 +1,7 @@
 ﻿using System;
-using Radiant.Custom.Readers.RadiantReader.Business;
+using Radiant.Custom.Readers.RadiantReaderCommon.Business;
 
-namespace Radiant.Custom.Readers.RadiantReader.Utils
+namespace Radiant.Custom.Readers.RadiantReaderCommon.Utils
 {
     public static class BookProviderUtils
     {

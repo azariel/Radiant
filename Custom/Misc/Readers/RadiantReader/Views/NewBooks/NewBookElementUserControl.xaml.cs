@@ -5,9 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
-using Radiant.Custom.Readers.RadiantReader.Configuration;
-using Radiant.Custom.Readers.RadiantReader.DataBase;
-using Radiant.Custom.Readers.RadiantReader.Managers;
+using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
+using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
+using Radiant.Custom.Readers.RadiantReaderCommon.Managers;
 using Radiant.Custom.Readers.RadiantReader.Utils;
 
 namespace Radiant.Custom.Readers.RadiantReader.Views.NewBooks
@@ -88,7 +88,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Views.NewBooks
                 return;
 
             var _Config = RadiantReaderConfigurationManager.ReloadConfig();
-            var _ForeGroundColor = new SolidColorBrush(_Config.Settings.ForeGroundColor);
+            var _ForeGroundColor = new SolidColorBrush(Color.FromArgb(_Config.Settings.ForeGroundColor.A, _Config.Settings.ForeGroundColor.R, _Config.Settings.ForeGroundColor.G, _Config.Settings.ForeGroundColor.B));
 
             var _ForeGroundColorBrighter = new SolidColorBrush(new Color
             {

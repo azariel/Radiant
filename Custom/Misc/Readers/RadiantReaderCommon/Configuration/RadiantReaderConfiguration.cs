@@ -1,4 +1,4 @@
-﻿namespace Radiant.Custom.Readers.RadiantReader.Configuration
+﻿namespace Radiant.Custom.Readers.RadiantReaderCommon.Configuration
 {
     public class RadiantReaderConfiguration
     {
