@@ -57,7 +57,7 @@ namespace Radiant.Servers.RadiantWindowsServer
             RadiantWindowsServerConfiguration _ServerConfig = RadiantWindowsServerConfigurationManager.ReloadConfig();
             AssemblyUtils.LoadAssemblyFilesToMemory(_ServerConfig.DependentLibraries);
 
-            RadiantConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
+            RadiantCommonConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
 
             if (_RadiantConfig == null)
                 return;

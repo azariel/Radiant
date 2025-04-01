@@ -77,6 +77,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiantReaderCommon", "Custom\Misc\Readers\RadiantReaderCommon\RadiantReaderCommon.csproj", "{69BDFFC1-117B-46AD-8E1D-E3558D53496B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +157,10 @@ Global
 		{87AEA0EA-D993-4FCE-847D-AFC91B056116}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87AEA0EA-D993-4FCE-847D-AFC91B056116}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87AEA0EA-D993-4FCE-847D-AFC91B056116}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69BDFFC1-117B-46AD-8E1D-E3558D53496B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69BDFFC1-117B-46AD-8E1D-E3558D53496B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69BDFFC1-117B-46AD-8E1D-E3558D53496B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69BDFFC1-117B-46AD-8E1D-E3558D53496B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,6 +188,7 @@ Global
 		{3ACA4241-CCAC-408E-A1EC-B04F34E089EF} = {858D1244-BE8B-40CA-A754-1F3C8BD6B1F3}
 		{79E2424A-E131-4BED-B76E-48700F05C7A2} = {3ACA4241-CCAC-408E-A1EC-B04F34E089EF}
 		{87AEA0EA-D993-4FCE-847D-AFC91B056116} = {37BF9709-16B7-42E6-ABE9-B52388D9CDA1}
+		{69BDFFC1-117B-46AD-8E1D-E3558D53496B} = {81A142C2-04C5-434E-991A-A080648A3EB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B1D993C-526C-4722-8B7F-57AFF81FC466}

@@ -1,5 +1,5 @@
 {
-    "$type": "Radiant.Common.Configuration.RadiantConfig, Radiant.Common",
+    "$type": "Radiant.Common.Configuration.RadiantCommonConfig, Radiant.Common",
     "LogVerbosity": "Verbose",
     "Tasks": {
         "$type": "Radiant.Common.Configuration.RadiantTasksConfig, Radiant.Common",
@@ -32,6 +32,7 @@
             {
                 "$type": "Radiant.Notifier.Tasks.NotificationsMonitorTask, Radiant.Notifier",
                 "IsEnabled": false,
+                "IsForegroundExclusive": false,
                 "UID": "10c7195d-8a4d-4eed-9b04-8c8362928702",
                 "Triggers": [
                     {
@@ -45,6 +46,7 @@
             {
                 "$type": "Radiant.Custom.ProductsWatcher.ProductsHistory.Tasks.UpdateRemoteProductsGoogleSheet, Radiant.Custom.ProductsWatcher.ProductsHistory",
                 "IsEnabled": false,
+                "IsForegroundExclusive": false,
                 "UID": "1523950d-a4b8-4f3d-bb76-6e49d19ea353",
                 "Triggers": [
                     {
@@ -58,6 +60,7 @@
             {
                 "$type": "Radiant.Common.Tasks.ShutdownComputerTask, Radiant.Common",
                 "IsEnabled": false,
+                "IsForegroundExclusive": false,
                 "UID": "7fd1aa65-16e3-47ba-8ca9-3db957e228d2",
                 "Triggers": [
                     {
@@ -75,21 +78,22 @@
             },
             // Update in background the newly available books
             {
-                "$type": "Radiant.Custom.Readers.RadiantReader.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReader",
-                "IsEnabled": false,
+                "$type": "Radiant.Custom.Readers.RadiantReaderCommon.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReaderCommon",
+                "IsEnabled": true,
+                "IsForegroundExclusive": false,
                 "UID": "63043528-6cd9-4c01-9ff1-03307f3b3176",
                 "HandleNewBooks": true,
                 "HandleNewChapters": false,
                 "Triggers": [
                     {
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "TriggerEveryXSeconds": 1800
+                        "TriggerEveryXSeconds": 5
                     }
                 ]
             },
             // Update every chapters either in background or foreground depending on the website
             {
-                "$type": "Radiant.Custom.Readers.RadiantReader.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReader",
+                "$type": "Radiant.Custom.Readers.RadiantReaderCommon.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReaderCommon",
                 "IsEnabled": false,
                 "IsForegroundExclusive": true,
                 "UID": "32585567-003c-4c92-b95b-0ee58591bae0",

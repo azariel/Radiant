@@ -8,8 +8,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Radiant.Common.Diagnostics;
-using Radiant.Custom.Readers.RadiantReader.Configuration;
-using Radiant.Custom.Readers.RadiantReader.Managers;
+using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
+using Radiant.Custom.Readers.RadiantReaderCommon.Managers;
 using Radiant.Custom.Readers.RadiantReader.Views;
 using Point = System.Drawing.Point;
 

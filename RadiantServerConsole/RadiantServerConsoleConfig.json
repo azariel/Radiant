@@ -3,7 +3,7 @@
   "DependentLibraries": [
     "Radiant.Custom.ProductsWatcher.ProductsHistory.dll",
     "Radiant.Notifier.dll",
-    "Radiant.Custom.Readers.RadiantReader.dll",
+    "Radiant.Custom.Readers.RadiantReaderCommon.dll",
     "Radiant.Custom.Finance.Budget.RadiantBudgetBridge.dll"
   ]
 }

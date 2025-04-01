@@ -7,8 +7,8 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
-using Radiant.Custom.Readers.RadiantReader.Configuration;
-using Radiant.Custom.Readers.RadiantReader.DataBase;
+using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
+using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
 using Radiant.Custom.Readers.RadiantReader.Utils;
 
 namespace Radiant.Custom.Readers.RadiantReader.Views
@@ -109,7 +109,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
         {
             var _Config = RadiantReaderConfigurationManager.GetConfigFromMemory();
 
-            TextContentTextBlock.Foreground = new SolidColorBrush(_Config.Settings.ForeGroundColor);
+            TextContentTextBlock.Foreground = new SolidColorBrush(Color.FromArgb(_Config.Settings.ForeGroundColor.A, _Config.Settings.ForeGroundColor.R, _Config.Settings.ForeGroundColor.G, _Config.Settings.ForeGroundColor.B));
             TextContentTextBlock.FontSize = _Config.Settings.FontSize;
 
             ContentScrollViewer.ScrollToVerticalOffset(_Config.State.VerticalScrollbarOffset);

@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<RootNamespace>Radiant.ServerConsole</RootNamespace>
 		<Authors>Azariel</Authors>
 		<Version>1.0.0.0</Version>
@@ -12,6 +12,11 @@
 		<RootNamespace>Radiant.Servers.RadiantServerConsole</RootNamespace>
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Build.Framework" Version="17.13.9" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="9.0.3" />
+	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\RadiantCommon\RadiantCommon.csproj" />
@@ -30,7 +35,7 @@
 	</Target>
 
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-		<Exec Command="copy /Y &quot;..\RadiantNotifier\bin\Debug\Radiant.Notifier.dll&quot; &quot;$(TargetDir)Radiant.Notifier.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\Misc\Readers\RadiantReader\bin\Debug\Radiant.Custom.Readers.RadiantReader.dll&quot; &quot;$(TargetDir)Radiant.Custom.Readers.RadiantReader.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistory\bin\Debug\Radiant.Custom.ProductsWatcher.ProductsHistory.dll&quot; &quot;$(TargetDir)Radiant.Custom.ProductsWatcher.ProductsHistory.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistoryCommon\bin\Debug\Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.dll&quot; &quot;$(TargetDir)Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.dll&quot;&#xD;&#xA;copy /Y &quot;..\WebScraper\RadiantWebScraper\bin\Debug\Radiant.WebScraper.RadiantWebScraper.dll&quot; &quot;$(TargetDir)Radiant.WebScraper.RadiantWebScraper.dll&quot;&#xD;&#xA;copy /Y &quot;..\RadiantInputsManager\bin\Debug\Radiant.InputsManager.dll&quot; &quot;$(TargetDir)Radiant.InputsManager.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\Misc\Finance\Budget\RadiantBudgetBridge\bin\Debug\Radiant.Custom.Finance.Budget.RadiantBudgetBridge.dll&quot; &quot;$(TargetDir)Radiant.Custom.Finance.Budget.RadiantBudgetBridge.dll&quot;" />
+		<Exec Command="copy /Y &quot;..\RadiantNotifier\bin\Debug\Radiant.Notifier.dll&quot; &quot;$(TargetDir)Radiant.Notifier.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\Misc\Readers\RadiantReaderCommon\bin\Debug\Radiant.Custom.Readers.RadiantReaderCommon.dll&quot; &quot;$(TargetDir)Radiant.Custom.Readers.RadiantReaderCommon.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistory\bin\Debug\Radiant.Custom.ProductsWatcher.ProductsHistory.dll&quot; &quot;$(TargetDir)Radiant.Custom.ProductsWatcher.ProductsHistory.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\ProductsWatcher\ProductsHistoryCommon\bin\Debug\Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.dll&quot; &quot;$(TargetDir)Radiant.Custom.ProductsWatcher.ProductsHistoryCommon.dll&quot;&#xD;&#xA;copy /Y &quot;..\WebScraper\RadiantWebScraper\bin\Debug\Radiant.WebScraper.RadiantWebScraper.dll&quot; &quot;$(TargetDir)Radiant.WebScraper.RadiantWebScraper.dll&quot;&#xD;&#xA;copy /Y &quot;..\RadiantInputsManager\bin\Debug\Radiant.InputsManager.dll&quot; &quot;$(TargetDir)Radiant.InputsManager.dll&quot;&#xD;&#xA;copy /Y &quot;..\Custom\Misc\Finance\Budget\RadiantBudgetBridge\bin\Debug\Radiant.Custom.Finance.Budget.RadiantBudgetBridge.dll&quot; &quot;$(TargetDir)Radiant.Custom.Finance.Budget.RadiantBudgetBridge.dll&quot;" />
 	</Target>
 
 </Project>

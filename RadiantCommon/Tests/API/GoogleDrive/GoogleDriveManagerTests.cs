@@ -12,7 +12,7 @@ namespace Radiant.Common.Tests.API.GoogleDrive
         [Fact]
         public void CRUD()
         {
-            GoogleDriveManager _GoogleDriveManager = new GoogleDriveManager("API/GoogleDrive/radiant-319014-d7d51b9a40d1.json");
+            GoogleDriveManager _GoogleDriveManager = new GoogleDriveManager("API/Google/Drive/radiant-for-unit-tests.json");
             _GoogleDriveManager.PruneEverything();
             string _FileId = _GoogleDriveManager.GenerateFileId();
             string _FileContentEmpty = _GoogleDriveManager.TryFetchDocumentContentAsString(_FileId);
@@ -41,7 +41,7 @@ namespace Radiant.Common.Tests.API.GoogleDrive
         [Fact]
         public void ByteArrayFileCRUD()
         {
-            GoogleDriveManager _GoogleDriveManager = new GoogleDriveManager("API/GoogleDrive/radiant-319014-d7d51b9a40d1.json");
+            GoogleDriveManager _GoogleDriveManager = new GoogleDriveManager("API/Google/Drive/radiant-for-unit-tests.json");
             _GoogleDriveManager.PruneEverything();
             string _FileId = _GoogleDriveManager.GenerateFileId();
             string _FileContentEmpty = _GoogleDriveManager.TryFetchDocumentContentAsString(_FileId);

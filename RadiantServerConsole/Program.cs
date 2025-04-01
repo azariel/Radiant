@@ -19,7 +19,7 @@ namespace Radiant.Servers.RadiantServerConsole
         // ********************************************************************
         //                            Private
         // ********************************************************************
-        private static readonly object Lock = new();
+        private static readonly object MainLock = new();
 
         private static void Main(string[] args)
         {
@@ -61,7 +61,7 @@ namespace Radiant.Servers.RadiantServerConsole
             RadiantServerConsoleConfiguration _ServerConfig = RadiantConsoleConfigurationManager.ReloadConfig();
             AssemblyUtils.LoadAssemblyFilesToMemory(_ServerConfig.DependentLibraries);
 
-            RadiantConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
+            RadiantCommonConfig _RadiantConfig = CommonConfigurationManager.ReloadConfig();
 
             if (_RadiantConfig == null)
                 return;
@@ -73,7 +73,7 @@ namespace Radiant.Servers.RadiantServerConsole
                 {
                     // If there's a running foreground task, ignore all tasks requiring foreground exclusivity
 
-                    lock (Lock)
+                    lock (MainLock)
                     {
                         lock (_RadiantTask.TaskLockObject)
                         {
@@ -90,7 +90,9 @@ namespace Radiant.Servers.RadiantServerConsole
                     {
                         _CurrentRadiantTask.EvaluateTriggers(() =>
                         {
-                            lock (Lock)
+                            // If the trigger would normally trigger, validate that it can trigger here
+                            // If another task is currently running, we'll delay the execution of a subsequent task until it's been cleared (only if it's tagged as ForegroundExclusive)
+                            lock (MainLock)
                             {
                                 IRadiantTask _TaskFromLiveList = _RadiantConfig.Tasks.Tasks.Single(s => s.UID == _CurrentRadiantTask.UID);
                                 lock (_TaskFromLiveList.TaskLockObject)
