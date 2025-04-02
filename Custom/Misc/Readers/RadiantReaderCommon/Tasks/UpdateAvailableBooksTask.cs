@@ -44,13 +44,17 @@ namespace Radiant.Custom.Readers.RadiantReaderCommon.Tasks
             foreach (RadiantReaderBookDefinitionModel _BookDefinition in _BookDefinitions)
             {
                 int _NbChaptersBeforeFetch = _BookDefinition.Chapters.Count;
+                bool _ChapterFetchErrorOrEnd = false;
                 RadiantReaderBookChapter _NewChapter;
                 do
                 {
                     _NewChapter = BookFetcher.FetchNextChapterFromBookDefinition(_BookDefinition, out fShouldStop);
 
                     if (_NewChapter == null)
+                    {
+                        _ChapterFetchErrorOrEnd = true;
                         continue;
+                    }
 
                     _BookDefinition.Chapters.Add(_NewChapter);
                     _DataBaseContext.SaveChanges();
@@ -59,11 +63,15 @@ namespace Radiant.Custom.Readers.RadiantReaderCommon.Tasks
                         break;
 
                     // Add a little sleep to avoid being tagged as a bot too easily
-                    Thread.Sleep(new Random().Next(5765, 9457));// TODO: config
+                    Thread.Sleep(new Random().Next(5765, 14457));// TODO: config
                 } while (_NewChapter != null);
 
-                if (_BookDefinition.Chapters.Count > _NbChaptersBeforeFetch)
+                if (_ChapterFetchErrorOrEnd || _BookDefinition.Chapters.Count > _NbChaptersBeforeFetch)
+                {
                     _BookDefinition.RequireUpdate = false;
+                    _DataBaseContext.SaveChanges();
+                }
+
             }
         }
 
