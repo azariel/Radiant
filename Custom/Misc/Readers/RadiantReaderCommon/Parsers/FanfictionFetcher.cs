@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Radiant.Common.Diagnostics;
+﻿using Radiant.Common.Diagnostics;
 using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
 using Radiant.Custom.Readers.RadiantReaderCommon.Utils;
 using Radiant.WebScraper.RadiantClientWebScraper;
@@ -18,10 +16,14 @@ namespace Radiant.Custom.Readers.RadiantReaderCommon.Parsers
             if (string.IsNullOrWhiteSpace(aCurrentDom))
                 return false;
 
-            if (aCurrentDom.ToLowerInvariant().Contains("chapter not found. please check to see you are not using an outdated url"))
+            string lowerInvariantDOM = aCurrentDom.ToLowerInvariant();
+            if (lowerInvariantDOM.Contains("chapter not found. please check"))
                 return false;
 
-            if (aCurrentDom.ToLowerInvariant().Contains("Story is unavailable for reading"))
+            if (lowerInvariantDOM.Contains("story is unavailable for reading"))
+                return false;
+
+            if (lowerInvariantDOM.Contains("story not found"))
                 return false;
 
             return true;
@@ -30,8 +32,7 @@ namespace Radiant.Custom.Readers.RadiantReaderCommon.Parsers
         // ********************************************************************
         //                            Public
         // ********************************************************************
-        public static RadiantReaderBookChapter FetchNextChapterFromBookDefinition(
-            RadiantReaderBookDefinitionModel aBookDefinition, out bool shouldStop)
+        public static RadiantReaderBookChapter FetchNextChapterFromBookDefinition(RadiantReaderBookDefinitionModel aBookDefinition, out bool shouldStop)
         {
             shouldStop = false;
 
@@ -51,7 +52,10 @@ namespace Radiant.Custom.Readers.RadiantReaderCommon.Parsers
             shouldStop = true;
 
             if (!DOMIsValidChapter(_CurrentDOM))
+            {
+                LoggingManager.LogToFile("1f600087-881b-4f8d-ba69-954664e54b28", $"NewChapter not found. Web crawler will end on chapter [{_ChapterIndex - 1}]. Url: [{_CurrentChapterUrl}].");
                 return null;
+            }
 
             RadiantReaderBookChapter _NewChapter;
             try
@@ -69,7 +73,7 @@ namespace Radiant.Custom.Readers.RadiantReaderCommon.Parsers
                 if (!Directory.Exists(directoryPath))
                     Directory.CreateDirectory(directoryPath);
 
-                LoggingManager.LogToFile("4ebe3c0b-69e9-4022-9336-d251cd594b49", $"NewChapter couldn't be parsed from DOM [{_CurrentDOM}]. Web crawler will end on chapter [{_ChapterIndex - 1}.]", _Ex, aLogFilePath: Path.Combine("readersErrors", $"{nameof(FanfictionFetcher)}-{DateTime.UtcNow:yyyy.MM.dd HH.mm.ss}.log"));
+                LoggingManager.LogToFile("4ebe3c0b-69e9-4022-9336-d251cd594b49", $"NewChapter couldn't be parsed from DOM [{_CurrentDOM}]. Web crawler will end on chapter [{_ChapterIndex - 1}]. Url: [{_CurrentChapterUrl}].", _Ex, aLogFilePath: Path.Combine("readersErrors", $"{nameof(FanfictionFetcher)}-{DateTime.UtcNow:yyyy.MM.dd HH.mm.ss}.log"));
                 return null;
             }
 

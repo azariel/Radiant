@@ -56,7 +56,7 @@
                     }
                 ]
             },
-            // Shutdown computer at ~19h20-19h30, only if inactive for at least 10 min (manual scraper is considered as an Active task)
+            // Shutdown computer, only if inactive for at least 10 min (manual scraper is considered as an Active task)
             {
                 "$type": "Radiant.Common.Tasks.ShutdownComputerTask, Radiant.Common",
                 "IsEnabled": false,
@@ -67,8 +67,8 @@
                         "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
                         "BlackOutTimeFrame": {
                             "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-                            "BlackOutEnd": "00:45:00", // 19h45 mtl time
-                            "BlackOutStart": "01:00:00" // 20h00 mtl time
+                            "BlackOutEnd": "01:45:00", // 21h45 mtl time
+                            "BlackOutStart": "02:00:00" // 22h00 mtl time
                         },
                         "TriggerEveryXSeconds": 300,
                         "InactivityTriggerEnabled": true,
@@ -79,7 +79,7 @@
             // Update in background the newly available books
             {
                 "$type": "Radiant.Custom.Readers.RadiantReaderCommon.Tasks.UpdateAvailableBooksTask, Radiant.Custom.Readers.RadiantReaderCommon",
-                "IsEnabled": true,
+                "IsEnabled": false,
                 "IsForegroundExclusive": false,
                 "UID": "63043528-6cd9-4c01-9ff1-03307f3b3176",
                 "HandleNewBooks": true,
@@ -100,21 +100,21 @@
                 "HandleNewBooks": false,
                 "HandleNewChapters": true,
                 "Triggers": [
-                    {
-                        "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
-                        "BlackOutTimeFrame": {
-                            "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
-                            "BlackOutEnd": "23:35:00", // 18h35 mtl time
-                            "BlackOutStart": "00:30:00" // 19h30 mtl time
-                        },
-                        // avoid running when a VM is running
-                        "ProcessesNameNotRunningCollection": [
-                            "vmmem",
-                            "wow",
-                            "evefile"
-                        ],
-                        "TriggerEveryXSeconds": 30
-                    }
+                  {
+                    "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger, Radiant.Common",
+                    "BlackOutTimeFrame": {
+                      "$type": "Radiant.Common.Tasks.Triggers.ScheduleTrigger+ScheduleTriggerBlackOutTimeFrame, Radiant.Common",
+                      "BlackOutEnd": "22:05:00", // 18h05 mtl time
+                      "BlackOutStart": "00:55:00" // 20h55 mtl time
+                    },
+                    // avoid running when a VM is running
+                    "ProcessesNameNotRunningCollection": [
+                      "vmmem",
+                      "wow",
+                      "evefile"
+                    ],
+                    "TriggerEveryXSeconds": 600
+                  }
                 ]
             },
             // Fetch attachments from email for Radiant Budget Bridge module
