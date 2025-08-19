@@ -10,7 +10,7 @@ public class RadiantGoogleApi : IDisposable
     //                            Private
     // ********************************************************************
     protected const string APPLICATION_NAME = "Radiant";
-    private const string DEFAULT_SERVICE_KEY_FILE_PATH = "radiant-401111-51788a83823c.json"; // default file, if client doesn't override it
+    private const string DEFAULT_SERVICE_KEY_FILE_PATH = "radiant-401111-c11328c28b2c.json"; // default file, if client doesn't override it
     private readonly string fJsonServiceKeyFilePath;
     private readonly string[] fScopes;
 
