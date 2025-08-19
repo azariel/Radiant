@@ -30,6 +30,10 @@ namespace Radiant.Custom.Readers.RadiantReader
                 if (_RawLine.StartsWith("<?xml", System.StringComparison.InvariantCultureIgnoreCase))
                     continue;
 
+                // Line could be split by other thing than \r\n, like <p></p> or </p> etc
+                if (_RawLine.StartsWith("<!DOCTYPE html>", System.StringComparison.InvariantCultureIgnoreCase))
+                    continue;
+
                 _Lines.Add(_RawLine);// TEMP
             }
 

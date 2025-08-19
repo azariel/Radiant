@@ -43,6 +43,10 @@ namespace Radiant.Custom.Finance.Budget.RadiantBudgetBridge.Tasks
                 try
                 {
                     BudgetBridgeGoogleSheetsManager.UpdateDataSheetWithTransactionsHistory(csvFile, configByFileTag.DataSheetId, configByFileTag.SpreadSheetFileId);
+                }catch (Exception e)
+                {
+                    LoggingManager.LogToFile("/*3de567da-d946-48ca-8280-bb3d5e51b6da*/", $"Couldn't update remote data sheet.", e);
+                    return;
                 }
                 finally
                 {
