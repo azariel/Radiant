@@ -6,11 +6,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
+using Radiant.Custom.Readers.RadiantReader.Views.NewBooks;
+using Radiant.Custom.Readers.RadiantReader.Views.Settings;
 using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
 using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
 using Radiant.Custom.Readers.RadiantReaderCommon.Utils;
-using Radiant.Custom.Readers.RadiantReader.Views.NewBooks;
-using Radiant.Custom.Readers.RadiantReader.Views.Settings;
 
 namespace Radiant.Custom.Readers.RadiantReader.Views
 {
@@ -190,20 +190,21 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
         private void SetChapterInfosUIRepresentation()
         {
             RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.GetConfigFromMemory();
+
+            if (_Config.State.SelectedBook == null)
+                return;
+
             using var _DataBaseContext = new RadiantReaderDbContext();
             _DataBaseContext.BookDefinitions.Load();
             _DataBaseContext.BookContent.Load();
 
             // Set chapter infos
-            if (_Config.State.SelectedBook == null)
-                return;
-
             var _SelectedBook = _DataBaseContext.BookDefinitions.SingleOrDefault(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
 
             if (_SelectedBook == null)
             {
                 // Don't throw, if the user may had loaded a book from disk instead of inStorage
-                lblChapterIndex.Content = $"chp.{AlternativeBookContentHelper.GetAlternativeChapterIndex(0)}";
+                SetAlternativeChapterInfosUIRepresentation();
                 return;
             }
 
@@ -212,6 +213,16 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             double _TotalWords = _SelectedBook.Chapters.Aggregate(seed: 0, (count, val) => count + val.ChapterWordsCount);
             lblWordsCount.Content = $"{_CurrentChaptersWords:N0}/{_TotalWords:N0}";
             lblWordsPerc.Content = $"{Math.Round(_CurrentChaptersWords * 100 / _TotalWords, digits: 0)}%";
+        }
+
+        private void SetAlternativeChapterInfosUIRepresentation()
+        {
+            RadiantReaderConfiguration config = RadiantReaderConfigurationManager.GetConfigFromMemory();
+
+            if(string.IsNullOrWhiteSpace(config.State.SelectedBook.AlternativeBookPathOnDisk))
+                return;
+
+            lblChapterIndex.Content = $"chp.{AlternativeBookContentHelper.GetAlternativeChapterIndex(0)}/{AlternativeBookContentHelper.GetAlternativeMaxChapterIndex()}";
         }
 
         private long GetCurrentWordsRead(RadiantReaderBookDefinitionModel aRadiantBook)
