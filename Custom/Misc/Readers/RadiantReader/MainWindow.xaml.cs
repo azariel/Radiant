@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Xml.Linq;
 using Radiant.Common.Diagnostics;
 using Radiant.Custom.Readers.RadiantReader.Views;
 using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
@@ -38,6 +39,14 @@ namespace Radiant.Custom.Readers.RadiantReader
             GridContent.Children.Clear();
             GridContent.Children.Add(fReaderContentUserControl);
 
+            HeaderControl.RefreshOptions(new()
+            {
+                CloseButtonAvailable = true,
+                SettingsButtonAvailable = true,
+                ShowNewBooksAvailable = true,
+                ShowPreviousAvailable = true,
+                ShowNextAvailable = true,
+            });
             HeaderControl.fSetReaderContentModule = SetReaderContentModule;
         }
 

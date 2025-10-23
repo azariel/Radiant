@@ -35,8 +35,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             };
 
             TextContentTextBlock.Tag = "Draggable";
-            LoadBookContentFromConfig();
-            SetControlState();
+            Reload();
         }
 
         // ********************************************************************

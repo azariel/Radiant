@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -187,7 +188,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
         }
 
-        private void SetChapterInfosUIRepresentation()
+        private async Task SetChapterInfosUIRepresentation()
         {
             RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.GetConfigFromMemory();
 
@@ -195,8 +196,8 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
                 return;
 
             using var _DataBaseContext = new RadiantReaderDbContext();
-            _DataBaseContext.BookDefinitions.Load();
-            _DataBaseContext.BookContent.Load();
+            await _DataBaseContext.BookDefinitions.LoadAsync();
+            await _DataBaseContext.BookContent.LoadAsync();
 
             // Set chapter infos
             var _SelectedBook = _DataBaseContext.BookDefinitions.SingleOrDefault(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
@@ -246,7 +247,8 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             SetImageButtonVisibility(imgPreviousChapter, fShowPreviousAvailable);
             SetImageButtonVisibility(imgReader, fShowReaderAvailable);
 
-            SetChapterInfosUIRepresentation();
+            // Launch async
+            _ = SetChapterInfosUIRepresentation();
         }
 
         private void SetImageButtonVisibility(Image aImage, bool aVisible)
@@ -272,6 +274,8 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             this.ShowNextAvailable = aHeaderOptions.ShowNextAvailable;
             this.ShowPreviousAvailable = aHeaderOptions.ShowPreviousAvailable;
             this.ShowReaderAvailable = aHeaderOptions.ShowReaderAvailable;
+
+            SetControlState();
         }
 
         // ********************************************************************
@@ -279,72 +283,37 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
         // ********************************************************************
         public bool CloseButtonAvailable
         {
-            get => fCloseButtonAvailable;
-            set
-            {
-                fCloseButtonAvailable = value;
-                SetControlState();
-            }
+            get => fCloseButtonAvailable; set => fCloseButtonAvailable = value;
         }
 
         public bool SettingsButtonAvailable
         {
-            get => fSettingsButtonAvailable;
-            set
-            {
-                fSettingsButtonAvailable = value;
-                SetControlState();
-            }
+            get => fSettingsButtonAvailable; set => fSettingsButtonAvailable = value;
         }
 
         public bool ShowDownloadAvailable
         {
-            get => fShowDownloadAvailable;
-            set
-            {
-                fShowDownloadAvailable = value;
-                SetControlState();
-            }
+            get => fShowDownloadAvailable; set => fShowDownloadAvailable = value;
         }
 
         public bool ShowNewBooksAvailable
         {
-            get => fShowNewBooksAvailable;
-            set
-            {
-                fShowNewBooksAvailable = value;
-                SetControlState();
-            }
+            get => fShowNewBooksAvailable; set => fShowNewBooksAvailable = value;
         }
 
         public bool ShowNextAvailable
         {
-            get => fShowNextAvailable;
-            set
-            {
-                fShowNextAvailable = value;
-                SetControlState();
-            }
+            get => fShowNextAvailable; set => fShowNextAvailable = value;
         }
 
         public bool ShowPreviousAvailable
         {
-            get => fShowPreviousAvailable;
-            set
-            {
-                fShowPreviousAvailable = value;
-                SetControlState();
-            }
+            get => fShowPreviousAvailable; set => fShowPreviousAvailable = value;
         }
 
         public bool ShowReaderAvailable
         {
-            get => fShowReaderAvailable;
-            set
-            {
-                fShowReaderAvailable = value;
-                SetControlState();
-            }
+            get => fShowReaderAvailable; set => fShowReaderAvailable = value;
         }
     }
 }
