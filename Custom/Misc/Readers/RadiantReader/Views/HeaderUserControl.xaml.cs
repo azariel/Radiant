@@ -69,10 +69,10 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             {
                 NextAlternativeChapter();
                 OpenReaderContentModule();
-                SetControlState();
                 return;
             }
 
+            _Config = RadiantReaderConfigurationManager.ReloadConfig();
             using var _DataBaseContext = new RadiantReaderDbContext();
             _DataBaseContext.BookDefinitions.Load();
             _DataBaseContext.BookContent.Load();

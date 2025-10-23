@@ -38,6 +38,8 @@ namespace Radiant.Custom.Readers.RadiantReader.Utils
                                      .Replace("&", "and")
                                      .Replace("<center>", "<center />")
                                      .Replace("amp;", "")
+                                     .Replace("andgt;", ">")
+                                     .Replace("andlt;", "<")
                                      .Replace("nbsp;", " ");
 
             _ChapterContent = HrFinderRegex.Replace(_ChapterContent, "");
