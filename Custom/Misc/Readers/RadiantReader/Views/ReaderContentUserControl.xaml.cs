@@ -4,12 +4,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
+using Radiant.Custom.Readers.RadiantReader.Utils;
 using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
 using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
-using Radiant.Custom.Readers.RadiantReader.Utils;
 
 namespace Radiant.Custom.Readers.RadiantReader.Views
 {
@@ -24,6 +25,14 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
         public ReaderContentUserControl()
         {
             InitializeComponent();
+
+            Loaded += (_, __) =>
+            {
+                // Make sure keyboard focus goes to the scroll viewer when loaded
+                ContentScrollViewer.Focusable = true;
+                ContentScrollViewer.Focus();
+                Keyboard.Focus(ContentScrollViewer);
+            };
 
             TextContentTextBlock.Tag = "Draggable";
             LoadBookContentFromConfig();
@@ -45,8 +54,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             if (string.IsNullOrWhiteSpace(_Config.State.SelectedBook.AlternativeBookPathOnDisk) || !System.IO.File.Exists(_Config.State.SelectedBook.AlternativeBookPathOnDisk))
             {
                 SetChapterContentFromStorage(_Config);
-            }
-            else
+            } else
             {
                 SetChapterContentFromOnDiskFile(_Config);
             }
@@ -90,8 +98,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
                     MessageBox.Show($"File [{aConfig.State.SelectedBook.AlternativeBookPathOnDisk}] couldn't be loaded. See logs for more infos.");
                     return;
                 }
-            }
-            catch (Exception _Exception)
+            } catch (Exception _Exception)
             {
                 MessageBox.Show($"File [{aConfig.State.SelectedBook.AlternativeBookPathOnDisk}] couldn't be loaded. [{_Exception.Message}] [{_Exception.StackTrace}].");
                 if (MessageBox.Show($"Would you like to load raw text instead ?", "Raw Load", MessageBoxButton.YesNo) == MessageBoxResult.Yes)

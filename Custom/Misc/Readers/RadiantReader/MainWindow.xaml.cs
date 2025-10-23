@@ -8,9 +8,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Radiant.Common.Diagnostics;
+using Radiant.Custom.Readers.RadiantReader.Views;
 using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
 using Radiant.Custom.Readers.RadiantReaderCommon.Managers;
-using Radiant.Custom.Readers.RadiantReader.Views;
 using Point = System.Drawing.Point;
 
 namespace Radiant.Custom.Readers.RadiantReader
@@ -100,8 +100,7 @@ namespace Radiant.Custom.Readers.RadiantReader
 
                 RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
                 RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
-            }
-            catch (Exception _Ex)
+            } catch (Exception _Ex)
             {
                 LoggingManager.LogToFile("34629a8a-9f5c-41ed-8111-b9c8e09cf611", "Couldn't save state configuration.", _Ex);
             }
@@ -131,8 +130,7 @@ namespace Radiant.Custom.Readers.RadiantReader
                     MessageBox.Show($"File [{_Files.Single()}] couldn't be loaded. See logs for more infos.");
                     return;
                 }
-            }
-            catch (Exception _Exception)
+            } catch (Exception _Exception)
             {
                 MessageBox.Show($"File [{_Files.Single()}] couldn't be loaded. [{_Exception.Message}] [{_Exception.StackTrace}].");
                 if (MessageBox.Show($"Would you like to load raw text instead ?", "Raw Load", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -144,7 +142,7 @@ namespace Radiant.Custom.Readers.RadiantReader
             }
 
             //fReaderContentUserControl.SetTextContent(_LineElements);
-            
+
             // save config
             StateManager.SetCurrentBook(_Files.Single());
 
