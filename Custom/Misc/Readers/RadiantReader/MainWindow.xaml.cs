@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Xml.Linq;
 using Radiant.Common.Diagnostics;
 using Radiant.Custom.Readers.RadiantReader.Views;
 using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
@@ -59,6 +58,12 @@ namespace Radiant.Custom.Readers.RadiantReader
                     break;
                 case Key.Up:
                     fReaderContentUserControl.ContentScrollViewer.LineUp();
+                    break;
+                case Key.Left:
+                    HeaderControl.PreviousChapter();
+                    break;
+                case Key.Right:
+                    HeaderControl.NextChapter();
                     break;
             }
         }
