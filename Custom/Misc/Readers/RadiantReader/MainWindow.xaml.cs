@@ -38,6 +38,14 @@ namespace Radiant.Custom.Readers.RadiantReader
             GridContent.Children.Clear();
             GridContent.Children.Add(fReaderContentUserControl);
 
+            HeaderControl.RefreshOptions(new()
+            {
+                CloseButtonAvailable = true,
+                SettingsButtonAvailable = true,
+                ShowNewBooksAvailable = true,
+                ShowPreviousAvailable = true,
+                ShowNextAvailable = true,
+            });
             HeaderControl.fSetReaderContentModule = SetReaderContentModule;
         }
 
@@ -50,6 +58,12 @@ namespace Radiant.Custom.Readers.RadiantReader
                     break;
                 case Key.Up:
                     fReaderContentUserControl.ContentScrollViewer.LineUp();
+                    break;
+                case Key.Left:
+                    HeaderControl.PreviousChapter();
+                    break;
+                case Key.Right:
+                    HeaderControl.NextChapter();
                     break;
             }
         }

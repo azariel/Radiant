@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
 
 namespace Radiant.Custom.Readers.RadiantReaderCommon.Utils
@@ -32,6 +29,22 @@ namespace Radiant.Custom.Readers.RadiantReaderCommon.Utils
                 return null;
 
             return _Result;
+        }
+
+        public static string GetAlternativeMaxChapterIndex()
+        {
+            int iterator = 0;
+            while (true)
+            {
+                string currentChapterIndex = FindAlternativeChapterWithOffset(iterator);
+
+                if (currentChapterIndex == null)
+                    break;
+
+                ++iterator;
+            }
+
+            return GetAlternativeChapterIndex(iterator-1);
         }
 
         public static string GetAlternativeChapterIndex(int aOffset)

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using Radiant.Common.Diagnostics;
+using Radiant.Custom.Readers.RadiantReader.Views.NewBooks;
+using Radiant.Custom.Readers.RadiantReader.Views.Settings;
 using Radiant.Custom.Readers.RadiantReaderCommon.Configuration;
 using Radiant.Custom.Readers.RadiantReaderCommon.DataBase;
 using Radiant.Custom.Readers.RadiantReaderCommon.Utils;
-using Radiant.Custom.Readers.RadiantReader.Views.NewBooks;
-using Radiant.Custom.Readers.RadiantReader.Views.Settings;
 
 namespace Radiant.Custom.Readers.RadiantReader.Views
 {
@@ -60,64 +61,12 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
 
         private void ImgNextChapter_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
-            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
-
-            if (_Config.State.SelectedBook == null)
-                return;
-
-            if (!string.IsNullOrEmpty(_Config.State.SelectedBook.AlternativeBookPathOnDisk))
-            {
-                NextAlternativeChapter();
-                OpenReaderContentModule();
-                return;
-            }
-
-            _Config = RadiantReaderConfigurationManager.ReloadConfig();
-            using var _DataBaseContext = new RadiantReaderDbContext();
-            _DataBaseContext.BookDefinitions.Load();
-            _DataBaseContext.BookContent.Load();
-
-            var _SelectedBook = _DataBaseContext.BookDefinitions.Single(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
-
-            if (_SelectedBook.Chapters.Count > _Config.State.SelectedBook.BookChapterIndex + 1)
-            {
-                _Config.State.SelectedBook.BookChapterIndex++;
-                _Config.State.VerticalScrollbarOffset = 0;
-            }
-
-            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
-            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
-
-            OpenReaderContentModule();
-            SetControlState();
+            NextChapter();
         }
 
         private void ImgPreviousChapter_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
         {
-            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
-
-            if (_Config.State.SelectedBook == null)
-                return;
-
-            if (!string.IsNullOrEmpty(_Config.State.SelectedBook.AlternativeBookPathOnDisk))
-            {
-                PreviousAlternativeChapter();
-                OpenReaderContentModule();
-                SetControlState();
-                return;
-            }
-
-            if (_Config.State.SelectedBook.BookChapterIndex > 0)
-            {
-                _Config.State.SelectedBook.BookChapterIndex--;
-                _Config.State.VerticalScrollbarOffset = 0;
-            }
-
-            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
-            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
-
-            OpenReaderContentModule();
-            SetControlState();
+            PreviousChapter();
         }
 
         private void ImgReader_OnMouseLeftButtonDown(object aSender, MouseButtonEventArgs aE)
@@ -187,23 +136,24 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
         }
 
-        private void SetChapterInfosUIRepresentation()
+        private async Task SetChapterInfosUIRepresentation()
         {
             RadiantReaderConfiguration _Config = RadiantReaderConfigurationManager.GetConfigFromMemory();
-            using var _DataBaseContext = new RadiantReaderDbContext();
-            _DataBaseContext.BookDefinitions.Load();
-            _DataBaseContext.BookContent.Load();
 
-            // Set chapter infos
             if (_Config.State.SelectedBook == null)
                 return;
 
+            using var _DataBaseContext = new RadiantReaderDbContext();
+            await _DataBaseContext.BookDefinitions.LoadAsync();
+            await _DataBaseContext.BookContent.LoadAsync();
+
+            // Set chapter infos
             var _SelectedBook = _DataBaseContext.BookDefinitions.SingleOrDefault(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
 
             if (_SelectedBook == null)
             {
                 // Don't throw, if the user may had loaded a book from disk instead of inStorage
-                lblChapterIndex.Content = $"chp.{AlternativeBookContentHelper.GetAlternativeChapterIndex(0)}";
+                SetAlternativeChapterInfosUIRepresentation();
                 return;
             }
 
@@ -212,6 +162,16 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             double _TotalWords = _SelectedBook.Chapters.Aggregate(seed: 0, (count, val) => count + val.ChapterWordsCount);
             lblWordsCount.Content = $"{_CurrentChaptersWords:N0}/{_TotalWords:N0}";
             lblWordsPerc.Content = $"{Math.Round(_CurrentChaptersWords * 100 / _TotalWords, digits: 0)}%";
+        }
+
+        private void SetAlternativeChapterInfosUIRepresentation()
+        {
+            RadiantReaderConfiguration config = RadiantReaderConfigurationManager.GetConfigFromMemory();
+
+            if (string.IsNullOrWhiteSpace(config.State.SelectedBook.AlternativeBookPathOnDisk))
+                return;
+
+            lblChapterIndex.Content = $"chp.{AlternativeBookContentHelper.GetAlternativeChapterIndex(0)}/{AlternativeBookContentHelper.GetAlternativeMaxChapterIndex()}";
         }
 
         private long GetCurrentWordsRead(RadiantReaderBookDefinitionModel aRadiantBook)
@@ -235,7 +195,8 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             SetImageButtonVisibility(imgPreviousChapter, fShowPreviousAvailable);
             SetImageButtonVisibility(imgReader, fShowReaderAvailable);
 
-            SetChapterInfosUIRepresentation();
+            // Launch async
+            _ = SetChapterInfosUIRepresentation();
         }
 
         private void SetImageButtonVisibility(Image aImage, bool aVisible)
@@ -245,6 +206,68 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
 
             aImage.IsEnabled = aVisible;
             aImage.Visibility = aVisible ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public void NextChapter()
+        {
+            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            if (_Config.State.SelectedBook == null)
+                return;
+
+            if (!string.IsNullOrEmpty(_Config.State.SelectedBook.AlternativeBookPathOnDisk))
+            {
+                NextAlternativeChapter();
+                OpenReaderContentModule();
+                return;
+            }
+
+            _Config = RadiantReaderConfigurationManager.ReloadConfig();
+            using var _DataBaseContext = new RadiantReaderDbContext();
+            _DataBaseContext.BookDefinitions.Load();
+            _DataBaseContext.BookContent.Load();
+
+            var _SelectedBook = _DataBaseContext.BookDefinitions.Single(s => s.BookDefinitionId == _Config.State.SelectedBook.BookDefinitionId);
+
+            if (_SelectedBook.Chapters.Count > _Config.State.SelectedBook.BookChapterIndex + 1)
+            {
+                _Config.State.SelectedBook.BookChapterIndex++;
+                _Config.State.VerticalScrollbarOffset = 0;
+            }
+
+            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
+            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
+
+            OpenReaderContentModule();
+            SetControlState();
+        }
+
+        public void PreviousChapter()
+        {
+            var _Config = RadiantReaderConfigurationManager.ReloadConfig();
+
+            if (_Config.State.SelectedBook == null)
+                return;
+
+            if (!string.IsNullOrEmpty(_Config.State.SelectedBook.AlternativeBookPathOnDisk))
+            {
+                PreviousAlternativeChapter();
+                OpenReaderContentModule();
+                SetControlState();
+                return;
+            }
+
+            if (_Config.State.SelectedBook.BookChapterIndex > 0)
+            {
+                _Config.State.SelectedBook.BookChapterIndex--;
+                _Config.State.VerticalScrollbarOffset = 0;
+            }
+
+            RadiantReaderConfigurationManager.SetConfigInMemory(_Config);
+            RadiantReaderConfigurationManager.SaveConfigInMemoryToDisk();
+
+            OpenReaderContentModule();
+            SetControlState();
         }
 
         // ********************************************************************
@@ -261,6 +284,8 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
             this.ShowNextAvailable = aHeaderOptions.ShowNextAvailable;
             this.ShowPreviousAvailable = aHeaderOptions.ShowPreviousAvailable;
             this.ShowReaderAvailable = aHeaderOptions.ShowReaderAvailable;
+
+            SetControlState();
         }
 
         // ********************************************************************
@@ -268,72 +293,37 @@ namespace Radiant.Custom.Readers.RadiantReader.Views
         // ********************************************************************
         public bool CloseButtonAvailable
         {
-            get => fCloseButtonAvailable;
-            set
-            {
-                fCloseButtonAvailable = value;
-                SetControlState();
-            }
+            get => fCloseButtonAvailable; set => fCloseButtonAvailable = value;
         }
 
         public bool SettingsButtonAvailable
         {
-            get => fSettingsButtonAvailable;
-            set
-            {
-                fSettingsButtonAvailable = value;
-                SetControlState();
-            }
+            get => fSettingsButtonAvailable; set => fSettingsButtonAvailable = value;
         }
 
         public bool ShowDownloadAvailable
         {
-            get => fShowDownloadAvailable;
-            set
-            {
-                fShowDownloadAvailable = value;
-                SetControlState();
-            }
+            get => fShowDownloadAvailable; set => fShowDownloadAvailable = value;
         }
 
         public bool ShowNewBooksAvailable
         {
-            get => fShowNewBooksAvailable;
-            set
-            {
-                fShowNewBooksAvailable = value;
-                SetControlState();
-            }
+            get => fShowNewBooksAvailable; set => fShowNewBooksAvailable = value;
         }
 
         public bool ShowNextAvailable
         {
-            get => fShowNextAvailable;
-            set
-            {
-                fShowNextAvailable = value;
-                SetControlState();
-            }
+            get => fShowNextAvailable; set => fShowNextAvailable = value;
         }
 
         public bool ShowPreviousAvailable
         {
-            get => fShowPreviousAvailable;
-            set
-            {
-                fShowPreviousAvailable = value;
-                SetControlState();
-            }
+            get => fShowPreviousAvailable; set => fShowPreviousAvailable = value;
         }
 
         public bool ShowReaderAvailable
         {
-            get => fShowReaderAvailable;
-            set
-            {
-                fShowReaderAvailable = value;
-                SetControlState();
-            }
+            get => fShowReaderAvailable; set => fShowReaderAvailable = value;
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Documents;
 using System.Xml;
+using HtmlAgilityPack;
 using Radiant.Common.Diagnostics;
 
 namespace Radiant.Custom.Readers.RadiantReader.Utils
@@ -32,9 +34,12 @@ namespace Radiant.Custom.Readers.RadiantReader.Utils
         public static List<Inline> GetInlinesFromString(string aChapterContent)
         {
             List<Inline> _Inlines = new();
+
             string _ChapterContent = aChapterContent
                                      .Replace("<br>", "<br />")
                                      .Replace("<hr>", "<hr />")
+                                     .Replace("&gt;", "]")
+                                     .Replace("&lt;", "[")
                                      .Replace("&", "and")
                                      .Replace("<center>", "<center />")
                                      .Replace("amp;", "")
@@ -44,27 +49,31 @@ namespace Radiant.Custom.Readers.RadiantReader.Utils
 
             _ChapterContent = HrFinderRegex.Replace(_ChapterContent, "");
 
-            // Replace tags by regex
-            // ex: <hr size="1" noshade=""> should become <hr />
-            //foreach (var _RegexMatch in HrFinderRegex.Matches(_ChapterContent))
-            //{
+            // Load and fix broken HTML
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.OptionFixNestedTags = true;
+            htmlDoc.LoadHtml(_ChapterContent);
 
-            //}
+            var bodyNode = htmlDoc.DocumentNode.SelectSingleNode("//body");
+            string bodyHtml = bodyNode != null ? bodyNode.InnerHtml : htmlDoc.DocumentNode.InnerHtml;
+
+            // Step 3: Decode HTML entities safely (&nbsp; → space, &amp; → &, etc.)
+            string decodedHtml = WebUtility.HtmlDecode(bodyHtml);
 
             try
             {
-                var _WrappedLine = $"<RadiantReader>{_ChapterContent}</RadiantReader>";
-                var _XmlDocument = new XmlDocument();
-                _XmlDocument.LoadXml(_WrappedLine);
+                var wrappedXml = $"<RadiantReader>{decodedHtml}</RadiantReader>";
+                var xmlDoc = new XmlDocument();
+                xmlDoc.XmlResolver = null; // Security best practice
+                xmlDoc.LoadXml(wrappedXml);
 
-                _Inlines.AddRange(ConvertStringToInline(_XmlDocument));
+                _Inlines.AddRange(ConvertStringToInline(xmlDoc.DocumentElement));
                 _Inlines.Add(new LineBreak());
 
                 return _Inlines;
-            }
-            catch (Exception _Exception)
+            } catch (Exception _Exception)
             {
-                LoggingManager.LogToFile("e4234d71-d663-4eda-9448-58deab1cb3ac", $"Couldn't convert string to XML object. Full Text [{_ChapterContent}].", _Exception);
+                LoggingManager.LogToFile("e4234d71-d663-4eda-9448-58deab1cb3ac", $"Couldn't convert string to XML object. Full Text [{decodedHtml}].", _Exception);
                 return new List<Inline>()
                 {
                     new Run("[Couldn't load XML object. Check logs for more infos.]")
@@ -146,12 +155,10 @@ namespace Radiant.Custom.Readers.RadiantReader.Utils
                             default:
                                 throw new ArgumentOutOfRangeException($"Unhandled element [{_ElementName}].");
                         }
-                    }
-                    else
+                    } else
                         _Inlines.Add(_ChildInline);
                 }
-            }
-            else
+            } else
             {
                 if (Enum.TryParse(aNode.Name.ToLowerInvariant(), out HtmlElementName _Element))
                 {
@@ -171,8 +178,7 @@ namespace Radiant.Custom.Readers.RadiantReader.Utils
                         default:
                             throw new ArgumentOutOfRangeException($"Unhandled element [{_Element}].");
                     }
-                }
-                else
+                } else
                     _Inlines.Add(new Run(aNode.InnerText));
             }
 
